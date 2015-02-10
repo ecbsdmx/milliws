@@ -1,0 +1,14 @@
+<template name="queriesList">
+    <div class="queries">
+        {{#if currentUser.profile.isAdmin}}
+            <div class="text-right">
+                    <a class="btn btn-primary" href="{{pathFor 'querySubmit'}}"
+                       role="button"><span class="glyphicon
+                       glyphicon-plus"></span> New query</a>
+            </div>
+        {{/if}}
+        {{#each queries}}
+            {{> queryItem}}
+        {{/each}}
+    </div>
+</template>

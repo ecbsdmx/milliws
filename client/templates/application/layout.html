@@ -1,0 +1,12 @@
+<template name="layout">
+    {{#if currentUser}}
+        {{> header}}
+        <div class="container-fluid">
+            <div id="main">
+                {{> yield}}
+            </div>
+        </div>
+    {{else}}
+        {{> login}}}
+    {{/if}}
+</template>
