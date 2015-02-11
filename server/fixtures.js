@@ -18,89 +18,21 @@ if (Meteor.users.find().count() === 0) {
         }
     });
 }
-
-// Monitoring function to be called every minute
-var monitor = function() {
-    // We need to get all monitoring queries
-    var monitoringQueries = Queries.find();
-    monitoringQueries.forEach(function(element, index, array) {
-        var lastCursor = Jobs.find({ queryId : element._id},
-            {sort: { etime : -1}, limit: 1});
-        if (0 === lastCursor.count()) {
-            triggerQuery(element, null);
-        } else {
-            var last = lastCursor.fetch()[0];
-            if (isDue(element, last)) {
-                triggerQuery(element, last);
-            }
-        }
-    });
+/*
+if (Meteor.queries.find() === 0) {
+  q = {
+    name: "Demo query 1",
+    url: "http://sdw-wsrest.ecb.europa.eu/service/data/EXR/M.USD.EUR.SP00.A",
+    subscribed: false,
+    ert: 2000,
+    ent: 2000,
+    freq: 1000
+  }
+  Meteor.call('queryInsert', q, function(error, result) {
+    // display the error to the user and abort
+    if (error)
+      return alert(error.reason);
+    Router.go('postPage', {_id: result._id});
+  });
 }
-
-// Checks whether a job needs to run
-var isDue = function(query, last) {
-    var lastRun = last.etime;
-    var due  = new Date(lastRun.setMinutes(lastRun.getMinutes() + query.freq));
-    var current = new Date();
-    return current >= due;
-    //return false; // useful when there is no network connection
-}
-
-// Unleash a monitoring query
-var triggerQuery = function(query, last) {
-    var lastUpdate;
-    if (null === last) { //This will be true only the 1st time a job is run
-        lastUpdate = "1970-01-01T00:00:00Z";
-    } else {
-        lastUpdate = moment(last.etime).format();
-    }
-    var startTime = new Date();
-    HTTP.get(query.url, {params:{updatedAfter: lastUpdate}, headers: {
-            "Accept": "application/vnd.sdmx.data+json;version=1.0.0-wd",
-            "User-Agent": "Milliways 1.0.0"
-        }}, function (error, result) {
-            var job = {};
-            var received = new Date();
-            job.responseTime = received - startTime;
-            job.queryId = query._id;
-            job.etime = startTime;
-            job.status = result.statusCode;
-            job.ert = query.ert;
-            var nSeries = 0;
-            var nObs = 0;
-            if (!error) {
-                var response = JSON.parse(result.content)
-                response.dataSets.forEach(function(element, index, array) {
-                    var series = element.series;
-                    for (var property in series) {
-                        if (series.hasOwnProperty(property)) {
-                            nSeries++;
-                            var obs = series[property]["observations"];
-                            for (var obsProp in obs) {
-                                if (obs.hasOwnProperty(obsProp)) {
-                                    nObs++;
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            job.series = nSeries;
-            job.observations = nObs;
-            Jobs.insert(job);
-        }
-    );
-}
-
-// Start cron
-SyncedCron.add({
-    name: 'Trigger monitoring function',
-    schedule: function(parser) {
-        return parser.text('every 1 min');
-    },
-    job: function() {
-        monitor();
-    }
-});
-SyncedCron.start();
-
+*/

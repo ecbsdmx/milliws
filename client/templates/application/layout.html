@@ -1,12 +1,19 @@
 <template name="layout">
+  
+   <div class="container-fluid">
     {{#if currentUser}}
-        {{> header}}
-        <div class="container-fluid">
-            <div id="main">
-                {{> yield}}
-            </div>
-        </div>
+       {{> header}}
+       <div class="row-clearfix">
+         <div class="col-md-2 column">
+           {{> sidebar}}
+         </div>
+         <div class="col-md-10 column">
+           {{> yield}}
+         </div>
+       </div>
     {{else}}
-        {{> login}}}
+      {{> login}}
     {{/if}}
+  </div><!-- container-fluid -->
+  
 </template>

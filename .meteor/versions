@@ -35,6 +35,7 @@ iron:url@1.0.7
 jquery@1.11.3
 json@1.0.2
 launch-screen@1.0.1
+less@1.0.12
 livedata@1.0.12
 localstorage@1.0.2
 logging@1.0.6
@@ -42,11 +43,12 @@ meteor@1.1.4
 meteor-platform@1.2.1
 minifiers@1.1.3
 minimongo@1.0.6
-mizzao:bootstrap-3@3.3.1_1
 mobile-status-bar@1.0.2
 mongo@1.0.11
 mrt:moment@2.8.1
 natestrauser:font-awesome@4.3.0
+nemo64:bootstrap@3.3.1_1
+nemo64:bootstrap-data@3.3.1_1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
 ordered-dict@1.0.2
