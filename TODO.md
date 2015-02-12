@@ -24,6 +24,8 @@
 - [x] Edit and delete button in overview page don't work
 - [ ] Implement a GUI for the jobs recycle bin
 - [ ] We could also use additional information such as the number of times a job has run, since when it is active, the number of problems, whether the last run was successful, etc. but that would mean joining with the events data
+- [ ] Keyboard shortcuts
+- [ ] Deleting a job should delete its events?
 
 ## Scheduler module
 - [x] Setup cron job

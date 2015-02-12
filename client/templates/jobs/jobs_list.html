@@ -1,25 +1,25 @@
 <template name="jobsList">
   <div class="jobs">
-    <div class="text-right">
-        {{#if isActive}}
-        <a class="btn btn-primary" href="#" id="suspend"
-           role="button"><span class="fa fa-pause fa-lg fa-fw"></span> Suspend
-            jobs</a>
-        {{else}}
-        <a class="btn btn-primary" href="#"
-           role="button" id="resume"><span
-                class="fa fa-play fa-lg fa-fw"></span> Resume
-            jobs</a>
-        {{/if}}
-
+    <h1>Monitoring jobs
     {{#if currentUser.profile.isAdmin}}
-
-      <a class="btn btn-primary" href="{{pathFor 'jobSubmit'}}"
-         role="button"><span class="fa fa-plus fa-lg fa-fw"></span> New job</a>
-
+        <div class="btn-group pull-right" role="group">
+        {{#if isActive}}
+            <button class="btn btn-primary btn-sm" href="#" id="suspend"
+               role="button">
+            <span class="fa fa-pause fa-fw"></span> Suspend jobs</button>
+        {{else}}
+             <button class="btn btn-primary btn-sm" href="#" role="button"
+                id="resume">
+             <span class="fa fa-play fa-fw"></span> Resume jobs</button>
+        {{/if}}
+        <button class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}"
+         role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
+            New job</button>
+        <button class="btn btn-primary btn-sm" href="#" role="button"><span
+                class="fa fa-trash-o fa-lg fa-fw"></span> Recover</button>
+        </div>
     {{/if}}
-    </div>
-
+    </h1>
     <div class="row">
       {{#each jobs}}
         <div class="col-sm-6 col-md-4">
