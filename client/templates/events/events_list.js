@@ -1,6 +1,6 @@
-Template.jobsList.helpers({
-  jobs: function() {
-    return Jobs.find();
+Template.eventsList.helpers({
+  events: function() {
+    return Events.find();
   },
   settings: function () {
     return {

@@ -7,8 +7,8 @@ Meteor.publish('comments', function(queryId) {
     return Queries.find({_id: queryId});
 });
 
-Meteor.publish('jobs', function() {
+Meteor.publish('events', function() {
     var date = new Date();
     date.setDate(date.getDate() - 2);
-    return Jobs.find({etime: {$gte: date}});
+    return Events.find({etime: {$gte: date}});
 });

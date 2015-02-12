@@ -1,0 +1,7 @@
+<template name="eventsList">
+    <div class="events">
+      {{> reactiveTable id="eventList" collection=events
+        class="table table-condensed table-hover table-striped"
+      useFontAwesome=true settings=settings}}
+    </div>
+</template>

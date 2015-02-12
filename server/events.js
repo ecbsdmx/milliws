@@ -3,7 +3,7 @@ var monitor = function() {
     // We need to get all monitoring queries
     var monitoringQueries = Queries.find();
     monitoringQueries.forEach(function(element, index, array) {
-        var lastCursor = Jobs.find({ queryId : element._id},
+        var lastCursor = Events.find({ queryId : element._id},
             {sort: { etime : -1}, limit: 1});
         if (0 === lastCursor.count()) {
             triggerQuery(element, null);
@@ -38,13 +38,13 @@ var triggerQuery = function(query, last) {
             "Accept": "application/vnd.sdmx.data+json;version=1.0.0-wd",
             "User-Agent": "Milliways 1.0.0"
         }}, function (error, result) {
-            var job = {};
+            var event = {};
             var received = new Date();
-            job.responseTime = received - startTime;
-            job.queryId = query._id;
-            job.etime = startTime;
-            job.status = result.statusCode;
-            job.ert = query.ert;
+            event.responseTime = received - startTime;
+            event.queryId = query._id;
+            event.etime = startTime;
+            event.status = result.statusCode;
+            event.ert = query.ert;
             var nSeries = 0;
             var nObs = 0;
             if (!error) {
@@ -64,9 +64,9 @@ var triggerQuery = function(query, last) {
                     }
                 });
             }
-            job.series = nSeries;
-            job.observations = nObs;
-            Jobs.insert(job);
+            event.series = nSeries;
+            event.observations = nObs;
+            Events.insert(event);
         }
     );
 }
