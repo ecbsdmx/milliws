@@ -19,7 +19,7 @@
 - [ ] Should offer a wizard to build the SDMX 2.1 RESTful query
 - [ ] Should work with both http and https
 - [ ] There should be an option to "freeze" a job or all jobs at once
-- [ ] Should the insert / update actions be performed in a modal window?
+- [ ] Should the insert / update actions be performed in a modal window? ```Tz: yes ! ```
 
 ## Scheduler module
 - [x] Setup cron job
