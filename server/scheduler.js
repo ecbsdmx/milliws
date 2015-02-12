@@ -1,7 +1,7 @@
 // Monitoring function to be called every minute
 var monitor = function() {
     // We need to get all monitoring jobs
-    var jobs = Jobs.find();
+    var jobs = Jobs.find( { isDeleted: false } );
     jobs.forEach(function(element, index, array) {
         var lastCursor = Events.find({ jobId : element._id},
             {sort: { etime : -1}, limit: 1});
@@ -42,13 +42,18 @@ var triggerJob = function(job, last) {
             event.responseTime = received - startTime;
             event.jobId = job._id;
             event.etime = startTime;
-            event.status = result.statusCode;
+            if (result) {
+                event.status = result.statusCode;
+            } else {
+                // alert should be raised?
+                console.log(error);
+            }
             event.ert = job.ert;
             var nSeries = 0;
             var nObs = 0;
             if (!error) {
                 var response = JSON.parse(result.content)
-                response.dataSets.forEach(function(element, index, array) {
+                response.dataSets.forEach(function (element, index, array) {
                     var series = element.series;
                     for (var property in series) {
                         if (series.hasOwnProperty(property)) {

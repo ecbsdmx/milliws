@@ -8,7 +8,7 @@
 - [x] Rename queries to jobs
 - [x] Rename comments
 - [x] Remove HTTP notifications related fields
-- [ ] Implement logical rather than physical deletion
+- [x] Implement logical rather than physical deletion
 - [ ] Review validation rules
 - [ ] Add a contextual help functionality
 - [ ] Review design of the overview page
@@ -21,6 +21,7 @@
 - [ ] There should be an option to "freeze" a job or all jobs at once
 - [ ] The insert / update actions should be performed in a modal window
 - [x] Added default jobs (for testing only)
+- [ ] Edit and delete button in overview page don't work
 
 ## Scheduler module
 - [x] Setup cron job

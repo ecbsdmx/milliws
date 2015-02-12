@@ -7,7 +7,8 @@ Template.jobEdit.events({
             name: $("#inputName").val(),
             url: $("#inputURL").val(),
             ert: parseInt($("#inputERT").val()),
-            freq: parseInt($("#inputFreq").val())
+            freq: parseInt($("#inputFreq").val()),
+            isDeleted: this.isDeleted
         };
         Meteor.call('jobUpdate', job, function(error, result) {
             if (error) {

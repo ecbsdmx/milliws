@@ -8,8 +8,13 @@ Template.jobPage.events({
         e.preventDefault();
         e.stopImmediatePropagation();
         if (confirm("Are you sure you want to delete this monitoring job?")) {
-            Jobs.remove(this._id);
-            Router.go('jobsList');
+            this.isDeleted = true;
+            Meteor.call('jobUpdate', this, function(error, result) {
+                if (error) {
+                    return alert(error.reason);
+                }
+                Router.go('jobsList');
+            });
         }
     }
 });

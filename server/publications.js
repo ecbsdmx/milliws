@@ -1,5 +1,5 @@
 Meteor.publish('jobs', function() {
-    return Jobs.find();
+    return Jobs.find( { isDeleted: false } );
 });
 
 Meteor.publish('events', function() {
