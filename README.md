@@ -1,5 +1,3 @@
-# heimdallr
+# Heimdallr
 
-## References
-
-  * Fontawesome CSS font icon list:  http://fontawesome.io/icons/
+Heimdallr is a tool that monitors the performance and the reliability of SDMX 2.1 RESTful web services.

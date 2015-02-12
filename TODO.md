@@ -40,5 +40,5 @@
 - [ ] Core layout
 
 ## Documentation
-- [ ] Add basic info about the app
+- [x] Add basic info about the app
 - [ ] Document the jobs
