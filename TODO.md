@@ -21,7 +21,7 @@
 - [x] There should be an option to "freeze" a job
 - [ ] The insert / update actions should be performed in a modal window
 - [x] Added default jobs (for testing only)
-- [ ] Edit and delete button in overview page don't work
+- [x] Edit and delete button in overview page don't work
 - [ ] Implement a GUI for the jobs recycle bin
 
 ## Scheduler module

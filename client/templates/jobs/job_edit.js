@@ -19,5 +19,10 @@ Template.jobEdit.events({
             }
             Router.go('jobPage', {_id: result._id});
         });
+    },
+    'click #close': function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        Router.go('jobsList');
     }
 });

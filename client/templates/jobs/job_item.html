@@ -14,8 +14,8 @@
                 class="glyphicon glyphicon-play"></span></button></a>
         {{/if}}
         {{#if currentUser.profile.isAdmin}}
-        <a href="{{pathFor 'jobPage'}}"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
-        <a href="{{pathFor 'jobPage'}}"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
+        <a href="#"><button type="button" id="edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
+        <a href="#"><button type="button" id="delete" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
         {{/if}}
         </span>
     </div>
