@@ -13,13 +13,14 @@
 - [ ] Add a contextual help functionality
 - [ ] Review design of the overview page
 - [ ] Review design of the CRUD views
-- [ ] HTTP Conneg: Format is currently limited to SDMX-JSON. Should support all SDMX 2.1 formats
+- [ ] HTTP Conneg: Should support all SDMX 2.1 formats
 - [ ] HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [ ] Should offer a wizard to build the SDMX 2.1 RESTful query
 - [ ] Should work with both http and https
 - [ ] There should be an option to "freeze" a job or all jobs at once
-- [ ] Should the insert / update actions be performed in a modal window? ```Tz: yes ! ```
+- [ ] The insert / update actions should be performed in a modal window
+- [x] Added default jobs (for testing only)
 
 ## Scheduler module
 - [x] Setup cron job
@@ -37,33 +38,6 @@
 
 ## Design
 - [ ] Core layout
-```
-+-----------------------------------------------------------------------------------+
-|Logo                                                             Bell        Admin |
-+-----------------+-----------------------------------------------------------------+
-|  ** EVENTS  **  |                                                                 |
-+-----------------+                    +----------+----------+                      |
-|     Reports     |                    | Liste    | Calendar |                      |
-+-----------------+                    +----------+----------+                      |
-|     Jobs        |                                                                 |
-+-----------------+                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-|                 |                                                                 |
-+-----------------+-----------------------------------------------------------------+
-
-```
-
 
 ## Documentation
 - [ ] Add basic info about the app
