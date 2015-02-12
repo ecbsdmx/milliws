@@ -7,7 +7,7 @@
 - [x] Basic design
 - [x] Rename queries to jobs
 - [x] Rename comments
-- [ ] Remove HTTP notifications related fields
+- [x] Remove HTTP notifications related fields
 - [ ] Implement logical rather than physical deletion
 - [ ] Review validation rules
 - [ ] Add a contextual help functionality

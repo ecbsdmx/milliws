@@ -1,15 +1,3 @@
-Template.jobPage.helpers({
-    isActive: function () {
-        var response;
-        if (this.subscribed) {
-            response = "Yes";
-        } else {
-            response = "No";
-        }
-        return response;
-    }
-});
-
 Template.jobPage.events({
     'click #edit': function(e) {
         e.preventDefault();

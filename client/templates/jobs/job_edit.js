@@ -6,13 +6,9 @@ Template.jobEdit.events({
             _id: this._id,
             name: $("#inputName").val(),
             url: $("#inputURL").val(),
-            subscribed: $("#inputSub").is(':checked'),
             ert: parseInt($("#inputERT").val()),
-            ent: parseInt($("#inputENT").val()),
             freq: parseInt($("#inputFreq").val())
         };
-        console.log("Updated ENT: " + job.ent);
-        console.log("Updated freq: " + job.freq);
         Meteor.call('jobUpdate', job, function(error, result) {
             if (error) {
                 return alert(error.reason);

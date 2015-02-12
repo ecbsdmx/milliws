@@ -6,9 +6,7 @@ Template.jobSubmit.events({
             _id: $("#inputID").val(),
             name: $("#inputName").val(),
             url: $("#inputURL").val(),
-            subscribed: $("#inputSub").is(':checked'),
             ert: parseInt($("#inputERT").val()),
-            ent: parseInt($("#inputENT").val()),
             freq: parseInt($("#inputFreq").val())
         };
         Meteor.call('jobInsert', job, function(error, result) {
