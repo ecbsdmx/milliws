@@ -1,8 +1,8 @@
-Template.querySubmit.events({
+Template.jobSubmit.events({
     'submit form': function(e) {
         e.preventDefault();
 
-        var query = {
+        var job = {
             _id: $("#inputID").val(),
             name: $("#inputName").val(),
             url: $("#inputURL").val(),
@@ -11,7 +11,7 @@ Template.querySubmit.events({
             ent: parseInt($("#inputENT").val()),
             freq: parseInt($("#inputFreq").val())
         };
-        Meteor.call('queryInsert', query, function(error, result) {
+        Meteor.call('jobInsert', job, function(error, result) {
             if (error) {
                 return alert(error.reason);
             }
@@ -21,7 +21,7 @@ Template.querySubmit.events({
             if (result.urlExists) {
                 return alert('There is already a monitoring job for the supplied URL.');
             }
-            Router.go('queryPage', {_id: result._id});
+            Router.go('jobPage', {_id: result._id});
         });
     }
 });

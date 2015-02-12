@@ -1,10 +1,10 @@
-Meteor.publish('queries', function() {
-    return Queries.find();
+Meteor.publish('jobs', function() {
+    return Jobs.find();
 });
 
-Meteor.publish('comments', function(queryId) {
-    check(queryId, String);
-    return Queries.find({_id: queryId});
+Meteor.publish('comments', function(jobId) {
+    check(jobId, String);
+    return Jobs.find({_id: jobId});
 });
 
 Meteor.publish('events', function() {

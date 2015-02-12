@@ -1,4 +1,4 @@
-Template.queryPage.helpers({
+Template.jobPage.helpers({
     isActive: function () {
         var response;
         if (this.subscribed) {
@@ -10,18 +10,18 @@ Template.queryPage.helpers({
     }
 });
 
-Template.queryPage.events({
+Template.jobPage.events({
     'click #edit': function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        Router.go('queryEdit', {_id: this._id});
+        Router.go('jobEdit', {_id: this._id});
     },
     'click #delete': function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        if (confirm("Are you sure you want to delete this monitoring query?")) {
-            Queries.remove(this._id);
-            Router.go('queryList');
+        if (confirm("Are you sure you want to delete this monitoring job?")) {
+            Jobs.remove(this._id);
+            Router.go('jobsList');
         }
     }
 });

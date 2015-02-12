@@ -1,0 +1,28 @@
+<template name="jobItem">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <a href="{{pathFor 'jobPage'}}">{{name}}</a>
+      <a href="{{pathFor 'jobPage'}}" class="pull-right"><button type="button" class="btn btn-default btn-xs"><span class="fa fa-pencil-square fa-lg"></span></button></a>
+      <a href="{{pathFor 'jobPage'}}" class="pull-right"><button type="button" class="btn btn-default btn-xs"><span class="fa fa-trash fa-lg"></span></button></a>
+    </div>
+    <div class="panel-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{#if subscribed}}<i class="fa fa-link text-success" title="Subscription is active"></i>{{else}}<i class="fa fa-link text-danger" title="Subscription is not active"></i>{{/if}}
+            <small><a href="{{url}}">{{url}}</a></small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><i class="fa fa-clock-o" title="Expected response time"></i> {{ert}}</div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><i class="fa fa-bell" title="Expected notification time"></i> {{ent}}</div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><i
+                  class="fa fa-refresh fa-spin" title="Job frequency"></i>
+              {{freq}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</template>

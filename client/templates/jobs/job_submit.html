@@ -1,11 +1,11 @@
-<template name="querySubmit">
+<template name="jobSubmit">
     <form id="form" class="form-horizontal" role="form">
         <div class="form-group">
             <label for="inputID" class="control-label col-xs-4">ID</label>
             <div class="col-xs-4">
                 <input type="text" name="name" class="form-control"
                     id="inputID" required aria-required="true"
-                    placeholder="A unique ID for your monitoring query">
+                    placeholder="A unique ID for your monitoring job">
             </div>
         </div>
         <div class="form-group">
@@ -13,7 +13,7 @@
             <div class="col-xs-8">
                 <input type="text" name="name" class="form-control"
                        id="inputName" required aria-required="true"
-                       placeholder="A descriptive label for your monitoring query">
+                       placeholder="A descriptive label for your monitoring job">
             </div>
         </div>
         <div class="form-group">
@@ -21,7 +21,7 @@
             <div class="col-xs-8">
                 <input type="url" name="name" class="form-control"
                        id="inputURL" required aria-required="true"
-                       placeholder="The SDMX 2.1 RESTful query that represents your monitoring query">
+                       placeholder="The SDMX 2.1 RESTful job that represents your monitoring job">
             </div>
         </div>
         <div class="form-group">
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputFreq" class="control-label col-xs-4">Query
+            <label for="inputFreq" class="control-label col-xs-4">Job
                 frequency (in minutes)</label>
             <div class="col-xs-2">
                 <input type="number" name="name" class="form-control"
@@ -67,7 +67,7 @@
             <button type="submit" id="submit"
                     class="btn btn-primary">
                 <span class="glyphicon glyphicon-ok"></span>
-                Create query</button>
+                Create job</button>
         </div>
     </form>
 </template>

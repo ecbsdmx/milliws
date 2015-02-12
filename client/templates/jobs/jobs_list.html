@@ -1,0 +1,18 @@
+<template name="jobsList">
+  <div class="jobs">
+    {{#if currentUser.profile.isAdmin}}
+    <div class="text-right">
+      <a class="btn btn-primary" href="{{pathFor 'jobSubmit'}}"
+         role="button"><span class="fa fa-plus fa-lg fa-fw"></span> New job</a>
+    </div>
+    {{/if}}
+
+    <div class="row">
+      {{#each jobs}}
+        <div class="col-sm-6 col-md-4">
+          {{> jobItem}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>

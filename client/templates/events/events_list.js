@@ -7,7 +7,7 @@ Template.eventsList.helpers({
       rowsPerPage: 25, 
       showNavigation: "auto",
       fields: [
-        {key: 'queryId', label: 'Query'},
+        {key: 'jobId', label: 'Job'},
         {key: 'etime', label: 'Executed on', sortByValue: true, sort: 'descending', fn: function(value, object) {
           return moment(value).fromNow();
         }},
