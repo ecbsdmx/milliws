@@ -1,7 +1,7 @@
 // Monitoring function to be called every minute
 var monitor = function() {
     // We need to get all monitoring jobs
-    var jobs = Jobs.find( { isDeleted: false } );
+    var jobs = Jobs.find( { isDeleted: false, isActive: true } );
     jobs.forEach(function(element, index, array) {
         var lastCursor = Events.find({ jobId : element._id},
             {sort: { etime : -1}, limit: 1});
