@@ -3,21 +3,23 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <a href="{{pathFor 'jobPage'}}">{{name}}</a>
-        <span class="btn-toolbar pull-right" role="toolbar">
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group btn-group-xs">
         {{#if isActive}}
-        <a href="#" id="pause"><button
-                type="button" class="btn btn-default btn-xs"><span
-                class="glyphicon glyphicon-pause"></span></button></a>
+        <a href="#" id="pause" class="btn btn-info"><i
+                class="fa fa-pause"></i></a>
         {{else}}
-        <a href="#" id="play"><button
-                type="button" class="btn btn-default btn-xs"><span
-                class="glyphicon glyphicon-play"></span></button></a>
+        <a href="#" id="play" class="btn btn-info"><i
+                    class="fa fa-play"></i></a>
         {{/if}}
         {{#if currentUser.profile.isAdmin}}
-        <a href="#"><button type="button" id="edit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></button></a>
-        <a href="#"><button type="button" id="delete" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></button></a>
+        <a href="#" id="edit" class="btn btn-info"><span
+                class="fa fa-pencil"></span></a>
+        <a href="#" id="delete" class="btn btn-info"><span
+                class="fa fa-trash"></span></a>
         {{/if}}
-        </span>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
       <div class="container-fluid">
