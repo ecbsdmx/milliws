@@ -18,7 +18,7 @@
 - [ ] HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [ ] Should offer a wizard to build the SDMX 2.1 RESTful query
 - [ ] Should work with both http and https
-- [ ] There should be an option to "freeze" a job or all jobs at once
+- [x] There should be an option to "freeze" a job
 - [ ] The insert / update actions should be performed in a modal window
 - [x] Added default jobs (for testing only)
 - [ ] Edit and delete button in overview page don't work
