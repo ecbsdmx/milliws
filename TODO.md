@@ -6,7 +6,7 @@
 - [x] Basic CRUD operations
 - [x] Basic design
 - [x] Rename queries to jobs
-- [ ] Rename comments
+- [x] Rename comments
 - [ ] Remove HTTP notifications related fields
 - [ ] Implement logical rather than physical deletion
 - [ ] Review validation rules
@@ -23,6 +23,7 @@
 ## Scheduler module
 - [x] Setup cron job
 - [x] Jobs execution
+- [x] Change user-agent
 
 ## Events module
 - [x] Rename jobs to events

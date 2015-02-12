@@ -35,7 +35,7 @@ var triggerJob = function(job, last) {
     var startTime = new Date();
     HTTP.get(job.url, {params:{updatedAfter: lastUpdate}, headers: {
             "Accept": "application/vnd.sdmx.data+json;version=1.0.0-wd",
-            "User-Agent": "Milliways 1.0.0"
+            "User-Agent": "Heimdallr 1.0.0"
         }}, function (error, result) {
             var event = {};
             var received = new Date();
