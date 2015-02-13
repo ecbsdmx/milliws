@@ -2,7 +2,7 @@
   <tr>
     <td>{{this._id}}</td>
     <td>{{this.name}}</td>
-    <td><button data-toggle="collapse" data-target=".detail_{{this._id}}"><i class="chevron fa fa-chevron-down"></i></button></td>
+    <td><button data-toggle="collapse" data-target=".detail_{{this._id}}" id="chevron" class="pull-right"><i id="chevron_{{this._id}}" class="fa fa-chevron-down"></i></button></td>
   </tr>
   <tr class="collapse detail_{{this._id}}">
     <td colspan="3">
