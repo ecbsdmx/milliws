@@ -4,20 +4,20 @@
       {{#if currentUser.profile.isAdmin}}
       <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
         {{#if isActive}}
-        <button class="btn btn-primary btn-sm" href="#" id="suspend" data-toggle="tooltip" data-placement="bottom" title="Suspend jobs" role="button">
-          <span class="fa fa-pause fa-fw"></span></button>
+        <a class="btn btn-primary btn-sm" href="#" id="suspend" data-toggle="tooltip" data-placement="bottom" title="Suspend jobs" role="button">
+          <span class="fa fa-pause fa-fw"></span></a>
         {{else}}
-        <button class="btn btn-primary btn-sm" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Resume jobs" id="resume">
-          <span class="fa fa-play fa-fw"></span></button>
+        <a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Resume jobs" id="resume">
+          <span class="fa fa-play fa-fw"></span></a>
         {{/if}}
-        <button class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="New job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
-          </button>
-        <button class="btn btn-primary btn-sm" href="#" role="button"><span class="fa fa-recycle fa-lg fa-fw" data-toggle="tooltip" data-placement="bottom" title="Recover"></span></button>
+        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="New job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
+          </a>
+        <a class="btn btn-primary btn-sm" href="#" role="button"><span class="fa fa-recycle fa-lg fa-fw" data-toggle="tooltip" data-placement="bottom" title="Recover"></span></a>
       </div>
       {{/if}}
     </h1>
     <div class="row">
-      {{#each jobs}}
+      {{#each this}}
       <div class="col-sm-6 col-md-4">
         {{> jobItem}}
       </div>
