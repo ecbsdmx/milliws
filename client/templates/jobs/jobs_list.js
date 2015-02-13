@@ -22,10 +22,7 @@ Template.jobsList.helpers({
       fields: [
         {key: '_id', label: 'Id'},
         {key: 'name', label: 'Name'},
-        { key: "actions", label: "Actions", fn:  function (value) {
-          return '{{> monitoringActionButtons}}';
-        }
-        }
+        {key: "actions", label: 'Actions', tmpl: Template.jobActions}
       ]
     }
   }
