@@ -1,43 +1,12 @@
 <template name="sidebar">
 
-  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="headingOne">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <span class="fa fa-tachometer fa-2x fa-fw" aria-hidden="true"></span> Dashboard
-          </a>
-        </h4>
-      </div>
-      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-          actions... tbd
-        </div>
-      </div>
-    </div><!-- panel -->
-    
-    <div class="panel panel-default">
-      <div class="panel-heading" role="tab" id="headingTwo">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <span class="fa fa-calendar fa-2x fa-fw" aria-hidden="true"></span> Calendar
-          </a>
-        </h4>
-      </div>
-      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-        <div class="panel-body">
-          tbd...
-        </div>
-      </div>
-    </div><!-- panel -->
-  </div><!-- list group -->
-      
-    
-    
-
-  <div class="progress">
-    <div class="progress-bar progress-success">
-    </div>
+  <div id="sidebar-wrapper" role="navigation">
+    <ul id="sidebar_menu">
+      <li class="sidebar-carret"><a id="menu-toggle" href="#"><span class="fa fa-chevron-circle-left fa-fw pull-right"></span></a></li>      
+      <li><a href="{{pathFor 'eventsList'}}">Events <span class="fa fa-heartbeat fa-fw fa-lg pull-right"></span></a></li>
+      <li><a>Reports <span class="fa fa-tachometer fa-fw fa-lg pull-right"></span></a></li>
+      <li><a href="{{pathFor 'jobsList'}}">Jobs <span class="fa fa-tasks fa-fw fa-lg pull-right"></span></a></li>
+    </ul>
   </div>
-  
+
 </template>

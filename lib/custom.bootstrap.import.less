@@ -13,4 +13,34 @@
 @import url(http://fonts.googleapis.com/css?family=Inconsolata:400,700);
 
 /* navbar fixed top requires body padding */
-body { padding-top: 55px; }
+body { padding-top: 50px; }
+
+
+/* main styling */
+@import "client/stylesheets/form-signin.import.less";
+@import "client/stylesheets/sidebar.import.less";
+
+@font-face {
+    font-family: firstOrder;
+    src: url(fonts/firstv2.ttf);
+}
+
+.WelcomeTitle {
+  font-family: firstOrder;
+  font-size: 80pt;
+  text-align: center;
+}
+
+.navbar-brand {
+  font-family: firstOrder;
+  font-size: 25px;
+}
+
+.spinner {
+  margin: 30px auto;
+}
+
+#eventList{
+  font-size: 0.9em;
+  font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
+}
