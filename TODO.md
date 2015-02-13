@@ -40,6 +40,7 @@
 ## Settings module
 
 ## Recycle bin module
+- [ ] Add GUI to recover / physically delete
 
 ## Design
 - [x] Core layout
