@@ -3,23 +3,19 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <a href="{{pathFor 'jobPage'}}">{{name}}</a>
-        <div class="btn-toolbar pull-right" role="toolbar">
-            <div class="btn-group btn-group-xs">
-        {{#if isActive}}
-        <a href="#" id="pause" class="btn btn-info"><i
-                class="fa fa-pause"></i></a>
-        {{else}}
-        <a href="#" id="play" class="btn btn-info"><i
-                    class="fa fa-play"></i></a>
-        {{/if}}
-        {{#if currentUser.profile.isAdmin}}
-        <a href="#" id="edit" class="btn btn-info"><span
-                class="fa fa-pencil"></span></a>
-        <a href="#" id="delete" class="btn btn-info"><span
-                class="fa fa-trash"></span></a>
-        {{/if}}
-            </div>
+      <div class="btn-toolbar pull-right" role="toolbar">
+        <div class="btn-group btn-group-xs">
+          {{#if isActive}}
+          <a href="#" id="pause" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Suspend jobs"><i class="fa fa-pause"></i></a>
+          {{else}}
+          <a href="#" id="play" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Resume jobs"><i class="fa fa-play"></i></a>
+          {{/if}}
+          {{#if currentUser.profile.isAdmin}}
+          <a href="#" id="edit" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Edit job"><span class="fa fa-pencil"></span></a>
+          <a href="#" id="delete" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Remove job"><span class="fa fa-trash"></span></a>
+          {{/if}}
         </div>
+      </div>
     </div>
     <div class="panel-body">
       <div class="container-fluid">
@@ -32,11 +28,11 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><i class="fa fa-clock-o" title="Expected response time"></i> {{ert}}</div>
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"><i
-                  class="fa fa-refresh fa-spin" title="Job frequency"></i>
-              {{freq}}</div>
+                                                                          class="fa fa-refresh fa-spin" title="Job frequency"></i>
+            {{freq}}</div>
         </div>
       </div>
     </div>
   </div>
-  
+
 </template>
