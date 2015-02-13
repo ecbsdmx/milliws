@@ -1,3 +1,7 @@
+Template.jobsList.rendered = function() {
+  $('[data-toggle="tooltip"]').tooltip();
+};
+
 Template.jobsList.helpers({
     isActive: function() {
         var active = 0;

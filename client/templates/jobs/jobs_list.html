@@ -1,23 +1,26 @@
 <template name="jobsList">
   <div class="jobs">
     <h1>Monitoring jobs
-    {{#if currentUser.profile.isAdmin}}
-      <div class="btn-group pull-right" role="group">
+      {{#if currentUser.profile.isAdmin}}
+      <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
         {{#if isActive}}
-          <a class="btn btn-primary btn-sm" href="#" id="suspend" role="button"><span class="fa fa-pause fa-fw"></span></a>
+        <button class="btn btn-primary btn-sm" href="#" id="suspend" data-toggle="tooltip" data-placement="bottom" title="Suspend jobs" role="button">
+          <span class="fa fa-pause fa-fw"></span></button>
         {{else}}
-          <a class="btn btn-primary btn-sm" href="#" role="button" id="resume"><span class="fa fa-play fa-fw"></span></a>
+        <button class="btn btn-primary btn-sm" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Resume jobs" id="resume">
+          <span class="fa fa-play fa-fw"></span></button>
         {{/if}}
-        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span></a>
-        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobsRecycle'}}" role="button"><span class="fa fa-recycle fa-lg fa-fw"></span></a>
+        <button class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="New job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
+          </button>
+        <button class="btn btn-primary btn-sm" href="#" role="button"><span class="fa fa-recycle fa-lg fa-fw" data-toggle="tooltip" data-placement="bottom" title="Recover"></span></button>
       </div>
-    {{/if}}
+      {{/if}}
     </h1>
     <div class="row">
-      {{#each this}}
-        <div class="col-sm-6 col-md-4">
-          {{> jobItem}}
-        </div>
+      {{#each jobs}}
+      <div class="col-sm-6 col-md-4">
+        {{> jobItem}}
+      </div>
       {{/each}}
     </div>
   </div>
