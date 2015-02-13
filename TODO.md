@@ -48,7 +48,7 @@
 - [ ] Air a bit the content part of the interface
 - [ ] Theming (later)
 - [ ] Save sidebar carret state in user session
-- [ ] Jobs button bar: icons only + tooltip
+- [x] Jobs button bar: icons only + tooltip
 - [ ] Jobs master detail layout
 
 ## Documentation

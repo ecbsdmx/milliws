@@ -1,4 +1,4 @@
-Template.jobsList.rendered = function() {
+Template.jobsRecycle.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
 };
 

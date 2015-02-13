@@ -2,8 +2,8 @@
   <li class="list-group-item">{{this.name}}
     {{#if currentUser.profile.isAdmin}}
       <div class="btn-group pull-right" role="group">
-        <a class="btn btn-primary btn-sm" href="#" role="button" id="undo"><span class="fa fa-undo fa-fw"></span></a>
-        <a class="btn btn-primary btn-sm" href="#" role="button" id="delete"><span class="fa fa-trash-o fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="undo" data-toggle="tooltip" data-placement="bottom" title="Recover this job"><span class="fa fa-undo fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="delete" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><span class="fa fa-trash-o fa-fw"></span></a>
       </div>
     {{/if}}
   </li>

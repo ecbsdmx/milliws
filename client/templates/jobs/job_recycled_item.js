@@ -1,3 +1,7 @@
+Template.jobRecycledItem.rendered = function() {
+  $('[data-toggle="tooltip"]').tooltip();
+};
+
 Template.jobRecycledItem.events({
     'click #undo': function(e) {
       e.preventDefault();
