@@ -1,0 +1,15 @@
+<template name="jobsRecycle">
+  <h1>Recycle bin
+    {{#if currentUser.profile.isAdmin}}
+      <div class="btn-group pull-right" role="group">
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="undo"><span class="fa fa-undo fa-lg fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="delete"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+      </div>
+    {{/if}}
+  </h1>
+  <ul class="list-group">
+    {{#each this}}
+      {{> jobRecycledItem}}
+    {{/each}}
+  </ul>
+</template>  
