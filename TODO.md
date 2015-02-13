@@ -11,8 +11,6 @@
 - [x] Implement logical rather than physical deletion
 - [ ] Review validation rules
 - [ ] Add a contextual help functionality
-- [ ] Review design of the overview page
-- [ ] Review design of the CRUD views
 - [ ] HTTP Conneg: Should support all SDMX 2.1 formats
 - [ ] HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
@@ -49,7 +47,9 @@
 - [ ] Theming (later)
 - [ ] Save sidebar carret state in user session
 - [x] Jobs button bar: icons only + tooltip
-- [ ] Jobs master detail layout
+- [x] Jobs master detail layout
+- [ ] Review design of the overview page
+- [ ] Review design of the CRUD views
 
 ## Documentation
 - [x] Add basic info about the app
