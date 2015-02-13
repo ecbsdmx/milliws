@@ -1,44 +1,34 @@
 <template name="jobPage">
-    <div class="row">
-        <div class="col-xs-12">
-            <h1>{{name}}</h1>
-            {{#if currentUser.profile.isAdmin}}
-                <div class="btn-toolbar pull-right" role="toolbar">
-                    <div class="btn-group btn-group-xs">
-                        <button id="edit" type="button"
-                                class="btn btn-default"
-                                data-toggle="modal" data-target="#editBox"><span
-                                class="glyphicon glyphicon-pencil"></span></button>
-                        <button id="delete" type="button"
-                                class="btn btn-default"><span
-                                class="glyphicon glyphicon-trash"></span></button>
-                    </div>
-                </div>
-            {{/if}}
-        </div>
+  {{#if this}}
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{name}}</h1>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            SDMX 2.1 RESTful query
-        </div>
-        <div class="col-xs-6 col-sm-8 col-md-10">
-            <a href="{{url}}">{{url}}</a>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      SDMX 2.1 RESTful query
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            Expected response time
-        </div>
-        <div class="col-xs-6 col-sm-8 col-md-10">
-            {{ert}} milliseconds
-        </div>
+    <div class="col-xs-6 col-sm-8 col-md-10">
+      <a href="{{url}}">{{url}}</a>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            Job frequency
-        </div>
-        <div class="col-xs-6 col-sm-8 col-md-10">
-            Every {{freq}} minute(s)
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      Expected response time
     </div>
+    <div class="col-xs-6 col-sm-8 col-md-10">
+      {{ert}} milliseconds
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      Job frequency
+    </div>
+    <div class="col-xs-6 col-sm-8 col-md-10">
+      Every {{freq}} minute(s)
+    </div>
+  </div>
+  {{else}}
+  {{/if}}
 </template>

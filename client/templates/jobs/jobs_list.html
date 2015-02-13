@@ -16,14 +16,19 @@
       </div>
       {{/if}}
     </h1>
-    
-    <div class="row">
-      <div class="col-sm-6 col-md-6">
-         {{> reactiveTable id="jobsList" collection=this showFilter=false class="table table-condensed table-hover table-striped" useFontAwesome=true settings=settings}}
-      </div>
-      <div class="col-sm-6 col-md-6">
-        details
-      </div>
-    </div>
+    <table class="table table-condensed" style="border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this}}
+          {{> jobItem}}
+        {{/each}}           
+      </tbody>
+    </table>
   </div>
 </template>

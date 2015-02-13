@@ -1,0 +1,35 @@
+<template name="jobItem">
+  <tr>
+    <td>{{this._id}}</td>
+    <td>{{this.name}}</td>
+    <td><button data-toggle="collapse" data-target=".detail_{{this._id}}"><i class="chevron fa fa-chevron-down"></i></button></td>
+  </tr>
+  <tr class="collapse detail_{{this._id}}">
+    <td colspan="3">
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          SDMX 2.1 RESTful query
+        </div>
+        <div class="col-xs-6 col-sm-8 col-md-10">
+          <a href="{{url}}">{{url}}</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          Expected response time
+        </div>
+        <div class="col-xs-6 col-sm-8 col-md-10">
+          {{ert}} milliseconds
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          Job frequency
+        </div>
+        <div class="col-xs-6 col-sm-8 col-md-10">
+          Every {{freq}} minute(s)
+        </div>
+      </div>
+    </td>
+  </tr>
+</template>
