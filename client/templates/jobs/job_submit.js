@@ -22,5 +22,9 @@ Template.jobSubmit.events({
       //Router.go('jobPage', {_id: result._id});
       Router.go('jobsList');
     });
+  },
+  'click #cancel': function(e) {
+    e.preventDefault();
+    Router.go('jobsList');
   }
 });
