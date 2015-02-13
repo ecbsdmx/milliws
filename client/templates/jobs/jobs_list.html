@@ -2,26 +2,19 @@
   <div class="jobs">
     <h1>Monitoring jobs
     {{#if currentUser.profile.isAdmin}}
-        <div class="btn-group pull-right" role="group">
+      <div class="btn-group pull-right" role="group">
         {{#if isActive}}
-            <button class="btn btn-primary btn-sm" href="#" id="suspend"
-               role="button">
-            <span class="fa fa-pause fa-fw"></span> Suspend jobs</button>
+          <a class="btn btn-primary btn-sm" href="#" id="suspend" role="button"><span class="fa fa-pause fa-fw"></span></a>
         {{else}}
-             <button class="btn btn-primary btn-sm" href="#" role="button"
-                id="resume">
-             <span class="fa fa-play fa-fw"></span> Resume jobs</button>
+          <a class="btn btn-primary btn-sm" href="#" role="button" id="resume"><span class="fa fa-play fa-fw"></span></a>
         {{/if}}
-        <button class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}"
-         role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
-            New job</button>
-        <button class="btn btn-primary btn-sm" href="#" role="button"><span
-                class="fa fa-trash-o fa-lg fa-fw"></span> Recover</button>
-        </div>
+        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobsRecycle'}}" role="button"><span class="fa fa-recycle fa-lg fa-fw"></span></a>
+      </div>
     {{/if}}
     </h1>
     <div class="row">
-      {{#each jobs}}
+      {{#each this}}
         <div class="col-sm-6 col-md-4">
           {{> jobItem}}
         </div>

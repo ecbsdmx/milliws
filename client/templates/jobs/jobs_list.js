@@ -1,8 +1,4 @@
 Template.jobsList.helpers({
-    jobs: function() {
-        return Jobs.find( { isDeleted: false } );
-    },
-
     isActive: function() {
         var active = 0;
         var suspended = 0;

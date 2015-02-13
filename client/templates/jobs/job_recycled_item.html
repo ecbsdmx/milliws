@@ -1,0 +1,10 @@
+<template name="jobRecycledItem">
+  <li class="list-group-item">{{this.name}}
+    {{#if currentUser.profile.isAdmin}}
+      <div class="btn-group pull-right" role="group">
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="undo"><span class="fa fa-undo fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="#" role="button" id="delete"><span class="fa fa-trash-o fa-fw"></span></a>
+      </div>
+    {{/if}}
+  </li>
+</template>
