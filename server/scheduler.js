@@ -14,7 +14,7 @@ var monitor = function() {
             }
         }
     });
-}
+};
 
 // Checks whether a job needs to run
 var isDue = function(job, last) {
@@ -22,7 +22,7 @@ var isDue = function(job, last) {
     var due  = new Date(lastRun.setMinutes(lastRun.getMinutes() + job.freq));
     var current = new Date();
     return current >= due;
-}
+};
 
 // Unleash a job
 var triggerJob = function(job, last) {
@@ -52,7 +52,7 @@ var triggerJob = function(job, last) {
             var nSeries = 0;
             var nObs = 0;
             if (!error) {
-                var response = JSON.parse(result.content)
+                var response = JSON.parse(result.content);
                 response.dataSets.forEach(function (element, index, array) {
                     var series = element.series;
                     for (var property in series) {
@@ -73,7 +73,7 @@ var triggerJob = function(job, last) {
             Events.insert(event);
         }
     );
-}
+};
 
 // Start cron
 SyncedCron.add({
