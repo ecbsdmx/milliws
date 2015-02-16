@@ -1,10 +1,19 @@
 <template name="jobItem">
-  <tr>
+  <tr class="jobItemRow" ><!--data-toggle="collapse" data-target=".detail_{{this._id}}">-->
     <td>{{this._id}}</td>
     <td>{{this.name}}</td>
-    <td><button data-toggle="collapse" data-target=".detail_{{this._id}}" id="chevron" class="pull-right"><i id="chevron_{{this._id}}" class="fa fa-chevron-down"></i></button></td>
+    <td>
+      <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">  
+        <a class="btn btn-default btn-sm"><i id="chevron_{{this._id}}" class="fa fa-fw fa-chevron-down"></i></a>
+      </div>
+      <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
+        <a class="edit btn btn-default btn-sm"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+        <a class="delete btn btn-default btn-sm"><i class="fa fa-fw fa-trash-o"></i></a>
+      </div>
+    </td>
+    
   </tr>
-  <tr class="collapse detail_{{this._id}}">
+  <tr class="collapse" id="detail_{{this._id}}">
     <td colspan="3">
       <div class="row">
         <div class="col-xs-6 col-sm-4 col-md-2">

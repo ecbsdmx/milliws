@@ -5,28 +5,29 @@
       <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
         {{#if isActive}}
         <a class="btn btn-primary btn-sm" href="#" id="suspend" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
-          <span class="fa fa-pause fa-fw"></span></a>
+          <span class="fa fa-pause fa-fw"></span>
+        </a>
         {{else}}
         <a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs" id="resume">
-          <span class="fa fa-play fa-fw"></span></a>
+          <span class="fa fa-play fa-fw"></span>
+        </a>
         {{/if}}
-        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span>
-          </a>
+        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span></a>
         <a class="btn btn-primary btn-sm" href="{{pathFor 'jobsRecycle'}}" role="button"><span class="fa fa-recycle fa-lg fa-fw" data-toggle="tooltip" data-placement="bottom" title="Recover deleted jobs"></span></a>
       </div>
       {{/if}}
     </h1>
-    <table class="table table-condensed" style="border-collapse:collapse;">
+    <table class="table table-condensed table-hover table-striped" style="border-collapse:collapse;">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>&nbsp;</th>
+          <th class="col-md-2">ID</th>
+          <th class="col-md-8">Name</th>
+          <th class="col-md-2">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
         {{#each this}}
-          {{> jobItem}}
+        {{> jobItem}}
         {{/each}}           
       </tbody>
     </table>
