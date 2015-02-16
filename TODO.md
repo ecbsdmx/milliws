@@ -29,6 +29,7 @@
 - [x] Jobs item delete button
 - [x] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
 - [ ] Re-activate buttons and toggle for detail on existing & recycled jobs
+- [ ] Style jobs tables as the event one (with appropriate font)
 
 ## Scheduler module
 - [x] Setup cron job

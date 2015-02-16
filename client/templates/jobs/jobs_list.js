@@ -3,7 +3,7 @@ Template.jobsList.rendered = function() {
 };
 
 Template.jobsList.helpers({
-  isActive: function() {
+  isAllActive: function() {
     var active = 0;
     var suspended = 0;
     this.forEach(function(item) {
@@ -14,22 +14,11 @@ Template.jobsList.helpers({
       }
     });
     return active >= suspended;
-  },
-  settings: function () {
-    return {
-      rowsPerPage: 15, 
-      showNavigation: "auto",
-      fields: [
-        {key: '_id', label: 'Id'},
-        {key: 'name', label: 'Name'},
-        {key: "actions", label: 'Actions', tmpl: Template.jobActions}
-      ]
-    }
   }
 });
 
 Template.jobsList.events({
-  'click #suspend': function(e) {
+  'click #suspendAll': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.forEach(function(item) {
@@ -45,7 +34,7 @@ Template.jobsList.events({
     });
 
   },
-  'click #resume': function(e) {
+  'click #resumeAll': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.forEach(function(item) {
@@ -59,5 +48,72 @@ Template.jobsList.events({
         }
       });
     });
-  }
+  },
+
+  'click tr': function (e) {
+    var dataTable = $(e.target).closest('table').DataTable();
+    var rowData = dataTable.row(e.currentTarget).data();
+    e.preventDefault();
+    toggleChevron(rowData._id);
+  },
+
+  'click .jobs .suspend': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.isActive = false;
+    Meteor.call('jobUpdate', this, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+      if (result.urlExists) {
+        return alert('There is already a monitoring job for the supplied URL.');
+      }
+    });
+  },
+  'click .jobs .resume': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.isActive = true;
+    Meteor.call('jobUpdate', this, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+      if (result.urlExists) {
+        return alert('There is already a monitoring job for the supplied URL.');
+      }
+    });
+  },
+  'click .jobs .edit': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    Router.go('jobEdit', {_id: this._id});
+  },
+  'click .jobs .delete': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (confirm("Are you sure you want to delete this monitoring job?")) {
+      this.isDeleted = true;
+      Meteor.call('jobUpdate', this, function(error, result) {
+        if (error) {
+          return alert(error.reason);
+        }
+        Router.go('jobsList');
+      });
+    }
+  }  
 });
+
+
+function toggleChevron(id) {
+  var chevronId = "#chevron_" + id;
+  var detailId = "#detail_" + id;
+
+  $(detailId).toggleClass("in");
+
+  if($(chevronId).hasClass( "fa-chevron-down" )) {
+    $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+  } else {
+    $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+  }
+}
+
