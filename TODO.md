@@ -24,10 +24,11 @@
 - [ ] We could also use additional information such as the number of times a job has run, since when it is active, the number of problems, whether the last run was successful, etc. but that would mean joining with the events data
 - [ ] Keyboard shortcuts
 - [ ] Deleting a job should delete its events?
-- [ ] Jobs : sorting & filtering. ```Datatable?``` 
+- [x] Jobs : sorting & filtering. ```Datatable?``` 
 - [ ] Jobs item (in-place) edit with bootstrap toggle
 - [x] Jobs item delete button
-- [ ] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
+- [x] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
+- [ ] Re-activate buttons and toggle for detail on existing & recycled jobs
 
 ## Scheduler module
 - [x] Setup cron job
@@ -56,7 +57,7 @@
 - [ ] Review design of the CRUD views
 - [x] Fix the chevron javascript toggle in jobs item.html + size ?
 - [ ] Jobs & jobs item : move global table buttons nearer to table
-- [ ] Buttons & design for the recycle page
+- [x] Buttons & design for the recycle page
 - [ ] Align events response time numbers to the right
 
 ## Documentation
