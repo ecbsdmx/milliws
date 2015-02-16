@@ -11,7 +11,6 @@ function toggleChevron(id) {
   }
 }
 
-
 Template.jobItem.events({
   'click .jobItemRow': function(e) {
     e.preventDefault();
