@@ -26,7 +26,7 @@
 - [ ] Deleting a job should delete its events?
 - [ ] Jobs : sorting & filtering. ```Datatable?``` 
 - [ ] Jobs item (in-place) edit with bootstrap toggle
-- [ ] Jobs item delete button
+- [x] Jobs item delete button
 - [ ] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
 
 ## Scheduler module
@@ -54,10 +54,10 @@
 - [x] Jobs master detail layout
 - [ ] Review design of the overview page
 - [ ] Review design of the CRUD views
-- [ ] Fix the chevron javascript toggle in jobs item.html + size ?
+- [x] Fix the chevron javascript toggle in jobs item.html + size ?
 - [ ] Jobs & jobs item : move global table buttons nearer to table
 - [ ] Buttons & design for the recycle page
-- [ ] Align events response time numbers tot he right
+- [ ] Align events response time numbers to the right
 
 ## Documentation
 - [x] Add basic info about the app
