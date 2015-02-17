@@ -1,4 +1,4 @@
-Template.jobSubmit.events({
+Template.jobCreate.events({
   'submit form': function(e) {
     e.preventDefault();
 

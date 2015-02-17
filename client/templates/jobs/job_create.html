@@ -1,4 +1,4 @@
-<template name="jobSubmit">
+<template name="jobCreate">
   <div class="modal fade" id="insertJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -7,7 +7,17 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h2 class="modal-title" id="myModalLabel">Create new job</h2>
           </div>
-          <div class="modal-body">
+          <div class="modal-body wizard" data-initialize="wizard">
+            <ul class="steps">
+              <li data-step="1" class="active"><span class="badge">1</span>Basic information<span class="chevron"></span></li>
+              <li data-step="2"><span class="badge">2</span>Query<span class="chevron"></span></li>
+              <li data-step="3"><span class="badge">3</span>Content-Negotiation<span class="chevron"></span></li>
+            </ul>
+            <div class="actions">
+              <button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+              <button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+            </div>
+            <div class="step-content">
               <div class="form-group">
                 <label for="inputID" class="control-label col-xs-4">ID</label>
                 <div class="col-xs-4">
@@ -39,6 +49,7 @@
                 </div>
               </div>
 
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
