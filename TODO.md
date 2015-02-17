@@ -25,11 +25,12 @@
 - [ ] Keyboard shortcuts
 - [x] Deleting a job should delete its events
 - [x] Jobs : sorting & filtering. ```Datatable?``` 
-- [ ] Jobs item (in-place) edit with bootstrap toggle
+- [x] Jobs item (in-place) edit with bootstrap toggle
 - [x] Jobs item delete button
 - [x] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
 - [x] Re-activate buttons and toggle for detail on existing & recycled jobs
 - [x] Style jobs tables as the event one (with appropriate font)
+- [ ] Fix bug found when editing one job than another in the same run without page refresh (url/name already exist)
 
 ## Scheduler module
 - [x] Setup cron job
