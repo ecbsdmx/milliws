@@ -1,9 +1,18 @@
-Template.jobCreate.rendered = function() {
-  $('#createWizard').on('finished.fu.wizard', function (evt, data) {
+Template.jobCreate.events({
+  'finished.fu.wizard #createWizard': function(e) {
+    var queryString = $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val();
+    var hasQueryParam = false;
+    queryString = augmentQueryString(queryString, "startPeriod", $("#inputStartPeriod").val());
+    queryString = augmentQueryString(queryString, "endPeriod", $("#inputEndPeriod").val());
+    queryString = augmentQueryString(queryString, "dimensionAtObservation", $("#inputObsDim").val());
+    queryString = augmentQueryString(queryString, "firstNObservations", $("#inputFirstNObs").val());
+    queryString = augmentQueryString(queryString, "lastNObservations", $("#inputLastNObs").val());
+    queryString = augmentQueryString(queryString, "detail", $("#inputDetail").val());
+    queryString = augmentQueryString(queryString, "includeHistory", $('#inputWithHistory').prop('checked'));
     var job = {
       _id: $("#inputID").val(),
       name: $("#inputName").val(),
-      url: $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val(),
+      url: queryString,
       ert: parseInt($("#inputERT").val()),
       freq: parseInt($("#inputFreq").val())
     };
@@ -19,5 +28,17 @@ Template.jobCreate.rendered = function() {
       }
       $('#insertJobModal').modal('hide');
     });
-  });
-};
+  }
+});
+
+function augmentQueryString(queryString, paramName, value) {
+  if (value) {
+    if (-1 === queryString.indexOf('?')) {
+      queryString += "?";
+    } else {
+      queryString += "&";
+    }
+    queryString += paramName + "=" + value;
+  }
+  return queryString;
+}

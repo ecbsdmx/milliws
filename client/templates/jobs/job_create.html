@@ -59,6 +59,53 @@
                       <input type="text" name="name" class="form-control" id="inputProvider" required aria-required="true" placeholder="A string identifying the data provider">
                     </div>
                   </div>
+                  <div class="form-group">
+                    <label for="inputStartPeriod" class="control-label col-xs-4">Start period</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputStartPeriod" placeholder="The start period (inclusive). ISO 8601 or SDMX reporting period">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEndPeriod" class="control-label col-xs-4">End period</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputEndPeriod" placeholder="The end period (inclusive). ISO 8601 or SDMX reporting period">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputObsDim" class="control-label col-xs-4">Obs dimension</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputObsDim" placeholder="The id of the dimension attached at the observation level">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputFirstNObs" class="control-label col-xs-4">First N Observations</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputFirstNObs" required aria-required="true" min="1" step="1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputLastNObs" class="control-label col-xs-4">Last N Observations</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputLastNObs" required aria-required="true" min="1" step="1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputDetail" class="control-label col-xs-4">Dimension at observation</label>
+                    <div class="col-xs-8">
+                      <select id="inputDetail" class="form-control">
+                        <option value="full" selected>full</option>
+                        <option value="dataonly">dataonly</option>
+                        <option value="serieskeysonly">serieskeysonly</option>
+                        <option value="nodata">nodata</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputWithHistory" class="control-label col-xs-4">Include history?</label>
+                    <div class="col-xs-8 checkbox">
+                      <input id="inputWithHistory" type="checkbox" data-toggle="toggle">
+                    </div>
+                  </div>
                 </div>
                 <div class="step-pane sample-pane alert" data-step="3">
                   <p>TBD - 3</p>
