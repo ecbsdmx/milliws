@@ -1,11 +1,9 @@
-Template.jobCreate.events({
-  'submit form': function(e) {
-    e.preventDefault();
-
+Template.jobCreate.rendered = function() {
+  $('#createWizard').on('finished.fu.wizard', function (evt, data) {
     var job = {
       _id: $("#inputID").val(),
       name: $("#inputName").val(),
-      url: $("#inputURL").val(),
+      url: $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val(),
       ert: parseInt($("#inputERT").val()),
       freq: parseInt($("#inputFreq").val())
     };
@@ -21,5 +19,5 @@ Template.jobCreate.events({
       }
       $('#insertJobModal').modal('hide');
     });
-  }
-});
+  });
+};
