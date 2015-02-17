@@ -17,7 +17,7 @@
 - [ ] Should offer a wizard to build the SDMX 2.1 RESTful query
 - [ ] Should work with both http and https
 - [x] There should be an option to "freeze" a job
-- [ ] The insert / update actions should be performed in a modal window
+- [x] The insert action should be performed in a modal window
 - [x] Added default jobs (for testing only)
 - [x] Edit and delete button in overview page don't work
 - [x] Implement a GUI for the jobs recycle bin

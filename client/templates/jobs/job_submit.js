@@ -19,12 +19,7 @@ Template.jobSubmit.events({
       if (result.urlExists) {
         return alert('There is already a monitoring job for the supplied URL.');
       }
-      //Router.go('jobPage', {_id: result._id});
-      Router.go('jobsList');
+      $('#insertJobModal').modal('hide');
     });
-  },
-  'click #cancel': function(e) {
-    e.preventDefault();
-    Router.go('jobsList');
   }
 });

@@ -12,7 +12,7 @@
           <span class="fa fa-play fa-fw"></span>
         </a>
         {{/if}}
-        <a class="btn btn-primary btn-sm" href="{{pathFor 'jobSubmit'}}" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw"></span></a>
+        <a class="btn btn-primary btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button"><span class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></span></a>
         <a class="btn btn-primary btn-sm" href="{{pathFor 'jobsRecycle'}}" role="button"><span class="fa fa-recycle fa-lg fa-fw" data-toggle="tooltip" data-placement="bottom" title="Recover deleted jobs"></span></a>
       </div>
       {{/if}}
@@ -35,5 +35,5 @@
     -->
     {{> tabular table=TabularTables.ExistingJobs class="table table-condensed table-hover table-striped"}}
   </div>
-  
+  {{> jobSubmit}}
 </template>
