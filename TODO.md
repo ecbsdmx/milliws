@@ -28,8 +28,8 @@
 - [ ] Jobs item (in-place) edit with bootstrap toggle
 - [x] Jobs item delete button
 - [x] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
-- [ ] Re-activate buttons and toggle for detail on existing & recycled jobs
-- [ ] Style jobs tables as the event one (with appropriate font)
+- [x] Re-activate buttons and toggle for detail on existing & recycled jobs
+- [x] Style jobs tables as the event one (with appropriate font)
 
 ## Scheduler module
 - [x] Setup cron job
@@ -44,7 +44,7 @@
 ## Settings module
 
 ## Recycle bin module
-- [ ] Add GUI to recover / physically delete
+- [x] Add GUI to recover / physically delete
 
 ## Design
 - [x] Core layout
