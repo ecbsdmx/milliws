@@ -84,25 +84,67 @@ Template.jobsList.events({
   'click .jobs .edit': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    
+
     // check if opened else open
     var clickedRow = $(e.target).closest('tr');
     if (!clickedRow.hasClass("shown")) {
       toggleChevron(e);
     }
-    
+
     // toggle edit mode
     var detailRow = clickedRow.next();
     var jobDetail = detailRow.find(".jobsDetail");
-    
+
     jobDetail.toggleClass("edit");
-    
     if (jobDetail.hasClass("edit")) {
-     
+
     }
-    
-    //Router.go('jobEdit', {_id: this._id});
   },
+
+  'click #jobModifSubmit': function(e) {
+    e.preventDefault();
+    var dataTable = $(e.target).closest('table').DataTable();
+    var tr = $(e.target).closest('tr').prev();
+    var row = dataTable.row(tr);
+    var rowData =row.data();
+
+    var job = {
+      _id: rowData._id,
+      //TODO: add name prop again
+      //name: $("#inputName").val(),
+      name: rowData.name,
+      url: $("#inputURL").val(),
+      ert: parseInt($("#inputERT").val()),
+      freq: parseInt($("#inputFreq").val()),
+      isDeleted: rowData.isDeleted,
+      isActive: rowData.isActive
+    };
+    Meteor.call('jobUpdate', job, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+      if (result.urlExists) {
+        return alert('There is already a monitoring job for the supplied URL.');
+      }
+      Router.go('jobsList');
+    });
+  },
+
+  'click #jobModifCancel': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    // reset values to rowData !!!
+    var dataTable = $(e.target).closest('table').DataTable();
+    var tr = $(e.target).closest('tr').prev();
+    var row = dataTable.row(tr);
+    var rowData =row.data();
+    $("#inputURL").val(rowData.url);
+    $("#inputERT").val(rowData.ert);
+    $("#inputFreq").val(rowData.freq);
+    
+    $(e.target).closest('.jobsDetail').toggleClass("edit");
+  },
+
   'click .jobs .delete': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -140,13 +182,13 @@ function toggleChevron(e) {
   } else {
     $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
   }
-  
-  
+
+
 }
 
 function format (rowData) {
   var u = rowData.url;
-    
+
   return '' + 
     '  <form id="editForm" class="form-horizontal" role="form">' + 
     '    <div class="jobsDetail container-fluid">' + 
@@ -183,8 +225,8 @@ function format (rowData) {
     '      <div class="row">' + 
     '        <div class="jobsEditButtons col-xs-10 col-sm-10 col-md-10"></div>' + 
     '        <div class="jobsEditButtons col-xs-2 col-sm-2 col-md-2 text-right">' + 
-    '          <button type="button" class="btn btn-default btn-xs">Save</button>' + 
-    '          <button type="button" class="btn btn-default btn-xs">Cancel</button>' +
+    '          <button type="submit" id="jobModifSubmit" class="btn btn-default btn-xs">Save</button>' + 
+    '          <button type="button" id="jobModifCancel" class="btn btn-default btn-xs">Cancel</button>' +
     '        </div>' + 
     '      </div>' + 
     '    </div>' + 
