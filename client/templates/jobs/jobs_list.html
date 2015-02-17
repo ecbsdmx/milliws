@@ -17,23 +17,7 @@
       </div>
       {{/if}}
     </h1>
-    <!--
-    <table class="table table-condensed table-hover table-striped" style="border-collapse:collapse;">
-      <thead>
-        <tr>
-          <th class="col-md-2">ID</th>
-          <th class="col-md-8">Name</th>
-          <th class="col-md-2">&nbsp;</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each this}}
-        {{> jobItem}}
-        {{/each}}           
-      </tbody>
-    </table>
-    -->
-    {{> tabular table=TabularTables.ExistingJobs class="table table-condensed table-hover table-striped"}}
+    {{> tabular table=TabularTables.ExistingJobs class="existingJobsTable table table-condensed table-hover table-striped"}}
   </div>
   {{> jobSubmit}}
 </template>

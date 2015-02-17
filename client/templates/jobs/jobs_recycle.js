@@ -26,6 +26,11 @@ Template.jobsRecycle.events({
     }
   },
 
+  'click tr': function (e) {
+    e.preventDefault();
+    toggleChevron(e);
+  },
+
   'click .jobsRecycle .undo': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -43,5 +48,57 @@ Template.jobsRecycle.events({
       Jobs.remove(this._id);
     }
   }
-
 });
+
+function toggleChevron(e) {
+  var dataTable = $(e.target).closest('table').DataTable();
+  var tr = $(e.target).closest('tr');
+  var row = dataTable.row(tr);
+  var rowData =row.data();
+
+  if (row.child.isShown() ) {
+    row.child.hide();
+    tr.removeClass('shown');
+  }
+  else {
+    row.child(format(rowData) ).show();
+    tr.addClass('shown');
+  }
+
+  // update the chevron icon
+  var chevronId = "#chevron_" + rowData._id;
+  if($(chevronId).hasClass( "fa-chevron-down" )) {
+    $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+  } else {
+    $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+  }
+}
+
+function format (rowData) {
+  return '<div class="jobsDetail row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'SDMX 2.1 RESTful query' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    '<a href="'+rowData.url+'">'+rowData.url+'</a>' + 
+    '</div>' + 
+    '</div>' + 
+    '' + 
+    '<div class="row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'Expected response time' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    ''+rowData.ert+' milliseconds' + 
+    '</div>' + 
+    '</div>' + 
+    '' + 
+    '<div class="row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'Job frequency' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    'Every '+rowData.freq+' minute(s)' + 
+    '</div>' + 
+    '</div>';
+}

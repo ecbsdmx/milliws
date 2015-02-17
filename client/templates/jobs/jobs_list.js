@@ -51,10 +51,8 @@ Template.jobsList.events({
   },
 
   'click tr': function (e) {
-    var dataTable = $(e.target).closest('table').DataTable();
-    var rowData = dataTable.row(e.currentTarget).data();
     e.preventDefault();
-    toggleChevron(rowData._id);
+    toggleChevron(e);
   },
 
   'click .jobs .suspend': function(e) {
@@ -103,13 +101,23 @@ Template.jobsList.events({
   }  
 });
 
+function toggleChevron(e) {
+  var dataTable = $(e.target).closest('table').DataTable();
+  var tr = $(e.target).closest('tr');
+  var row = dataTable.row(tr);
+  var rowData =row.data();
 
-function toggleChevron(id) {
-  var chevronId = "#chevron_" + id;
-  var detailId = "#detail_" + id;
+  if (row.child.isShown() ) {
+    row.child.hide();
+    tr.removeClass('shown');
+  }
+  else {
+    row.child(format(rowData) ).show();
+    tr.addClass('shown');
+  }
 
-  $(detailId).toggleClass("in");
-
+  // update the chevron icon
+  var chevronId = "#chevron_" + rowData._id;
   if($(chevronId).hasClass( "fa-chevron-down" )) {
     $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
   } else {
@@ -117,3 +125,31 @@ function toggleChevron(id) {
   }
 }
 
+function format (rowData) {
+  return '<div class="jobsDetail row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'SDMX 2.1 RESTful query' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    '<a href="'+rowData.url+'">'+rowData.url+'</a>' + 
+    '</div>' + 
+    '</div>' + 
+    '' + 
+    '<div class="row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'Expected response time' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    ''+rowData.ert+' milliseconds' + 
+    '</div>' + 
+    '</div>' + 
+    '' + 
+    '<div class="row">' + 
+    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    'Job frequency' + 
+    '</div>' + 
+    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    'Every '+rowData.freq+' minute(s)' + 
+    '</div>' + 
+    '</div>';
+}
