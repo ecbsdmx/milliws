@@ -1,59 +1,131 @@
 <template name="jobCreate">
   <div class="modal fade" id="insertJobModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content fuelux">
         <form id="form" class="form-horizontal" role="form">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h2 class="modal-title" id="myModalLabel">Create new job</h2>
           </div>
-          <div class="modal-body wizard" data-initialize="wizard">
-            <ul class="steps">
-              <li data-step="1" class="active"><span class="badge">1</span>Basic information<span class="chevron"></span></li>
-              <li data-step="2"><span class="badge">2</span>Query<span class="chevron"></span></li>
-              <li data-step="3"><span class="badge">3</span>Content-Negotiation<span class="chevron"></span></li>
-            </ul>
-            <div class="actions">
-              <button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-              <button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+          <div class="modal-body">
+            <div id="createWizard" class="wizard" data-initialize="wizard">
+              <ul class="steps">
+                <li data-step="1" class="active"><span class="badge">1</span>Basics<span class="chevron"></span></li>
+                <li data-step="2"><span class="badge">2</span>Query<span class="chevron"></span></li>
+                <li data-step="3"><span class="badge">3</span>Format<span class="chevron"></span></li>
+                <li data-step="4"><span class="badge">4</span>Schedule<span class="chevron"></span></li>
+              </ul>
+              <div class="actions">
+                <button id="prev" type="button" class="btn btn-default btn-prev"><span class="fa fa-fw fa-arrow-left"></span>Prev</button>
+                <button id="next" type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="fa fa-fw fa-arrow-right"></span></button>
+              </div>
+              <div class="step-content">
+                <div class="step-pane active sample-pane alert" data-step="1">
+                  <div class="form-group">
+                    <label for="inputID" class="control-label col-xs-4">ID</label>
+                    <div class="col-xs-4">
+                      <input type="text" name="name" class="form-control" id="inputID" required aria-required="true" placeholder="A unique ID for your monitoring job">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName" class="control-label col-xs-4">Name</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputName" required aria-required="true" placeholder="A descriptive label for your monitoring job">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputWSEntry" class="control-label col-xs-4">Web service entry point</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputWSEntry" required aria-required="true" placeholder="The entry point of the web service to be monitored">
+                    </div>
+                  </div>
+                </div>
+                <div class="step-pane sample-pane alert" data-step="2">
+                  <div class="form-group">
+                    <label for="inputFlow" class="control-label col-xs-4">Dataflow</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputFlow" required aria-required="true" placeholder="A string identifying the dataflow">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputKey" class="control-label col-xs-4">Key</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputKey" required aria-required="true" placeholder="The key of the series to be returned">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputProvider" class="control-label col-xs-4">Provider</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputProvider" required aria-required="true" placeholder="A string identifying the data provider">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputStartPeriod" class="control-label col-xs-4">Start period</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputStartPeriod" placeholder="The start period (inclusive). ISO 8601 or SDMX reporting period">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEndPeriod" class="control-label col-xs-4">End period</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputEndPeriod" placeholder="The end period (inclusive). ISO 8601 or SDMX reporting period">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputObsDim" class="control-label col-xs-4">Obs dimension</label>
+                    <div class="col-xs-8">
+                      <input type="text" name="name" class="form-control" id="inputObsDim" placeholder="The id of the dimension attached at the observation level">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputFirstNObs" class="control-label col-xs-4">First N Observations</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputFirstNObs" required aria-required="true" min="1" step="1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputLastNObs" class="control-label col-xs-4">Last N Observations</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputLastNObs" required aria-required="true" min="1" step="1">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputDetail" class="control-label col-xs-4">Dimension at observation</label>
+                    <div class="col-xs-8">
+                      <select id="inputDetail" class="form-control">
+                        <option value="full" selected>full</option>
+                        <option value="dataonly">dataonly</option>
+                        <option value="serieskeysonly">serieskeysonly</option>
+                        <option value="nodata">nodata</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputWithHistory" class="control-label col-xs-4">Include history?</label>
+                    <div class="col-xs-8 checkbox">
+                      <input id="inputWithHistory" type="checkbox" data-toggle="toggle">
+                    </div>
+                  </div>
+                </div>
+                <div class="step-pane sample-pane alert" data-step="3">
+                  <p>TBD - 3</p>
+                </div>
+                <div class="step-pane sample-pane alert" data-step="4">
+                  <div class="form-group">
+                    <label for="inputERT" class="control-label col-xs-4">Response time (in milliseconds)</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputERT" required aria-required="true" value="500" min="300" max="5000" step="100">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputFreq" class="control-label col-xs-4">Job frequency (in minutes)</label>
+                    <div class="col-xs-2">
+                      <input type="number" name="name" class="form-control" id="inputFreq" required aria-required="true" min="1" max="60" step="1" value="1">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="step-content">
-              <div class="form-group">
-                <label for="inputID" class="control-label col-xs-4">ID</label>
-                <div class="col-xs-4">
-                  <input type="text" name="name" class="form-control" id="inputID" required aria-required="true" placeholder="A unique ID for your monitoring job">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputName" class="control-label col-xs-4">Name</label>
-                <div class="col-xs-8">
-                  <input type="text" name="name" class="form-control" id="inputName" required aria-required="true" placeholder="A descriptive label for your monitoring job">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputURL" class="control-label col-xs-4">URL</label>
-                <div class="col-xs-8">
-                  <input type="url" name="name" class="form-control" id="inputURL" required aria-required="true" placeholder="The SDMX 2.1 RESTful job that represents your monitoring job">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputERT" class="control-label col-xs-4">Response time (in milliseconds)</label>
-                <div class="col-xs-2">
-                  <input type="number" name="name" class="form-control" id="inputERT" required aria-required="true" value="500" min="300" max="5000" step="100">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="inputFreq" class="control-label col-xs-4">Job frequency (in minutes)</label>
-                <div class="col-xs-2">
-                  <input type="number" name="name" class="form-control" id="inputFreq" required aria-required="true" min="1" max="60" step="1" value="1">
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-            <button type="submit" id="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Create job</button>
           </div>
         </form>
       </div>
