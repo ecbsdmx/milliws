@@ -1,8 +1,8 @@
-UI.registerHelper('trimUrlToSize', function(url, size) {
-  var curLen = url.length;
+UI.registerHelper('trimToSize', function(msg, size) {
+  var curLen = msg.length;
   if (size < curLen) {
-    shortUrl = url.substr(0, size);
+    shortUrl = msg.substr(0, size);
     return shortUrl + "...";
   }
-  return url;
+  return msg;
 });

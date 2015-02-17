@@ -84,7 +84,24 @@ Template.jobsList.events({
   'click .jobs .edit': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    Router.go('jobEdit', {_id: this._id});
+    
+    // check if opened else open
+    var clickedRow = $(e.target).closest('tr');
+    if (!clickedRow.hasClass("shown")) {
+      toggleChevron(e);
+    }
+    
+    // toggle edit mode
+    var detailRow = clickedRow.next();
+    var jobDetail = detailRow.find(".jobsDetail");
+    
+    jobDetail.toggleClass("edit");
+    
+    if (jobDetail.hasClass("edit")) {
+     
+    }
+    
+    //Router.go('jobEdit', {_id: this._id});
   },
   'click .jobs .delete': function(e) {
     e.preventDefault();
@@ -107,49 +124,79 @@ function toggleChevron(e) {
   var row = dataTable.row(tr);
   var rowData =row.data();
 
-  if (row.child.isShown() ) {
+  if (row.child.isShown()) {
     row.child.hide();
     tr.removeClass('shown');
   }
   else {
-    row.child(format(rowData) ).show();
+    row.child(format(rowData)).show();
     tr.addClass('shown');
   }
 
   // update the chevron icon
   var chevronId = "#chevron_" + rowData._id;
-  if($(chevronId).hasClass( "fa-chevron-down" )) {
+  if($(chevronId).hasClass( "fa-chevron-down")) {
     $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
   } else {
     $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
   }
+  
+  
 }
 
 function format (rowData) {
-  return '<div class="jobsDetail row">' + 
-    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    'SDMX 2.1 RESTful query' + 
-    '</div>' + 
-    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
-    '<a href="'+rowData.url+'">'+rowData.url+'</a>' + 
-    '</div>' + 
-    '</div>' + 
-    '' + 
-    '<div class="row">' + 
-    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    'Expected response time' + 
-    '</div>' + 
-    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
-    ''+rowData.ert+' milliseconds' + 
-    '</div>' + 
-    '</div>' + 
-    '' + 
-    '<div class="row">' + 
-    '<div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    'Job frequency' + 
-    '</div>' + 
-    '<div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
-    'Every '+rowData.freq+' minute(s)' + 
-    '</div>' + 
-    '</div>';
+  var u = rowData.url;
+    
+  return '' + 
+    '  <form id="editForm" class="form-horizontal" role="form">' + 
+    '    <div class="jobsDetail container-fluid">' + 
+    '      <div class="row">' + 
+    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    '          SDMX 2.1 RESTful query' + 
+    '        </div>' + 
+    '        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
+    '          <a href="' + u + '">' + trimUrl(u, 80) + '</a>' + 
+    '          <input type="url" name="inputURL" id="inputURL" required aria-required="true" value="' + u + '" />' + 
+    '        </div>' + 
+    '      </div>' + 
+    '' +
+    '      <div class="row">' + 
+    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    '          Expected response time' + 
+    '        </div>' + 
+    '        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">' + 
+    '          <span>' + rowData.ert + ' milliseconds</span>' + 
+    '          <input type="number" name="inputERT" id="inputERT" required aria-required="true" value="' + rowData.ert + '" min="300" max="5000" step="100">' + 
+    '        </div>' + 
+    '      </div>' + 
+    '' +
+    '      <div class="row">' + 
+    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
+    '          Job frequency' + 
+    '        </div>' + 
+    '        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">' + 
+    '          <span>Every '+rowData.freq+' minute(s)</span>' + 
+    '          <input type="number" name="inputFreq" id="inputFreq" required aria-required="true" value="' + rowData.freq + '" min="1" max="60" step="1">' + 
+    '        </div>' + 
+    '      </div>' + 
+    '' +
+    '      <div class="row">' + 
+    '        <div class="jobsEditButtons col-xs-10 col-sm-10 col-md-10"></div>' + 
+    '        <div class="jobsEditButtons col-xs-2 col-sm-2 col-md-2 text-right">' + 
+    '          <button type="button" class="btn btn-default btn-xs">Save</button>' + 
+    '          <button type="button" class="btn btn-default btn-xs">Cancel</button>' +
+    '        </div>' + 
+    '      </div>' + 
+    '    </div>' + 
+    '  </form>';
+}
+
+
+function trimUrl(url, size) {
+  var curLen = url.length;
+  if (size < curLen) {
+    shortUrl = url.substr(0, size);
+    return shortUrl + "...";
+  }
+  return url;
 }
