@@ -89,9 +89,9 @@ Template.jobsList.events({
   'click .jobs .delete': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    if (confirm("Are you sure you want to delete this monitoring job?")) {
+    if (confirm("Are you sure you want to delete this monitoring job? It can still be recovered later, if you change your mind. This will also hide the events related to that job in the events view.")) {
       this.isDeleted = true;
-      Meteor.call('jobUpdate', this, function(error, result) {
+      Meteor.call('jobVirtualDelete', this, function(error, result) {
         if (error) {
           return alert(error.reason);
         }
