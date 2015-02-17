@@ -1,7 +1,4 @@
 Template.eventsList.helpers({
-  events: function() {
-    return Events.find();
-  },
   settings: function () {
     return {
       rowsPerPage: 25, 
