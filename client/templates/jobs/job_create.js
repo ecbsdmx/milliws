@@ -1,8 +1,25 @@
+var fields = {};
 Template.jobCreate.rendered = function() {
   $('#createWizard input[type=checkbox]').bootstrapToggle();
+  $('#form').validator();
+  var itemNr = $('#createWizard').wizard('selectedItem').step;
+  var item = $(".step-pane[data-step="+itemNr+"]");
+  fields = initStepValidation(item);
+  setNextButtonState(fields);
 };
 
 Template.jobCreate.events({
+  'invalid.bs.validator #form': function(e) {
+    fields[e.relatedTarget.name] = false;
+    setNextButtonState(fields);
+  },
+  'valid.bs.validator #form': function(e) {
+    fields[e.relatedTarget.name] = true;
+    setNextButtonState(fields);
+  },
+  'changed.fu.wizard #createWizard': function(e) {
+    $("#next").attr("disabled", "disabled");
+  },
   'finished.fu.wizard #createWizard': function(e) {
     var queryString = $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val();
     var hasQueryParam = false;
@@ -46,4 +63,41 @@ function augmentQueryString(queryString, paramName, value) {
     queryString += paramName + "=" + value;
   }
   return queryString;
+}
+
+function initStepValidation(step) {
+  var flds = {};
+  var mandatoryFields = $(step).find("input[required]");
+  if (mandatoryFields.length > 0) {
+    $(mandatoryFields).each(function(index) {
+      flds[this.name] = false;
+    })
+  }
+  var optionalFields = $(step).find("input[required != required]");
+  if (optionalFields.length > 0) {
+    $(optionalFields).each(function(index) {
+      flds[this.name] = true;
+    });
+  }
+  for (var property in flds) {
+    if (flds.hasOwnProperty(property)) {
+      console.log(property + ": " + flds[property]);
+    }
+  }
+  return flds;
+}
+
+function setNextButtonState(flds) {
+  var isValid = true;
+  for (var property in flds) {
+    if (flds.hasOwnProperty(property) && !(flds[property])) {
+      isValid = false;
+      break;
+    }
+  }
+  if (isValid) {
+    $("#next").removeAttr("disabled");
+  } else {
+    $("#next").attr("disabled", "disabled");
+  }
 }
