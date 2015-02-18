@@ -1,7 +1,8 @@
 # TODO
 
 ## General
-- [ ] Save sidebar toggle state in user session
+- [x] Save sidebar toggle state in user session
+- [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 
 ## Job module
 - [ ] Review job edit validation rules
@@ -15,7 +16,7 @@
 - [ ] Add a contextual help functionality
 
 ## Scheduler module
-- [ ] Enable HTTPS connection to target
+- [X] Enable HTTPS connection to target
 
 ## Events module
 - [ ] Use same table as for jobs
