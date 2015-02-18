@@ -118,7 +118,8 @@ Template.jobsList.events({
       ert: parseInt($(formId + " #inputERT").val()),
       freq: parseInt($(formId + " #inputFreq").val()),
       isDeleted: rowData.isDeleted,
-      isActive: rowData.isActive
+      isActive: rowData.isActive,
+      deltas: rowData.deltas      
     };
     Meteor.call('jobUpdate', job, function(error, result) {
       if (error) {

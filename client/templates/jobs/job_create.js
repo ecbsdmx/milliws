@@ -18,7 +18,8 @@ Template.jobCreate.events({
       name: $("#inputName").val(),
       url: queryString,
       ert: parseInt($("#inputERT").val()),
-      freq: parseInt($("#inputFreq").val())
+      freq: parseInt($("#inputFreq").val()),
+      deltas: $('#inputDeltas').prop('checked')
     };
     Meteor.call('jobInsert', job, function(error, result) {
       if (error) {
