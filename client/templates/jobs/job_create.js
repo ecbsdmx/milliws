@@ -1,3 +1,7 @@
+Template.jobCreate.rendered = function() {
+  $('#createWizard input[type=checkbox]').bootstrapToggle();
+};
+
 Template.jobCreate.events({
   'finished.fu.wizard #createWizard': function(e) {
     var queryString = $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val();
