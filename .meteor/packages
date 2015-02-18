@@ -10,7 +10,6 @@ sacha:spin
 ian:accounts-ui-bootstrap-3
 accounts-password
 percolatestudio:synced-cron
-http
 aslagle:reactive-table
 mrt:moment
 natestrauser:font-awesome
@@ -18,3 +17,4 @@ natestrauser:font-awesome
 less
 nemo64:bootstrap
 aldeed:tabular
+dandv:http-more
