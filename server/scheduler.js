@@ -33,7 +33,11 @@ var triggerJob = function(job, last) {
     lastUpdate = moment(last.etime).format();
   }
   var startTime = new Date();
-  HTTP.get(job.url, {params:{updatedAfter: lastUpdate}, headers: {
+  var params = {};
+  if (job.deltas) {
+    params.updatedAfter = lastUpdate;
+  }
+  HTTP.get(job.url, {params: params, headers: {
     "Accept": "application/vnd.sdmx.data+json;version=1.0.0-wd",
     "User-Agent": "Heimdallr 1.0.0"
   }}, function (error, result) {
@@ -85,4 +89,4 @@ SyncedCron.add({
     monitor();
   }
 });
-//SyncedCron.start();
+SyncedCron.start();
