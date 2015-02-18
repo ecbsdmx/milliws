@@ -107,15 +107,16 @@ Template.jobsList.events({
     var tr = $(e.target).closest('tr').prev();
     var row = dataTable.row(tr);
     var rowData =row.data();
-
+    var formId = "#editForm_" + rowData._id;
+    
     var job = {
       _id: rowData._id,
       //TODO: add name prop again
       //name: $("#inputName").val(),
       name: rowData.name,
-      url: $("#inputURL").val(),
-      ert: parseInt($("#inputERT").val()),
-      freq: parseInt($("#inputFreq").val()),
+      url: $(formId + " #inputURL").val(),
+      ert: parseInt($(formId + " #inputERT").val()),
+      freq: parseInt($(formId + " #inputFreq").val()),
       isDeleted: rowData.isDeleted,
       isActive: rowData.isActive
     };
@@ -190,7 +191,7 @@ function format (rowData) {
   var u = rowData.url;
 
   return '' + 
-    '  <form id="editForm" class="form-horizontal" role="form">' + 
+    '  <form id="editForm_'+rowData._id+'" class="form-horizontal" role="form">' + 
     '    <div class="jobsDetail container-fluid">' + 
     '      <div class="row">' + 
     '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 

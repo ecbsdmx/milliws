@@ -1,6 +1,7 @@
 # TODO
 
-## User management module
+## General
+- [ ] Save sidebar toggle state in user session
 
 ## Job module
 - [ ] Review job edit validation rules
@@ -20,14 +21,10 @@
 ## Events module
 - [ ] Use same table as for jobs
 
-## Reports module
-
 ## Settings module
 - [ ] Add enable/disable cron
 - [ ] Add? cron granularity
 - [ ] Default events go back num days
-
-## Recycle bin module
 
 ## Design
 - [ ] Add footer
@@ -41,9 +38,15 @@
 ## Documentation
 - [ ] Document the jobs
 
+## User management module
 
+## Reports module
+
+## Recycle bin module
 
 # OLD Done TODOs
+
+## General
 
 ## Job module
 - [x] Basic CRUD operations
@@ -74,8 +77,7 @@
 ## Events module
 - [x] Rename jobs to events
 
-## Recycle bin module
-- [x] Add GUI to recover / physically delete
+## Settings module
 
 ## Design
 - [x] Core layout
@@ -87,3 +89,7 @@
 
 ## Documentation
 - [x] Add basic info about the app
+
+## Recycle bin module
+- [x] Add GUI to recover / physically delete
+
