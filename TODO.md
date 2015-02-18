@@ -11,7 +11,7 @@
 - [ ] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [ ] We could also use additional information such as the number of times a job has run, since when it is active, the number of problems, whether the last run was successful, etc. but that would mean joining with the events data
-- [ ] Fix bug found when editing one job than another in the same run without page refresh (url/name already exist)
+- [x] Fix bug found when editing one job than another in the same run without page refresh (url/name already exist)
 - [ ] Keyboard shortcuts
 - [ ] Add a contextual help functionality
 
