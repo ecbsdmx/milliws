@@ -11,7 +11,7 @@
 - [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
 - [ ] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
-- [ ] We could also use additional information such as the number of times a job has run, since when it is active, the number of problems, whether the last run was successful, etc. but that would mean joining with the events data
+- [ ] We could also use additional information such as the creation date, last run
 - [ ] Keyboard shortcuts
 - [ ] Add a contextual help functionality
 
@@ -21,11 +21,10 @@
 ## Events module
 - [ ] Use same table as for jobs
 - [ ] Restore "Executed on" time without moment.js relative expression
-- [ ] Add current state of the job for the line dispayed
-- [ ] Add a toggle to get more info on that particular line such as: parameters (url, ert, ...) at the time of execution (they can change over time and only the ones at the moment of execution are of concern)
+- [ ] Add an option to get more info about the job
 - [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
-- [ ] (Maybe?) Style the status code with a color gradient for better visual identification
-- [ ] (Tricky) Style the response time with a (fixed) color gradient from green-to-red with the ration of responseTime:expectedResponseTime or use a gauge ?
+- [ ] Style the status code with a color gradient for better visual identification
+- [ ] (Tricky) Style the response time with a (fixed) color gradient from green-to-red with the ratio of responseTime:expectedResponseTime or use a gauge
 
 ## Settings module
 - [ ] Add enable/disable cron
@@ -47,6 +46,10 @@
 ## User management module
 
 ## Reports module
+- [ ] Number of times a job has run
+- [ ] Number of errors
+- [ ] Average execution time
+- [ ] Whether the last run was successful
 
 ## Recycle bin module
 
