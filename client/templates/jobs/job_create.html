@@ -47,42 +47,42 @@
                   <div class="form-group">
                     <label for="inputFlow" class="control-label col-xs-4">Dataflow</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputFlow" class="form-control" id="inputFlow" required aria-required="true" placeholder="A string identifying the dataflow">
+                      <input type="text" name="inputFlow" class="form-control" id="inputFlow" required aria-required="true" placeholder="A string identifying the dataflow" pattern="([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?)" data-error="Please define a valid reference to the dataflow. For example, EXR, for a partial reference, or ECB,EXR,latest, for a fully qualified reference.">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputKey" class="control-label col-xs-4">Key</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputKey" class="form-control" id="inputKey" placeholder="The key of the series to be returned">
+                      <input type="text" name="inputKey" class="form-control" id="inputKey" placeholder="The key of the series to be returned" data-error="Please define a valid combination of dimension values. For example, D.NOK.EUR.SP00.A (full series key), D..EUR.SP00.A (wildcarding), D.NOK+RUB.EUR.SP00.A (with the 'or' operator)." pattern="([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*" value="all">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputProvider" class="control-label col-xs-4">Provider</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputProvider" class="form-control" id="inputProvider" placeholder="A string identifying the data provider">
+                      <input type="text" name="inputProvider" class="form-control" id="inputProvider" placeholder="A string identifying the data provider" pattern="([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+)" data-error="Please define a valid reference to the data provider. For example, BIS, ECB, OECD, etc." value="all">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputStartPeriod" class="control-label col-xs-4">Start period</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputStartPeriod" class="form-control" id="inputStartPeriod" placeholder="The start period (inclusive). ISO 8601 or SDMX reporting period">
+                      <input type="text" name="inputStartPeriod" class="form-control" id="inputStartPeriod" placeholder="The start period (inclusive). ISO 8601 or SDMX reporting period" data-error="Please define a valid period, either as ISO 8601 (e.g.: 2000, 2000-01, 2000-01-01), etc. or as SDMX reporting period (e.g.: 2000-Q1, 2000-H1, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEndPeriod" class="control-label col-xs-4">End period</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputEndPeriod" class="form-control" id="inputEndPeriod" placeholder="The end period (inclusive). ISO 8601 or SDMX reporting period">
+                      <input type="text" name="inputEndPeriod" class="form-control" id="inputEndPeriod" placeholder="The end period (inclusive). ISO 8601 or SDMX reporting period" data-error="Please define a valid period, either as ISO 8601 (e.g.: 2000, 2000-01, 2000-01-01), etc. or as SDMX reporting period (e.g.: 2000-Q1, 2000-H1, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputObsDim" class="control-label col-xs-4">Obs dimension</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputObsDim" class="form-control" id="inputObsDim" placeholder="The id of the dimension attached at the observation level">
+                      <input type="text" name="inputObsDim" class="form-control" id="inputObsDim" value="TIME_PERIOD" placeholder="The id of the dimension attached at the observation level" pattern="[A-z][A-z0-9_\-]*" data-error="Please define a ID for the dimension to be attached at the observation level (e.g.: TIME_PERIOD, AllDimensions, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>

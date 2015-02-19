@@ -6,8 +6,8 @@
 
 ## Job module
 - [ ] Review job edit validation rules
-- [ ] Wizard: Review validation rules
-- [ ] Wizard: for metedata queries (later)
+- [x] Wizard: Review validation rules
+- [ ] Wizard: for metadata queries (later)
 - [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
 - [ ] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
