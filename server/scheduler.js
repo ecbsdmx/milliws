@@ -107,7 +107,9 @@ var triggerJob = function(job, last) {
 };
 
 var parseXML = function(content) {
+  var ret = {nSeries: 0, nObs: 0};
   console.log("In parseXML... TODO");
+  return ret;
 }
 
 var parseJSON = function(content) {

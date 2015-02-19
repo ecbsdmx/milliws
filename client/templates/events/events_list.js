@@ -6,7 +6,7 @@ Template.eventsList.helpers({
       fields: [
         {key: 'jobId', label: 'Job'},
         {key: 'etime', label: 'Executed on', sortByValue: true, sort: 'descending', fn: function(value, object) {
-          return moment(value).fromNow();
+          return moment(value).format();
         }},
         {key: 'status', label: 'Status'},
         {key: 'responseTime', label: 'Response time (ms)'},
