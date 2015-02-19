@@ -20,6 +20,12 @@
 
 ## Events module
 - [ ] Use same table as for jobs
+- [ ] Restore "Executed on" time without moment.js relative expression
+- [ ] Add current state of the job for the line dispayed
+- [ ] Add a toggle to get more info on that particular line such as: parameters (url, ert, ...) at the time of execution (they can change over time and only the ones at the moment of execution are of concern)
+- [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
+- [ ] (Maybe?) Style the status code with a color gradient for better visual identification
+- [ ] (Tricky) Style the response time with a (fixed) color gradient from green-to-red with the ration of responseTime:expectedResponseTime or use a gauge ?
 
 ## Settings module
 - [ ] Add enable/disable cron
