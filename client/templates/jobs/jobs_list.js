@@ -119,7 +119,10 @@ Template.jobsList.events({
       freq: parseInt($(formId + " #inputFreq").val()),
       isDeleted: rowData.isDeleted,
       isActive: rowData.isActive,
-      deltas: rowData.deltas      
+      deltas: rowData.deltas,
+      isCompressed: rowData.isCompressed,
+      isIMS: rowData.isIMS,
+      format: rowData.format
     };
     Meteor.call('jobUpdate', job, function(error, result) {
       if (error) {
