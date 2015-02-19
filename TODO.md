@@ -13,7 +13,7 @@
 - [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [ ] We could also use additional information such as the creation date, last run
 - [ ] Keyboard shortcuts
-- [ ] Add a contextual help functionality
+- [x] Add a contextual help functionality
 
 ## Scheduler module
 - [X] Enable HTTPS connection to target

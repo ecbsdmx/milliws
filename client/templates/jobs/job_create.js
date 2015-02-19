@@ -2,6 +2,7 @@ var fields;
 Template.jobCreate.rendered = function() {
   $('#createWizard input[type=checkbox]').bootstrapToggle();
   $('#form').validator();
+  $('[data-toggle="popover"]').popover()
   initStep();
 };
 
