@@ -1,11 +1,8 @@
-var fields = {};
+var fields;
 Template.jobCreate.rendered = function() {
   $('#createWizard input[type=checkbox]').bootstrapToggle();
   $('#form').validator();
-  var itemNr = $('#createWizard').wizard('selectedItem').step;
-  var item = $(".step-pane[data-step="+itemNr+"]");
-  fields = initStepValidation(item);
-  setNextButtonState(fields);
+  initStep();
 };
 
 Template.jobCreate.events({
@@ -18,7 +15,7 @@ Template.jobCreate.events({
     setNextButtonState(fields);
   },
   'changed.fu.wizard #createWizard': function(e) {
-    $("#next").attr("disabled", "disabled");
+    initStep();
   },
   'finished.fu.wizard #createWizard': function(e) {
     var queryString = $("#inputWSEntry").val() + "/data/" + $("#inputFlow").val() + "/" + $("#inputKey").val() + "/" + $("#inputProvider").val();
@@ -65,12 +62,25 @@ function augmentQueryString(queryString, paramName, value) {
   return queryString;
 }
 
-function initStepValidation(step) {
+// Initializes the validation rules and navigation for the selected step
+function initStep() {
+  fields = {};
+  var itemNr = $('#createWizard').wizard('selectedItem').step;
+  console.log("Init step #" + itemNr)
+  var item = $(".step-pane[data-step="+itemNr+"]");
+  fields = setValidationRules(item);
+  setNextButtonState(fields);
+}
+
+// Defines the validation rules for the current step.
+function setValidationRules(step) {
   var flds = {};
   var mandatoryFields = $(step).find("input[required]");
   if (mandatoryFields.length > 0) {
     $(mandatoryFields).each(function(index) {
-      flds[this.name] = false;
+      if (this.value.length === 0) {
+        flds[this.name] = false;
+      }
     })
   }
   var optionalFields = $(step).find("input[required != required]");
@@ -87,6 +97,7 @@ function initStepValidation(step) {
   return flds;
 }
 
+// Sets the state of the next button, based on whether validation is succesfull for the current step
 function setNextButtonState(flds) {
   var isValid = true;
   for (var property in flds) {

@@ -38,7 +38,7 @@
                   <div class="form-group">
                     <label for="inputWSEntry" class="control-label col-xs-4">Web service entry point</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputWSEntry" class="form-control" id="inputWSEntry" required aria-required="true" placeholder="The entry point of the web service to be monitored" data-error="Please define a valid entry point for the web service.">
+                      <input type="url" name="inputWSEntry" class="form-control" id="inputWSEntry" required aria-required="true" placeholder="The entry point of the web service to be monitored" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
@@ -54,14 +54,14 @@
                   <div class="form-group">
                     <label for="inputKey" class="control-label col-xs-4">Key</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputKey" class="form-control" id="inputKey" required aria-required="true" placeholder="The key of the series to be returned">
+                      <input type="text" name="inputKey" class="form-control" id="inputKey" placeholder="The key of the series to be returned">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputProvider" class="control-label col-xs-4">Provider</label>
                     <div class="col-xs-8">
-                      <input type="text" name="inputProvider" class="form-control" id="inputProvider" required aria-required="true" placeholder="A string identifying the data provider">
+                      <input type="text" name="inputProvider" class="form-control" id="inputProvider" placeholder="A string identifying the data provider">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
@@ -89,14 +89,14 @@
                   <div class="form-group">
                     <label for="inputFirstNObs" class="control-label col-xs-4">First N Observations</label>
                     <div class="col-xs-2">
-                      <input type="number" name="inputFirstNObs" class="form-control" id="inputFirstNObs" required aria-required="true" min="1" step="1">
+                      <input type="number" name="inputFirstNObs" class="form-control" id="inputFirstNObs" min="1" step="1">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputLastNObs" class="control-label col-xs-4">Last N Observations</label>
                     <div class="col-xs-2">
-                      <input type="number" name="inputLastNObs" class="form-control" id="inputLastNObs" required aria-required="true" min="1" step="1">
+                      <input type="number" name="inputLastNObs" class="form-control" id="inputLastNObs" min="1" step="1">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
