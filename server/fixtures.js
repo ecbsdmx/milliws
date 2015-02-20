@@ -132,17 +132,42 @@ if (Jobs.find().count() === 0) {
   });
 */
   Jobs.insert({
-    _id: "dexr-xmlGen-c",
+    _id: "dexr",
     name: "Daily exchange rates",
-    url: "http://a-sdw-wsrest.ecb.europa.eu/service/data/EXR/A.NOK+CAD+RUB.EUR.SP00.A",
+    url: "http://a-sdw-wsrest.ecb.europa.eu/service/data/EXR/D.NOK+CAD+RUB.EUR.SP00.A",
     ert: 1000,
     freq: 1,
     isDeleted: false,
     isActive: true,
-    deltas: false,
+    deltas: true,
     isCompressed: true,
     isIMS: false,
-    format: "SDMX-ML 2.1 Generic"
+    format: "SDMX-JSON"
   });
-
+  Jobs.insert({
+    _id: "dexru",
+    name: "Daily exchange rates",
+    url: "http://a-sdw-wsrest.ecb.europa.eu/service/data/EXR/D.NOK+CAD+RUB.EUR.SP00.A",
+    ert: 1000,
+    freq: 1,
+    isDeleted: false,
+    isActive: true,
+    deltas: true,
+    isCompressed: false,
+    isIMS: false,
+    format: "SDMX-JSON"
+  });
+  Jobs.insert({
+    _id: "m1m3",
+    name: "Monetary aggregates",
+    url: "http://a-sdw-wsrest.ecb.europa.eu/service/data/BSI/M.U2.Y.V.M10+M30.X.I.U2.2300.Z01.A+E",
+    ert: 1000,
+    freq: 1,
+    isDeleted: false,
+    isActive: true,
+    deltas: true,
+    isCompressed: true,
+    isIMS: false,
+    format: "SDMX-JSON"
+  });
 }

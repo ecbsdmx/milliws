@@ -34,7 +34,10 @@ Template.jobCreate.events({
       url: queryString,
       ert: parseInt($("#inputERT").val()),
       freq: parseInt($("#inputFreq").val()),
-      deltas: $('#inputDeltas').prop('checked')
+      deltas: $('#inputDeltas').prop('checked'),
+      isCompressed: $('#inputCompress').prop('checked'),
+      isIMS: false,
+      format: "SDMX-JSON"
     };
     Meteor.call('jobInsert', job, function(error, result) {
       if (error) {

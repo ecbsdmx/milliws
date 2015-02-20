@@ -9,12 +9,12 @@
 - [x] Wizard: Review validation rules
 - [ ] Wizard: for metadata queries (later)
 - [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
-- [ ] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
+- [x] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [x] We could also use additional information such as the creation date, last run
-- [ ] Keyboard shortcuts
+- [ ] Keyboard shortcuts (later)
 - [x] Add a contextual help functionality
-- [ ] Removed uniqueness constraints on jobs URL
+- [x] Removed uniqueness constraints on jobs URL
 
 ## Scheduler module
 - [x] Enable HTTPS connection to target
@@ -71,7 +71,7 @@
 - [x] Edit and delete button in overview page don't work
 - [x] Implement a GUI for the jobs recycle bin
 - [x] Deleting a job should delete its events
-- [x] Jobs : sorting & filtering. ```Datatable?``` 
+- [x] Jobs : sorting & filtering. ```Datatable?```
 - [x] Jobs item (in-place) edit with bootstrap toggle
 - [x] Jobs item delete button
 - [x] Replicate jobs design for the recycle page : use same template & replace buttons by different in-place templates (js template helper rendering)
@@ -103,4 +103,3 @@
 
 ## Recycle bin module
 - [x] Add GUI to recover / physically delete
-

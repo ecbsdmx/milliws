@@ -15,7 +15,6 @@ var monitor = function() {
     }
   });
 };
-
 // Checks whether a job needs to run
 var isDue = function(job, last) {
   var lastRun = last.etime;
@@ -87,7 +86,7 @@ var triggerJob = function(job, last) {
     event.ert = job.ert;
     var serieObs = {nSeries: 0, nObs: 0};
     if (!error) {
-      // ATT result.header['content-type'] does not return the proper type...
+      // ATT result.headers['content-type'] does not return the proper type...
       switch(job.format){
         case "SDMX-ML 2.1 Generic":
         case "SDMX-ML 2.1 Structure":
