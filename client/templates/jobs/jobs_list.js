@@ -27,9 +27,6 @@ Template.jobsList.events({
         if (error) {
           return alert(error.reason);
         }
-        if (result.urlExists) {
-          return alert('There is already a monitoring job for the supplied URL.');
-        }
       });
     });
 
@@ -42,9 +39,6 @@ Template.jobsList.events({
       Meteor.call('jobUpdate', item, function(error, result) {
         if (error) {
           return alert(error.reason);
-        }
-        if (result.urlExists) {
-          return alert('There is already a monitoring job for the supplied URL.');
         }
       });
     });
@@ -63,9 +57,6 @@ Template.jobsList.events({
       if (error) {
         return alert(error.reason);
       }
-      if (result.urlExists) {
-        return alert('There is already a monitoring job for the supplied URL.');
-      }
     });
   },
   'click .jobs .resume': function(e) {
@@ -75,9 +66,6 @@ Template.jobsList.events({
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
         return alert(error.reason);
-      }
-      if (result.urlExists) {
-        return alert('There is already a monitoring job for the supplied URL.');
       }
     });
   },
@@ -127,9 +115,6 @@ Template.jobsList.events({
     Meteor.call('jobUpdate', job, function(error, result) {
       if (error) {
         return alert(error.reason);
-      }
-      if (result.urlExists) {
-        return alert('There is already a monitoring job for the supplied URL.');
       }
       Router.go('jobsList');
     });
@@ -187,8 +172,6 @@ function toggleChevron(e) {
   } else {
     $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
   }
-
-
 }
 
 function format (rowData) {

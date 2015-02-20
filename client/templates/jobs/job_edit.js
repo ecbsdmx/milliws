@@ -15,9 +15,6 @@ Template.jobEdit.events({
       if (error) {
         return alert(error.reason);
       }
-      if (result.urlExists) {
-        return alert('There is already a monitoring job for the supplied URL.');
-      }
       Router.go('jobsList');
     });
   },

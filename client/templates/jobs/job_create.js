@@ -43,9 +43,6 @@ Template.jobCreate.events({
       if (result.idTaken) {
         return alert('There is already a monitoring job with that id.');
       }
-      if (result.urlExists) {
-        return alert('There is already a monitoring job for the supplied URL.');
-      }
       $('#insertJobModal').modal('hide');
     });
   }

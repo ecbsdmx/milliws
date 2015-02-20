@@ -14,6 +14,7 @@
 - [x] We could also use additional information such as the creation date, last run
 - [ ] Keyboard shortcuts
 - [x] Add a contextual help functionality
+- [ ] Removed uniqueness constraints on jobs URL
 
 ## Scheduler module
 - [x] Enable HTTPS connection to target
