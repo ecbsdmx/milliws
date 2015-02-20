@@ -76,6 +76,7 @@
 - [x] Removed uniqueness constraints on jobs URL
 - [x] Wizard: Review validation rules
 - [x] Enable HTTPS connection to target
+- [x] Wizard: Indicate which fields are mandatory
 
 ## Scheduler module
 - [x] Setup cron job

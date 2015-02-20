@@ -1,6 +1,10 @@
 var fields;
 Template.jobCreate.rendered = function() {
   $('#createWizard input[type=checkbox]').bootstrapToggle();
+  $('.required-icon').tooltip({
+    placement: 'left',
+    title: 'Required field'
+  });
   $('#form').validator();
   $('[data-toggle="popover"]').popover()
   initStep();
