@@ -124,16 +124,16 @@ var parseCompactXML = function(content) {
 
 var parseGenericXML = function(content) {
   var ret = {nSeries: 0, nObs: 0};
-  /*xml2js.parseString(content, function (err, result) {
-    result['message:StructureSpecificData']['message:DataSet'].forEach(function (dataset, index, array) {
-      var dsSeries = dataset.Series;
+  xml2js.parseString(content, function (err, result) {
+    result['message:GenericData']['message:DataSet'].forEach(function (dataset, index, array) {
+      var dsSeries = dataset['generic:Series'];
       dsSeries.forEach(function (series, index, array) {
         ret.nSeries++;
-        var obs = series.Obs;
+        var obs = series['generic:Obs'];
         ret.nObs = ret.nObs + obs.length;
       });
     });
-  });*/
+  });
   return ret;
 };
 

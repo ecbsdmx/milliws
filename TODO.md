@@ -9,7 +9,7 @@
 - [ ] Add missing fields in edit job view
 - [x] Wizard: Review validation rules
 - [ ] Wizard: for metadata queries (later)
-- [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
+- [x] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
 - [x] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
 - [x] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [x] We could also use additional information such as the creation date, last run
