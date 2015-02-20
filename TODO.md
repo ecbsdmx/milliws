@@ -6,6 +6,7 @@
 
 ## Job module
 - [ ] Review job edit validation rules
+- [ ] Add missing fields in edit job view
 - [x] Wizard: Review validation rules
 - [ ] Wizard: for metadata queries (later)
 - [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
@@ -15,6 +16,7 @@
 - [ ] Keyboard shortcuts (later)
 - [x] Add a contextual help functionality
 - [x] Removed uniqueness constraints on jobs URL
+- [ ] Wizard should have a vertical scrollbar, when needed
 
 ## Scheduler module
 - [x] Enable HTTPS connection to target
