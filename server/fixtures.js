@@ -146,7 +146,7 @@ if (Jobs.find().count() === 0) {
   });
   Jobs.insert({
     _id: "dexru",
-    name: "Daily exchange rates",
+    name: "Daily exchange rates, uncompressed",
     url: "http://a-sdw-wsrest.ecb.europa.eu/service/data/EXR/D.NOK+CAD+RUB.EUR.SP00.A",
     ert: 1000,
     freq: 1,

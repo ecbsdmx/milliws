@@ -11,12 +11,13 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
 - [x] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
-- [ ] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
+- [x] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
 - [x] We could also use additional information such as the creation date, last run
 - [ ] Keyboard shortcuts (later)
 - [x] Add a contextual help functionality
 - [x] Removed uniqueness constraints on jobs URL
 - [ ] Wizard should have a vertical scrollbar, when needed
+- [ ] Need to check that the compression flag is used when SDW 3.12 is out (later)
 
 ## Scheduler module
 - [x] Enable HTTPS connection to target

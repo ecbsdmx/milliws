@@ -85,7 +85,7 @@ var triggerJob = function(job, last) {
     }
     event.ert = job.ert;
     var serieObs = {nSeries: 0, nObs: 0};
-    if (!error) {
+    if (200 === event.status) {
       // ATT result.headers['content-type'] does not return the proper type...
       switch(job.format){
         case "SDMX-ML 2.1 Generic":

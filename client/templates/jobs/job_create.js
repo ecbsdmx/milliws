@@ -36,7 +36,7 @@ Template.jobCreate.events({
       freq: parseInt($("#inputFreq").val()),
       deltas: $('#inputDeltas').prop('checked'),
       isCompressed: $('#inputCompress').prop('checked'),
-      isIMS: false,
+      isIMS:  $('#inputIMS').prop('checked'),
       format: "SDMX-JSON"
     };
     Meteor.call('jobInsert', job, function(error, result) {

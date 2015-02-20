@@ -14,7 +14,7 @@ Template.eventsList.helpers({
         {key: 'observations', label: '# of observations'}
       ], rowClass: function (item) {
         var status = item.status;
-        if (status != 200 && status != 404) {
+        if (status != 200 && status != 404 && status != 304) {
           return 'btn-danger';
         } else if ( item.responseTime > item.ert ) {
           return 'btn-danger';
