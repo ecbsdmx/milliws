@@ -1,26 +1,15 @@
 # TODO
 
 ## General
-- [x] Save sidebar toggle state in user session
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 
 ## Job module
 - [ ] Review job edit validation rules
 - [ ] Add missing fields in edit job view
-- [x] Wizard: Review validation rules
-- [ ] Wizard: for metadata queries (later)
-- [x] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
-- [x] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
-- [x] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
-- [x] We could also use additional information such as the creation date, last run
-- [ ] Keyboard shortcuts (later)
-- [x] Add a contextual help functionality
-- [x] Removed uniqueness constraints on jobs URL
 - [ ] Wizard should have a vertical scrollbar, when needed
+- [ ] Wizard: for metadata queries (later)
+- [ ] Keyboard shortcuts (later)
 - [ ] Need to check that the compression flag is used when SDW 3.12 is out (later)
-
-## Scheduler module
-- [x] Enable HTTPS connection to target
 
 ## Events module
 - [ ] Use same table as for jobs
@@ -47,19 +36,16 @@
 ## Documentation
 - [ ] Document the jobs
 
-## User management module
-
 ## Reports module
 - [ ] Number of times a job has run
 - [ ] Number of errors
 - [ ] Average execution time
 - [ ] Whether the last run was successful
 
-## Recycle bin module
-
 # OLD Done TODOs
 
 ## General
+- [x] Save sidebar toggle state in user session
 
 ## Job module
 - [x] Basic CRUD operations
@@ -82,6 +68,14 @@
 - [x] Style jobs tables as the event one (with appropriate font)
 - [x] Should offer a wizard to build the SDMX 2.1 RESTful query
 - [x] Fix bug found when editing one job than another in the same run without page refresh (url/name already exist)
+[x] Wizard: HTTP Conneg: Should support all SDMX 2.1 formats
+- [x] Wizard: HTTP Conneg: Should offer the possibility to ask for compressed responses
+- [x] Wizard: HTTP IMS: Should offer the possibility to perform an If-Modified-Since query
+- [x] We could also use additional information such as the creation date, last run
+- [x] Add a contextual help functionality
+- [x] Removed uniqueness constraints on jobs URL
+- [x] Wizard: Review validation rules
+- [x] Enable HTTPS connection to target
 
 ## Scheduler module
 - [x] Setup cron job
