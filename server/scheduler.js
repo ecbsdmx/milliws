@@ -42,20 +42,20 @@ var triggerJob = function(job, last) {
   var options = {
     strictSSL: false,
     agentOptions: {
-      secureProtocol: 'TLSv1_method',
+      secureProtocol: 'TLSv1_method'
       /*rejectUnauthorized: false*/
     },
     params: params, 
     headers: {
-      "User-Agent": "Heimdallr 1.0.0",
+      "User-Agent": "Heimdallr 1.0.0"
     }
   };
 
-  if (job.format === "SDMX-ML 2.1 Generic") {
+  if (job.format === "sdmx-generic-2.1") {
     options.headers.Accept = "application/vnd.sdmx.genericdata+xml;version=2.1";
-  } else if (job.format === "SDMX-ML 2.1 Structure") {
+  } else if (job.format === "sdmx-compact-2.1") {
     options.headers.Accept = "application/vnd.sdmx.structurespecificdata+xml;version=2.1";
-  } else if (job.format === "SDMX-JSON") {
+  } else if (job.format === "sdmx-json-1.0.0") {
     options.headers.Accept = "application/vnd.sdmx.data+json;version=1.0.0-wd";
   } else { // default/unknown is SDMX-JSON
     options.headers.Accept =  "application/vnd.sdmx.data+json;version=1.0.0-wd"
@@ -88,11 +88,13 @@ var triggerJob = function(job, last) {
     if (200 === event.status) {
       // ATT result.headers['content-type'] does not return the proper type...
       switch(job.format){
-        case "SDMX-ML 2.1 Generic":
-        case "SDMX-ML 2.1 Structure":
-          serieObs = parseXML(result.content);
+        case "sdmx-generic-2.1":
+          serieObs = parseGenericXML(result.content);
           break;
-        case "SDMX-JSON":
+        case "sdmx-compact-2.1":
+          serieObs = parseCompactXML(result.content);
+          break;
+        case "sdmx-json-1.0.0":
           serieObs = parseJSON(result.content);
           break;
         default:
@@ -105,11 +107,36 @@ var triggerJob = function(job, last) {
   });
 };
 
-var parseXML = function(content) {
+var parseCompactXML = function(content) {
   var ret = {nSeries: 0, nObs: 0};
-  console.log("In parseXML... TODO");
+  xml2js.parseString(content, function (err, result) {
+    result['message:StructureSpecificData']['message:DataSet'].forEach(function (dataset, index, array) {
+      var dsSeries = dataset.Series;
+      dsSeries.forEach(function (series, index, array) {
+        ret.nSeries++;
+        var obs = series.Obs;
+        ret.nObs = ret.nObs + obs.length;
+      });
+    });
+  });
   return ret;
-}
+};
+
+var parseGenericXML = function(content) {
+  var ret = {nSeries: 0, nObs: 0};
+  /*xml2js.parseString(content, function (err, result) {
+    result['message:StructureSpecificData']['message:DataSet'].forEach(function (dataset, index, array) {
+      var dsSeries = dataset.Series;
+      dsSeries.forEach(function (series, index, array) {
+        ret.nSeries++;
+        var obs = series.Obs;
+        ret.nObs = ret.nObs + obs.length;
+      });
+    });
+  });*/
+  return ret;
+};
+
 
 var parseJSON = function(content) {
   var ret = {nSeries: 0, nObs: 0};

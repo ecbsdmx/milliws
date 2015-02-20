@@ -59,6 +59,8 @@ nemo64:bootstrap-data@3.3.1_1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
 ordered-dict@1.0.2
+peerlibrary:blocking@0.5.1
+peerlibrary:xml2js@0.4.4_4
 percolatestudio:synced-cron@1.1.0
 random@1.0.2
 reactive-dict@1.0.5

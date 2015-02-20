@@ -129,6 +129,17 @@
                 </div>
                 <div class="step-pane sample-pane alert" data-step="3">
                   <div class="form-group form-group-sm">
+                    <label for="inputFormat" class="control-label col-xs-4">Format &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Format field" data-content="This parameter specifies the desired SDMX format of the response." data-container="form"></i></label>
+                    <div class="col-xs-8">
+                      <select id="inputFormat" class="form-control input-sm">
+                        <option value="sdmx-json-1.0.0" selected>SDMX-JSON</option>
+                        <option value="sdmx-compact-2.1">SDMX-ML 2.1 Structure Specific Data</option>
+                        <option value="sdmx-generic-2.1">SDMX-ML 2.1 Generic Data</option>
+                      </select>
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
                     <label for="inputCompress" class="control-label col-xs-4">Compress data? &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Compress data field" data-content="When enabled, the returned message will be compressed, which saves time transferring the file over the network." data-container="form"></i></label>
                     <div class="col-xs-8 checkbox">
                       <input id="inputCompress" type="checkbox" data-toggle="toggle" checked data-size="small">
