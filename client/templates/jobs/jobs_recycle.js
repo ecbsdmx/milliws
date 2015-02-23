@@ -1,6 +1,6 @@
 Template.jobsRecycle.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
-  $("#jobsRecycleTable").tablesorter({
+  $("#jobsTable").tablesorter({
     headers: {
       2:{sorter: false}
     }
