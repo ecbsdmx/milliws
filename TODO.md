@@ -4,7 +4,6 @@
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 
 ## Job module
-- [ ] Review job edit validation rules
 - [ ] Add missing fields in edit job view
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)

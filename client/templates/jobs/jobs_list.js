@@ -1,5 +1,6 @@
 Template.jobsList.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
+  $('.form-horizontal').validator();
 };
 
 Template.jobsList.helpers({
@@ -91,33 +92,43 @@ Template.jobsList.events({
 
   'click #jobModifSubmit': function(e) {
     e.preventDefault();
+    e.stopImmediatePropagation();
     var dataTable = $(e.target).closest('table').DataTable();
     var tr = $(e.target).closest('tr').prev();
     var row = dataTable.row(tr);
     var rowData =row.data();
     var formId = "#editForm_" + rowData._id;
-    
-    var job = {
-      _id: rowData._id,
-      //TODO: add name prop again
-      //name: $("#inputName").val(),
-      name: rowData.name,
-      url: $(formId + " #inputURL").val(),
-      ert: parseInt($(formId + " #inputERT").val()),
-      freq: parseInt($(formId + " #inputFreq").val()),
-      isDeleted: rowData.isDeleted,
-      isActive: rowData.isActive,
-      deltas: rowData.deltas,
-      isCompressed: rowData.isCompressed,
-      isIMS: rowData.isIMS,
-      format: rowData.format
-    };
-    Meteor.call('jobUpdate', job, function(error, result) {
-      if (error) {
-        return alert(error.reason);
+    Router.go('jobsList');
+    var valid = true;
+    $(formId).find('input').each(function(){
+      if (!this.checkValidity()) {
+        valid = false;
       }
-      Router.go('jobsList');
     });
+    console.log(valid);
+    if (valid) {
+      var job = {
+        _id: rowData._id,
+        //TODO: add name prop again
+        //name: $("#inputName").val(),
+        name: rowData.name,
+        url: $(formId + " #inputURL").val(),
+        ert: parseInt($(formId + " #inputERT").val()),
+        freq: parseInt($(formId + " #inputFreq").val()),
+        isDeleted: rowData.isDeleted,
+        isActive: rowData.isActive,
+        deltas: rowData.deltas,
+        isCompressed: rowData.isCompressed,
+        isIMS: rowData.isIMS,
+        format: rowData.format
+      };
+      Meteor.call('jobUpdate', job, function(error, result) {
+        if (error) {
+          return alert(error.reason);
+        }
+        Router.go('jobsList');
+      });
+    }
   },
 
   'click #jobModifCancel': function(e) {
@@ -131,7 +142,7 @@ Template.jobsList.events({
     $("#inputURL").val(rowData.url);
     $("#inputERT").val(rowData.ert);
     $("#inputFreq").val(rowData.freq);
-    
+
     $(e.target).closest('.jobsDetail').toggleClass("edit");
   },
 
@@ -156,25 +167,30 @@ function toggleChevron(e) {
   var row = dataTable.row(tr);
   var rowData =row.data();
 
-  if (row.child.isShown()) {
-    row.child.hide();
-    tr.removeClass('shown');
-  }
-  else {
-    row.child(format(rowData)).show();
-    tr.addClass('shown');
-  }
+  if (rowData !== undefined) {
+    if (row.child.isShown()) {
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      row.child(format(rowData)).show();
+      tr.addClass('shown');
+    }
 
-  // update the chevron icon
-  var chevronId = "#chevron_" + rowData._id;
-  if($(chevronId).hasClass( "fa-chevron-down")) {
-    $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-  } else {
-    $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+    // update the chevron icon
+    var chevronId = "#chevron_" + rowData._id;
+    if($(chevronId).hasClass( "fa-chevron-down")) {
+      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    } else {
+      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+    }
   }
 }
 
 function format (rowData) {
+  if (rowData === undefined) {
+    return "";
+  }
   var u = rowData.url;
 
   return '' + 
@@ -186,7 +202,8 @@ function format (rowData) {
     '        </div>' + 
     '        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
     '          <a href="' + u + '">' + trimUrl(u, 80) + '</a>' + 
-    '          <input type="url" name="inputURL" id="inputURL" required aria-required="true" value="' + u + '" />' + 
+    '          <input type="url" name="inputURL" id="inputURL" required aria-required="true" value="' + u + '" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/.*data/(([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?))\/?(([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*)\/?(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+))\/?[\?]?(.*)"/>' + 
+    '          <div class="help-block with-errors"></div>' +
     '        </div>' + 
     '      </div>' + 
     '' +
