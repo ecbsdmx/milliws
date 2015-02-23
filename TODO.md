@@ -2,6 +2,7 @@
 
 ## General
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
+- [ ] Table sorter: when sorting tables with expanded details row, it sorts wrongly all rows !
 
 ## Job module
 - [x] Add missing fields in edit job view
