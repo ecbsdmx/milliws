@@ -4,14 +4,16 @@
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 
 ## Job module
-- [ ] Add missing fields in edit job view
+- [x] Add missing fields in edit job view
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
+- [ ] Add a delete all button with confirmation (along side the other create, start & recycle button)
+- [ ] Is recycle button really well placed (other view and not general table action...) ?
 
 ## Events module
-- [ ] Use same table as for jobs
-- [ ] Restore "Executed on" time without moment.js relative expression
+- [ ] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
+- [ ] Restore "Executed on" time without moment.js relative expression (TZ: why restore now ?)
 - [ ] Add an option to get more info about the job
 - [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
 - [ ] Style the status code with a color gradient for better visual identification
