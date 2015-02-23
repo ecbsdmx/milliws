@@ -19,6 +19,7 @@
 - [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
 - [ ] Style the status code with a color gradient for better visual identification
 - [ ] Use a gauge for the response times
+- [ ] The filter is still displayed even when the filter and the data & equivalent rows are updated... :(
 
 ## Settings module
 - [ ] Default events go back num days
