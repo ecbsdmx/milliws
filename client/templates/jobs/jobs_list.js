@@ -50,6 +50,7 @@ Template.jobsList.events({
       });
     });
   },
+  
   /* Actions on individual JOB (-line) */
   'click .jobs .suspend': function(e) {
     e.preventDefault();

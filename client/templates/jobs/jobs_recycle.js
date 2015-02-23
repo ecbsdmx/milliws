@@ -31,8 +31,8 @@ Template.jobsRecycle.events({
       });
     }
   },
+  
   /* Actions on individual JOB (-line) */
-
   'click .jobsRecycle .undo': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
