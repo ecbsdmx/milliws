@@ -16,7 +16,7 @@
 - [ ] Add an option to get more info about the job
 - [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
 - [ ] Style the status code with a color gradient for better visual identification
-- [ ] (Tricky) Style the response time with a (fixed) color gradient from green-to-red with the ratio of responseTime:expectedResponseTime or use a gauge
+- [ ] Use a gauge for the response times
 
 ## Settings module
 - [ ] Default events go back num days
