@@ -1,5 +1,5 @@
 <template name="jobItemDetail">
-  
+
   <tr id="jobDetailRow_{{this._id}}" class="jobDetailRow">
     <td colspan="3">
       <div class="row">
@@ -15,7 +15,7 @@
         <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
           Expected response time
         </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
           <span>{{this.ert}} milliseconds</span>
         </div>
       </div>
@@ -24,11 +24,47 @@
         <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
           Job frequency
         </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
           <span>Every {{this.freq}} minute(s)</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Format
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+          <span>{{formatToEnglish this.format}}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Updates only (deltas)?
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+          <span>{{booleanToEnglish this.deltas}}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Compress data?
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+          <span>{{booleanToEnglish this.isCompressed}}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Conditional query?
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+          <span>{{booleanToEnglish this.isIMS}}</span>
         </div>
       </div>
     </td>
   </tr>
-  
+
 </template>

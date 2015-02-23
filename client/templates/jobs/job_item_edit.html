@@ -1,0 +1,85 @@
+<template name="jobItemEdit">
+
+  <tr id="jobEditRow_{{this._id}}" class="jobEditRow">
+    <td colspan="3">
+      <form id="editForm_{{this._id}}" class="form-horizontal" role="form">
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            SDMX 2.1 RESTful query
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+            <input type="url" name="inputURL" id="inputURL" required aria-required="true" value="{{this.url}}" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/.*data/(([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?))\/?(([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*)\/?(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+))\/?[\?]?(.*)"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Expected response time
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <input type="number" name="inputERT" id="inputERT" required aria-required="true" value="{{this.ert}}" min="300" max="5000" step="100">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Job frequency
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <input type="number" name="inputFreq" id="inputFreq" required aria-required="true" value="{{this.freq}}" min="1" max="60" step="1">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Format
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <select id="inputFormat" class="form-control input-sm">
+              <option value="sdmx-json-1.0.0" selected>SDMX-JSON</option>
+              <option value="sdmx-compact-2.1">SDMX-ML 2.1 Structure Specific Data</option>
+              <option value="sdmx-generic-2.1">SDMX-ML 2.1 Generic Data</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Updates only (deltas)?
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <input id="inputDeltas" type="checkbox" data-toggle="toggle" checked="{{this.deltas}}" data-size="small">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Compress data?
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <input id="inputCompressed" type="checkbox" data-toggle="toggle" checked="{{this.isCompressed}}" data-size="small">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Conditional query?
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+            <input id="inputIMS" type="checkbox" data-toggle="toggle" checked="{{this.isIMS}}" data-size="small">
+          </div>
+        </div>        
+
+        <div class="row">
+          <div class="jobsEditButtons col-xs-10 col-sm-10 col-md-10"></div> 
+          <div class="jobsEditButtons col-xs-2 col-sm-2 col-md-2 text-right"> 
+            <button type="submit" id="jobEditSubmit_{{this._id}}" class="jobEditSubmit btn btn-default btn-xs">Save</button> 
+            <button type="button" id="jobEditCancel_{{this._id}}" class="jobEditCancel btn btn-default btn-xs">Cancel</button>
+          </div> 
+        </div> 
+      </form>
+    </td>
+  </tr>
+
+</template>

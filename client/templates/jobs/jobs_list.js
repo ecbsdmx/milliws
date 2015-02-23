@@ -1,6 +1,11 @@
 Template.jobsList.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('.form-horizontal').validator();
+  $("#jobsTable").tablesorter({
+    headers: {
+      2:{sorter: false}
+    }
+  }); 
 };
 
 Template.jobsList.helpers({
@@ -19,6 +24,7 @@ Template.jobsList.helpers({
 });
 
 Template.jobsList.events({
+  /* Actions on all JOBS */
   'click #suspendAll': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -44,6 +50,7 @@ Template.jobsList.events({
       });
     });
   },
+  /* Actions on individual JOB (-line) */
   'click .jobs .suspend': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -66,13 +73,24 @@ Template.jobsList.events({
   },
   'click .jobs .edit': function(e) {
     e.preventDefault();
-    var $detailRow = $('#jobEditRow_' + this._id);
-    $detailRow.toggleClass("displayRow");
+    e.stopImmediatePropagation();
+    var $detailRow = $('#jobDetailRow_' + this._id);
+    var $editRow = $('#jobEditRow_' + this._id);
+    $detailRow.removeClass("displayRow");
+    $editRow.toggleClass("displayRow");
   },
-  
+
+  /* Whole JOB row click to toggle details */
   'click tr.jobHeaderRow': function (e) {
     e.preventDefault();
+    e.stopImmediatePropagation();
+
     var $detailRow = $('#jobDetailRow_' + this._id);
+
+    // prevent showing details when in edit mode and clicking on the job row header
+    var $editRow = $('#jobEditRow_' + this._id);
+    if ($editRow.hasClass("displayRow")) { return; }
+
     $detailRow.toggleClass("displayRow");
 
     //-- toggle chevron class
@@ -84,37 +102,34 @@ Template.jobsList.events({
     }
   },
 
-  'click #jobModifSubmit': function(e) {
+  /* JOB edition actions */
+  'click .jobEditSubmit': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    var dataTable = $(e.target).closest('table').DataTable();
-    var tr = $(e.target).closest('tr').prev();
-    var row = dataTable.row(tr);
-    var rowData =row.data();
-    var formId = "#editForm_" + rowData._id;
-    Router.go('jobsList');
+    var formId = "#editForm_" + this._id;
+
     var valid = true;
     $(formId).find('input').each(function(){
-      if (!this.checkValidity()) {
+      if (!this.checkValidity()) { //-- HTML5
         valid = false;
       }
     });
-    console.log(valid);
+
     if (valid) {
       var job = {
-        _id: rowData._id,
+        _id: this._id,
         //TODO: add name prop again
         //name: $("#inputName").val(),
-        name: rowData.name,
+        name: this.name,
         url: $(formId + " #inputURL").val(),
         ert: parseInt($(formId + " #inputERT").val()),
         freq: parseInt($(formId + " #inputFreq").val()),
-        isDeleted: rowData.isDeleted,
-        isActive: rowData.isActive,
-        deltas: rowData.deltas,
-        isCompressed: rowData.isCompressed,
-        isIMS: rowData.isIMS,
-        format: rowData.format
+        isDeleted: this.isDeleted,
+        isActive: this.isActive,
+        deltas: $(formId + " #inputDeltas").prop('checked'),
+        isCompressed: $(formId + " #inputCompressed").prop('checked'),
+        isIMS: $(formId + " #inputIMS").prop('checked'),
+        format: $(formId + " #inputFormat").val(),
       };
       Meteor.call('jobUpdate', job, function(error, result) {
         if (error) {
@@ -122,22 +137,24 @@ Template.jobsList.events({
         }
         Router.go('jobsList');
       });
+
+      // restore view state
+      var $detailRow = $('#jobDetailRow_' + this._id);
+      var $editRow = $('#jobEditRow_' + this._id);
+      $editRow.removeClass("displayRow");
+      $detailRow.addClass("displayRow");
     }
   },
-
-  'click #jobModifCancel': function(e) {
+  'click .jobEditCancel': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    // reset values to rowData !!!
-    var dataTable = $(e.target).closest('table').DataTable();
-    var tr = $(e.target).closest('tr').prev();
-    var row = dataTable.row(tr);
-    var rowData =row.data();
-    $("#inputURL").val(rowData.url);
-    $("#inputERT").val(rowData.ert);
-    $("#inputFreq").val(rowData.freq);
+    // reset values to this !!!
+    $("#inputURL").val(this.url);
+    $("#inputERT").val(this.ert);
+    $("#inputFreq").val(this.freq);
 
-    $(e.target).closest('.jobsDetail').toggleClass("edit");
+    var $editRow = $('#jobEditRow_' + this._id);
+    $editRow.toggleClass("displayRow");
   },
 
   'click .jobs .delete': function(e) {
@@ -154,17 +171,6 @@ Template.jobsList.events({
     }
   }  
 });
-
-function toggleChevron(e) {
-  // update the chevron icon
-  var chevronId = "#chevron_" + rowData._id;
-  if($(chevronId).hasClass( "fa-chevron-down")) {
-    $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-  } else {
-    $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-  }
-}
-
 
 function trimUrl(url, size) {
   var curLen = url.length;
