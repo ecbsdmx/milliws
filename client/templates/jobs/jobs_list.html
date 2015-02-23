@@ -1,4 +1,5 @@
 <template name="jobsList">
+  
   <div class="jobs">
     <h1>Monitoring jobs
       {{#if currentUser.profile.isAdmin}}
@@ -17,7 +18,25 @@
       </div>
       {{/if}}
     </h1>
-    {{> tabular table=TabularTables.ExistingJobs class="existingJobsTable table row-border stripe compact hover"}}
+
+    <table id="jobsTable" class="table table-stripe table-condensed table-hover">
+      <thead>
+        <tr>
+          <th class="col-md-2">ID</th>
+          <th class="col-md-8">Name</th>
+          <th class="col-md-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this}}
+        {{> jobItem }}
+        {{/each}}
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>   
+
   </div>
   {{> jobCreate}}
+  
 </template>

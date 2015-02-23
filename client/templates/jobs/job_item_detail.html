@@ -1,0 +1,34 @@
+<template name="jobItemDetail">
+  
+  <tr id="jobDetailRow_{{this._id}}" class="jobDetailRow">
+    <td colspan="3">
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          SDMX 2.1 RESTful query
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+          <a href="{{this.url}}">{{this.url}}</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Expected response time
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+          <span>{{this.ert}} milliseconds</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+          Job frequency
+        </div>
+        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
+          <span>Every {{this.freq}} minute(s)</span>
+        </div>
+      </div>
+    </td>
+  </tr>
+  
+</template>

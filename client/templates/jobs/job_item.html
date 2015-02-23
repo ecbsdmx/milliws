@@ -1,0 +1,14 @@
+<template name="jobItem">
+
+  <tr id="jobHeaderRow_{{this._id}}" class="jobHeaderRow">
+    <td>{{this._id}}</td>
+    <td>{{this.name}}</td>
+    <td>{{> jobItemActions}}</td>
+  </tr>
+
+  {{> jobItemDetail}}
+  <tr id="jobEditRow_{{this._id}}" class="jobEditRow">
+  Edit it !
+  </tr>
+
+</template>

@@ -44,12 +44,6 @@ Template.jobsList.events({
       });
     });
   },
-
-  'click tr': function (e) {
-    e.preventDefault();
-    toggleChevron(e);
-  },
-
   'click .jobs .suspend': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -72,21 +66,21 @@ Template.jobsList.events({
   },
   'click .jobs .edit': function(e) {
     e.preventDefault();
-    e.stopImmediatePropagation();
+    var $detailRow = $('#jobEditRow_' + this._id);
+    $detailRow.toggleClass("displayRow");
+  },
+  
+  'click tr.jobHeaderRow': function (e) {
+    e.preventDefault();
+    var $detailRow = $('#jobDetailRow_' + this._id);
+    $detailRow.toggleClass("displayRow");
 
-    // check if opened else open
-    var clickedRow = $(e.target).closest('tr');
-    if (!clickedRow.hasClass("shown")) {
-      toggleChevron(e);
-    }
-
-    // toggle edit mode
-    var detailRow = clickedRow.next();
-    var jobDetail = detailRow.find(".jobsDetail");
-
-    jobDetail.toggleClass("edit");
-    if (jobDetail.hasClass("edit")) {
-
+    //-- toggle chevron class
+    var chevronId = "#chevron_" + this._id;
+    if($(chevronId).hasClass( "fa-chevron-down")) {
+      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    } else {
+      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
     }
   },
 
@@ -162,80 +156,13 @@ Template.jobsList.events({
 });
 
 function toggleChevron(e) {
-  var dataTable = $(e.target).closest('table').DataTable();
-  var tr = $(e.target).closest('tr');
-  var row = dataTable.row(tr);
-  var rowData =row.data();
-
-  if (rowData !== undefined) {
-    if (row.child.isShown()) {
-      row.child.hide();
-      tr.removeClass('shown');
-    }
-    else {
-      row.child(format(rowData)).show();
-      tr.addClass('shown');
-    }
-
-    // update the chevron icon
-    var chevronId = "#chevron_" + rowData._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    }
+  // update the chevron icon
+  var chevronId = "#chevron_" + rowData._id;
+  if($(chevronId).hasClass( "fa-chevron-down")) {
+    $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+  } else {
+    $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
   }
-}
-
-function format (rowData) {
-  if (rowData === undefined) {
-    return "";
-  }
-  var u = rowData.url;
-
-  return '' + 
-    '  <form id="editForm_'+rowData._id+'" class="form-horizontal" role="form">' + 
-    '    <div class="jobsDetail container-fluid">' + 
-    '      <div class="row">' + 
-    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    '          SDMX 2.1 RESTful query' + 
-    '        </div>' + 
-    '        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">' + 
-    '          <a href="' + u + '">' + trimUrl(u, 80) + '</a>' + 
-    '          <input type="url" name="inputURL" id="inputURL" required aria-required="true" value="' + u + '" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/.*data/(([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?))\/?(([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*)\/?(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+))\/?[\?]?(.*)"/>' + 
-    '          <div class="help-block with-errors"></div>' +
-    '        </div>' + 
-    '      </div>' + 
-    '' +
-    '      <div class="row">' + 
-    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    '          Expected response time' + 
-    '        </div>' + 
-    '        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">' + 
-    '          <span>' + rowData.ert + ' milliseconds</span>' + 
-    '          <input type="number" name="inputERT" id="inputERT" required aria-required="true" value="' + rowData.ert + '" min="300" max="5000" step="100">' + 
-    '        </div>' + 
-    '      </div>' + 
-    '' +
-    '      <div class="row">' + 
-    '        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">' + 
-    '          Job frequency' + 
-    '        </div>' + 
-    '        <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">' + 
-    '          <span>Every '+rowData.freq+' minute(s)</span>' + 
-    '          <input type="number" name="inputFreq" id="inputFreq" required aria-required="true" value="' + rowData.freq + '" min="1" max="60" step="1">' + 
-    '        </div>' + 
-    '      </div>' + 
-    '' +
-    '      <div class="row">' + 
-    '        <div class="jobsEditButtons col-xs-10 col-sm-10 col-md-10"></div>' + 
-    '        <div class="jobsEditButtons col-xs-2 col-sm-2 col-md-2 text-right">' + 
-    '          <button type="submit" id="jobModifSubmit" class="btn btn-default btn-xs">Save</button>' + 
-    '          <button type="button" id="jobModifCancel" class="btn btn-default btn-xs">Cancel</button>' +
-    '        </div>' + 
-    '      </div>' + 
-    '    </div>' + 
-    '  </form>';
 }
 
 
