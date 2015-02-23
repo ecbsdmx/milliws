@@ -1,5 +1,5 @@
 <template name="jobsRecycle">
-  
+
   <div class="jobsRecycle">
     <h1>Recycle bin
       {{#if currentUser.profile.isAdmin}}
@@ -9,7 +9,27 @@
       </div>
       {{/if}}
     </h1>
+
+    <table id="jobsTable" class="table table-striped table-condensed table-hover tablesorter">
+      <thead>
+        <tr>
+          <th class="col-md-2">ID</th>
+          <th class="col-md-8">Name</th>
+          <th class="col-md-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this}}
+        {{> jobsRecycleItem }}
+        {{/each}}
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>   
+
+    <!--
     {{> tabular table=TabularTables.RecycledJobs class="recycledJobsTable table table-condensed table-hover table-striped"}}
+    -->
   </div>
-  
+
 </template>
