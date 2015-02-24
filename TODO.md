@@ -23,12 +23,18 @@
 - [ ] Default events go back num days
 
 ## Design
+- [ ] Add colour scheme
 - [ ] Add footer
-- [ ] Theming (later)
-- [ ] Review design of the overview page
-- [ ] Review design of the CRUD views
-- [ ] Jobs & jobs item : move global table buttons nearer to table
+- [ ] Review bootstrap themes
+- [ ] Highlight selected item in navigation bar
+- [ ] Harmonise forms
+- [ ] Review fonts used
+- [ ] Review action buttons (position, size, colour)
+- [ ] Action buttons should remain visible when scrolling
 - [ ] jobs_item_detail as a fact sheet
+- [ ] Style confirm box
+- [ ] Theming (later)
+- [ ] Handle page titles (needed?). Icon sufficient?
 
 ## Documentation
 - [ ] Document the jobs
