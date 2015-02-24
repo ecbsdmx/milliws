@@ -1,11 +1,13 @@
 Template.jobsList.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('.form-horizontal').validator();
-  $("#jobsTable").tablesorter({
+  /*
+  FIXME: detail row also sorted but should not
+    $("#jobsTable").tablesorter({
     headers: {
       2:{sorter: false}
     }
-  }); 
+  }); */
 };
 
 Template.jobsList.helpers({
@@ -50,7 +52,21 @@ Template.jobsList.events({
       });
     });
   },
-  
+  'click #deleteAll': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (confirm("Are you sure you want to delete all monitoring job? They can still be recovered later, if you change your mind. This will also hide all in the events view.")) {
+      this.forEach(function(item) {
+        item.isDeleted = true;
+        Meteor.call('jobUpdate', item, function(error, result) {
+          if (error) {
+            return alert(error.reason);
+          }
+        });
+      });
+    }
+  },
+
   /* Actions on individual JOB (-line) */
   'click .jobs .suspend': function(e) {
     e.preventDefault();

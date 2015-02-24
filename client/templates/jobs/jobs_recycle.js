@@ -1,10 +1,13 @@
 Template.jobsRecycle.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
+  /*
+  FIXME: detail row also sorted but should not
   $("#jobsTable").tablesorter({
     headers: {
       2:{sorter: false}
     }
   }); 
+  */
 };
 
 Template.jobsRecycle.events({

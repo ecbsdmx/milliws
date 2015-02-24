@@ -5,12 +5,9 @@
 - [ ] Table sorter: when sorting tables with expanded details row, it sorts wrongly all rows !
 
 ## Job module
-- [x] Add missing fields in edit job view
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
-- [ ] Add a delete all button with confirmation (along side the other create, start & recycle button)
-- [ ] Is recycle button really well placed (other view and not general table action...) ?
 - [ ] Harmonize forms (labels, contextual help, style, etc.)
 
 ## Events module
