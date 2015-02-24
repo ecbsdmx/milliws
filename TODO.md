@@ -11,6 +11,7 @@
 - [ ] Keyboard shortcuts (later)
 - [ ] Add a delete all button with confirmation (along side the other create, start & recycle button)
 - [ ] Is recycle button really well placed (other view and not general table action...) ?
+- [ ] Harmonize forms (labels, contextual help, style, etc.)
 
 ## Events module
 - [ ] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
@@ -30,6 +31,7 @@
 - [ ] Review design of the overview page
 - [ ] Review design of the CRUD views
 - [ ] Jobs & jobs item : move global table buttons nearer to table
+- [ ] jobs_item_detail as a fact sheet
 
 ## Documentation
 - [ ] Document the jobs

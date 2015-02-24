@@ -2,13 +2,24 @@
 
   <tr id="jobEditRow_{{this._id}}" class="jobEditRow">
     <td colspan="3">
-      <form id="editForm_{{this._id}}" class="form-horizontal" role="form">
+      <form id="editForm_{{this._id}}" class="form-horizontal" role="form" data-toggle="validator">
+        <div class="row">
+          <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
+            Name
+          </div>
+          <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
+            <input type="text" name="inputName_{{this._id}}" id="inputName_{{this._id}}" required aria-required="true" size="100" placeholder="A descriptive label for the monitoring job" data-error="Please define a descriptive name for the job." value="{{this.name}}">
+            <div class="help-block with-errors"></div>
+          </div>
+        </div>
+        
         <div class="row">
           <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
             SDMX 2.1 RESTful query
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-            <input type="url" name="inputURL" id="inputURL" required aria-required="true" size="100" value="{{this.url}}" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/.*data/(([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?))\/?(([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*)\/?(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+))\/?[\?]?(.*)"/>
+            <input type="url" name="inputURL_{{this._id}}" id="inputURL_{{this._id}}" required aria-required="true" size="100" value="{{this.url}}" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/.*data/(([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?))\/?(([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*)\/?(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+))\/?[\?]?(.*)"/>
+            <div class="help-block with-errors"></div>
           </div>
         </div>
 
@@ -17,7 +28,7 @@
             Expected response time
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <input type="number" name="inputERT" id="inputERT" required aria-required="true" value="{{this.ert}}" min="300" max="5000" step="100">
+            <input type="number" name="inputERT_{{this._id}}" id="inputERT_{{this._id}}" required aria-required="true" value="{{this.ert}}" min="300" max="5000" step="100">
           </div>
         </div>
 
@@ -26,7 +37,7 @@
             Job frequency
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <input type="number" name="inputFreq" id="inputFreq" required aria-required="true" value="{{this.freq}}" min="1" max="60" step="1">
+            <input type="number" name="inputFreq_{{this._id}}" id="inputFreq_{{this._id}}" required aria-required="true" value="{{this.freq}}" min="1" max="60" step="1">
           </div>
         </div>
 
@@ -35,7 +46,7 @@
             Format
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <select id="inputFormat" class="form-control input-sm">
+            <select id="inputFormat_{{this._id}}" class="form-control input-sm">
               <option value="sdmx-json-1.0.0" selected>SDMX-JSON</option>
               <option value="sdmx-compact-2.1">SDMX-ML 2.1 Structure Specific Data</option>
               <option value="sdmx-generic-2.1">SDMX-ML 2.1 Generic Data</option>
@@ -43,13 +54,12 @@
           </div>
         </div>
 
-
         <div class="row">
           <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
             Updates only (deltas)?
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <input id="inputDeltas" type="checkbox" data-toggle="toggle" checked="{{this.deltas}}" data-size="small">
+            <input id="inputDeltas_{{this._id}}" type="checkbox" data-toggle="toggle" checked="{{this.deltas}}" data-size="small">
           </div>
         </div>
 
@@ -58,7 +68,7 @@
             Compress data?
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <input id="inputCompressed" type="checkbox" data-toggle="toggle" checked="{{this.isCompressed}}" data-size="small">
+            <input id="inputCompressed_{{this._id}}" type="checkbox" data-toggle="toggle" checked="{{this.isCompressed}}" data-size="small">
           </div>
         </div>
 
@@ -67,7 +77,7 @@
             Conditional query?
           </div>
           <div class="jobsDetailValue col-xs-6 col-sm-4 col-md-2">
-            <input id="inputIMS" type="checkbox" data-toggle="toggle" checked="{{this.isIMS}}" data-size="small">
+            <input id="inputIMS_{{this._id}}" type="checkbox" data-toggle="toggle" checked="{{this.isIMS}}" data-size="small">
           </div>
         </div>        
 

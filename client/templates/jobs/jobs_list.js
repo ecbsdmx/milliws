@@ -119,18 +119,16 @@ Template.jobsList.events({
     if (valid) {
       var job = {
         _id: this._id,
-        //TODO: add name prop again
-        //name: $("#inputName").val(),
-        name: this.name,
-        url: $(formId + " #inputURL").val(),
-        ert: parseInt($(formId + " #inputERT").val()),
-        freq: parseInt($(formId + " #inputFreq").val()),
+        name: $("#inputName_" + this._id).val(),
+        url: $("#inputURL_" + this._id).val(),
+        ert: parseInt($("#inputERT_" + this._id).val()),
+        freq: parseInt($("#inputFreq_" + this._id).val()),
         isDeleted: this.isDeleted,
         isActive: this.isActive,
-        deltas: $(formId + " #inputDeltas").prop('checked'),
-        isCompressed: $(formId + " #inputCompressed").prop('checked'),
-        isIMS: $(formId + " #inputIMS").prop('checked'),
-        format: $(formId + " #inputFormat").val(),
+        deltas: $("#inputDeltas_" + this._id).prop('checked'),
+        isCompressed: $("#inputCompressed_" + this._id).prop('checked'),
+        isIMS: $("#inputIMS_" + this._id).prop('checked'),
+        format: $("#inputFormat_" + this._id).val(),
       };
       Meteor.call('jobUpdate', job, function(error, result) {
         if (error) {
