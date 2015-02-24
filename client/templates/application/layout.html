@@ -1,12 +1,18 @@
 <template name="layout">
-    {{#if currentUser}}
-        {{> header}}
-        <div class="container-fluid">
-            <div id="main">
-                {{> yield}}
-            </div>
-        </div>
-    {{else}}
-        {{> login}}}
-    {{/if}}
+
+  <!--<div class="container-fluid">-->
+  {{#if currentUser}}
+  {{> header}}
+  <div id="wrapper" class="active">
+    {{> sidebar}}
+    <div id="page-content-wrapper">
+      <div class="page-content inset clearfix">
+        {{> yield}}
+      </div>
+    </div>
+  </div>
+  {{else}}
+  {{> login}}
+  {{/if}}
+
 </template>

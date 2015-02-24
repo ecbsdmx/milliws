@@ -1,0 +1,33 @@
+// This File is for you to modify!
+// It won't be overwritten as long as it exists.
+// You may include this file into your less files to benefit from
+// mixins and variables that bootstrap provides.
+
+@import "custom.bootstrap.mixins.import.less";
+
+
+/* Theme */
+// bootstrap
+@import "spacelab-variables.import.less";
+@import "spacelab-bootswatch.import.less";
+// jquery DataTables
+@import url(http://cdn.datatables.net/1.10.5/css/jquery.dataTables.css);
+
+/* Bootstrap Toggle */
+//@import url(https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css);
+
+/* fonts */
+@import url(http://fonts.googleapis.com/css?family=Inconsolata:400,700);
+@font-face {
+    font-family: firstOrder;
+    src: url(fonts/firstv2.ttf);
+}
+
+/* navbar fixed top requires body padding */
+body { padding-top: 50px; }
+
+
+/* main styling */
+@import "form-signin.import.less";
+@import "sidebar.import.less";
+@import "main.import.less";
