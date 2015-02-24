@@ -1,12 +1,15 @@
 <template name="sidebar">
 
-  <div id="sidebar-wrapper" role="navigation">
+  <div id="sidebar-wrapper">
+    <div id="menu-toggle">
+      <span class="fa fa-chevron-circle-left fa-fw"></span>
+    </div>
+
     <ul id="sidebar_menu">
-      <li class="sidebar-carret"><a id="menu-toggle" href="#"><span class="fa fa-chevron-circle-left fa-fw pull-right"></span></a></li>      
-      <li><a href="{{pathFor 'eventsList'}}">Events <span class="fa fa-heartbeat fa-fw fa-lg pull-right"></span></a></li>
-      <li><a href="{{pathFor 'reportsList'}}">Reports <span class="fa fa-tachometer fa-fw fa-lg pull-right"></span></a></li>
-      <li><a href="{{pathFor 'jobsList'}}">Jobs <span class="fa fa-tasks fa-fw fa-lg pull-right"></span></a></li>
-      <li><a href="{{pathFor 'jobsRecycle'}}">Recycle bin <span class="fa fa-recycle fa-fw fa-lg pull-right"></span></a></li>
+      <li class="{{routeLinkActive 'eventsList'}}"><a href="{{pathFor 'eventsList'}}">Events <span class="fa fa-heartbeat fa-fw fa-lg pull-right"></span></a></li>
+      <li class="{{routeLinkActive 'reportsList'}}"><a href="{{pathFor 'reportsList'}}">Reports <span class="fa fa-bar-chart fa-fw fa-lg pull-right"></span></a></li>
+      <li class="{{routeLinkActive 'jobsList'}}"><a href="{{pathFor 'jobsList'}}">Jobs <span class="fa fa-list-ol fa-fw fa-lg pull-right"></span></a></li>
+      <li class="{{routeLinkActive 'jobsRecycle'}}"><a href="{{pathFor 'jobsRecycle'}}">Recycle bin <span class="fa fa-recycle fa-fw fa-lg pull-right"></span></a></li>
     </ul>
   </div>
 

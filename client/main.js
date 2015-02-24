@@ -1,3 +1,9 @@
+
+//FIXME find a way to have git/Github set the latest tag in this field..
+UI.registerHelper('appVersion', function() {
+  return "0.2.0";
+});
+
 UI.registerHelper('trimToSize', function(msg, size) {
   var curLen = msg.length;
   if (size < curLen) {

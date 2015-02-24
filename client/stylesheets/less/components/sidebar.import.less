@@ -1,16 +1,20 @@
+@import "vendor/custom.bootstrap.mixins.import.less";
+
 @sidebar-width:         135px;
 @sidebar-hiddenWidth:   30px;
 @sidebar-itemPadding:   4px;
 
-@sidebar-color:         #ddd;
-@sidebar-bg:            @brand-primary;
+
+@sidebar-color:         #333;
+@sidebar-bg:            #f5f5f5;
 @sidebar-bgHover:       lighten(@sidebar-bg, 10%);
 @sidebar-border:        darken(@sidebar-bg, 10%);
+
 
 #wrapper {
   padding-left: @sidebar-hiddenWidth;
   transition: all .4s ease 0s;
-  height: 100%
+  height: 100%;
 }
 #wrapper.active {
   padding-left: @sidebar-width;
@@ -33,34 +37,21 @@
   margin-left: -@sidebar-width;
   left: @sidebar-hiddenWidth;
   width: @sidebar-width;
-  background: @sidebar-bg;
-  border: 1px solid @sidebar-border;
   position: fixed;
-  height: 100%;
-  z-index: 10000;
+  background-color: #F5F5F5;
+  height: 100%;  
   transition: all .4s ease 0s;
 }
 
-#sidebar_menu li.sidebar-carret {
-  padding: 0px;
-  margin: 0px;
-  border: none;
+
+
+#menu-toggle {
+  width: 100%;
+    
 }
-#sidebar_menu li.sidebar-carret a {
-  padding: 0px;
-  margin: 0px;
-  border: none;
-  height: 16px;
-}
-#sidebar_menu li.sidebar-carret a:hover {
-  color: #fff;
-  background: @sidebar-bg;
-  text-decoration: none;
-}
-#sidebar_menu li.sidebar-carret a span{
-  margin: 0px;
-  padding: 0px;
-  padding-top: 1px;
+#menu-toggle span {
+  text-align: right;
+  width: 100%;
 }
 
 #sidebar_menu {
@@ -68,7 +59,7 @@
   padding: 0px;
 }
 #sidebar_menu li {
-  
+
 }
 #sidebar_menu li a {
   display: block;
@@ -92,23 +83,3 @@
 #sidebar_menu li a span {
   padding-top: @sidebar-itemPadding / 2;
 }
-
-/*
-@media (max-width:767px) {
-#wrapper {
-padding-left: @sidebar-hiddenWidth;
-transition: all .4s ease 0s;
-}
-#sidebar-wrapper {
-left: @sidebar-hiddenWidth;
-}
-#wrapper.active {
-padding-left: @sidebar-width;
-}
-#wrapper.active #sidebar-wrapper {
-left: @sidebar-width;
-width: @sidebar-width;
-transition: all .4s ease 0s;
-}
-}
-*/

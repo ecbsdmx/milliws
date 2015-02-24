@@ -24,7 +24,6 @@
 
 ## Design
 - [ ] Add colour scheme
-- [ ] Add footer
 - [ ] Review bootstrap themes
 - [ ] Highlight selected item in navigation bar
 - [ ] Harmonise forms
@@ -35,6 +34,7 @@
 - [ ] Style confirm box
 - [ ] Theming (later)
 - [ ] Handle page titles (needed?). Icon sufficient?
+- [ ] tooltips on sidebar icons (especially when toggles closed)
 
 ## Documentation
 - [ ] Document the jobs
