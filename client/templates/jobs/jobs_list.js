@@ -83,6 +83,8 @@ Template.jobsList.events({
     e.preventDefault();
     e.stopImmediatePropagation();
     this.isActive = false;
+    console.log("suspend this content:");
+    console.dir(this);
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
         return alert(error.reason);

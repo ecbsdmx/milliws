@@ -2,6 +2,7 @@
 
 ## General
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
+- [ ] Tooltip on job suspend action when clicked (preventdefault/propagation?) prevents the tooltip from being hidden again !
 
 ## Job module
 - [ ] Fix performance issue (S)
@@ -9,7 +10,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [ ] Harmonize forms (labels, contextual help, style, etc.)
-- [ ] Fix the creationDate in job pause action (S)
+- [x] Fix the creationDate in job pause action (S)
 
 ## Events module
 - [ ] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
