@@ -1,7 +1,7 @@
 # TODO
 
 ## General
-- [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
+- [x] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 - [ ] Tooltip on job suspend action when clicked (preventdefault/propagation?) prevents the tooltip from being hidden again !
 
 ## Job module

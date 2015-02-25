@@ -71,7 +71,6 @@ function augmentQueryString(queryString, paramName, value) {
 function initStep() {
   fields = {};
   var itemNr = $('#createWizard').wizard('selectedItem').step;
-  console.log("Init step #" + itemNr)
   var item = $(".step-pane[data-step="+itemNr+"]");
   fields = setValidationRules(item);
   setNextButtonState(fields);
@@ -94,11 +93,13 @@ function setValidationRules(step) {
       flds[this.name] = true;
     });
   }
+  /*
   for (var property in flds) {
     if (flds.hasOwnProperty(property)) {
       console.log(property + ": " + flds[property]);
     }
   }
+  */
   return flds;
 }
 

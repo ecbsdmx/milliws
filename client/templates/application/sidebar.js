@@ -1,14 +1,17 @@
 Template.sidebar.rendered = function() {
-  var carretState = Session.get('sidebarCarretState');  
   $('[data-toggle="tooltip"]').tooltip();
-  if (carretState !== null) {
-    switch(carretState) {
-      case "openned":
-        $("#wrapper").addClass("active");    
-        break;
-      default: 
-        $("#wrapper").removeClass("active");    
-    }
+
+  var carretState = Session.get('sidebarCarretState');  
+  if (typeof(carretState) == 'undefined') {
+    carretState = "openned";
+    Session.set('sidebarCarretState', carretState);  
+  }
+  switch(carretState) {
+    case "openned":
+      $("#wrapper").addClass("active");    
+      break;
+    default: 
+      $("#wrapper").removeClass("active");    
   }
 }
 Template.sidebar.helpers({
