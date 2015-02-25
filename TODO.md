@@ -30,7 +30,7 @@
 - [ ] Review action buttons (position, size, colour)
 - [ ] Action buttons should remain visible when scrolling
 - [ ] jobs_item_detail as a fact sheet
-- [ ] Style confirm box
+- [x] Style confirm box
 - [ ] Theming (later)
 - [ ] Handle page titles (needed?). Icon sufficient?
 - [x] tooltips on sidebar icons (especially when toggles closed)

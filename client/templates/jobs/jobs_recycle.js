@@ -28,13 +28,31 @@ Template.jobsRecycle.events({
   'click #deleteAll': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    if (confirm("Are you sure you want to delete all these monitoring jobs? They cannot be recovered later on.")) {
-      this.forEach(function(item) {
-        Jobs.remove(item._id);
-      });
-    }
+    var jobs = this;
+    bootbox.dialog({
+      message: "Are you sure you want to delete all these monitoring jobs? They cannot be recovered later on.",
+      title: "Delete all monitoring jobs?",
+      buttons: {
+        success: {
+          label: "Cancel",
+          className: "btn-default",
+          callback: function() {
+            $('.bootbox').modal('hide');
+          }
+        },
+        danger: {
+          label: "Delete",
+          className: "btn-danger",
+          callback: function() {
+            jobs.forEach(function(item) {
+              Jobs.remove(item._id);
+            });
+          }
+        }
+      }
+    });
   },
-  
+
   /* Actions on individual JOB (-line) */
   'click .jobsRecycle .undo': function(e) {
     e.preventDefault();
@@ -49,13 +67,31 @@ Template.jobsRecycle.events({
   'click .jobsRecycle .delete': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    if (confirm("Are you sure you want to delete this monitoring job? The job cannot be recovered later on. Furthemore, all events recorded for that job will be deleted too! ")) {
-      Meteor.call('jobPhysicalDelete', this, function(error, result) {
-        if (error) {
-          return alert(error.reason);
+    var job = this;
+    bootbox.dialog({
+      message: "Are you sure you want to delete this monitoring job? The job cannot be recovered later on. Furthemore, all events recorded for that job will be deleted too!",
+      title: "Delete monitoring job?",
+      buttons: {
+        success: {
+          label: "Cancel",
+          className: "btn-default",
+          callback: function() {
+            $('.bootbox').modal('hide');
+          }
+        },
+        danger: {
+          label: "Delete",
+          className: "btn-danger",
+          callback: function() {
+            Meteor.call('jobPhysicalDelete', job, function(error, result) {
+              if (error) {
+                return alert(error.reason);
+              }
+            });
+          }
         }
-      });
-    }
+      }
+    });
   },
   /* Whole JOB row click to toggle details */
   'click tr.jobHeaderRow': function (e) {
