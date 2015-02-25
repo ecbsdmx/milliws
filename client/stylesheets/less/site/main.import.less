@@ -1,3 +1,5 @@
+@import "vendor/custom.bootstrap.import.less";
+
 /* navbar fixed top requires body padding */
 body { 
   padding-top: 50px;
@@ -47,20 +49,29 @@ table {
   //font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
 }
 
-
+.scrollableTable500 {
+  overflow-y: scroll;
+  height: 500px;
+  max-height: 500px;
+  overflow-x: hidden;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
 
 
 /* Jobs table */
 #jobsTable, .recycledJobsTable {
-  /*
-  padding: 0px 10px;
-  font-size: 0.9em;
-  font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
+}
+#jobsTable th {
+  /*background-color: @color-primary-2;
+  color: #fff;
   */
 }
-
 #jobsTable tr.jobHeaderRow {
-
+  /*background-color: @color-primary-1;
+  color: #fff;
+  */
 }
 #jobsTable tr.jobDetailRow {
   display: none;
