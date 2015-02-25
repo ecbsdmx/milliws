@@ -1,13 +1,10 @@
 <template name="JobsRecycledItemActions">
-  <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">  
-    <a class="btn btn-xs"><i id="chevron_{{this._id}}" class="fa fa-fw fa-chevron-down"></i></a>
-  </div>
-
   <div class="btn-toolbar pull-right" role="toolbar">
     {{#if currentUser.profile.isAdmin}}
     <div class="btn-group pull-right" role="group">
-      <a class="undo btn btn-xs" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Recover this job"><span class="fa fa-undo fa-fw"></span></a>
-      <a class="delete btn btn-xs" href="#" role="button" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><span class="fa fa-trash-o fa-fw"></span></a>
+      <a class="undo btn btn-default btn-xs" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Recover this job"><span class="fa fa-undo fa-fw"></span></a>
+      <a class="delete btn btn-default btn-xs" href="#" role="button" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><span class="fa fa-trash-o fa-fw"></span></a>
+      <a class="btn btn-default btn-xs"><i id="chevron_{{this._id}}" class="fa fa-fw fa-chevron-down"></i></a>
     </div>
     {{/if}}
   </div>

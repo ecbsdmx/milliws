@@ -1,22 +1,16 @@
 <template name="jobsItemActions">
-  <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">  
-    <a class="btn btn-xs"><i id="chevron_{{this._id}}" class="fa fa-fw fa-chevron-down"></i></a>
-  </div>
-  <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
-    <a class="edit btn btn-xs"><i class="fa fa-fw fa-pencil-square-o"></i></a>
-    <a class="delete btn btn-xs" data-bb="dialog"><i class="fa fa-fw fa-trash-o"></i></a>
-  </div>
-  
   <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
     {{#if isActive}}
-    <a class="suspend btn btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
+    <a class="suspend btn btn-default btn-xs" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
       <span class="fa fa-pause fa-fw"></span>
     </a>
     {{else}}
-    <a class="resume btn btn-xs" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
+    <a class="resume btn btn-default btn-xs" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
       <span class="fa fa-play fa-fw"></span>
     </a>
     {{/if}}
+    <a class="edit btn btn-default btn-xs"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+    <a class="delete btn btn-default btn-xs" data-bb="dialog"><i class="fa fa-fw fa-trash-o"></i></a>
+    <a class="btn btn-default btn-xs"><i id="chevron_{{this._id}}" class="fa fa-fw fa-chevron-down"></i></a>
   </div>
-
 </template>
