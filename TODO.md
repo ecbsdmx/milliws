@@ -2,7 +2,6 @@
 
 ## General
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
-- [ ] Table sorter: when sorting tables with expanded details row, it sorts wrongly all rows !
 
 ## Job module
 - [ ] Check that the compression flag is used when SDW 3.12 is out
@@ -23,11 +22,11 @@
 - [ ] Default events go back num days
 
 ## Design
-- [ ] Add colour scheme
-- [ ] Review bootstrap themes
-- [ ] Highlight selected item in navigation bar
+- [x] Add colour scheme
+- [x] Review bootstrap themes
+- [x] Highlight selected item in navigation bar
 - [ ] Harmonise forms
-- [ ] Review fonts used
+- [x] Review fonts used
 - [ ] Review action buttons (position, size, colour)
 - [ ] Action buttons should remain visible when scrolling
 - [ ] jobs_item_detail as a fact sheet
