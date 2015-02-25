@@ -4,6 +4,7 @@
 - [ ] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 
 ## Job module
+- [ ] Fix performance issue (S)
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
@@ -25,15 +26,16 @@
 - [x] Add colour scheme
 - [x] Review bootstrap themes
 - [x] Highlight selected item in navigation bar
-- [ ] Harmonise forms
+- [ ] Harmonise forms (S)
 - [x] Review fonts used
-- [ ] Review action buttons (position, size, colour)
-- [ ] Action buttons should remain visible when scrolling
-- [ ] jobs_item_detail as a fact sheet
+- [x] Review action buttons (position, size, colour)
+- [x] Action buttons should remain visible when scrolling
+- [ ] jobs_item_detail as a fact sheet (X)
 - [x] Style confirm box
 - [ ] Theming (later)
-- [ ] Handle page titles (needed?). Icon sufficient?
+- [ ] Handle page titles (needed?). Icon sufficient? (X)
 - [x] tooltips on sidebar icons (especially when toggles closed)
+ -[ ] Sidebar: Fix issue with navigation hover + align icon (S)
 
 ## Documentation
 - [ ] Document the jobs
