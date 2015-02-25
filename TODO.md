@@ -37,7 +37,7 @@
 - [ ] Theming (later)
 - [ ] Handle page titles (needed?). Icon sufficient? (X)
 - [x] tooltips on sidebar icons (especially when toggles closed)
- -[ ] Sidebar: Fix issue with navigation hover + align icon (S)
+ -[x] Sidebar: Fix issue with navigation hover + align icon (S)
 
 ## Documentation
 - [ ] Document the jobs
