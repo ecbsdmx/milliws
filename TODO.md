@@ -9,6 +9,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [ ] Harmonize forms (labels, contextual help, style, etc.)
+- [ ] Fix the creationDate in job pause action (S)
 
 ## Events module
 - [ ] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
