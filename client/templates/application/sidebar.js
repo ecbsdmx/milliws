@@ -13,14 +13,10 @@ Template.sidebar.rendered = function() {
 }
 Template.sidebar.helpers({
   routeLinkActive: function(template) {
-  var currentRoute = Router.current();
-    console.log("Template: " + template);
-    console.log("CurrentRoute: " + currentRoute);
-    console.log("lookupTemplate: " + currentRoute.lookupTemplate());
-    
-  return currentRoute && 
-    template === currentRoute.lookupTemplate() ? 'active' : '';
-}
+    var currentRoute = Router.current();
+    return currentRoute && 
+        template === currentRoute.route.getName() ? 'active' : '';
+  }
 });
 Template.sidebar.events({
   "click #menu-toggle": function(e) {

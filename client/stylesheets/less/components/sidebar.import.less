@@ -1,6 +1,6 @@
-@import "vendor/custom.bootstrap.mixins.import.less";
+@import "vendor/custom.bootstrap.import.less";
 
-@sidebar-width:         135px;
+@sidebar-width:         145px;
 @sidebar-hiddenWidth:   30px;
 @sidebar-itemPadding:   4px;
 
@@ -47,7 +47,6 @@
 
 #menu-toggle {
   width: 100%;
-    
 }
 #menu-toggle span {
   text-align: right;
@@ -58,8 +57,11 @@
   list-style: none;
   padding: 0px;
 }
-#sidebar_menu li {
-
+#sidebar_menu li.active {
+  font-weight: bold;
+}
+#sidebar_menu li.active a {
+  background-color: @color-primary-1; 
 }
 #sidebar_menu li a {
   display: block;
