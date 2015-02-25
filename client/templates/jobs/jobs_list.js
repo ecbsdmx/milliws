@@ -1,13 +1,6 @@
 Template.jobsList.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
   $('.form-horizontal').validator();
-  /*
-  FIXME: detail row also sorted but should not
-    $("#jobsTable").tablesorter({
-    headers: {
-      2:{sorter: false}
-    }
-  }); */
 };
 
 Template.jobsList.helpers({
@@ -163,6 +156,7 @@ Template.jobsList.events({
         isCompressed: $("#inputCompressed_" + this._id).prop('checked'),
         isIMS: $("#inputIMS_" + this._id).prop('checked'),
         format: $("#inputFormat_" + this._id).val(),
+        creationDate: this.creationDate
       };
       Meteor.call('jobUpdate', job, function(error, result) {
         if (error) {
