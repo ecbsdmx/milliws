@@ -33,7 +33,7 @@
 - [ ] Style confirm box
 - [ ] Theming (later)
 - [ ] Handle page titles (needed?). Icon sufficient?
-- [ ] tooltips on sidebar icons (especially when toggles closed)
+- [x] tooltips on sidebar icons (especially when toggles closed)
 
 ## Documentation
 - [ ] Document the jobs

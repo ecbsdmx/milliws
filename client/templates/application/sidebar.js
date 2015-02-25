@@ -1,7 +1,7 @@
 Template.sidebar.rendered = function() {
   var carretState = Session.get('sidebarCarretState');  
-  if (carretState !== null)
-  {
+  $('[data-toggle="tooltip"]').tooltip();
+  if (carretState !== null) {
     switch(carretState) {
       case "openned":
         $("#wrapper").addClass("active");    
