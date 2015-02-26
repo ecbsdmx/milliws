@@ -1,12 +1,13 @@
 @jobsScrollerHeight : 500px;
 @nonEssentialPanelElemOpacity: 0.2;
+@nonEssentialPanelElemFadeSpeed: 0.5s;
 
 .jobs {
   & > .row {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: @jobsScrollerHeight;
-    max-height: @jobsScrollerHeight;
+    //overflow-y: scroll;
+    //overflow-x: hidden;
+    //height: @jobsScrollerHeight;
+    //max-height: @jobsScrollerHeight;
   }
 
   .panel {
@@ -18,12 +19,14 @@
       .panel-heading {
         small {
           opacity: 1;
-          transition: opacity 1s;
+          transition: opacity @nonEssentialPanelElemFadeSpeed;
         }
       }
       .panel-footer  {
-        opacity: 1;
-        transition: opacity 1s;
+        div {
+          opacity: 1;
+          transition: opacity @nonEssentialPanelElemFadeSpeed;
+        }
       }
     }
     &.collapsed .panel-body {
@@ -44,6 +47,7 @@
     border-bottom: none;
     small {
       opacity: @nonEssentialPanelElemOpacity;
+      transition: opacity @nonEssentialPanelElemFadeSpeed;
     }
   }
   // must add a class for when displayed or not to
@@ -56,7 +60,10 @@
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 5px;
-    opacity: @nonEssentialPanelElemOpacity;
+    div {
+      opacity: @nonEssentialPanelElemOpacity;
+      transition: opacity @nonEssentialPanelElemFadeSpeed;
+    }
   }
 
   h3 {

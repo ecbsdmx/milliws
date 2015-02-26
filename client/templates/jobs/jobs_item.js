@@ -1,6 +1,7 @@
 //FIXME initialize the sessions variables to the default: opened or closed...
 Template.jobsItem.helpers({
   dynTemp : function() {
+    console.log("dynTemp update triggered");
     var jobItem = this._id;
 
     var jobsState = Session.get("jobDetailState" + jobItem);

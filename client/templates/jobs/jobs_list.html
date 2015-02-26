@@ -4,6 +4,14 @@
     {{#if currentUser.profile.isAdmin}}
       <div class="clearfix">
         <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
+          <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
+          {{#if isAllDetailsVisible}}
+            <span class="fa fa-eye-slash fa-fw"></span>
+          {{else}}
+            <span class="fa fa-eye fa-fw"></span>
+          {{/if}}
+          </a>
+
           {{#if isAllActive}}
           <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
             <span class="fa fa-pause fa-fw"></span>
