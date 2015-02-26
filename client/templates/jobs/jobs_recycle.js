@@ -6,9 +6,15 @@ Template.jobsRecycle.rendered = function() {
     headers: {
       2:{sorter: false}
     }
-  }); 
+  });
   */
 };
+
+Template.jobsRecycle.helpers({
+  isEmpty: function() {
+    return 0 === Jobs.find({isDeleted: true}).count();
+  }
+});
 
 Template.jobsRecycle.events({
   /* Actions on all JOBS */
@@ -54,7 +60,7 @@ Template.jobsRecycle.events({
   },
 
   /* Actions on individual JOB (-line) */
-  'click .jobsRecycle .undo': function(e) {
+  'click .jobs .undo': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.isDeleted = false;
@@ -64,7 +70,7 @@ Template.jobsRecycle.events({
       }
     });
   },
-  'click .jobsRecycle .delete': function(e) {
+  'click .jobs .delete': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     var job = this;
@@ -92,23 +98,5 @@ Template.jobsRecycle.events({
         }
       }
     });
-  },
-  /* Whole JOB row click to toggle details */
-  'click tr.jobHeaderRow': function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    var $detailRow = $('#jobDetailRow_' + this._id);
-
-    $detailRow.toggleClass("displayRow");
-
-    //-- toggle chevron class
-    var chevronId = "#chevron_" + this._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    }
-  },
-
+  }
 });

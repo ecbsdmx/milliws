@@ -1,17 +1,15 @@
 //FIXME initialize the sessions variables to the default: opened or closed...
-Template.jobsItem.helpers({
+Template.jobsRecycleItem.helpers({
   dynTemp : function() {
     var jobItem = this._id;
 
-    var jobsState = Session.get("jobDetailState" + jobItem);
+    var jobsState = Session.get("jobRecycleState" + jobItem);
     if (typeof(jobsState) == 'undefined') {
       jobsState = defaultJobPanelState;
-      Session.set("jobDetailState" + jobItem,jobsState);
+      Session.set("jobRecycleState" + jobItem,jobsState);
      }
 
     switch (jobsState) {
-      case "edit":
-        return "jobsItemEdit";
       case "details":
         return "jobsItemDetail";
     }
@@ -19,21 +17,20 @@ Template.jobsItem.helpers({
   }
 });
 
-
-Template.jobsItem.events({
+Template.jobsRecycleItem.events({
   /* Whole JOB row click to toggle details */
   'click .jobsHeader': function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    
+
     var clickedItem = this._id;
-    var currentItemState = Session.get("jobDetailState" + clickedItem);
+    var currentItemState = Session.get("jobRecycleState" + clickedItem);
     var $panel = $(e.target).closest(".panel");
 
     if (typeof(currentItemState) == 'undefined') {
       // not toggled yet : toggle on
-      Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState"+ clickedItem, defaultJobPanelState);
+      Session.set("jobRecycleStateItem", clickedItem);
+      Session.set("jobRecycleState" + clickedItem, "details");
       if (defaultJobPanelState === "details"){
         $panel.addClass("details");
       }
@@ -42,16 +39,15 @@ Template.jobsItem.events({
       }
     }
 
-    if (currentItemState === "details" && currentItemState !== "edit") {
+    if (currentItemState === "details") {
       // not in edit mode for that item and in details mode: toggle off
-      Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState" + clickedItem, "");
+      Session.set("jobRecycleStateItem", clickedItem);
+      Session.set("jobRecycleState" + clickedItem, "");
       $panel.removeClass("details").addClass("collapsed");
-    }
-    else if (currentItemState !== "edit") {
-      // already toggled previously but not currently on: toggle on
-      Session.set("jobDetailState"+ clickedItem, "details");
-      Session.set("jobDetailStateItem", clickedItem);
+    } else {
+      // already toggled buit not currently toggled on: toggle on
+      Session.set("jobRecycleState"+ clickedItem, "details");
+      Session.set("jobRecycleStateItem", clickedItem);
       $panel.removeClass("collapsed").addClass("details");
     }
   }

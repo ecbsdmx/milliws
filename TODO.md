@@ -3,17 +3,17 @@
 ## General
 - [x] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 - [ ] Tooltip on job suspend action when clicked (preventdefault/propagation?) prevents the tooltip from being hidden again !
+- [ ] Check jobs_{list,recycle}.js & jobs_{list,recycle}_item.js : lots of duplicate code to maintain...
 
 ## Job module
-- [ ] Fix performance issue (S)
+- [x] Fix performance issue (S)
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
-- [ ] Harmonize forms (labels, contextual help, style, etc.)
 - [x] Fix the creationDate in job pause action (S)
 
 ## Events module
-- [ ] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
+- [x] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
 - [ ] Restore "Executed on" time without moment.js relative expression (TZ: why restore now ?)
 - [ ] Add an option to get more info about the job
 - [ ] Align the column content appropriatly (numbers : right-aligned, etc.)
@@ -32,10 +32,10 @@
 - [x] Review fonts used
 - [x] Review action buttons (position, size, colour)
 - [x] Action buttons should remain visible when scrolling
-- [ ] jobs_item_detail as a fact sheet (X)
+- [x] jobs_item_detail as a fact sheet (X)
 - [x] Style confirm box
 - [ ] Theming (later)
-- [ ] Handle page titles (needed?). Icon sufficient? (X)
+- [x] Handle page titles (needed?). Icon sufficient? (X)
 - [x] tooltips on sidebar icons (especially when toggles closed)
  -[x] Sidebar: Fix issue with navigation hover + align icon (S)
 

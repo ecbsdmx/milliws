@@ -102,12 +102,6 @@ Template.jobsList.events({
       Session.set("jobDetailStateItem", clickedItem);
       Session.set("jobDetailState"+ clickedItem, "edit");
     }
-    /*
-    var $detailRow = $('#jobDetailRow_' + this._id);
-    var $editRow = $('#jobEditRow_' + this._id);
-    $detailRow.removeClass("displayRow");
-    $editRow.toggleClass("displayRow");
-    */
   },
 
   /* Actions on individual JOB (-line) */
