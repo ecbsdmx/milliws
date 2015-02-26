@@ -11,6 +11,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [x] Fix the creationDate in job pause action (S)
+- [ ] Add a collapse/show-details for all job items in jobs list & recycle bin views
 
 ## Events module
 - [x] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
