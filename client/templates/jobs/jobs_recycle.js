@@ -11,6 +11,19 @@ Template.jobsRecycle.rendered = function() {
 };
 
 Template.jobsRecycle.helpers({
+  isAllDetailsVisible: function() {
+    var totalCount = this.count();
+    var visibleCount = 0;
+    this.forEach(function(item) {
+      var currentItem = item._id;
+      var currentItemState = Session.get("jobRecycleState"+ currentItem);
+      if (typeof(currentItem) != 'undefined') {
+        if (currentItemState === "details") visibleCount++;
+      }
+    });//for each
+    if (visibleCount > totalCount/2) return true;
+    return false;
+  },
   isEmpty: function() {
     return 0 === Jobs.find().count();
   }
@@ -18,6 +31,44 @@ Template.jobsRecycle.helpers({
 
 Template.jobsRecycle.events({
   /* Actions on all JOBS */
+   /* Actions on all JOBS */
+  'click #toggleJobDetails': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    var totalCount = this.count();
+    var visibleCount = 0;
+    this.forEach(function(item) {
+      var currentItem = item._id;
+      var currentItemState = Session.get("jobRecycleState"+ currentItem);
+      if (typeof(currentItem) != 'undefined') {
+        if (currentItemState === "details") visibleCount++;
+      }
+    });//for each
+    if (visibleCount < totalCount/2) {
+      this.forEach(function(item) {
+        var currentItem = item._id;
+        Session.set("jobRecycleStateItem", currentItem);
+        Session.set("jobRecycleState"+ currentItem, "details");
+        var $panels = $(".jobs .panel");
+        $panels.each(function(index) {
+          $($panels[index]).removeClass("collapsed").addClass("details");
+        });
+      });
+    }
+    else {
+      this.forEach(function(item) {
+        var currentItem = item._id;
+        Session.set("jobRecycleStateItem", currentItem);
+        Session.set("jobRecycleState"+ currentItem, "");
+        var $panels = $(".jobs .panel");
+        $panels.each(function(index) {
+          $($panels[index]).removeClass("details").addClass("collapsed");
+        });
+      });
+
+    }
+  },
   'click #undoAll': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();

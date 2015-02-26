@@ -7,6 +7,13 @@
       {{#if currentUser.profile.isAdmin}}
         <div class="clearfix">
           <div class="btn-group btn-group-xs pull-right" role="group">
+             <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
+            {{#if isAllDetailsVisible}}
+              <span class="fa fa-eye-slash fa-fw"></span>
+            {{else}}
+              <span class="fa fa-eye fa-fw"></span>
+            {{/if}}
+            </a>
             <a class="btn btn-default btn-sm" href="#" role="button" id="undoAll" data-toggle="tooltip" data-placement="bottom" title="Recover all jobs"><span class="fa fa-undo fa-lg fa-fw"></span></a>
             <a class="btn btn-danger btn-sm" href="#" role="button" id="deleteAll" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
           </div>
