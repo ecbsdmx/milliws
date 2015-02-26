@@ -80,8 +80,6 @@ Template.jobsList.events({
 
   /* Actions on individual JOB (-line) */
   'click .jobs .suspend': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
     this.isActive = false;
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
@@ -90,8 +88,6 @@ Template.jobsList.events({
     });
   },
   'click .jobs .resume': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
     this.isActive = true;
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
