@@ -80,8 +80,6 @@ Template.jobsList.events({
 
   /* Actions on individual JOB (-line) */
   'click .jobs .suspend': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
     this.isActive = false;
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
@@ -90,8 +88,6 @@ Template.jobsList.events({
     });
   },
   'click .jobs .resume': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
     this.isActive = true;
     Meteor.call('jobUpdate', this, function(error, result) {
       if (error) {
@@ -114,8 +110,9 @@ Template.jobsList.events({
     if (currentItemState === "edit") {
       // in edit mode for that item: toggle off
       Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState" + clickedItem, "");
+      Session.set("jobDetailState" + clickedItem, "details");
       //FIXME reset fields?
+      ////FIXME select default: blanko or details
     }
     else {
       // other cases: toggle on
@@ -131,7 +128,7 @@ Template.jobsList.events({
   },
 
   /* Whole JOB row click to toggle details */
-  'click tr.jobHeaderRow': function (e) {
+  'click .jobsHeader': function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     
@@ -261,5 +258,5 @@ Template.jobsList.events({
         }
       }
     });
-  }  
+  }
 });

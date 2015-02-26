@@ -1,23 +1,23 @@
 Template.sidebar.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000 }});
 
-  var carretState = Session.get('sidebarCarretState');  
+  var carretState = Session.get('sidebarCarretState');
   if (typeof(carretState) == 'undefined') {
     carretState = "openned";
-    Session.set('sidebarCarretState', carretState);  
+    Session.set('sidebarCarretState', carretState);
   }
   switch(carretState) {
     case "openned":
-      $("#wrapper").addClass("active");    
+      $("#wrapper").addClass("active");
       break;
-    default: 
-      $("#wrapper").removeClass("active");    
+    default:
+      $("#wrapper").removeClass("active");
   }
 }
 Template.sidebar.helpers({
   routeLinkActive: function(template) {
     var currentRoute = Router.current();
-    return currentRoute && 
+    return currentRoute &&
         template === currentRoute.route.getName() ? 'active' : '';
   }
 });
