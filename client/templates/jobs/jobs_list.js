@@ -78,23 +78,6 @@ Template.jobsList.events({
     });
   },
 
-  /* Actions on individual JOB (-line) */
-  'click .jobs .suspend': function(e) {
-    this.isActive = false;
-    Meteor.call('jobUpdate', this, function(error, result) {
-      if (error) {
-        return alert(error.reason);
-      }
-    });
-  },
-  'click .jobs .resume': function(e) {
-    this.isActive = true;
-    Meteor.call('jobUpdate', this, function(error, result) {
-      if (error) {
-        return alert(error.reason);
-      }
-    });
-  },
   'click .jobs .edit': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -110,7 +93,7 @@ Template.jobsList.events({
     if (currentItemState === "edit") {
       // in edit mode for that item: toggle off
       Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState" + clickedItem, "details");
+      Session.set("jobDetailState" + clickedItem, defaultJobPanelState);
       //FIXME reset fields?
       ////FIXME select default: blanko or details
     }
@@ -127,51 +110,22 @@ Template.jobsList.events({
     */
   },
 
-  /* Whole JOB row click to toggle details */
-  'click .jobsHeader': function (e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    
-    var clickedItem = this._id;
-    var currentItemState = Session.get("jobDetailState" + clickedItem);
-
-    if (typeof(currentItemState) == 'undefined') {
-      // not toggled yet : toggle on
-      Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState"+ clickedItem, "details");
-    }
-
-    if (currentItemState === "details" && currentItemState !== "edit") {
-      // not in edit mode for that item and in details mode: toggle off
-      Session.set("jobDetailStateItem", clickedItem);
-      Session.set("jobDetailState" + clickedItem, "");
-    }
-    else if (currentItemState !== "edit") {
-      // already toggled buit not currently toggled on: toggle on
-      Session.set("jobDetailState"+ clickedItem, "details");
-      Session.set("jobDetailStateItem", clickedItem);
-    }
-
-    /*
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    var $detailRow = $('#jobDetailRow_' + this._id);
-
-    // prevent showing details when in edit mode and clicking on the job row header
-    var $editRow = $('#jobEditRow_' + this._id);
-    if ($editRow.hasClass("displayRow")) { return; }
-
-    $detailRow.toggleClass("displayRow");
-
-    //-- toggle chevron class
-    var chevronId = "#chevron_" + this._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    }
-    */
+  /* Actions on individual JOB (-line) */
+  'click .jobs .suspend': function(e) {
+    this.isActive = false;
+    Meteor.call('jobUpdate', this, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+    });
+  },
+  'click .jobs .resume': function(e) {
+    this.isActive = true;
+    Meteor.call('jobUpdate', this, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+    });
   },
 
   /* JOB edition actions */
