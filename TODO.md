@@ -22,6 +22,7 @@
 - [ ] Style the status code with a color gradient for better visual identification
 - [ ] Use a gauge for the response times
 - [ ] The filter is still displayed even when the filter and the data & equivalent rows are updated... :(
+- [ ] BUG: No status in objects in event connection on the client...
 
 ## Settings module
 - [ ] Default events go back num days

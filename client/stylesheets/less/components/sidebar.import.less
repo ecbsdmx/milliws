@@ -8,12 +8,13 @@
 @sidebar-bg:            #f5f5f5;
 @sidebar-bgHover:       lighten(@sidebar-bg, 10%);
 @sidebar-border:        darken(@sidebar-bg, 10%);
-@sidebarFadedOpacity:   0.3;
+@sidebarFadedOpacity:   0.4;
+@sidebarAnimationSpeed: 0.3s;
+@sidebarAnimationEasing:0.1s;
 
 
 #wrapper {
   padding-left: @sidebar-hiddenWidth;
-  transition: all .4s ease 0s;
   height: 100%;
   &.active {
     padding-left: @sidebar-width;
@@ -21,6 +22,7 @@
      left: @sidebar-width;
     }
   }
+  transition: all @sidebarAnimationSpeed ease @sidebarAnimationEasing;
 }
 
 #page-content-wrapper {
@@ -37,14 +39,11 @@
   position: fixed;
   background-color: @sidebar-bg;
   height: 100%;  
-  transition: all .4s ease 0s;
-
   opacity: @sidebarFadedOpacity;
-  transition: opacity 1.5s;
   &:hover {
     opacity: 1;
-    transition: opacity 0.3s;
   }
+  transition: all @sidebarAnimationSpeed ease @sidebarAnimationEasing;
 }
 
 
