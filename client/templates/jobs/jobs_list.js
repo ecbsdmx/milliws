@@ -214,7 +214,7 @@ Template.jobsList.events({
         }
       }
     });
-  }  
+  }
 });
 
 function trimUrl(url, size) {

@@ -1,48 +1,35 @@
 <template name="jobsList">
-  
-  <div class="jobs">
-    <h1>Monitoring jobs
-      {{#if currentUser.profile.isAdmin}}
-      <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
-        {{#if isAllActive}}
-        <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
-          <span class="fa fa-pause fa-fw"></span>
-        </a>
-        {{else}}
-        <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
-          <span class="fa fa-play fa-fw"></span>
-        </a>
-        {{/if}}
-        <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button">
-          <span class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></span>
-        </a>
-        <a class="btn btn-danger btn-sm" href="#" role="button" id="deleteAll">
-          <span class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"></span>
-        </a>
-      </div>
-      {{/if}}
-    </h1>
 
-    <div class="scrollableTable500">
-      <table id="jobsTable" class="table table-striped table-condensed table-hover tablesorter">
-        <thead>
-          <tr>
-            <th class="col-md-2">ID</th>
-            <th class="col-md-8">Name</th>
-            <th class="col-md-2"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each this}}
-          {{> jobsItem }}
-          {{/each}}
-        </tbody>
-        <tfoot>
-        </tfoot>
-      </table>   
+  <div class="jobs">
+    {{#if currentUser.profile.isAdmin}}
+      <div class="clearfix">
+        <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
+          {{#if isAllActive}}
+          <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
+            <span class="fa fa-pause fa-fw"></span>
+          </a>
+          {{else}}
+          <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
+            <span class="fa fa-play fa-fw"></span>
+          </a>
+          {{/if}}
+          <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button">
+            <span class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></span>
+          </a>
+          <a class="btn btn-danger btn-sm" href="#" role="button" id="deleteAll">
+            <span class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"></span>
+          </a>
+        </div>
+      </div>
+    {{/if}}
+
+    <div class="row">
+      {{#each this}}
+        {{> jobsItem }}
+      {{/each}}
     </div>
 
   </div>
   {{> jobCreate}}
-  
+
 </template>
