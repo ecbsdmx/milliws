@@ -3,11 +3,12 @@
   <tr id="jobHeaderRow_{{this._id}}" class="jobHeaderRow">
     <td>{{this._id}}</td>
     <td>{{this.name}}</td>
-    <td>{{> jobsItemActions}}</td>
+    <td>{{> jobsItemActions this}}</td>
   </tr>
 
-  {{> jobsItemDetail}}
+  {{> Template.dynamic template=dynTemp}}
+  <!--{{> jobsItemDetail this}}-->
   
-  {{> jobsItemEdit}}
+  <!--{{> jobsItemEdit}}-->
 
 </template>

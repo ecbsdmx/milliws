@@ -102,14 +102,60 @@ Template.jobsList.events({
   'click .jobs .edit': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    var clickedItem = this._id;
+    var currentItemState = Session.get("jobDetailState" + clickedItem);
+
+    if (typeof(currentItemState) == 'undefined') {
+      // not toggled yet : toggle on
+      Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState"+ clickedItem, "edit");
+    }
+    if (currentItemState === "edit") {
+      // in edit mode for that item: toggle off
+      Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState" + clickedItem, "");
+      //FIXME reset fields?
+    }
+    else {
+      // other cases: toggle on
+      Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState"+ clickedItem, "edit");
+    }
+    /*
     var $detailRow = $('#jobDetailRow_' + this._id);
     var $editRow = $('#jobEditRow_' + this._id);
     $detailRow.removeClass("displayRow");
     $editRow.toggleClass("displayRow");
+    */
   },
 
   /* Whole JOB row click to toggle details */
   'click tr.jobHeaderRow': function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    
+    var clickedItem = this._id;
+    var currentItemState = Session.get("jobDetailState" + clickedItem);
+
+    if (typeof(currentItemState) == 'undefined') {
+      // not toggled yet : toggle on
+      Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState"+ clickedItem, "details");
+    }
+
+    if (currentItemState === "details" && currentItemState !== "edit") {
+      // not in edit mode for that item and in details mode: toggle off
+      Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState" + clickedItem, "");
+    }
+    else if (currentItemState !== "edit") {
+      // already toggled buit not currently toggled on: toggle on
+      Session.set("jobDetailState"+ clickedItem, "details");
+      Session.set("jobDetailStateItem", clickedItem);
+    }
+
+    /*
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -128,6 +174,7 @@ Template.jobsList.events({
     } else {
       $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
     }
+    */
   },
 
   /* JOB edition actions */
@@ -216,12 +263,3 @@ Template.jobsList.events({
     });
   }  
 });
-
-function trimUrl(url, size) {
-  var curLen = url.length;
-  if (size < curLen) {
-    shortUrl = url.substr(0, size);
-    return shortUrl + "...";
-  }
-  return url;
-}
