@@ -28,6 +28,9 @@ Template.jobsList.helpers({
     });//for each
     if (visibleCount > totalCount/2) return true;
     return false;
+  },
+  isEmpty: function() {
+    return 0 === Jobs.find().count();
   }
 });
 

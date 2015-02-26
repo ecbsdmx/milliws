@@ -12,7 +12,7 @@ Template.jobsRecycle.rendered = function() {
 
 Template.jobsRecycle.helpers({
   isEmpty: function() {
-    return 0 === Jobs.find({isDeleted: true}).count();
+    return 0 === Jobs.find().count();
   }
 });
 
