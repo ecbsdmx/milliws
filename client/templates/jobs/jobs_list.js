@@ -15,6 +15,9 @@ Template.jobsList.helpers({
       }
     });
     return active >= suspended;
+  },
+  isEmpty: function() {
+    return 0 === Jobs.find().count();
   }
 });
 
