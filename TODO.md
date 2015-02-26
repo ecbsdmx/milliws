@@ -5,11 +5,10 @@
 - [ ] Tooltip on job suspend action when clicked (preventdefault/propagation?) prevents the tooltip from being hidden again !
 
 ## Job module
-- [ ] Fix performance issue (S)
+- [x] Fix performance issue (S)
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
-- [ ] Harmonize forms (labels, contextual help, style, etc.)
 - [x] Fix the creationDate in job pause action (S)
 
 ## Events module
@@ -32,10 +31,10 @@
 - [x] Review fonts used
 - [x] Review action buttons (position, size, colour)
 - [x] Action buttons should remain visible when scrolling
-- [ ] jobs_item_detail as a fact sheet (X)
+- [x] jobs_item_detail as a fact sheet (X)
 - [x] Style confirm box
 - [ ] Theming (later)
-- [ ] Handle page titles (needed?). Icon sufficient? (X)
+- [x] Handle page titles (needed?). Icon sufficient? (X)
 - [x] tooltips on sidebar icons (especially when toggles closed)
  -[x] Sidebar: Fix issue with navigation hover + align icon (S)
 

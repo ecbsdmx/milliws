@@ -6,9 +6,15 @@ Template.jobsRecycle.rendered = function() {
     headers: {
       2:{sorter: false}
     }
-  }); 
+  });
   */
 };
+
+Template.jobsRecycle.helpers({
+  isEmpty: function() {
+    return false;
+  }
+});
 
 Template.jobsRecycle.events({
   /* Actions on all JOBS */
@@ -54,7 +60,7 @@ Template.jobsRecycle.events({
   },
 
   /* Actions on individual JOB (-line) */
-  'click .jobsRecycle .undo': function(e) {
+  'click .jobs .undo': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     this.isDeleted = false;
@@ -64,7 +70,7 @@ Template.jobsRecycle.events({
       }
     });
   },
-  'click .jobsRecycle .delete': function(e) {
+  'click .jobs .delete': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     var job = this;
@@ -94,20 +100,26 @@ Template.jobsRecycle.events({
     });
   },
   /* Whole JOB row click to toggle details */
-  'click tr.jobHeaderRow': function (e) {
+  'click .jobsHeader': function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
+    var clickedItem = this._id;
+    var currentItemState = Session.get("jobRecycleState" + clickedItem);
 
-    var $detailRow = $('#jobDetailRow_' + this._id);
+    if (typeof(currentItemState) == 'undefined') {
+      // not toggled yet : toggle on
+      Session.set("jobRecycleStateItem", clickedItem);
+      Session.set("jobRecycleState" + clickedItem, "details");
+    }
 
-    $detailRow.toggleClass("displayRow");
-
-    //-- toggle chevron class
-    var chevronId = "#chevron_" + this._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
+    if (currentItemState === "details") {
+      // not in edit mode for that item and in details mode: toggle off
+      Session.set("jobRecycleStateItem", clickedItem);
+      Session.set("jobRecycleState" + clickedItem, "");
     } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
+      // already toggled buit not currently toggled on: toggle on
+      Session.set("jobRecycleState"+ clickedItem, "details");
+      Session.set("jobRecycleStateItem", clickedItem);
     }
   },
 

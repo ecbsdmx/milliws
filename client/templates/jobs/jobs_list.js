@@ -131,7 +131,7 @@ Template.jobsList.events({
   'click .jobsHeader': function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    
+
     var clickedItem = this._id;
     var currentItemState = Session.get("jobDetailState" + clickedItem);
 
@@ -148,30 +148,9 @@ Template.jobsList.events({
     }
     else if (currentItemState !== "edit") {
       // already toggled buit not currently toggled on: toggle on
-      Session.set("jobDetailState"+ clickedItem, "details");
       Session.set("jobDetailStateItem", clickedItem);
+      Session.set("jobDetailState"+ clickedItem, "details");
     }
-
-    /*
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    var $detailRow = $('#jobDetailRow_' + this._id);
-
-    // prevent showing details when in edit mode and clicking on the job row header
-    var $editRow = $('#jobEditRow_' + this._id);
-    if ($editRow.hasClass("displayRow")) { return; }
-
-    $detailRow.toggleClass("displayRow");
-
-    //-- toggle chevron class
-    var chevronId = "#chevron_" + this._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    }
-    */
   },
 
   /* JOB edition actions */
