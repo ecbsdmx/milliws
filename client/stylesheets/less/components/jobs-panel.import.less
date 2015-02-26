@@ -1,6 +1,50 @@
+@jobsScrollerHeight : 500px;
+@nonEssentialPanelElemOpacity: 0.2;
+
 .jobs {
+  & > .row {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: @jobsScrollerHeight;
+    max-height: @jobsScrollerHeight;
+  }
+
+  .panel {
+    -webkit-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+
+    &:hover {
+      .panel-heading {
+        small {
+          opacity: 1;
+          transition: opacity 1s;
+        }
+      }
+      .panel-footer  {
+        opacity: 1;
+        transition: opacity 1s;
+      }
+    }
+    &.collapsed .panel-body {
+      height: 0px;
+      padding: 0px;
+    }
+    &.details .panel-body {
+      height: 100%;
+    }
+    &.edit .panel-body {
+      height: 100%;
+    }
+
+    transition: all 2s;
+  }
+
   .panel-heading {
     border-bottom: none;
+    small {
+      opacity: @nonEssentialPanelElemOpacity;
+    }
   }
   // must add a class for when displayed or not to
   // add/remove inner padding !
@@ -12,6 +56,7 @@
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 5px;
+    opacity: @nonEssentialPanelElemOpacity;
   }
 
   h3 {

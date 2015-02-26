@@ -29,43 +29,31 @@ Template.jobsItem.events({
     
     var clickedItem = this._id;
     var currentItemState = Session.get("jobDetailState" + clickedItem);
+    var $panel = $(e.target).closest(".panel");
 
     if (typeof(currentItemState) == 'undefined') {
       // not toggled yet : toggle on
       Session.set("jobDetailStateItem", clickedItem);
       Session.set("jobDetailState"+ clickedItem, defaultJobPanelState);
+      if (defaultJobPanelState === "details"){
+        $panel.addClass("details");
+      }
+      else {
+        $panel.addClass("collapsed");
+      }
     }
 
     if (currentItemState === "details" && currentItemState !== "edit") {
       // not in edit mode for that item and in details mode: toggle off
       Session.set("jobDetailStateItem", clickedItem);
       Session.set("jobDetailState" + clickedItem, "");
+      $panel.removeClass("details").addClass("collapsed");
     }
     else if (currentItemState !== "edit") {
       // already toggled previously but not currently on: toggle on
       Session.set("jobDetailState"+ clickedItem, "details");
       Session.set("jobDetailStateItem", clickedItem);
+      $panel.removeClass("collapsed").addClass("details");
     }
-
-    /*
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    var $detailRow = $('#jobDetailRow_' + this._id);
-
-    // prevent showing details when in edit mode and clicking on the job row header
-    var $editRow = $('#jobEditRow_' + this._id);
-    if ($editRow.hasClass("displayRow")) { return; }
-
-    $detailRow.toggleClass("displayRow");
-
-    //-- toggle chevron class
-    var chevronId = "#chevron_" + this._id;
-    if($(chevronId).hasClass( "fa-chevron-down")) {
-      $(chevronId).removeClass("fa-chevron-down").addClass("fa-chevron-up");
-    } else {
-      $(chevronId).removeClass("fa-chevron-up").addClass("fa-chevron-down");
-    }
-    */
   }
 });
