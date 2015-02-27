@@ -1,3 +1,4 @@
 Template.jobsItemDetail.rendered = function() {
-  $('#myPlacard').placard();
+  $('.form-horizontal').validator();
+  //$('#myPlacard').placard();
 };
