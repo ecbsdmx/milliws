@@ -6,6 +6,7 @@
 - [ ] Check jobs_{list,recycle}.js & jobs_{list,recycle}_item.js : lots of duplicate code to maintain...
 - [ ] Fix bug when page refreshed and jobs are in collapsed state, the collapsed class on the panel is not set... (Fix: default panel-body state without padding & .details with ??)
 - [ ] Bug: clicking on edit whilst in collapsed mode fails
+- [ ] Bug: On chrome tooltips appear behind other page elements
 
 
 ## Job module
@@ -16,9 +17,9 @@
 - [x] Fix the creationDate in job pause action (S)
 - [x] Add a collapse/show-details for all job items in jobs list & recycle bin views
 - [ ] In edit mode replace standard action buttons by save/cancel
-- [ ] bug? fix the jobs panel title max width to not interfere with ID field
-- [ ] bug: re-activate save/cancel buttons and toggle dynTemp 
-- [ ] bug: in edit mode, if cancel clicked, restore orig fields value
+- [ ] Bug? fix the jobs panel title max width to not interfere with ID field
+- [ ] Bug: re-activate save/cancel buttons and toggle dynTemp 
+- [ ] Bug: in edit mode, if cancel clicked, restore orig fields value
 
 ## Events module
 - [x] Use the same principle of templates & repeaters for events display (as in jobs & jobs recycling)
