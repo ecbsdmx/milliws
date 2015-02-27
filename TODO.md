@@ -23,6 +23,7 @@
 - [ ] Use a gauge for the response times
 - [ ] The filter is still displayed even when the filter and the data & equivalent rows are updated... :(
 - [ ] BUG? No status in objects in event connection on the client... (Might be because of local proxy and HTTP Get request blocked...)
+- [ ] Maybe? store the content-length for data size comparison (compressed or not, delta, etc.)
 
 ## Settings module
 - [ ] Default events go back num days
