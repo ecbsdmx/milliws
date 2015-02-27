@@ -1,10 +1,40 @@
 <template name="jobsItemDetail">
-  <div><i class="fa fa-database fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>{{formatEntrypoint this.url}}</div>
-  <div><i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="SDMX 2.1 RESTful query"></i><a href="{{this.url}}" title="Run {{this._id}} query">{{formatQuery this.url}}</a></div>
-  <div><i class="fa fa-clock-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Expected response time"></i>{{this.ert}} milliseconds</div>
-  <div><i class="fa fa-calendar fa-fw" data-toggle="tooltip" data-placement="bottom" title="Job frequency"></i>{{formatERT this.freq}}</div>
-  <div><i class="fa fa-file-text-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Format"></i>{{formatRepresentation this.format}}</div>
-  <div><i class="fa fa-files-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Updates only (deltas)?"></i>{{formatDeltas this.deltas}}</div>
-  <div><i class="fa fa-compress fa-fw" data-toggle="tooltip" data-placement="bottom" title="Compress data?"></i>{{formatCompressed this.isCompressed}}</div>
-  <div><i class="fa fa-history fa-fw" data-toggle="tooltip" data-placement="bottom" title="Conditional query?"></i>{{formatIMS this.isIMS}}</div>
+  <div>
+    <i class="fa fa-database fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>
+      {{formatEntrypoint this.url}}
+      <!--
+      <div class="placard" data-initialize="placard" id="myPlacard">
+        <div class="placard-popup"></div>
+        <input class="form-control placard-field" type="text" placeholder="{{formatEntrypoint this.url}}"/>
+      </div>
+      -->
+  </div>
+  <div>
+    <i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="SDMX 2.1 RESTful query"></i>
+      <a href="{{this.url}}" title="Run {{this._id}} query">{{formatQuery this.url}}</a>
+  </div>
+  <div>
+    <i class="fa fa-clock-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Expected response time"></i>
+      {{this.ert}} milliseconds
+  </div>
+  <div>
+    <i class="fa fa-calendar fa-fw" data-toggle="tooltip" data-placement="bottom" title="Job frequency"></i>
+      {{formatERT this.freq}}
+  </div>
+  <div>
+    <i class="fa fa-file-text-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Format"></i>
+      {{formatRepresentation this.format}}
+  </div>
+  <div>
+    <i class="fa fa-files-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Updates only (deltas)?"></i>
+      {{formatDeltas this.deltas}}
+  </div>
+  <div>
+    <i class="fa fa-compress fa-fw" data-toggle="tooltip" data-placement="bottom" title="Compress data?"></i>
+      {{formatCompressed this.isCompressed}}
+  </div>
+  <div>
+    <i class="fa fa-history fa-fw" data-toggle="tooltip" data-placement="bottom" title="Conditional query?"></i>
+      {{formatIMS this.isIMS}}
+  </div>
 </template>
