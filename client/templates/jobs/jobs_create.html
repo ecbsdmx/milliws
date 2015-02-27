@@ -16,13 +16,13 @@
                 <li data-step="4"><span class="badge">4</span>Schedule<span class="chevron"></span></li>
               </ul>
               <div class="actions">
-                <button id="prev" type="button" disabled class="btn btn-default btn-prev"><span class="fa fa-fw fa-arrow-left"></span>Prev</button>
-                <button id="next" type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="fa fa-fw fa-arrow-right"></span></button>
+                <button id="prev" type="button" disabled class="btn btn-xs btn-default btn-prev"><span class="fa fa-fw fa-arrow-left"></span></button>
+                <button id="next" type="button" class="btn btn-xs btn-default btn-next" data-last="Complete"><span class="fa fa-fw fa-arrow-right"></span></button>
               </div>
               <div class="step-content">
-                <div class="step-pane active sample-pane alert" data-step="1">
+                <div class="step-pane active sample-pane" data-step="1">
                   <div class="form-group form-group-sm">
-                    <label for="inputID" class="control-label col-xs-4">ID &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="ID field" data-content="A unique ID for your monitoring job. Make sure you don't reuse an already existing one." data-container="form"></i></label>
+                    <label for="inputID" class="control-label col-xs-4">ID &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="ID field" data-content="A unique ID for your monitoring job. Make sure you don't reuse an already existing one." data-container="form"></i></label>
                     <div class="col-xs-4 required-field-block">
                       <input type="text" name="inputID" class="form-control input-sm" id="inputID" required aria-required="true" placeholder="A unique ID for the job" data-error="Please define an ID for the job.">
                       <div class="required-icon">
@@ -32,7 +32,7 @@
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputName" class="control-label col-xs-4">Name &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Name field" data-content="A short and descriptive name for your monitoring job." data-container="form" ></i></label>
+                    <label for="inputName" class="control-label col-xs-4">Name &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Name field" data-content="A short and descriptive name for your monitoring job." data-container="form" ></i></label>
                     <div class="col-xs-8 required-field-block">
                       <input type="text" name="inputName" class="form-control input-sm" id="inputName" required aria-required="true" placeholder="A descriptive label for the monitoring job" data-error="Please define a descriptive name for the job.">
                       <div class="required-icon">
@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputWSEntry" class="control-label col-xs-4">Web service entry point &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Web service entry point" data-container="form" data-content="The entry point of the SDMX 2.1 RESTful web service to be monitored. Use https if you want to be sure you are connected to the right one."></i></label>
+                    <label for="inputWSEntry" class="control-label col-xs-4">Web service entry point &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Web service entry point" data-container="form" data-content="The entry point of the SDMX 2.1 RESTful web service to be monitored. Use https if you want to be sure you are connected to the right one."></i></label>
                     <div class="col-xs-8 required-field-block">
                       <input type="url" name="inputWSEntry" class="form-control input-sm" id="inputWSEntry" required aria-required="true" placeholder="The entry point of the web service to be monitored" data-error="Please define a valid entry point for the web service." pattern="(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?">
                       <div class="required-icon">
@@ -52,9 +52,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="step-pane sample-pane alert" data-step="2">
+                <div class="step-pane sample-pane" data-step="2">
                   <div class="form-group form-group-sm">
-                    <label for="inputFlow" class="control-label col-xs-4">Dataflow &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Dataflow field" data-content="A string identifying the dataflow. The syntax is agency id, artefact id, version, separated by a ','. For example: AGENCY_ID,FLOW_ID,VERSION. In case the string only contains one out of these 3 elements, it is considered to be the flow id, i.e. all,FLOW_ID,latest. In case the string only contains two out of these 3 elements, they are considered to be the agency id and the flow id, i.e. AGENCY_ID,FLOW_ID,latest." data-container="form"></i></label>
+                    <label for="inputFlow" class="control-label col-xs-4">Dataflow &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Dataflow field" data-content="A string identifying the dataflow. The syntax is agency id, artefact id, version, separated by a ','. For example: AGENCY_ID,FLOW_ID,VERSION. In case the string only contains one out of these 3 elements, it is considered to be the flow id, i.e. all,FLOW_ID,latest. In case the string only contains two out of these 3 elements, they are considered to be the agency id and the flow id, i.e. AGENCY_ID,FLOW_ID,latest." data-container="form"></i></label>
                     <div class="col-xs-8 required-field-block">
                       <input type="text" name="inputFlow" class="form-control input-sm" id="inputFlow" required aria-required="true" placeholder="A string identifying the dataflow" pattern="([A-Za-z0-9_@$\-]+)|(([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*)(\,[A-Za-z0-9_@$\-]+)(\,(latest|([0-9]+(\.[0-9]+)*)))?)" data-error="Please define a valid reference to the dataflow. For example, EXR, for a partial reference, or ECB,EXR,latest, for a fully qualified reference.">
                       <div class="required-icon">
@@ -64,56 +64,56 @@
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputKey" class="control-label col-xs-4">Key &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Key field" data-content="The key of the artefact to be returned. Wildcarding is supported by omitting the dimension code for the dimension to be wildcarded. For example, if the following series key identifies the bilateral exchange rates for the daily US dollar exchange rate against the euro, D.USD.EUR.SP00.A, then the following series key can be used to retrieve the data for all currencies against the euro: D..EUR.SP00.A.The OR operator is supported using the + character. For example, the following series key can be used to retrieve the exchange rates against the euro for both the US dollar and the Japanese Yen: D.USD+JPY.EUR.SP00.A." data-container="form"></i></label>
+                    <label for="inputKey" class="control-label col-xs-4">Key &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Key field" data-content="The key of the artefact to be returned. Wildcarding is supported by omitting the dimension code for the dimension to be wildcarded. For example, if the following series key identifies the bilateral exchange rates for the daily US dollar exchange rate against the euro, D.USD.EUR.SP00.A, then the following series key can be used to retrieve the data for all currencies against the euro: D..EUR.SP00.A.The OR operator is supported using the + character. For example, the following series key can be used to retrieve the exchange rates against the euro for both the US dollar and the Japanese Yen: D.USD+JPY.EUR.SP00.A." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <input type="text" name="inputKey" class="form-control input-sm" id="inputKey" placeholder="The key of the series to be returned" data-error="Please define a valid combination of dimension values. For example, D.NOK.EUR.SP00.A (full series key), D..EUR.SP00.A (wildcarding), D.NOK+RUB.EUR.SP00.A (with the 'or' operator)." pattern="([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?([.]([A-Za-z0-9_@$\-]+([+][A-Za-z0-9_@$\-]+)*)?)*" value="all">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputProvider" class="control-label col-xs-4">Provider &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Provider field" data-content="The provider of the data to be retrieved. If not supplied, the returned message will contain data provided by any provider. The syntax is agency id, provider id, separated by a ','. For example: AGENCY_ID,PROVIDER_ID. In case the string only contains one out of these 2 elements, it is considered to be the provider id, i.e. all,PROVIDER_ID." data-container="form"></i></label>
+                    <label for="inputProvider" class="control-label col-xs-4">Provider &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Provider field" data-content="The provider of the data to be retrieved. If not supplied, the returned message will contain data provided by any provider. The syntax is agency id, provider id, separated by a ','. For example: AGENCY_ID,PROVIDER_ID. In case the string only contains one out of these 2 elements, it is considered to be the provider id, i.e. all,PROVIDER_ID." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <input type="text" name="inputProvider" class="form-control input-sm" id="inputProvider" placeholder="A string identifying the data provider" pattern="([A-Za-z][A-Za-z0-9_\-]*(\.[A-Za-z][A-Za-z0-9_\-]*)*\,)?([A-Za-z0-9_@$\-]+)" data-error="Please define a valid reference to the data provider. For example, BIS, ECB, OECD, etc." value="all">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputStartPeriod" class="control-label col-xs-4">Start period &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Start period field" data-content="The start period for which results should be supplied (inclusive). The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. The supported formats are YYYY  for annual data (e.g.: 2013), YYYY-S[1-2]  for semi-annual data (e.g.: 2013-S1), YYYY-Q[1-4]  for quarterly data (e.g.: 2013-Q1), YYYY-MM  for monthly data (e.g.: 2013-01), YYYY-W[01-53]  for weekly data (e.g.: 2013-W01) and YYYY-MM-DD  for daily and business data (e.g.: 2013-01-01)." data-container="form"></i></label>
+                    <label for="inputStartPeriod" class="control-label col-xs-4">Start period &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Start period field" data-content="The start period for which results should be supplied (inclusive). The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. The supported formats are YYYY  for annual data (e.g.: 2013), YYYY-S[1-2]  for semi-annual data (e.g.: 2013-S1), YYYY-Q[1-4]  for quarterly data (e.g.: 2013-Q1), YYYY-MM  for monthly data (e.g.: 2013-01), YYYY-W[01-53]  for weekly data (e.g.: 2013-W01) and YYYY-MM-DD  for daily and business data (e.g.: 2013-01-01)." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <input type="text" name="inputStartPeriod" class="form-control input-sm" id="inputStartPeriod" placeholder="The start period (inclusive). ISO 8601 or SDMX reporting period" data-error="Please define a valid period, either as ISO 8601 (e.g.: 2000, 2000-01, 2000-01-01), etc. or as SDMX reporting period (e.g.: 2000-Q1, 2000-H1, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputEndPeriod" class="control-label col-xs-4">End period &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="End period field" data-content="The end period for which results should be supplied (inclusive). The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. The supported formats are YYYY  for annual data (e.g.: 2013), YYYY-S[1-2]  for semi-annual data (e.g.: 2013-S1), YYYY-Q[1-4]  for quarterly data (e.g.: 2013-Q1), YYYY-MM  for monthly data (e.g.: 2013-01), YYYY-W[01-53]  for weekly data (e.g.: 2013-W01) and YYYY-MM-DD  for daily and business data (e.g.: 2013-01-01)." data-container="form"></i></label>
+                    <label for="inputEndPeriod" class="control-label col-xs-4">End period &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="End period field" data-content="The end period for which results should be supplied (inclusive). The values should be given according to the syntax defined in ISO 8601 or as SDMX reporting periods. The values will vary depending on the frequency. The supported formats are YYYY  for annual data (e.g.: 2013), YYYY-S[1-2]  for semi-annual data (e.g.: 2013-S1), YYYY-Q[1-4]  for quarterly data (e.g.: 2013-Q1), YYYY-MM  for monthly data (e.g.: 2013-01), YYYY-W[01-53]  for weekly data (e.g.: 2013-W01) and YYYY-MM-DD  for daily and business data (e.g.: 2013-01-01)." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <input type="text" name="inputEndPeriod" class="form-control input-sm" id="inputEndPeriod" placeholder="The end period (inclusive). ISO 8601 or SDMX reporting period" data-error="Please define a valid period, either as ISO 8601 (e.g.: 2000, 2000-01, 2000-01-01), etc. or as SDMX reporting period (e.g.: 2000-Q1, 2000-H1, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputObsDim" class="control-label col-xs-4">Obs dimension &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Dimension at observation field" data-content="The ID of the dimension to be attached at the observation level. This parameter allows the client to indicate how the data should be packaged by the service. The options are  TIME_PERIOD  (a timeseries view of the data), the  ID of any other dimension  used in that dataflow (a cross-sectional view of the data) or the keyword  AllDimensions  (a flat view of the data where the observations are not grouped, neither in time series, nor in sections)." data-container="form"></i></label>
+                    <label for="inputObsDim" class="control-label col-xs-4">Obs dimension &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Dimension at observation field" data-content="The ID of the dimension to be attached at the observation level. This parameter allows the client to indicate how the data should be packaged by the service. The options are  TIME_PERIOD  (a timeseries view of the data), the  ID of any other dimension  used in that dataflow (a cross-sectional view of the data) or the keyword  AllDimensions  (a flat view of the data where the observations are not grouped, neither in time series, nor in sections)." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <input type="text" name="inputObsDim" class="form-control input-sm" id="inputObsDim" value="TIME_PERIOD" placeholder="The id of the dimension attached at the observation level" pattern="[A-z][A-z0-9_\-]*" data-error="Please define a ID for the dimension to be attached at the observation level (e.g.: TIME_PERIOD, AllDimensions, etc.)">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputFirstNObs" class="control-label col-xs-4">First N Observations &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="First N Observations field" data-content="Integer specifying the maximum number of observations to be returned for each of the matching series, starting from the first observation" data-container="form"></i></label>
+                    <label for="inputFirstNObs" class="control-label col-xs-4">First N Observations &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="First N Observations field" data-content="Integer specifying the maximum number of observations to be returned for each of the matching series, starting from the first observation" data-container="form"></i></label>
                     <div class="col-xs-2">
                       <input type="number" name="inputFirstNObs" class="form-control input-sm" id="inputFirstNObs" min="1" step="1">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputLastNObs" class="control-label col-xs-4">Last N Observations &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Last N Observations field" data-content="Integer specifying the maximum number of observations to be returned for each of the matching series, counting back from the most recent observation" data-container="form"></i></label>
+                    <label for="inputLastNObs" class="control-label col-xs-4">Last N Observations &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Last N Observations field" data-content="Integer specifying the maximum number of observations to be returned for each of the matching series, counting back from the most recent observation" data-container="form"></i></label>
                     <div class="col-xs-2">
                       <input type="number" name="inputLastNObs" class="form-control input-sm" id="inputLastNObs" min="1" step="1">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputDetail" class="control-label col-xs-4">Detail &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Detail field" data-content="This parameter specifies the desired amount of information to be returned. Possible options are:  full  (all data and metadata),  dataonly  (no metadata),  serieskeysonly  (returns only the series elements and the dimensions that make up the series keys) and  nodata  (returns the groups and series, including attributes and annotations, without observations)." data-container="form"></i></label>
+                    <label for="inputDetail" class="control-label col-xs-4">Detail &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Detail field" data-content="This parameter specifies the desired amount of information to be returned. Possible options are:  full  (all data and metadata),  dataonly  (no metadata),  serieskeysonly  (returns only the series elements and the dimensions that make up the series keys) and  nodata  (returns the groups and series, including attributes and annotations, without observations)." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <select id="inputDetail" class="form-control input-sm">
                         <option value="full" selected>full</option>
@@ -125,23 +125,23 @@
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputWithHistory" class="control-label col-xs-4">Include history? &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="History field" data-content="This parameter allows retrieving previous versions of the data, as they were disseminated in the past (history or timeline functionality)." data-container="form"></i></label>
+                    <label for="inputWithHistory" class="control-label col-xs-4">Include history? &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="History field" data-content="This parameter allows retrieving previous versions of the data, as they were disseminated in the past (history or timeline functionality)." data-container="form"></i></label>
                     <div class="col-xs-8 checkbox">
                       <input id="inputWithHistory" type="checkbox" data-toggle="toggle" data-size="small">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputDeltas" class="control-label col-xs-4">Updates only (deltas)? &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Deltas field" data-content="When enabled, the returned message will only include the latest version of what has changed in the database since the last time the query was performed." data-container="form"></i></label>
+                    <label for="inputDeltas" class="control-label col-xs-4">Updates only (deltas)? &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Deltas field" data-content="When enabled, the returned message will only include the latest version of what has changed in the database since the last time the query was performed." data-container="form"></i></label>
                     <div class="col-xs-8 checkbox">
                       <input id="inputDeltas" type="checkbox" data-toggle="toggle" checked data-size="small">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                 </div>
-                <div class="step-pane sample-pane alert" data-step="3">
+                <div class="step-pane sample-pane" data-step="3">
                   <div class="form-group form-group-sm">
-                    <label for="inputFormat" class="control-label col-xs-4">Format &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Format field" data-content="This parameter specifies the desired SDMX format of the response." data-container="form"></i></label>
+                    <label for="inputFormat" class="control-label col-xs-4">Format &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Format field" data-content="This parameter specifies the desired SDMX format of the response." data-container="form"></i></label>
                     <div class="col-xs-8">
                       <select id="inputFormat" class="form-control input-sm">
                         <option value="sdmx-json-1.0.0" selected>SDMX-JSON</option>
@@ -152,30 +152,30 @@
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputCompress" class="control-label col-xs-4">Compress data? &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Compress data field" data-content="When enabled, the returned message will be compressed, which saves time transferring the file over the network." data-container="form"></i></label>
+                    <label for="inputCompress" class="control-label col-xs-4">Compress data? &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Compress data field" data-content="When enabled, the returned message will be compressed, which saves time transferring the file over the network." data-container="form"></i></label>
                     <div class="col-xs-8 checkbox">
                       <input id="inputCompress" type="checkbox" data-toggle="toggle" checked data-size="small">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputIMS" class="control-label col-xs-4">Conditional query? &nbsp;<i class="fa fa-question-circle text-info" data-placement="top" data-toggle="popover" title="Conditional query field" data-content="When enabled, the full data matching the request will be returned but only if something has changed since the last query. Else a 304 HTTP status code will be returned." data-container="form"></i></label>
+                    <label for="inputIMS" class="control-label col-xs-4">Conditional query? &nbsp;<i class="fa fa-question-circle text-primary" data-placement="top" data-toggle="popover" title="Conditional query field" data-content="When enabled, the full data matching the request will be returned but only if something has changed since the last query. Else a 304 HTTP status code will be returned." data-container="form"></i></label>
                     <div class="col-xs-8 checkbox">
                       <input id="inputIMS" type="checkbox" data-toggle="toggle" data-size="small">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                 </div>
-                <div class="step-pane sample-pane alert" data-step="4">
+                <div class="step-pane sample-pane" data-step="4">
                   <div class="form-group form-group-sm">
-                    <label for="inputERT" class="control-label col-xs-4">Response time (in milliseconds) &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Response time field" data-content="The maximum amount of time (in milliseconds) to receive a response from the web service." data-container="form"></i></label>
+                    <label for="inputERT" class="control-label col-xs-4">Response time (in milliseconds) &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Response time field" data-content="The maximum amount of time (in milliseconds) to receive a response from the web service." data-container="form"></i></label>
                     <div class="col-xs-2">
                       <input type="number" name="inputERT" class="form-control input-sm" id="inputERT" required aria-required="true" value="500" min="300" max="5000" step="100">
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
                   <div class="form-group form-group-sm">
-                    <label for="inputFreq" class="control-label col-xs-4">Job frequency (in minutes) &nbsp;<i class="fa fa-question-circle text-info" data-placement="bottom" data-toggle="popover" title="Frequency field" data-content="How frequently the request should be sent to the service (e.g.: every minute, every hour, etc)." data-container="form"></i></label>
+                    <label for="inputFreq" class="control-label col-xs-4">Job frequency (in minutes) &nbsp;<i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Frequency field" data-content="How frequently the request should be sent to the service (e.g.: every minute, every hour, etc)." data-container="form"></i></label>
                     <div class="col-xs-2">
                       <input type="number" name="inputFreq" class="form-control input-sm" id="inputFreq" required aria-required="true" min="1" max="60" step="1" value="1">
                       <div class="help-block with-errors"></div>

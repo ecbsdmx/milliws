@@ -89,12 +89,12 @@ table {
 .required-field-block .required-icon {
   background-color: transparent;
   position: absolute;
-  top: 0em;
-  right: 0em;
+  top: 0px;
+  right: 6px;
   z-index: 10;
   margin: 0em;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   padding: 0em;
   text-align: center;
   -webkit-transition: color 0.2s ease;
@@ -121,8 +121,8 @@ table {
 }
 .required-field-block .required-icon .text {
   color: #B80000;
-  font-size: 20px;
-  margin: -3px 0 0 -17px;
+  font-size: 19px;
+  margin: 0px 0 0 -10px;
 }
 
 #footer {
@@ -139,4 +139,23 @@ table {
   color: #ccc;
   font-style: italic;
   font-size: 0.8em;
+}
+
+
+/* wizard styling */
+#insertJobModal {
+  .form-group {
+    margin-bottom: 0px;
+  }
+  .modal-header {
+    padding: 5px 10px;
+  }
+  .checkbox label {
+    padding-left: 0px;
+  }
+  .form-horizontal .control-label {
+    line-height: 30px;
+        padding: 0px;
+
+  }
 }
