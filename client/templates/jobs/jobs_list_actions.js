@@ -26,6 +26,9 @@ Template.jobsListActions.helpers({
       }
     });//for each
     return visibleCount > totalCount/2;
+  },
+  isRecycle: function() {
+    return Router.current().route.getName() === "jobsRecycle";
   }
 });
 
@@ -39,8 +42,8 @@ Template.jobsListActions.events({
     this.forEach(function(item) {
       var currentItem = item._id;
       var currentItemState = Session.get("jobDetailState"+ currentItem);
-      if (typeof(currentItem) != 'undefined') {
-        if (currentItemState === "details") visibleCount++;
+      if (typeof(currentItem) != 'undefined' && currentItemState === "details") {
+        visibleCount++;
       }
     });//for each
     if (visibleCount < totalCount/2) {
@@ -53,8 +56,7 @@ Template.jobsListActions.events({
           $($panels[index]).removeClass("collapsed").addClass("details");
         });
       });
-    }
-    else {
+    } else {
       this.forEach(function(item) {
         var currentItem = item._id;
         Session.set("jobDetailStateItem", currentItem);
@@ -64,7 +66,6 @@ Template.jobsListActions.events({
           $($panels[index]).removeClass("details").addClass("collapsed");
         });
       });
-
     }
   },
 
@@ -79,7 +80,6 @@ Template.jobsListActions.events({
         }
       });
     });
-
   },
 
   'click #resumeAll': function(e) {
@@ -121,6 +121,48 @@ Template.jobsListActions.events({
                   return alert(error.reason);
                 }
               });
+            });
+          }
+        }
+      }
+    });
+  },
+
+  'click #undoAll': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    this.forEach(function(item) {
+      item.isDeleted = false;
+      Meteor.call('jobRecoverDeleted', item, function(error, result) {
+        if (error) {
+          return alert(error.reason);
+        }
+      });
+    });
+
+  },
+
+  'click #eraseAll': function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var jobs = this;
+    bootbox.dialog({
+      message: "Are you sure you want to delete all these monitoring jobs? They cannot be recovered later on.",
+      title: "Delete all monitoring jobs?",
+      buttons: {
+        success: {
+          label: "Cancel",
+          className: "btn-default",
+          callback: function() {
+            $('.bootbox').modal('hide');
+          }
+        },
+        danger: {
+          label: "Delete",
+          className: "btn-danger",
+          callback: function() {
+            jobs.forEach(function(item) {
+              Jobs.remove(item._id);
             });
           }
         }
