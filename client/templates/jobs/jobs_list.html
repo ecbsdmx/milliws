@@ -1,35 +1,7 @@
 <template name="jobsList">
 
   <div class="jobs">
-    {{#if currentUser.profile.isAdmin}}
-      <div class="clearfix">
-        <div id="jobsBtnGrp" class="btn-group btn-group-xs pull-right" role="group">
-          <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
-          {{#if isAllDetailsVisible}}
-            <span class="fa fa-eye-slash fa-fw"></span>
-          {{else}}
-            <span class="fa fa-eye fa-fw"></span>
-          {{/if}}
-          </a>
-
-          {{#if isAllActive}}
-          <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
-            <span class="fa fa-pause fa-fw"></span>
-          </a>
-          {{else}}
-          <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
-            <span class="fa fa-play fa-fw"></span>
-          </a>
-          {{/if}}
-          <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button">
-            <span class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></span>
-          </a>
-          <a class="btn btn-danger btn-sm" href="#" role="button" id="deleteAll">
-            <span class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"></span>
-          </a>
-        </div>
-      </div>
-    {{/if}}
+    {{> jobsListActions}}
     {{#if isEmpty}}
       <div class="alert alert-warning" role="alert">It seems there are no monitoring jobs defined at the moment. You can create some using our <a href="#" data-toggle="modal" data-target="#insertJobModal">wizard</a>.</div>
     {{else}}
@@ -41,6 +13,6 @@
     {{/if}}
 
   </div>
-  {{> jobCreate}}
+
 
 </template>
