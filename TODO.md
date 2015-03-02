@@ -4,7 +4,7 @@
 - [x] The session state of the sidebar is only kept for the session and hot code reload BUT not for the user: Store state in DB user collection
 - [x] Tooltip on job suspend action when clicked (preventdefault/propagation?) prevents the tooltip from being hidden again !
 - [x] Check jobs_{list,recycle}.js & jobs_{list,recycle}_item.js : lots of duplicate code to maintain...
-- [ ] Fix bug when page refreshed and jobs are in collapsed state, the collapsed class on the panel is not set... (Fix: default panel-body state without padding & .details with ??)
+- [x] Fix bug when page refreshed and jobs are in collapsed state, the collapsed class on the panel is not set... (Fix: default panel-body state without padding & .details with ??)
 - [x] Bug: clicking on edit whilst in collapsed mode fails
 - [x] Bug: On chrome tooltips appear behind other page elements
 

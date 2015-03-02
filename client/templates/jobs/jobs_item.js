@@ -1,17 +1,25 @@
+Template.jobsItem.created = function() {
+  var jobItem = this.data._id;
+  var jobState = Session.get("jobDetailState" + jobItem);
+  if (typeof(jobState) == 'undefined') {
+    Session.set("jobDetailState" + jobItem, defaultJobPanelState);
+  }
+};
+
 Template.jobsItem.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
 };
 
 Template.jobsItem.helpers({
+  jobPanelStateClass : function() {
+    var jobItem = this._id;
+    var jobState = Session.get("jobDetailState" + jobItem);
+    return "" === jobState ? "collapsed" : "details";
+  },
   dynTemp : function() {
     var jobItem = this._id;
 
     var jobState = Session.get("jobDetailState" + jobItem);
-    if (typeof(jobState) == 'undefined') {
-      jobState = defaultJobPanelState;
-      Session.set("jobDetailState" + jobItem,jobState);
-    }
-
     var $panel = $("#jobPanel_" + this._id);
     updateCollapseMode(jobState, $panel);
 
