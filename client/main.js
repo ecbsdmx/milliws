@@ -50,22 +50,24 @@ UI.registerHelper('formatCompressed', function(compressed) {
 UI.registerHelper('formatIMS', function(ims) {
   return ims ? "If-Modified-Since request" : "Not an If-Modified-Since request";
 });
-UI.registerHelper('formatEntrypoint', function(url) {
+formatEntrypoint = function(url) {
   var pos = url.indexOf("/data");
   if (-1 < pos) {
     return url.substring(0, pos);
   } else {
     return url;
   }
-});
-UI.registerHelper('formatQuery', function(url) {
+}
+UI.registerHelper('formatEntrypoint', formatEntrypoint);
+formatQuery = function(url) {
   var pos = url.indexOf("/data");
   if (-1 < pos) {
     return url.substring(pos);
   } else {
     return url;
   }
-});
+}
+UI.registerHelper('formatQuery', formatQuery);
 
 updateCollapseMode = function(state, $panel) {
   if (typeof(state) == 'undefined') {

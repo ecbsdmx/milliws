@@ -9,15 +9,15 @@
       </div>
     </div>
     -->
-  
+
     <div>
       <i class="fa fa-database fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>
-      <input type="url" name="inputURL_{{this._id}}" id="inputURL_{{this._id}}" class="form-control editPanelInput" required aria-required="true" value="{{formatEntrypoint this.url}}">
+      <input type="url" name="inputEntryPoint_{{this._id}}" id="inputEntryPoint_{{this._id}}" class="form-control editPanelInput" required aria-required="true" value="{{formatEntrypoint this.url}}">
     </div>
 
     <div>
       <i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="SDMX 2.1 RESTful query"></i>
-      <input type="url" name="inputURL_{{this._id}}" id="inputURL_{{this._id}}" class="form-control editPanelInput" required aria-required="true" value="{{formatQuery this.url}}">
+      <input type="text" name="inputQuery_{{this._id}}" id="inputQuery_{{this._id}}" class="form-control editPanelInput" required aria-required="true" value="{{formatQuery this.url}}">
     </div>
 
     <div>
@@ -52,12 +52,12 @@
     <div>
       <i class="fa fa-history fa-fw" data-toggle="tooltip" data-placement="bottom" title="Conditional query?"></i>
       <input id="inputIMS_{{this._id}}" type="checkbox" data-toggle="toggle" checked="{{this.isIMS}}">
-    </div>        
+    </div>
     <!--
-    <div class="text-right"> 
-      <button type="submit" id="jobEditSubmit_{{this._id}}" class="jobEditSubmit btn btn-default btn-xs">Save</button> 
+    <div class="text-right">
+      <button type="submit" id="jobEditSubmit_{{this._id}}" class="jobEditSubmit btn btn-default btn-xs">Save</button>
       <button type="button" id="jobEditCancel_{{this._id}}" class="jobEditCancel btn btn-default btn-xs">Cancel</button>
-    </div> 
+    </div>
     -->
   </form>
 

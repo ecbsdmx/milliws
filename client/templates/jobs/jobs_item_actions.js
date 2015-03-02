@@ -1,10 +1,15 @@
 Template.jobsItemActions.rendered = function() {
   $('[data-toggle="tooltip"]').tooltip();
+  $('#editForm_' + this._id).validator();
 };
 
 Template.jobsItemActions.helpers({
   isRecycle: function() {
     return Router.current().route.getName() === "jobsRecycle";
+  },
+  isEdit: function() {
+    var currentItem = this._id;
+    return "edit" === Session.get("jobDetailState" + currentItem);
   }
 });
 
@@ -54,7 +59,7 @@ Template.jobsItemActions.events({
     }
   },
 
-  'click .jobEditSubmit': function(e) {
+  'click .save': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     var formId = "#editForm_" + this._id;
@@ -62,6 +67,7 @@ Template.jobsItemActions.events({
     var valid = true;
     $(formId).find('input').each(function(){
       if (!this.checkValidity()) { //-- HTML5
+        console.log("Invalid: " + this.id);
         valid = false;
       }
     });
@@ -69,8 +75,8 @@ Template.jobsItemActions.events({
     if (valid) {
       var job = {
         _id: this._id,
-        name: $("#inputName_" + this._id).val(),
-        url: $("#inputURL_" + this._id).val(),
+        name: this.name,
+        url: $("#inputEntryPoint_" + this._id).val() + $("#inputQuery_" + this._id).val(),
         ert: parseInt($("#inputERT_" + this._id).val()),
         freq: parseInt($("#inputFreq_" + this._id).val()),
         isDeleted: this.isDeleted,
@@ -89,23 +95,26 @@ Template.jobsItemActions.events({
       });
 
       // restore view state
-      var $detailRow = $('#jobDetailRow_' + this._id);
-      var $editRow = $('#jobEditRow_' + this._id);
-      $editRow.removeClass("displayRow");
-      $detailRow.addClass("displayRow");
+      Session.set("jobDetailStateItem", this._id);
+      Session.set("jobDetailState" + this._id, "details");
     }
   },
 
-  'click .jobEditCancel': function(e) {
+  'click .cancel': function(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     // reset values to this !!!
-    $("#inputURL").val(this.url);
-    $("#inputERT").val(this.ert);
-    $("#inputFreq").val(this.freq);
+    $("#inputEntryPoint_" + this._id).val(formatEntrypoint(this.url));
+    $("#inputQuery_" + this._id).val(formatQuery(this.url));
+    $("#inputERT_" + this._id).val(this.ert);
+    $("#inputFreq_" + this._id).val(this.freq);
+    $("#inputDeltas_" + this._id).val(this.inputDeltas);
+    $("#inputCompressed_" + this._id).val(this.inputCompressed);
+    $("#inputIMS_" + this._id).val(this.inputIMS);
+    $("#inputFormat_" + this._id).val(this.inputFormat);
 
-    var $editRow = $('#jobEditRow_' + this._id);
-    $editRow.toggleClass("displayRow");
+    Session.set("jobDetailStateItem", this._id);
+    Session.set("jobDetailState" + this._id, "details");
   },
 
   'click .delete': function(e) {

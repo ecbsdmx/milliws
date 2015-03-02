@@ -10,21 +10,30 @@
         </a>
       {{/if}}
     {{else}}
-      {{#if isActive}}
-      <a class="suspend text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend job" >
-        <i class="fa fa-pause fa-fw"></i>
-      </a>
+      {{#if isEdit}}
+        <a class="save text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Save job">
+          <i class="fa fa-fw fa-check"></i>
+        </a>
+        <a class="cancel text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Cancel edit">
+          <i class="fa fa-fw fa-close"></i>
+        </a>
       {{else}}
-      <a class="resume text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart job">
-        <i class="fa fa-play fa-fw"></i>
-      </a>
+        {{#if isActive}}
+          <a class="suspend text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend job" >
+            <i class="fa fa-pause fa-fw"></i>
+          </a>
+        {{else}}
+          <a class="resume text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart job">
+            <i class="fa fa-play fa-fw"></i>
+          </a>
+        {{/if}}
+          <a class="edit text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit job">
+            <i class="fa fa-fw fa-pencil-square-o"></i>
+          </a>
+          <a class="delete text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete job">
+            <i class="fa fa-fw fa-trash-o"></i>
+          </a>
       {{/if}}
-      <a class="edit text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit job">
-        <i class="fa fa-fw fa-pencil-square-o"></i>
-      </a>
-      <a class="delete text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete job">
-        <i class="fa fa-fw fa-trash-o"></i>
-      </a>
     {{/if}}
   </div>
 </template>
