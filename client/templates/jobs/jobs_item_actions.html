@@ -1,0 +1,22 @@
+<template name="jobsItemActions">
+  <div class="pull-right toolbar">
+    {{#if isRecycle}}
+      {{#if currentUser.profile.isAdmin}}
+        <a class="undo text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Recover this job"><i class="fa fa-undo fa-fw"></i>recover</a>
+        <a class="erase text-muted" href="#" role="button" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete this job"><i class="fa fa-trash-o fa-fw"></i>erase</a>
+      {{/if}}
+    {{else}}
+      {{#if isActive}}
+      <a class="suspend text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend job" >
+        <i class="fa fa-pause fa-fw"></i>suspend
+      </a>
+      {{else}}
+      <a class="resume text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart job">
+        <i class="fa fa-play fa-fw"></i>restart
+      </a>
+      {{/if}}
+      <a class="edit text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit job"><i class="fa fa-fw fa-pencil-square-o"></i>edit</a>
+      <a class="delete text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete job"><i class="fa fa-fw fa-trash-o"></i>delete</a>
+    {{/if}}
+  </div>
+</template>

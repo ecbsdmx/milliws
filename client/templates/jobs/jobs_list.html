@@ -9,15 +9,9 @@
       {{> jobsListEmpty }}
     {{else}}
       <div class="row">
-        {{#if isRecycle}}
-          {{#each this}}
-            {{> jobsRecycleItem }}
-          {{/each}}
-        {{else}}
-          {{#each this}}
-            {{> jobsItem }}
-          {{/each}}
-        {{/if}}
+        {{#each this}}
+          {{> jobsItem }}
+        {{/each}}
       </div>
     {{/if}}
   </div>
