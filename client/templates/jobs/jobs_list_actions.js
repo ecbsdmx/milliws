@@ -70,9 +70,7 @@ Template.jobsListActions.events({
   },
 
   'click #suspendAll': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    $(e.target).tooltip('hide');
+    $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
       item.isActive = false;
       Meteor.call('jobUpdate', item, function(error, result) {
@@ -84,9 +82,7 @@ Template.jobsListActions.events({
   },
 
   'click #resumeAll': function(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    $(e.target).tooltip('hide');
+    $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
       item.isActive = true;
       Meteor.call('jobUpdate', item, function(error, result) {
