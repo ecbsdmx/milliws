@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 0.3.0 (2015-03-02)
+- Changed colour scheme
+- Redesign jobs overview & recycle pages
+- Form styling & unification
+- Redesign navigation & actions
+
 ## Version 0.2.0 (2015-02-24)
 - Implemented core navigation and design
 - Implemented a Master / Detail view for jobs
