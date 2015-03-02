@@ -1,16 +1,5 @@
 <template name="jobsRecycle">
 
-  <div class="jobs">
-    {{#if isEmpty}}
-      <div class="alert alert-warning" role="alert">The recycle bin is empty.</div>
-    {{else}}
-      {{> jobsListActions }}
-      <div class="row">
-        {{#each this}}
-          {{> jobsRecycleItem }}
-        {{/each}}
-      </div>
-    {{/if}}
-  </div>
+  {{> jobsList}}
 
 </template>

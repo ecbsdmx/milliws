@@ -6,12 +6,18 @@
 
     <!-- Display a message if no jobs, else iterate over them -->
     {{#if isEmpty}}
-      {{> jobsEmpty }}
+      {{> jobsListEmpty }}
     {{else}}
       <div class="row">
-        {{#each this}}
-          {{> jobsItem }}
-        {{/each}}
+        {{#if isRecycle}}
+          {{#each this}}
+            {{> jobsRecycleItem }}
+          {{/each}}
+        {{else}}
+          {{#each this}}
+            {{> jobsItem }}
+          {{/each}}
+        {{/if}}
       </div>
     {{/if}}
   </div>
