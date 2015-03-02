@@ -17,7 +17,7 @@
 - [x] Fix the creationDate in job pause action (S)
 - [x] Add a collapse/show-details for all job items in jobs list & recycle bin views
 - [ ] In edit mode replace standard action buttons by save/cancel
-- [ ] Bug? fix the jobs panel title max width to not interfere with ID field
+- [x] Bug? fix the jobs panel title max width to not interfere with ID field
 - [ ] Bug: re-activate save/cancel buttons and toggle dynTemp
 - [ ] Bug: in edit mode, if cancel clicked, restore orig fields value
 

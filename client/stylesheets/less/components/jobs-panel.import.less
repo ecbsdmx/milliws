@@ -14,6 +14,7 @@
     -webkit-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
     -moz-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
     box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    transition: all 2s;
 
     &:hover {
       .panel-heading {
@@ -35,28 +36,36 @@
     &.edit .panel-body {
       height: 100%;
     }
+    .jobsHeader {
+      .row ,small{
+        padding: 0px;
+        margin: 0px;
+      }
+    }    
 
-    transition: all 2s;
-  }
-
-  .panel-heading {
-    border-bottom: none;
-  }
-  // must add a class for when displayed or not to
-  // add/remove inner padding !
-  .panel-body {
-  }
-
-  .panel-footer {
-    border-top: none;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 5px;
-    div {
-      opacity: @nonEssentialPanelElemOpacity;
-      transition: opacity @nonEssentialPanelElemFadeSpeed;
+    .panel-heading {
+      border-bottom: none;
+      h3 {
+        padding: 0px;
+      }
     }
-  }
+    // must add a class for when displayed or not to
+    // add/remove inner padding !
+    .panel-body {
+    }
+
+    .panel-footer {
+      border-top: none;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-right: 5px;
+      div {
+        opacity: @nonEssentialPanelElemOpacity;
+        transition: opacity @nonEssentialPanelElemFadeSpeed;
+      }
+    }
+}
+
 
   h3 {
     font-size: 14pt;
