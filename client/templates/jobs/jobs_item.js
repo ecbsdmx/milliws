@@ -1,15 +1,21 @@
-//FIXME initialize the sessions variables to the default: opened or closed...
+Template.jobsItem.rendered = function() {
+  $('[data-toggle="tooltip"]').tooltip();
+};
+
 Template.jobsItem.helpers({
   dynTemp : function() {
     var jobItem = this._id;
 
-    var jobsState = Session.get("jobDetailState" + jobItem);
-    if (typeof(jobsState) == 'undefined') {
-      jobsState = defaultJobPanelState;
-      Session.set("jobDetailState" + jobItem,jobsState);
-     }
+    var jobState = Session.get("jobDetailState" + jobItem);
+    if (typeof(jobState) == 'undefined') {
+      jobState = defaultJobPanelState;
+      Session.set("jobDetailState" + jobItem,jobState);
+    }
 
-    switch (jobsState) {
+    var $panel = $("#jobPanel_" + this._id);
+    updateCollapseMode(jobState, $panel);
+
+    switch (jobState) {
       case "edit":
         return "jobsItemEdit";
       case "details":
@@ -25,10 +31,10 @@ Template.jobsItem.events({
   'click .jobsHeader': function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
-    
+
     var clickedItem = this._id;
     var currentItemState = Session.get("jobDetailState" + clickedItem);
-    var $panel = $(e.target).closest(".panel");
+    var $panel = $("#jobPanel_" + this._id);
 
     if (typeof(currentItemState) == 'undefined') {
       // not toggled yet : toggle on

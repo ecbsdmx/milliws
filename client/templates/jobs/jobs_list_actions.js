@@ -37,36 +37,24 @@ Template.jobsListActions.events({
     e.preventDefault();
     e.stopImmediatePropagation();
 
+    // get total actual visible
     var totalCount = this.count();
-    var visibleCount = 0;
+    var visibleCount = $(".details").length;
+
+    //change all states accordingly
     this.forEach(function(item) {
       var currentItem = item._id;
-      var currentItemState = Session.get("jobDetailState"+ currentItem);
-      if (typeof(currentItem) != 'undefined' && currentItemState === "details") {
-        visibleCount++;
-      }
-    });//for each
-    if (visibleCount < totalCount/2) {
-      this.forEach(function(item) {
-        var currentItem = item._id;
-        Session.set("jobDetailStateItem", currentItem);
+      Session.set("jobDetailStateItem", currentItem);
+      var $panel = $("#jobPanel_" + currentItem);
+      if (visibleCount < totalCount/2) {
         Session.set("jobDetailState"+ currentItem, "details");
-        var $panels = $(".jobs .panel");
-        $panels.each(function(index) {
-          $($panels[index]).removeClass("collapsed").addClass("details");
-        });
-      });
-    } else {
-      this.forEach(function(item) {
-        var currentItem = item._id;
-        Session.set("jobDetailStateItem", currentItem);
+        updateCollapseMode("details", $panel);
+      }
+      else {
         Session.set("jobDetailState"+ currentItem, "");
-        var $panels = $(".jobs .panel");
-        $panels.each(function(index) {
-          $($panels[index]).removeClass("details").addClass("collapsed");
-        });
-      });
-    }
+        updateCollapseMode("", $panel);
+      }
+    });
   },
 
   'click #suspendAll': function(e) {

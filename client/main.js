@@ -67,16 +67,31 @@ UI.registerHelper('formatQuery', function(url) {
   }
 });
 
+updateCollapseMode = function(state, $panel) {
+  if (typeof(state) == 'undefined') {
+    state = defaultJobPanelState;
+  }
+  switch (state) {
+    case "edit":
+    case "details":
+      $panel.removeClass("collapsed").addClass("details");
+      break;
+    case "" :
+      $panel.removeClass("details").addClass("collapsed");
+      break;
+  }
+}
 
-/* 
+
+/*
  * Debugging helpers
  * Author :   leroyse (integration & modification of orginal code found on stackoverflow)
  * Source :   stackoverflow.com/questions/15422456/detecting-which-reactive-query-was-triggered
  *
- */ 
+ */
 /*
 //===============================================
-//-- debugging the collections interactions 
+//-- debugging the collections interactions
 //===============================================
 var wrappedFind = Meteor.Collection.prototype.find;
 
