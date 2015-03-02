@@ -3,34 +3,34 @@
   {{#if currentUser.profile.isAdmin}}
     <div class="clearfix">
       <div class="btn-group btn-group-xs pull-right" role="group">
-        <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
+        <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Show/hide details for all" role="button">
         {{#if isAllDetailsVisible}}
-          <span class="fa fa-eye-slash fa-fw"></span>
+          <i class="fa fa-eye-slash fa-fw"></i>
         {{else}}
-          <span class="fa fa-eye fa-fw"></span>
+          <i class="fa fa-eye fa-fw"></i>
         {{/if}}
         </a>
 
         {{#if isRecycle}}
-          <a class="btn btn-default btn-sm" href="#" role="button" id="undoAll" data-toggle="tooltip" data-placement="bottom" title="Recover all jobs"><span class="fa fa-undo fa-lg fa-fw"></span></a>
-          <a class="btn btn-danger btn-sm" href="#" role="button" id="eraseAll" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"><span class="fa fa-trash-o fa-lg fa-fw"></span></a>
+          <a class="btn btn-default btn-sm" href="#" role="button" id="undoAll" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Recover all jobs"><i class="fa fa-undo fa-lg fa-fw"></i></a>
+          <a class="btn btn-danger btn-sm" href="#" role="button" id="eraseAll" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete all jobs"><i class="fa fa-trash-o fa-lg fa-fw"></i></a>
         {{else}}
           {{#if isAllActive}}
-            <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
-              <span class="fa fa-pause fa-fw"></span>
+            <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Suspend all jobs" role="button">
+              <i class="fa fa-pause fa-fw"></i>
             </a>
           {{else}}
-            <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
-              <span class="fa fa-play fa-fw"></span>
+            <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Restart all jobs">
+              <i class="fa fa-play fa-fw"></i>
             </a>
           {{/if}}
 
-          <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button">
-            <span class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></span>
+          <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Create new job" role="button">
+            <i class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></i>
           </a>
 
           <a class="btn btn-danger btn-sm" href="#" role="button" id="deleteAll">
-            <span class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"></span>
+            <i class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Delete all jobs"></i>
           </a>
         {{/if}}
       </div>
