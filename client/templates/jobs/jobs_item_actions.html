@@ -1,0 +1,39 @@
+<template name="jobsItemActions">
+  <div class="pull-right toolbar">
+    {{#if isRecycle}}
+      {{#if currentUser.profile.isAdmin}}
+        <a class="undo text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Recover this job">
+          <i class="fa fa-undo fa-fw"></i>
+        </a>
+        <a class="erase text-muted" href="#" role="button" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete this job">
+          <i class="fa fa-trash-o fa-fw"></i>
+        </a>
+      {{/if}}
+    {{else}}
+      {{#if isEdit}}
+        <a class="save text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Save job">
+          <i class="fa fa-fw fa-check"></i>
+        </a>
+        <a class="cancel text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Cancel edit">
+          <i class="fa fa-fw fa-close"></i>
+        </a>
+      {{else}}
+        {{#if isActive}}
+          <a class="suspend text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Suspend job" >
+            <i class="fa fa-pause fa-fw"></i>
+          </a>
+        {{else}}
+          <a class="resume text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart job">
+            <i class="fa fa-play fa-fw"></i>
+          </a>
+        {{/if}}
+          <a class="edit text-muted" href="#" data-toggle="tooltip" data-placement="bottom" title="Edit job">
+            <i class="fa fa-fw fa-pencil-square-o"></i>
+          </a>
+          <a class="delete text-muted" href="#" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete job">
+            <i class="fa fa-fw fa-trash-o"></i>
+          </a>
+      {{/if}}
+    {{/if}}
+  </div>
+</template>

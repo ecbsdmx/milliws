@@ -1,11 +1,10 @@
 <template name="layout">
 
-  <!--<div class="container-fluid">-->
   {{#if currentUser}}
   {{> header}}
   <div id="wrapper" class="active">
     {{> sidebar}}
-    <div id="page-content-wrapper">
+    <div id="contentWrapper">
       <div class="page-content inset clearfix">
         {{> yield}}
       </div>
@@ -14,5 +13,7 @@
   {{else}}
   {{> login}}
   {{/if}}
+
+  {{> footer}}
 
 </template>

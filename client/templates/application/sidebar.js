@@ -1,17 +1,26 @@
 Template.sidebar.rendered = function() {
-  var carretState = Session.get('sidebarCarretState');  
-  if (carretState != null)
-  {
-    switch(carretState) {
-      case "openned":
-        $("#wrapper").addClass("active");    
-        break;
-      default: 
-        $("#wrapper").removeClass("active");    
-    }
+  $('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000 }});
+
+  var carretState = Session.get('sidebarCarretState');
+  if (typeof(carretState) == 'undefined') {
+    carretState = "openned";
+    Session.set('sidebarCarretState', carretState);
+  }
+  switch(carretState) {
+    case "openned":
+      $("#wrapper").addClass("active");
+      break;
+    default:
+      $("#wrapper").removeClass("active");
   }
 }
-
+Template.sidebar.helpers({
+  routeLinkActive: function(template) {
+    var currentRoute = Router.current();
+    return currentRoute &&
+        template === currentRoute.route.getName() ? 'active' : '';
+  }
+});
 Template.sidebar.events({
   "click #menu-toggle": function(e) {
     e.preventDefault();

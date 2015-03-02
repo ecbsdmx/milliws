@@ -1,5 +1,9 @@
 Meteor.publish('jobs', function() {
-    return Jobs.find();
+    return Jobs.find({isDeleted: false});
+});
+
+Meteor.publish('recycledJobs', function() {
+    return Jobs.find({isDeleted: true});
 });
 
 Meteor.publish('events', function() {

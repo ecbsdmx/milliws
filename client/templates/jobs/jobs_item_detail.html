@@ -1,80 +1,40 @@
 <template name="jobsItemDetail">
-
-  <tr id="jobDetailRow_{{this._id}}" class="jobDetailRow">
-    <td colspan="3">
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Name
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{this.name}}</span>
-        </div>
+  <div>
+    <i class="fa fa-database fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>
+      {{formatEntrypoint this.url}}
+      <!--
+      <div class="placard" data-initialize="placard" id="myPlacard">
+        <div class="placard-popup"></div>
+        <input class="form-control placard-field" type="text" placeholder="{{formatEntrypoint this.url}}"/>
       </div>
-      
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          SDMX 2.1 RESTful query
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <a href="{{this.url}}">{{this.url}}</a>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Expected response time
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{this.ert}} milliseconds</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Job frequency
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>Every {{this.freq}} minute(s)</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Format
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{formatToEnglish this.format}}</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Updates only (deltas)?
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{booleanToEnglish this.deltas}}</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Compress data?
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{booleanToEnglish this.isCompressed}}</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="jobsDetailHeader col-xs-6 col-sm-4 col-md-2">
-          Conditional query?
-        </div>
-        <div class="jobsDetailValue col-xs-6 col-sm-8 col-md-10">
-          <span>{{booleanToEnglish this.isIMS}}</span>
-        </div>
-      </div>
-    </td>
-  </tr>
-
+      -->
+  </div>
+  <div>
+    <i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="SDMX 2.1 RESTful query"></i>
+      <a href="{{this.url}}" title="Run {{this._id}} query">{{formatQuery this.url}}</a>
+  </div>
+  <div>
+    <i class="fa fa-clock-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Expected response time"></i>
+      {{this.ert}} milliseconds
+  </div>
+  <div>
+    <i class="fa fa-calendar fa-fw" data-toggle="tooltip" data-placement="bottom" title="Job frequency"></i>
+      {{formatERT this.freq}}
+  </div>
+  <div>
+    <i class="fa fa-file-text-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Format"></i>
+      {{formatRepresentation this.format}}
+  </div>
+  <div>
+    <i class="fa fa-files-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Updates only (deltas)?"></i>
+      {{formatDeltas this.deltas}}
+  </div>
+  <div>
+    <i class="fa fa-compress fa-fw" data-toggle="tooltip" data-placement="bottom" title="Compress data?"></i>
+      {{formatCompressed this.isCompressed}}
+  </div>
+  <div>
+    <i class="fa fa-history fa-fw" data-toggle="tooltip" data-placement="bottom" title="Conditional query?"></i>
+      {{formatIMS this.isIMS}}
+  </div>
 </template>

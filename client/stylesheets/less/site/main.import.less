@@ -1,5 +1,20 @@
-#page-content-wrapper {
-  padding: 2px 10px;
+@import "vendor/custom.bootstrap.import.less";
+
+body {
+  /* navbar fixed top requires body padding */
+  padding-top: 50px;
+  font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 25px;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6, #sidebar_menu li {
+  font-family: 'Droid Serif', Georgia, Times, serif;
+}
+
+#contentWrapper {
+  padding: 5px 20px;
 }
 
 .WelcomeTitle {
@@ -17,83 +32,35 @@
   margin: 30px auto;
 }
 
-#eventList{
-  font-size: 0.9em;
-  font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
-}
-#eventList .cellPadding {
-  padding: 2px 5px;
-}
-
-#jobsBtnGrp {
-  padding-right: 20px;
-}
-
-/* GENERAL */
 table {
   font-size: 0.9em;
-  font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
-} 
+}
+
+
+#eventList {
+  th{
+    .numericCell {
+    }
+    .textCell {
+    }
+  }
+  td{
+    border-left: 1px dashed #eee;
+    border-right: 1px dashed #eee;
+    &.numericCell {
+      text-align: right;    
+      font-family: 'Droid Serif', Georgia, Times, serif;
+      padding-right: 5px;
+    }
+    &.textCell {
+      text-align: left;
+      padding-left: 5px;
+    }
+  }
+}
 
 
 
-
-/* Jobs table */
-#jobsTable, .recycledJobsTable {
-  /*
-  padding: 0px 10px;
-  font-size: 0.9em;
-  font-family: 'Inconsolata', 'Lucida Console', 'Courrier new', ;
-  */
-}
-
-#jobsTable tr.jobHeaderRow {
-
-}
-#jobsTable tr.jobDetailRow {
-  display: none;
-}
-#jobsTable tr.jobEditRow {
-  display: none;
-}
-#jobsTable tr.displayRow {
-  display: table-row;
-}
-#jobsTable input[type=number] {
-  width: 100%;
-}
-
-.jobsDetailHeader {
-  font-weight: bold;
-}
-table.tablesorter th.header {
-  position: relative;
-  padding-left: 10px;
-}
-table.tablesorter th.header:before {
-  position: absolute;
-  font-family: FontAwesome;
-  top: 6px;
-  left: 0px;
-  content: "\f0dc";
-  
-}
-table.tablesorter th.headerSortUp:before {
-  position: absolute;
-  font-family: FontAwesome;
-  top: 6px;
-  left: 0px;
-  content: "\f0de";
-
-}
-table.tablesorter th.headerSortDown:before {
-  position: absolute;
-  font-family: FontAwesome;
-  top: 6px;
-  left: 0px;
-  content: "\f0dd";
-
-}
 
 /* Required field */
 .required-field-block {
@@ -122,12 +89,12 @@ table.tablesorter th.headerSortDown:before {
 .required-field-block .required-icon {
   background-color: transparent;
   position: absolute;
-  top: 0em;
-  right: 0em;
+  top: 0px;
+  right: 6px;
   z-index: 10;
   margin: 0em;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   padding: 0em;
   text-align: center;
   -webkit-transition: color 0.2s ease;
@@ -154,7 +121,41 @@ table.tablesorter th.headerSortDown:before {
 }
 .required-field-block .required-icon .text {
   color: #B80000;
-  font-size: 20px;
-  margin: -3px 0 0 -17px;
+  font-size: 19px;
+  margin: 0px 0 0 -10px;
 }
 
+#footer {
+  position: fixed;
+  bottom: 0px;
+  z-index: 1000;
+  width: 100%;
+  background-color: #333;
+  padding: 5px;
+  margin: 30px 0 0 0;
+  border: 1px solid #000;
+}
+#footer .credit {
+  color: #ccc;
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+
+/* wizard styling */
+#insertJobModal {
+  .form-group {
+    margin-bottom: 0px;
+  }
+  .modal-header {
+    padding: 5px 10px;
+  }
+  .checkbox label {
+    padding-left: 0px;
+  }
+  .form-horizontal .control-label {
+    line-height: 30px;
+        padding: 0px;
+
+  }
+}

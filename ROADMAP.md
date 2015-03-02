@@ -1,7 +1,7 @@
 # ROADMAP
 - [x] Initial release (v0.1.0) - 2015-02-10
 - [x] Improved job section (v0.2.0) - 2015-02-24
-- [ ] Improved design (v0.3.0)
+- [x] Improved design (v0.3.0) - 2015-03-02
 - [ ] Improved events section (v0.4.0)
 - [ ] Improved user management section (v0.5.0)
 - [ ] Improved statistics section (v0.6.0)

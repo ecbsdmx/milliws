@@ -1,0 +1,7 @@
+<template name="jobsListEmpty">
+  {{#if isRecycle}}
+    <div class="alert alert-warning" role="alert">The recycle bin is empty.</div>
+  {{else}}
+    <div class="alert alert-warning" role="alert">It seems there are no monitoring jobs defined at the moment. You can create some using our <a href="#" data-toggle="modal" data-target="#insertJobModal">wizard</a>.</div>
+  {{/if}}
+</template>

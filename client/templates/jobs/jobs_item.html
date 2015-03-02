@@ -1,13 +1,18 @@
 <template name="jobsItem">
-
-  <tr id="jobHeaderRow_{{this._id}}" class="jobHeaderRow">
-    <td>{{this._id}}</td>
-    <td>{{this.name}}</td>
-    <td>{{> jobsItemActions}}</td>
-  </tr>
-
-  {{> jobsItemDetail}}
-  
-  {{> jobsItemEdit}}
-
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+    <div id="jobPanel_{{this._id}}" class="panel panel-default {{jobPanelStateClass}}">
+      <div class="jobsHeader panel-heading">
+        <div class="row">
+          <h3 class="panel-title col-xs-12 col-sm-8 col-md-9 col-lg-9">{{this.name}}</h3><small class="text-right col-xs-12 col-sm-4 col-md-3 col-lg-3">{{this._id}}</small>
+        </div>
+      </div>
+      <div class="panel-body">
+        {{> Template.dynamic template=dynTemp}}
+      </div>
+      <div class="panel-footer clearfix">
+        <small>Since {{formatDate this.creationDate}}</small>
+        {{> jobsItemActions}}
+      </div>
+    </div>
+  </div>
 </template>

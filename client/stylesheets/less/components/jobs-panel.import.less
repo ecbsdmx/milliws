@@ -1,0 +1,100 @@
+@jobsScrollerHeight : 500px;
+@nonEssentialPanelElemOpacity: 0.2;
+@nonEssentialPanelElemFadeSpeed: 0.5s;
+
+.jobs {
+  & > .row {
+    //overflow-y: scroll;
+    //overflow-x: hidden;
+    //height: @jobsScrollerHeight;
+    //max-height: @jobsScrollerHeight;
+  }
+
+  .panel {
+    -webkit-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    box-shadow: -8px 8px 10px 0px rgba(0,0,0,0.2);
+    transition: all 2s;
+
+    &:hover {
+      .panel-heading {
+      }
+      .panel-footer  {
+        div {
+          opacity: 1;
+          transition: opacity @nonEssentialPanelElemFadeSpeed;
+        }
+      }
+    }
+    &.collapsed .panel-body {
+      height: 0px;
+      padding: 0px;
+    }
+    &.details .panel-body {
+      height: 100%;
+    }
+    &.edit .panel-body {
+      height: 100%;
+    }
+    .jobsHeader {
+      .row ,small{
+        padding: 0px;
+        margin: 0px;
+      }
+    }    
+
+    .panel-heading {
+      border-bottom: none;
+      h3 {
+        padding: 0px;
+      }
+    }
+    // must add a class for when displayed or not to
+    // add/remove inner padding !
+    .panel-body {
+    }
+
+    .panel-footer {
+      border-top: none;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-right: 5px;
+      div {
+        opacity: @nonEssentialPanelElemOpacity;
+        transition: opacity @nonEssentialPanelElemFadeSpeed;
+      }
+    }
+}
+
+
+  h3 {
+    font-size: 14pt;
+  }
+
+  .row {
+    padding-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .panel-footer small {
+    color: #777777;
+    font-size: 75%;
+  }
+
+  div.panel-body i.fa {
+    padding-right: 25px;
+  }
+
+  div.panel-footer i.fa {
+    padding: 0px;
+  }
+
+  h3 small {
+    margin-top: -8px;
+    margin-right: -12px;
+  }
+
+  .alert {
+    margin-top: 20px;
+  }
+}
