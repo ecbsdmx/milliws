@@ -1,3 +1,5 @@
+@import "vendor/custom.bootstrap.import.less";
+
 .bullet { 
   font: 10px sans-serif; 
 }
@@ -29,3 +31,54 @@ r
   fill: #000; 
 }
 
+#eventList {
+  .dataTables_info {
+    float: left;
+  }
+  th {
+    background: #F9F9F9;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-top: none;
+    color: #333;
+    line-height: 1.42857;
+    margin-left: -9px;
+    padding: 8px;
+    &:hover {
+      background: #F1F1F1;
+      cursor: pointer;
+      #gradient > .vertical(#F9F9F9, #E5E5E5);
+    }
+    .numericCell {
+    }
+    .textCell {
+    }
+    &.sorting_asc:after {
+      content: "\f077";
+      font-family: FontAwesome;
+      float: right;
+    }
+    &.sorting_desc:after {
+      content: "\f078";
+      font-family: FontAwesome
+      float: right;
+    }
+
+  }
+  td {
+    border-left: 1px dashed #eee;
+    border-right: 1px dashed #eee;
+    &.numericCell {
+      text-align: right;    
+      font-family: 'Droid Serif', Georgia, Times, serif;
+      padding-right: 20px;
+    }
+    &.textCell {
+      text-align: left;
+      padding-left: 5px;
+    }
+    &.centerCell {
+      text-align: center;
+    }
+  }
+}
