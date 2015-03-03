@@ -45,7 +45,7 @@ var triggerJob = function(job, last) {
       secureProtocol: 'TLSv1_method'
       /*rejectUnauthorized: false*/
     },
-    params: params, 
+    params: params,
     headers: {
       "User-Agent": "Heimdallr 1.0.0"
     }
@@ -68,7 +68,7 @@ var triggerJob = function(job, last) {
   if (job.isIMS && null !== last) {
     options.headers["If-Modified-Since"] = new Date(last.etime).toUTCString();
   }
-  
+
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
     var event = {};
@@ -77,6 +77,7 @@ var triggerJob = function(job, last) {
     event.jobId = job._id;
     event.isActive = true;
     event.etime = startTime;
+    event.url = job.url;
     if (result) {
       event.status = result.statusCode;
     } else {
