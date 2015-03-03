@@ -1,3 +1,5 @@
 <template name="statusCodeCell">
-  <div class="{{class this.status}}">{{this.status}}</div>
+  <div class="{{statusClass this.status}}">
+    <span data-toggle="tooltip" data-placement="bottom" title="{{statusText this.status}}">{{this.status}}</span>
+  </div>
 </template>
