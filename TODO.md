@@ -13,7 +13,7 @@
 - [ ] Job column: When clicking on the job id, display information about the job.
 - [ ] Executed on column: Find the best format for displaying the timestamp.
 - [ ] HTTP status code column: When clicking on the status code, display the meaning of the code.
-- [ ] HTTP status code column: Should be in red if not 200, 304 or 404.
+- [x] HTTP status code column: Should be in red if not 200, 304 or 404.
 - [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
 - [ ] There should be an option to only show the problematic entries.
 - [x] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
