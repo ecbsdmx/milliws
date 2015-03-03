@@ -16,8 +16,11 @@
 - [ ] HTTP status code column: Should be in red if not 200, 304 or 404.
 - [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
 - [ ] There should be an option to only show the problematic entries.
-- [ ] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
-- [ ] Find the best table component for meteor (reactive table, tabular, fuelux repeater, something else?)
+- [x] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
+- [x] Find the best table component for meteor (reactive table, tabular, fuelux repeater, something else?)
+- [ ] DataTables information summary not aligned with filter box.
+- [ ] Issue with end of the table overlaping the footer
+- [ ] Arrows for sorting not in line with colour scheme.
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
 
