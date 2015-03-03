@@ -7,6 +7,7 @@
 - [ ] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
+- [x] Allow for behind firewall w/proxy access to remote service (use env var)
 
 ## Events module
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) ???result.content.length compressed via http-more & other prop???

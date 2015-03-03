@@ -37,9 +37,10 @@ var triggerJob = function(job, last) {
   if (job.deltas) {
     params.updatedAfter = lastUpdate;
   }
+  
 
   //-- request options
-  var options = {
+  var options = {  
     strictSSL: false,
     agentOptions: {
       secureProtocol: 'TLSv1_method'
@@ -51,6 +52,9 @@ var triggerJob = function(job, last) {
     }
   };
 
+  if (proxy){
+    options.proxy = proxy;
+  }
   if (job.format === "sdmx-generic-2.1") {
     options.headers.Accept = "application/vnd.sdmx.genericdata+xml;version=2.1";
   } else if (job.format === "sdmx-compact-2.1") {
@@ -71,6 +75,8 @@ var triggerJob = function(job, last) {
 
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
+    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
+    //console.dir(result);
     var event = {};
     var received = new Date();
     event.responseTime = received - startTime;
@@ -78,6 +84,11 @@ var triggerJob = function(job, last) {
     event.isActive = true;
     event.etime = startTime;
     event.url = job.url;
+    /*
+    var responseSize = result.headers['content-length']
+    if (responseSize)
+      event.responseSize = responseSize;
+    */
     if (result) {
       event.status = result.statusCode;
     } else {
@@ -168,4 +179,9 @@ SyncedCron.add({
     monitor();
   }
 });
+
+var proxy = process.env.http_proxy;
+if (proxy) {
+  console.log("Using the env variable proxy: http_proxy");
+}
 SyncedCron.start();
