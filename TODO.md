@@ -19,7 +19,7 @@
 - [x] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
 - [x] Find the best table component for meteor (reactive table, tabular, fuelux repeater, something else?)
 - [ ] DataTables information summary not aligned with filter box.
-- [ ] Issue with end of the table overlaping the footer
+- [x] Issue with end of the table overlaping the footer
 - [ ] Arrows for sorting not in line with colour scheme.
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
