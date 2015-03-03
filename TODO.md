@@ -11,7 +11,7 @@
 ## Events module
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) ???result.content.length compressed via http-more & other prop???
 - [x] Job column: When clicking on the job id, display information about the job.
-- [ ] Executed on column: Find the best format for displaying the timestamp.
+- [x] Executed on column: Find the best format for displaying the timestamp.
 - [x] HTTP status code column: When clicking on the status code, display the meaning of the code.
 - [x] HTTP status code column: Should be in red if not 200, 304 or 404.
 - [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
