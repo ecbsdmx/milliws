@@ -22,16 +22,12 @@ Template.eventsList.rendered = function() {
     $input.change(function() {
       var isProblematic = $(this).prop('checked');
       Session.set("showProblematicOnly", isProblematic);
-      console.log("Toggling isProblematic: " + Session.get("showProblematicOnly"));
-
     });
   })
 };
 Template.eventsList.helpers({
   selector: function() {
     var isProblematic = Session.get("showProblematicOnly");
-    console.log("isProblematic changed: " + isProblematic);
-
     return isProblematic? {isProblematic: true} : {};
   }
 });

@@ -3,10 +3,18 @@ Template.statusCodeCell.rendered = function() {
 };
 
 Template.statusCodeCell.helpers({
-  statusClass: function(isProblematic) {
-    return isProblematic ?"text-danger" : "text-primary";
+  statusClass: function(status, deltas) {
+    switch (status) {
+      case 404:
+        return  deltas ? "text-primary" : "text-danger";
+      case 304:
+      case 200:
+        return "text-primary";
+      default:
+        return "text-danger";
+    }
   },
-  
+
 
   statusText: function(status) {
     switch (status) {
