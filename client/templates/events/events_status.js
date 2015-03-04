@@ -3,10 +3,10 @@ Template.statusCodeCell.rendered = function() {
 };
 
 Template.statusCodeCell.helpers({
-  statusClass: function(status) {
-    switch (status) {
+  statusClass: function(data) {
+    switch (data.status) {
       case 404:
-        return "text-warning";
+        return data.deltas? "text-primary" : "text-danger";
       case 304:
       case 200:
         return "text-primary";
@@ -14,6 +14,7 @@ Template.statusCodeCell.helpers({
         return "text-danger";
     }
   },
+  
 
   statusText: function(status) {
     switch (status) {
@@ -28,7 +29,7 @@ Template.statusCodeCell.helpers({
       case 403:
         return "Semantic error. The syntax of the query is OK but it makes no sense anyway. Tolerated only on April Fools.";
       case 404:
-        return "No results. Mostly harmless, especially if you used updatedAfter.";
+        return "No results. Mostly harmless, especially if you used updataedAfter.";
       case 406:
         return "Not a supported format. No worries, SDMX is all you need.";
       case 413:

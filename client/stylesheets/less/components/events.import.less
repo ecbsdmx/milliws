@@ -1,5 +1,10 @@
 @import "vendor/custom.bootstrap.import.less";
 
+@row-warning-bg:  spin(fadeout(@brand-warning, 0%), 50);
+@row-danger-bg:   fadeout(@brand-danger, 0%);
+
+
+
 .bullet { 
   font: 10px sans-serif; 
 }
@@ -64,6 +69,19 @@ r
       float: right;
     }
 
+  }
+  tr {
+    &.rowWarning {
+      border-left: 5px solid @row-warning-bg;
+      //background-color: @row-warning-bg;
+      //font-style: italic;
+    }
+    &.rowError {
+      border-left: 5px solid @row-danger-bg;
+      //background-color: @row-danger-bg;
+      //font-style: italic;
+      //color: #fff;
+    }
   }
   td {
     border-left: 1px dashed #eee;

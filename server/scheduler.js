@@ -79,11 +79,15 @@ var triggerJob = function(job, last) {
     //console.dir(result);
     var event = {};
     var received = new Date();
+    var goodStatuses = [200, 304];
+
     event.responseTime = received - startTime;
     event.jobId = job._id;
     event.isActive = true;
     event.etime = startTime;
     event.url = job.url;
+    event.isProblematic = false;
+    event.deltas = job.deltas;
     /*
     var responseSize = result.headers['content-length']
     if (responseSize)
@@ -93,8 +97,14 @@ var triggerJob = function(job, last) {
       event.status = result.statusCode;
     } else {
       // alert should be raised?
+      event.isProblematic = true;
       console.log(error);
     }
+
+    if (!_.contains(goodStatuses, event.status)) {
+      event.isProblematic = true;
+    }
+    
     event.ert = job.ert;
     var serieObs = {nSeries: 0, nObs: 0};
     if (200 === event.status) {
