@@ -1,6 +1,6 @@
 Template.responseTimeCell.helpers({
   ertClass: function(ert, rt) {
-    // 30% threshold yields warning color
+    // FIXME use gauge & set percentage threshold in settings
     var percentageMargin = 0.3;
     if (rt > ert) {
       return "text-danger";

@@ -10,7 +10,6 @@
 - [x] Allow for behind firewall w/proxy access to remote service (use env var)
 
 ## Events module
-- [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) ???result.content.length compressed via http-more & other prop???
 - [x] Job column: When clicking on the job id, display information about the job.
 - [x] Executed on column: Find the best format for displaying the timestamp.
 - [x] HTTP status code column: When clicking on the status code, display the meaning of the code.
@@ -19,11 +18,12 @@
 - [ ] There should be an option to only show the problematic entries.
 - [x] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
 - [x] Find the best table component for meteor (reactive table, tabular, fuelux repeater, something else?)
-- [ ] DataTables information summary not aligned with filter box.
+- [x] DataTables information summary not aligned with filter box.
 - [x] Issue with end of the table overlaping the footer
-- [ ] Arrows for sorting not in line with colour scheme.
+- [x] Arrows for sorting not in line with colour scheme.
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
+- [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
 
 ## Settings module
 - [ ] Default events go back num days

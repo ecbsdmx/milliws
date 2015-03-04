@@ -79,7 +79,6 @@ var triggerJob = function(job, last) {
     //console.dir(result);
     var event = {};
     var received = new Date();
-    var goodStatuses = [200, 304];
 
     event.responseTime = received - startTime;
     event.jobId = job._id;
@@ -88,6 +87,7 @@ var triggerJob = function(job, last) {
     event.url = job.url;
     event.isProblematic = false;
     event.deltas = job.deltas;
+    event.ert = job.ert;
     /*
     var responseSize = result.headers['content-length']
     if (responseSize)
@@ -101,11 +101,18 @@ var triggerJob = function(job, last) {
       console.log(error);
     }
 
-    if (!_.contains(goodStatuses, event.status)) {
-      event.isProblematic = true;
+    switch (event.status) {
+      case 404:
+        event.isProblematic = !event.deltas;
+        break;
+      case 304:
+      case 200:
+        event.isProblematic = event.responseTime > event.ert;
+        break;
+      default:
+        event.isProblematic = true;
     }
     
-    event.ert = job.ert;
     var serieObs = {nSeries: 0, nObs: 0};
     if (200 === event.status) {
       // ATT result.headers['content-type'] does not return the proper type...
