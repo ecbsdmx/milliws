@@ -14,16 +14,18 @@
 - [x] Executed on column: Find the best format for displaying the timestamp.
 - [x] HTTP status code column: When clicking on the status code, display the meaning of the code.
 - [x] HTTP status code column: Should be in red if not 200, 304 or 404.
-- [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
-- [ ] There should be an option to only show the problematic entries.
 - [x] Table should take all available vertical space (currently, scrollbar added even when plenty of space is still available).
 - [x] Find the best table component for meteor (reactive table, tabular, fuelux repeater, something else?)
 - [x] DataTables information summary not aligned with filter box.
 - [x] Issue with end of the table overlaping the footer
 - [x] Arrows for sorting not in line with colour scheme.
+- [x] There should be an option to only show the problematic entries.
+- [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
+- [ ] Add filter (faded-out + hover) buttons in cells (later)
+
 
 ## Settings module
 - [ ] Default events go back num days
