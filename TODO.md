@@ -2,6 +2,7 @@
 
 ## General
 - [ ] Get rid of dead code
+- [ ] App hardening
 
 ## Job module
 - [ ] Check that the compression flag is used when SDW 3.12 is out
