@@ -1,11 +1,15 @@
 <template name="jobsItemDetail">
   <div>
-    <i class="fa fa-database fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>
+    <i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="Web service entry point"></i>
       {{formatEntrypoint this.url}}
   </div>
   <div>
-    <i class="fa fa-globe fa-fw" data-toggle="tooltip" data-placement="bottom" title="SDMX 2.1 RESTful query"></i>
-      <a href="{{this.url}}" title="Run {{this._id}} query">{{formatQuery this.url}}</a>
+    <i class="fa fa-terminal fa-fw" data-toggle="tooltip" data-placement="bottom" title="Path parameters"></i>
+      {{formatPathParams this.url}}
+  </div>
+  <div>
+    <i class="fa fa-question fa-fw" data-toggle="tooltip" data-placement="bottom" title="Query string parameters"></i>
+      {{formatQueryStringParams this.url}}
   </div>
   <div>
     <i class="fa fa-clock-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Expected response time"></i>

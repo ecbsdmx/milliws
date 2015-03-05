@@ -76,7 +76,7 @@ Template.jobsItemActions.events({
       var job = {
         _id: this._id,
         name: this.name,
-        url: $("#inputEntryPoint_" + this._id).val() + $("#inputQuery_" + this._id).val(),
+        url: $("#inputEntryPoint_" + this._id).val() + $("#inputPathParams_" + this._id).val() + ($("#inputQueryParams_" + this._id).val().indexOf('=') === -1 ? "" : "?" + $("#inputQueryParams_" + this._id).val()),
         ert: parseInt($("#inputERT_" + this._id).val()),
         freq: parseInt($("#inputFreq_" + this._id).val()),
         isDeleted: this.isDeleted,

@@ -59,15 +59,36 @@ formatEntrypoint = function(url) {
   }
 }
 UI.registerHelper('formatEntrypoint', formatEntrypoint);
-formatQuery = function(url) {
+formatPathParams = function(url) {
   var pos = url.indexOf("/data");
+  var end = url.indexOf("?");
   if (-1 < pos) {
-    return url.substring(pos);
+    return -1 < end ? url.substring(pos, end) : url.substring(pos);
   } else {
-    return url;
+    return "-";
   }
 }
-UI.registerHelper('formatQuery', formatQuery);
+UI.registerHelper('formatPathParams', formatPathParams);
+
+formatQueryStringParams = function(url) {
+  var pos = url.indexOf("?");
+  if (-1 < pos) {
+    return url.substring(pos + 1);
+  } else {
+    return "-";
+  }
+}
+UI.registerHelper('formatQueryStringParams', formatQueryStringParams);
+
+formatFormQueryStringParams = function(url) {
+  var pos = url.indexOf("?");
+  if (-1 < pos) {
+    return url.substring(pos + 1);
+  } else {
+    return "";
+  }
+}
+UI.registerHelper('formatFormQueryStringParams', formatFormQueryStringParams);
 
 updateCollapseMode = function(state, $panel) {
   if (typeof(state) == 'undefined') {
