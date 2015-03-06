@@ -26,6 +26,10 @@
 - [ ] Job column: Link to the job panel in the job section (later).
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
 - [ ] Add filter (faded-out + hover) buttons in cells (later)
+- [ ] Bullet cell : add responseTime text to the bullet cell
+- [ ] Bullet cell : decide how to handle outliers
+- [ ] Bullet cell : take the full width 
+- [ ] Bullet cell : change bar color when ert < responseTime
 
 
 ## Settings module

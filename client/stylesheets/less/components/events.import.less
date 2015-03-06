@@ -6,73 +6,71 @@
 
 
 .bullet { 
-  font: 10px sans-serif; 
+  font: 8px sans-serif; 
 }
 .bullet .marker { 
-  stroke: #f55; stroke-width: 2px; 
+  stroke: #000; stroke-width: 2px; 
 }
 .bullet .tick line { 
   stroke: #666; stroke-width: .5px; 
 }
 .bullet .range.s0 { 
-fill: #fcc; } // past marke
-r
-.bullet .range.s1 { 
-fill: #cfc; } // before marke
-r
-.bullet .range.s2 { 
-  fill: #33f; 
-}
-.bullet .measure.s0 { 
-  fill: lightsteelblue; 
-}
-.bullet .measure.s1 { 
-  fill: steelblue; 
-}
-.bullet .title { 
-  font-size: 8px; font-weight: bold; 
-}
-.bullet .subtitle { 
-  fill: #000; 
-}
-
-#eventList {
-  .dataTables_info {
-    float: left;
+  fill: #eee } // past marker
+  .bullet .range.s1 { 
+  fill: #ddd; } // before marker
+  .bullet .range.s2 { 
+    fill: #ccc; 
   }
-  th {
-    background: #F9F9F9;
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-top: none;
-    color: #333;
-    line-height: 1.42857;
-    margin-left: -9px;
-    padding: 8px;
-    &:hover {
-      background: #F1F1F1;
-      cursor: pointer;
-      #gradient > .vertical(#F9F9F9, #E5E5E5);
-    }
-    .numericCell {
-    }
-    .textCell {
-    }
-    &.sorting_asc:after {
-      content: "\f077";
-      font-family: FontAwesome;
-      float: right;
-    }
-    &.sorting_desc:after {
-      content: "\f078";
-      font-family: FontAwesome;
-      float: right;
-    }
-
+  .bullet .measure.s0 { 
+    fill: @brand-primary; 
   }
-  tr {
-    &.rowWarning {
-      border-left: 5px solid @row-warning-bg;
+  .bullet .measure.s1 { 
+    fill: steelblue; 
+  }
+  .bullet .title { 
+    font-size: 8px; font-weight: bold; 
+  }
+  .bullet .subtitle { 
+    fill: #000; 
+  }
+
+  #eventList {
+    .dataTables_info {
+      float: left;
+    }
+    th {
+      background: #F9F9F9;
+      border-bottom: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+      border-top: none;
+      color: #333;
+      line-height: 1.42857;
+      margin-left: -9px;
+      padding: 8px;
+      &:hover {
+        background: #F1F1F1;
+        cursor: pointer;
+        #gradient > .vertical(#F9F9F9, #E5E5E5);
+      }
+      .numericCell {
+      }
+      .textCell {
+      }
+      &.sorting_asc:after {
+        content: "\f077";
+        font-family: FontAwesome;
+        float: right;
+      }
+      &.sorting_desc:after {
+        content: "\f078";
+        font-family: FontAwesome;
+        float: right;
+      }
+
+    }
+    tr {
+      &.rowWarning {
+        border-left: 5px solid @row-warning-bg;
       //background-color: @row-warning-bg;
       //font-style: italic;
     }
@@ -98,10 +96,15 @@ r
     &.centerCell {
       text-align: center;
     }
+    &.bulletCell{
+      padding: 2px 0 0 0;
+      margin: 0px;
+      text-align: center;
+    }
   }
 }
 #tableButton {
   .checkbox {
-    
+
   }
 }

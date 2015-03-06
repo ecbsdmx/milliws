@@ -14,6 +14,10 @@ var monitor = function() {
       }
     }
   });
+
+  Meteor.call("updateEventsStats", function(err, data) {
+    if (err) console.log("updateEventsStats error: " + err);
+  });
 };
 // Checks whether a job needs to run
 var isDue = function(job, last) {
@@ -202,3 +206,8 @@ if (proxy) {
   console.log("Using the env variable proxy: http_proxy");
 }
 SyncedCron.start();
+
+
+
+
+
