@@ -16,24 +16,39 @@
   stroke: #666; stroke-width: .5px; 
 }
 .bullet .range.s0 { 
-  fill: #eee } // past marker
-  .bullet .range.s1 { 
+  fill: #ccc } // past marker
+.bullet .range.s1 { 
   fill: #ddd; } // before marker
-  .bullet .range.s2 { 
-    fill: #ccc; 
-  }
-  .bullet .measure.s0 { 
-    fill: @brand-primary; 
-  }
-  .bullet .measure.s1 { 
-    fill: steelblue; 
-  }
-  .bullet .title { 
-    font-size: 8px; font-weight: bold; 
-  }
-  .bullet .subtitle { 
-    fill: #000; 
-  }
+.bullet .range.s2 { 
+  fill: #eee; 
+}
+/*
+.bullet .range.s0 { 
+  fill: #fee;            // danger
+}
+.bullet .range.s1 { 
+  fill: #fc5;            // warning
+}
+.bullet .range.s2 { 
+  fill: #efe;           // ok
+}
+*/
+
+.bullet .measure.s0 { 
+  fill: @brand-primary; 
+}
+.bullet .measure.s0.danger { 
+  fill: @brand-danger; 
+}
+.bullet .measure.s1 { 
+  fill: steelblue; 
+}
+.bullet .title { 
+  font-size: 8px; font-weight: bold; 
+}
+.bullet .subtitle { 
+  fill: #000; 
+}
 
   #eventList {
     .dataTables_info {

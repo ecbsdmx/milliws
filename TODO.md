@@ -21,16 +21,19 @@
 - [x] Issue with end of the table overlaping the footer
 - [x] Arrows for sorting not in line with colour scheme.
 - [x] There should be an option to only show the problematic entries.
-- [ ] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
+- [x] Expected response time and response time should be in the same column and displayed as a gauge. The problematic ones should stand out.
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
 - [ ] Add filter (faded-out + hover) buttons in cells (later)
 - [ ] Bullet cell : add responseTime text to the bullet cell
-- [ ] Bullet cell : decide how to handle outliers
+- [x] Bullet cell : decide how to handle outliers
 - [ ] Bullet cell : take the full width 
-- [ ] Bullet cell : change bar color when ert < responseTime
-- [ ] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
+- [x] Bullet cell : change bar color when ert < responseTime
+- [x] Bullet cell : style the measure bar for warning area
+- [x] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
+- [ ] Bullet cell : should the scale be uniform accross jobs ? (Create a button to toggle between uniform scale & default ?) (later)
+- [ ] Bullet cell : BUG : Status 404 & rt > ert not tagging line with red marker.
 
 
 ## Settings module
