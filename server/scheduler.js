@@ -70,7 +70,8 @@ var triggerJob = function(job, last) {
   }
 
   if (job.isCompressed) {
-    options.gzip = true;//headers["Accept-Encoding"] = "gzip"
+    options.headers['Accept-Encoding'] = "gzip";
+    //options.gzip = true;
   }
 
   if (job.isIMS && null !== last) {
