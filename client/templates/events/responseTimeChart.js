@@ -1,8 +1,8 @@
 Template.responseTimeChart.rendered = function() {
   //respTimeChart
   var w = 350;
-  var h = 30;
-  var margin = {top: 5, right: 0, bottom: 12, left: 5};
+  var h = 35;
+  var margin = {top: 2, right: 5, bottom:12, left: 5};
 
   var chart = d3.bullet()
   .width(w - margin.left - margin.right)
@@ -33,11 +33,10 @@ Template.responseTimeChart.rendered = function() {
   .attr("transform", "translate("+margin.left+","+margin.top+")")
   .call(chart)
   ;
-  
-  //FIXME not working: (measure should be red when 'isProblematic: true')
-  /*
+
+  var measure = svg.select(".measure.s0");
   if (this.data.ert < this.data.responseTime ) {
-    svg.selectAll("svg").selectAll(".measure .s0").style("fill", "#f55");
+    measure.style("fill", "#8A2126");
   }
-  */
+
 };

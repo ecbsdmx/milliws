@@ -30,6 +30,7 @@
 - [ ] Bullet cell : decide how to handle outliers
 - [ ] Bullet cell : take the full width 
 - [ ] Bullet cell : change bar color when ert < responseTime
+- [ ] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
 
 
 ## Settings module
