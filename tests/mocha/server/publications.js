@@ -132,8 +132,8 @@ if (!(typeof MochaWeb === 'undefined')){
         var newJob = {
           _id: "test",
           name: "Test job",
-          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 0,
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           freq: 2,
           deltas: true,
           isCompressed: true,
