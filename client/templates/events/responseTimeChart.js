@@ -4,7 +4,7 @@ Template.responseTimeChart.rendered = function() {
   //respTimeChart
   var w = 350;
   var h = 30;
-  var margin = {top: 3, right: 5, bottom:12, left: 25};
+  var margin = {top: 3, right: 50, bottom: 12, left: 5};
 
  // var chart = d3.bullet()
  //  .width(w - margin.left - margin.right)
@@ -16,16 +16,16 @@ Template.responseTimeChart.rendered = function() {
   var rangeError = this.data.ert * 1.5;//this.data.ert * 1.3; //max for this job id (from eventsStats collection)
 
   var dat = [{
-    title:      "RT",
-    subtitle:   "(ms)",
-    ranges:     [rangeSuccess, rangeWarning, rangeError], // 0, ert, ert+20%
-    measures:   [Math.min(this.data.ert * 1.5, this.data.responseTime)],
-    markers:    [jobStat.avg]
+    responseTime:   "" + this.data.responseTime,
+    ert:            "Ert: " + this.data.ert,
+    ranges:         [rangeSuccess, rangeWarning, rangeError], // 0, ert, ert+20%
+    measures:       [Math.min(this.data.ert * 1.5, this.data.responseTime)],
+    markers:        [jobStat.avg]
   }];
   
 
   var svg = d3.select("#respTimeChart_" + this.data._id);
-  svg
+  svg = svg
     .data(dat)
     .append("svg")
     .attr("class", "bullet")
@@ -43,12 +43,29 @@ Template.responseTimeChart.rendered = function() {
     .width(actualChartWidth)
     .height(actualChartHeight);
 
-  svg.selectAll("svg")
+  svg = svg
     .attr("width", actualChartWidth + margin.left + margin.right)
     .attr("height", actualChartHeight + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .call(chart);
+
+
+  var title = svg
+    .append("g")
+    .style("text-anchor", "start")
+    .attr("transform", "translate(" + (actualChartWidth + 20) + "," + h / 2 + ")");
+
+  title.append("text")
+    .attr("class", "title")
+    .text(function(d) { return d.responseTime; });
+
+  // title.append("text")
+  //   .attr("class", "subtitle")
+  //   .attr("dy", "1em")
+  //   .text(function(d) { return d.ert; });
+
+
 
   var measure = svg.select(".measure.s0");
   if ((this.data.ert * 1.5) < this.data.responseTime ) {
