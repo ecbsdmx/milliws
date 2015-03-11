@@ -35,11 +35,9 @@ Template.responseTimeChart.rendered = function() {
   
   var containerCellAvailableWidth = svg.style("width");
   containerCellAvailableWidth = parseInt(containerCellAvailableWidth.substr(0, containerCellAvailableWidth.length - 2));
-  console.log("containerCellAvailableWidth: " + containerCellAvailableWidth);
 
   var actualChartWidth = containerCellAvailableWidth - margin.left - margin.right;
   var actualChartHeight = h - margin.top - margin.bottom;
-  console.log("actualChartWidth: " + actualChartWidth);
   
   var chart = d3.bullet()
     .width(actualChartWidth)
