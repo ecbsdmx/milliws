@@ -26,14 +26,15 @@
 - [ ] Job column: Link to the job panel in the job section (later).
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
 - [ ] Add filter (faded-out + hover) buttons in cells (later)
-- [ ] Bullet cell : add responseTime text to the bullet cell
+- [x] Bullet cell : add responseTime text to the bullet cell
 - [x] Bullet cell : decide how to handle outliers
-- [ ] Bullet cell : take the full width 
+- [x] Bullet cell : take the full width 
 - [x] Bullet cell : change bar color when ert < responseTime
 - [x] Bullet cell : style the measure bar for warning area
 - [x] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
-- [ ] Bullet cell : should the scale be uniform accross jobs ? (Create a button to toggle between uniform scale & default ?) (later)
-- [ ] Bullet cell : BUG : Status 404 & rt > ert not tagging line with red marker.
+- [x] Bullet cell : should the scale be uniform accross jobs ? (Create a button to toggle between uniform scale & default ?) (later)
+- [x] Bullet cell : BUG : Status 404 & rt > ert not tagging line with red marker.
+- [ ] Bullet cell : BUG? memory loss - to identify & fix !!!
 
 
 ## Settings module

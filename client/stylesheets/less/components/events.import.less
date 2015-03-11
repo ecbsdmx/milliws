@@ -10,21 +10,35 @@
   color: #ccc;
 }
 .bullet .marker { 
-  stroke: #000; stroke-width: 2px; 
+  stroke: #000; 
+  stroke-width: 2px; 
 }
 .bullet .tick line { 
-  stroke: #666; stroke-width: .5px; 
+  stroke: #666; 
+  stroke-width: .5px; 
 }
+.bullet .tick text { 
+  fill: rgba(0, 0, 0, 0.33);
+}
+
 .bullet .range.s0 { 
-  fill: #ccc } // past marker
+  fill: #ccc;
+  /*
+  stroke: rgba(0, 0, 0, 0.61);
+  stroke-width: 1.0px;
+  */
+}
 .bullet .range.s1 { 
-  fill: #ddd; } // before marker
+  fill: #ddd; 
+}
 .bullet .range.s2 { 
   fill: #eee; 
 }
 /*
 .bullet .range.s0 { 
   fill: #fee;            // danger
+  stroke: rgba(0, 0, 0, 0.61);
+  stroke-width: 1px;
 }
 .bullet .range.s1 { 
   fill: #fc5;            // warning
@@ -44,7 +58,9 @@
   fill: steelblue; 
 }
 .bullet .title { 
-  font-size: 8px; font-weight: bold; 
+  font-size: 10px; 
+  font-weight: bold; 
+  fill: rgba(0, 0, 0, 0.33);
 }
 .bullet .subtitle { 
   fill: #000; 
