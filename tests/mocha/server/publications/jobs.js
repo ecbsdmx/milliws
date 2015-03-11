@@ -23,17 +23,10 @@ if (!(typeof MochaWeb === 'undefined')){
   };
 
   MochaWeb.testOnly(function(){
-    describe("Publications", function(){
-      it("Should have 2 users in the database", function(){
-        chai.assert(Meteor.users.find().count() === 2);
-      });
+    describe("Publications: Jobs", function(){
 
       it("Should have a few jobs in the database", function(){
         chai.assert(Jobs.find().count() > 0);
-      });
-
-      it("Might have a few events in the database", function(){
-        chai.assert(Events.find().count() >= 0);
       });
 
       it("Jobs should only have known properties", function(){
@@ -212,6 +205,110 @@ if (!(typeof MochaWeb === 'undefined')){
         } catch (e) {
           chai.assert.equal("Match error: Failed Match.Where validation in field name", e.message);
         }
+      });
+
+      it("Cannot use existing ID", function(){
+        var jobId = "test";
+        Jobs.remove({_id: jobId});
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+        var newJob = {
+          _id: "test",
+          name: "test 1",
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
+          ert: 200,
+          freq: 2,
+          deltas: true,
+          isCompressed: true,
+          isIMS: false,
+          format: "sdmx-json-1.0.0"
+        };
+        Meteor.call("jobInsert", newJob);
+        try {
+          Meteor.call("jobInsert", newJob);
+          throw new Error("Should not be able to reuse IDs!");
+        } catch (e) {
+          chai.assert.equal("test is already taken [job-id-taken]", e.message);
+        }
+      });
+
+      it("Jobs are updatable", function(){
+        var jobId = "test";
+        Jobs.remove({_id: jobId});
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+        var newJob = {
+          _id: "test",
+          name: "Test",
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
+          ert: 200,
+          freq: 2,
+          deltas: true,
+          isCompressed: true,
+          isIMS: false,
+          format: "sdmx-json-1.0.0"
+        };
+        Meteor.call("jobInsert", newJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: newJob._id}).count());
+        var insertedJob = Jobs.findOne({_id: newJob._id});
+        insertedJob.name = "Test 2";
+        Meteor.call("jobUpdate", insertedJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: insertedJob._id}).count());
+        var returnedJob = Jobs.findOne({_id: insertedJob._id});
+        chai.assert.strictEqual("Test 2", returnedJob.name);
+      });
+
+      it("Virtual delete and recover jobs", function(){
+        var jobId = "test";
+        Jobs.remove({_id: jobId});
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+        var newJob = {
+          _id: jobId,
+          name: "Test",
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
+          ert: 200,
+          freq: 2,
+          deltas: true,
+          isCompressed: true,
+          isIMS: false,
+          format: "sdmx-json-1.0.0"
+        };
+        Meteor.call("jobInsert", newJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+
+        var insertedJob = Jobs.findOne({_id: jobId});
+        chai.assert.isTrue(insertedJob.isActive);
+        Meteor.call("jobVirtualDelete", insertedJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+
+        var deletedJob = Jobs.findOne({_id: jobId});
+        chai.assert.isFalse(deletedJob.isActive);
+        Meteor.call("jobRecoverDeleted", deletedJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+
+        var recoveredJob = Jobs.findOne({_id: jobId});
+        chai.assert.isTrue(recoveredJob.isActive);
+      });
+
+      it("Physically delete jobs", function(){
+        var jobId = "test";
+        Jobs.remove({_id: jobId});
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+        var newJob = {
+          _id: jobId,
+          name: "Test",
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
+          ert: 200,
+          freq: 2,
+          deltas: true,
+          isCompressed: true,
+          isIMS: false,
+          format: "sdmx-json-1.0.0"
+        };
+        Meteor.call("jobInsert", newJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+
+        var insertedJob = Jobs.findOne({_id: jobId});
+        Meteor.call("jobPhysicalDelete", insertedJob);
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
       });
     });
   });
