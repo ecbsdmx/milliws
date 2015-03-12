@@ -275,17 +275,17 @@ if (!(typeof MochaWeb === 'undefined')){
         chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
 
         var insertedJob = Jobs.findOne({_id: jobId});
-        chai.assert.isTrue(insertedJob.isActive);
-        Meteor.call("jobVirtualDelete", insertedJob);
+        chai.assert.isFalse(insertedJob.isDeleted);
+        Meteor.call("jobVirtualDelete", jobId);
         chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
 
         var deletedJob = Jobs.findOne({_id: jobId});
-        chai.assert.isFalse(deletedJob.isActive);
-        Meteor.call("jobRecoverDeleted", deletedJob);
+        chai.assert.isTrue(deletedJob.isDeleted);
+        Meteor.call("jobRecoverDeleted", jobId);
         chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
 
         var recoveredJob = Jobs.findOne({_id: jobId});
-        chai.assert.isTrue(recoveredJob.isActive);
+        chai.assert.isFalse(recoveredJob.isDeleted);
       });
 
       it("Jobs can be physically deleted", function(){
@@ -307,7 +307,7 @@ if (!(typeof MochaWeb === 'undefined')){
         chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
 
         var insertedJob = Jobs.findOne({_id: jobId});
-        Meteor.call("jobPhysicalDelete", insertedJob);
+        Meteor.call("jobPhysicalDelete", jobId);
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
       });
 

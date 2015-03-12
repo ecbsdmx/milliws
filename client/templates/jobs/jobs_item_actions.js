@@ -137,7 +137,7 @@ Template.jobsItemActions.events({
           className: "btn-danger",
           callback: function() {
             job.isDeleted = true;
-            Meteor.call('jobVirtualDelete', job, function(error, result) {
+            Meteor.call('jobVirtualDelete', job._id, function(error, result) {
               if (error) {
                 return alert(error.reason);
               }
@@ -153,7 +153,7 @@ Template.jobsItemActions.events({
     e.preventDefault();
     e.stopImmediatePropagation();
     this.isDeleted = false;
-    Meteor.call('jobRecoverDeleted', this, function(error, result) {
+    Meteor.call('jobRecoverDeleted', this._id, function(error, result) {
       if (error) {
         return alert(error.reason);
       }
@@ -179,7 +179,7 @@ Template.jobsItemActions.events({
           label: "Delete",
           className: "btn-danger",
           callback: function() {
-            Meteor.call('jobPhysicalDelete', job, function(error, result) {
+            Meteor.call('jobPhysicalDelete', job._id, function(error, result) {
               if (error) {
                 return alert(error.reason);
               }
