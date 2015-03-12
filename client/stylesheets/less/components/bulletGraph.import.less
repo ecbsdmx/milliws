@@ -1,0 +1,302 @@
+/*
+ * Date   : 2015-03-12
+ * Author : LEROY Sébastien
+ * 
+ * Based on the work from : Stephen A Thomas
+ *  http://blog.sathomas.me/post/implementing-bullet-graphs-with-htmlcss
+ *
+ * Graph defined at
+ *  http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
+ * or the Wikipedia entry 
+ *  http://en.wikipedia.org/wiki/Bullet_graph
+ * 
+ */
+ @import "vendor/custom.bootstrap.import.less";
+
+ @bulletChart-width:           600px;
+ @bulletChart-height:          3.2em;
+ @bulletChart-margin:          0px 28px 3px 5px;
+
+/*
+ * Original sizing for the graph is specified in ems so the graph will scale
+ * easily with text size. 
+ * 
+ * A component height of 5em is distributed as follows:
+ * (from top to bottom, the horizontal elements)
+ *
+ *    24%  - 1.2em - The labels for the performance target and regions.
+ *    48%  - 2.4em - The graph itself. The performance measure is 50% of
+ *                   this height and exactly centered in the graph. Any
+ *                   label for the performance measure appears immediately
+ *                   to the right of the graphed measure.
+ *    10%  - 0.5em - The horizontal axis tick marks.
+ *    18%  - 0.9em - Labels corresponding to the tick marks.
+ */
+ @bulletChart-labelsAreaScale: @bulletChart-height*0.24;
+ @bulletChart-graphScale:      @bulletChart-height*0.44;
+ @bulletChart-tickMarksScale:  @bulletChart-height*0.10;
+ @bulletChart-labelsScale:     @bulletChart-height*0.22;
+
+ @bulletChart-normalColor:     @brand-primary;
+ @bulletChart-WarningColor:    #feb645;
+ @bulletChart-ErrorColor:      #8A2126;
+ @bulletChart-OutlierColor:    #777777;
+ @bulletChart-markerColor:     #cc5555;
+
+ @bulletChart-lblOpacity:      0.2;
+ @bulletChart-lblOpacityHover: 1;
+
+ @bulletChart-fadeSpeed:       0.2s;
+ @bulletChart-easeSpeed:       0.05s;
+
+
+
+ div.bullet-graph {
+
+  margin: @bulletChart-margin;
+  position: relative;
+  width: @bulletChart-width;
+  height: @bulletChart-height;
+  div.graph {
+    position: relative;
+    width: 100%;
+    top: @bulletChart-labelsAreaScale;
+    height: @bulletChart-graphScale;
+    div[class^='region-'], div[class*=' region-'] {
+      float: left;
+      height: 100%;
+      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image:    -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image:      -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image:     -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image:         linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      div.region-label {
+        color: #575757;
+        background-image: none;
+        position: relative;
+        top: -@bulletChart-labelsAreaScale;
+        left: 0;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    div.target {
+      position: absolute;
+      left: -1px; /* shift left since width > 1px */
+      height: 100%;
+      border-right: 1px @bulletChart-markerColor solid;
+      div.target-label {
+        opacity:  @bulletChart-lblOpacity;
+        transition: all @bulletChart-fadeSpeed ease @bulletChart-easeSpeed; 
+        color: #575757;
+        position: absolute;
+        top: -@bulletChart-labelsAreaScale;
+        right: 0;
+        text-align: right;
+        white-space: nowrap;
+        div.target-label-text {
+          font-weight: normal;
+          font-size: @bulletChart-labelsScale;
+          color: @bulletChart-markerColor;
+          position: relative;
+          right: -50%;
+        }
+      }
+      div.target-label-left {
+        color: #000;
+        position: relative;
+        height: 100%;
+        top: 0.6em;
+        left: 100%;
+        padding-left: 0.4em;
+        text-align: left;
+        vertical-align: middle;
+        white-space: nowrap;
+        background-image: none;
+      }
+    }//div.target
+  }// div.graph
+  div.measure {
+    position: absolute;
+    height: 50%;
+    top: 25%;
+    background-color: @bulletChart-normalColor;
+    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    background-image:    -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    background-image:      -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    background-image:     -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    background-image:         linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    -webkit-border-radius: 0 0.3em 0.3em 0;
+    -moz-border-radius: 0 0.3em 0.3em 0;
+    border-radius:     0 0.3em 0.3em 0;
+    -webkit-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    &.warning {
+      background-color: @bulletChart-WarningColor;
+      div.measure-label {
+        //color: @bulletChart-WarningColor;
+      }
+    }
+    &.error {
+      background-color: @bulletChart-ErrorColor;
+      div.measure-label {
+        //color: @bulletChart-ErrorColor;
+      }
+    }
+    &.outlier {
+      background-color: @bulletChart-OutlierColor;
+      div.measure-label {
+        //color: @bulletChart-OutlierColor;
+      }
+    }
+    div.measure-label {
+      color: #000;
+      position: relative;
+      left: 100%;
+      // TODO: check that it works with all browsers (orig: no display and padding-left instead)
+      display: table;
+      margin-left: 0.6em;
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+      background-image: none;
+      font-weight: bold;
+      font-size: @bulletChart-labelsScale;
+      opacity:  @bulletChart-lblOpacity;
+      transition: all @bulletChart-fadeSpeed ease @bulletChart-easeSpeed; 
+      -webkit-text-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+      -moz-text-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+      text-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    }
+  }
+  div.scale {
+    position: relative;
+    top: @bulletChart-labelsAreaScale;
+    width: 100%;
+    height: @bulletChart-tickMarksScale;
+    div.tick {
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      background-color: #8f8f8f;
+      div.tick-label {
+        color: #575757;
+        font-size: @bulletChart-labelsScale;
+        position: absolute;
+        bottom: -1.4em;
+        white-space: nowrap;
+        div.tick-label-text {
+          position: relative;
+          left: -40%;
+          opacity:  @bulletChart-lblOpacity;
+          transition: all @bulletChart-fadeSpeed ease @bulletChart-easeSpeed; 
+        }
+      }
+    }//tick
+  }//scale
+  
+  &:hover {
+
+    div.graph {
+      div.target {
+       div.target-label {
+        opacity:  @bulletChart-lblOpacityHover;
+      }
+     }//target
+     div.measure {
+      div.measure-label {
+        opacity:  @bulletChart-lblOpacityHover;
+      }
+    }//measure
+  }//graph
+  div.scale {
+    div.tick {
+      div.tick-label {
+        div.tick-label-text {
+          opacity:  @bulletChart-lblOpacityHover;
+        }
+      }
+    }
+  }//scale    
+}//:hover
+
+div.region-1 { background-color: #F0F0F0; }
+div.region-2 { background-color: #D9D9D9; }
+div.region-3 { background-color: #BDBDBD; }
+div.region-4 { background-color: #969696; }
+
+&.inverse div.region-1 { background-color: #252525; }
+&.inverse div.region-2 { background-color: #525252; }
+&.inverse div.region-3 { background-color: #737373; }
+&.inverse div.region-4 { background-color: #969696; }
+
+&.red div.region-1 { background-color: #F6E1D3; }
+&.red div.region-2 { background-color: #EBBEA2; }
+&.red div.region-3 { background-color: #E39874; }
+&.red div.region-4 { background-color: #DD754E; }
+
+&.red.inverse div.region-1 { background-color: #57120F; }
+&.red.inverse div.region-2 { background-color: #8D2717; }
+&.red.inverse div.region-3 { background-color: #AE3422; }
+&.red.inverse div.region-4 { background-color: #CE4F30; }
+
+&.purple div.region-1 { background-color: #EEEDF5; }
+&.purple div.region-2 { background-color: #DADAEB; }
+&.purple div.region-3 { background-color: #BCBEDB; }
+&.purple div.region-4 { background-color: #9D9BC7; }
+
+&.purple.inverse div.region-1 { background-color: #35117C; }
+&.purple.inverse div.region-2 { background-color: #4A2C8E; }
+&.purple.inverse div.region-3 { background-color: #6454A2; }
+&.purple.inverse div.region-4 { background-color: #7F7DB9; }
+
+&.orange div.region-1 { background-color: #F7E7CF; }
+&.orange div.region-2 { background-color: #F1D2A4; }
+&.orange div.region-3 { background-color: #E9B16E; }
+&.orange div.region-4 { background-color: #E39342; }
+
+&.orange.inverse div.region-1 { background-color: #6E2F08; }
+&.orange.inverse div.region-2 { background-color: #90400C; }
+&.orange.inverse div.region-3 { background-color: #BD5512; }
+&.orange.inverse div.region-4 { background-color: #D47320; }
+
+&.green div.region-1 { background-color: #EAF4E0; }
+&.green div.region-2 { background-color: #D2E7C1; }
+&.green div.region-3 { background-color: #B4D69C; }
+&.green div.region-4 { background-color: #92C078; }
+
+&.green.inverse div.region-1 { background-color: #23421C; }
+&.green.inverse div.region-2 { background-color: #3C6A2E; }
+&.green.inverse div.region-3 { background-color: #548847; }
+&.green.inverse div.region-4 { background-color: #6FA75F; }
+
+&.blue div.region-1 { background-color: #E2EBF7; }
+&.blue div.region-2 { background-color: #CDDBEE; }
+&.blue div.region-3 { background-color: #ADC9E0; }
+&.blue div.region-4 { background-color: #84ADD5; }
+
+&.blue.inverse div.region-1 { background-color: #1A316A; }
+&.blue.inverse div.region-2 { background-color: #2D519B; }
+&.blue.inverse div.region-3 { background-color: #4670B4; }
+&.blue.inverse div.region-4 { background-color: #6391C5; }
+
+&.inverse div.measure { background-color: #F0F0F0; }
+&.red div.measure { background-color: #57120F; }
+&.red.inverse div.measure { background-color: #F6E1D3; }
+&.purple div.measure { background-color: #35117C; }
+&.purple.inverse div.measure { background-color: #EEEDF5; }
+&.orange div.measure { background-color: #6E2F08; }
+&.orange.inverse div.measure { background-color: #F7E7CF; }
+&.green div.measure { background-color: #23421C; }
+&.green.inverse div.measure { background-color: #EAF4E0; }
+&.blue div.measure { background-color: #1A316A; }
+&.blue.inverse div.measure { background-color: #E2EBF7; }
+
+&.inverse div.graph div.measure div.measure-label { color: #FFF; }
+&.inverse div.graph div.target div.target-label-left { color: #FFF; }
+}// div.bullet-chart
+
+
