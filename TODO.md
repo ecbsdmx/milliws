@@ -3,9 +3,10 @@
 ## General
 - [ ] Get rid of dead code
 - [ ] App hardening
+- [ ] Error handling and logging
 
 ## Job module
-- [ ] Check that the compression flag is used when SDW 3.12 is out
+- [x] Check that the compression flag is used when SDW 3.12 is out
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [x] Allow for behind firewall w/proxy access to remote service (use env var)
@@ -28,7 +29,7 @@
 - [ ] Add filter (faded-out + hover) buttons in cells (later)
 - [x] Bullet cell : add responseTime text to the bullet cell
 - [x] Bullet cell : decide how to handle outliers
-- [x] Bullet cell : take the full width 
+- [x] Bullet cell : take the full width
 - [x] Bullet cell : change bar color when ert < responseTime
 - [x] Bullet cell : style the measure bar for warning area
 - [x] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
@@ -51,3 +52,8 @@
 - [ ] Number of errors
 - [ ] Average execution time
 - [ ] Whether the last run was successful
+
+### Collections
+- [ ] Code review and tests for jobs
+- [ ] Code review and tests for events
+- [ ] Code review and tests for events statistics
