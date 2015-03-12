@@ -35,7 +35,8 @@
 - [x] BUG: when a search is keyed in and we refresh the page, the results are filtered it seems but not displayed
 - [x] Bullet cell : should the scale be uniform accross jobs ? (Create a button to toggle between uniform scale & default ?) (later)
 - [x] Bullet cell : BUG : Status 404 & rt > ert not tagging line with red marker.
-- [ ] Bullet cell : BUG? memory loss - to identify & fix !!!
+- [ ] Bullet cell : BUG? memory loss - to identify & fix !!! (1/2 done)
+- [x] Bullet cell : PArtially sorted delay & memory consumption by having a CSS/HTML only bullet graph
 
 
 ## Settings module
