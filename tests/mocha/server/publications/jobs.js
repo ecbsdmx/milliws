@@ -77,7 +77,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "Test job",
           url: "not a url",
           ert: 200,
@@ -100,7 +100,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "Test job",
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 200,
@@ -123,7 +123,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "Test job",
           ert: 0,
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
@@ -146,7 +146,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "Test job",
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 200,
@@ -189,7 +189,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "",
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 200,
@@ -212,7 +212,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "test 1",
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 200,
@@ -236,7 +236,7 @@ if (!(typeof MochaWeb === 'undefined')){
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
         var newJob = {
-          _id: "test",
+          _id: jobId,
           name: "Test",
           url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
           ert: 200,
@@ -247,16 +247,16 @@ if (!(typeof MochaWeb === 'undefined')){
           format: "sdmx-json-1.0.0"
         };
         Meteor.call("jobInsert", newJob);
-        chai.assert.strictEqual(1, Jobs.find({_id: newJob._id}).count());
-        var insertedJob = Jobs.findOne({_id: newJob._id});
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+        var insertedJob = Jobs.findOne({_id: jobId});
         insertedJob.name = "Test 2";
         Meteor.call("jobUpdate", insertedJob);
-        chai.assert.strictEqual(1, Jobs.find({_id: insertedJob._id}).count());
-        var returnedJob = Jobs.findOne({_id: insertedJob._id});
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+        var returnedJob = Jobs.findOne({_id: jobId});
         chai.assert.strictEqual("Test 2", returnedJob.name);
       });
 
-      it("Virtual delete and recover jobs", function(){
+      it("Jobs can be Virtually deleted and recovered", function(){
         var jobId = "test";
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
@@ -288,7 +288,7 @@ if (!(typeof MochaWeb === 'undefined')){
         chai.assert.isTrue(recoveredJob.isActive);
       });
 
-      it("Physically delete jobs", function(){
+      it("Jobs can be physically deleted", function(){
         var jobId = "test";
         Jobs.remove({_id: jobId});
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
@@ -309,6 +309,34 @@ if (!(typeof MochaWeb === 'undefined')){
         var insertedJob = Jobs.findOne({_id: jobId});
         Meteor.call("jobPhysicalDelete", insertedJob);
         chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+      });
+
+      it("Should not be possible to update creationDate", function(){
+        var jobId = "test";
+        Jobs.remove({_id: jobId});
+        chai.assert.strictEqual(0, Jobs.find({_id: jobId}).count());
+        var newJob = {
+          _id: jobId,
+          name: "Test",
+          url: "http://test.com/data/EXR/M.NOK.EUR.SP00.A",
+          ert: 200,
+          freq: 2,
+          deltas: true,
+          isCompressed: true,
+          isIMS: false,
+          format: "sdmx-json-1.0.0"
+        };
+        Meteor.call("jobInsert", newJob);
+        chai.assert.strictEqual(1, Jobs.find({_id: jobId}).count());
+
+        var insertedJob = Jobs.findOne({_id: jobId});
+        insertedJob.creationDate = new Date();
+        try {
+          Meteor.call("jobUpdate", insertedJob);
+          throw new Error("Should not be able to update creationDate!");
+        } catch (e) {
+          chai.assert.equal("creationDate cannot be updated [read-only-field]", e.message);
+        }
       });
     });
   });
