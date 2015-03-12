@@ -7,9 +7,8 @@ Package.describe({
 
 Package.onUse(function (api) {
 	api.use("coffeescript", ["client", "server"]);
-	api.add_files("tests/mocha/client/sampleClientTest.js",["client"]);
-	api.add_files("tests/mocha/server/initialisation.js",["server"]);
-	api.add_files("tests/mocha/server/publications/events.js",["server"]);
-	api.add_files("tests/mocha/server/publications/jobs.js",["server"]);
-	api.add_files("tests/mocha/server/publications/users.js",["server"]);
+	api.add_files("tests/jasmine/client/integration/publications/jobs.js",["client"]);
+	api.add_files("tests/jasmine/server/integration/publications/events.js",["server"]);
+	api.add_files("tests/jasmine/server/integration/publications/jobs.js",["server"]);
+	api.add_files("tests/jasmine/server/integration/publications/users.js",["server"]);
 });

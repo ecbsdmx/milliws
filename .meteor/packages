@@ -22,5 +22,6 @@ peerlibrary:xml2js
 mizzao:bootboxjs
 d3js:d3
 fortawesome:fontawesome
-mike:mocha
 monbro:mongodb-mapreduce-aggregation
+sanjo:jasmine
+velocity:html-reporter
