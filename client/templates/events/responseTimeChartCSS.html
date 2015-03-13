@@ -1,6 +1,6 @@
 <template name="responseTimeChartCSS">
-  <div class="bullet-graph" id="bullet-graph_{{_id}}">
-  {{#with graphData}}
+  <div class="bullet-graph">
+    {{#with graphData}}
     <div class="graph">
       {{#each ranges}}
         <div class="region-{{index}}" style="width: {{percent}};" title="{{val}}">
@@ -23,7 +23,7 @@
         </div>
       {{/each}}
     </div>
-  {{/with}}
+    {{/with}}
   </div>
 
 </template>
