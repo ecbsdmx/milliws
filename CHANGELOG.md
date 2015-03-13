@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.4.0 (2015-03-13)
+- Introduced bullet chart for response times
+- Introduced descriptive statistics for collections
+- Improved handling and testing of jobs
+- Improved contextual help in wizard
+- Improved security
+
 ## Version 0.3.0 (2015-03-02)
 - Changed colour scheme
 - Redesign jobs overview & recycle pages
