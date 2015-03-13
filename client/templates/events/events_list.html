@@ -1,8 +1,27 @@
 <template name="eventsList">
-  <div class="events">
-    {{> tabular table=TabularTables.Events class="existingJobsTable table row-border stripe compact hover"}}
-    <!--{{> reactiveTable id="eventList" collection=this
-    class="table table-condensed table-hover table-striped"
-    useFontAwesome=true settings=settings}}-->
+<!-- DEBUG:
+  <table style="width: 100%;">
+    <thead>
+      <th>Job ID</th>
+      <th>Response Time</th>
+      <th>n° Series</th>
+      <th>n° Observations</th>
+    </thead>
+    <tbody>
+    {{#each this}}
+      <tr>
+        <td>{{_jobId}}</td>
+        <td style="width: 700px;">
+          {{> responseTimeChartCSS this}}
+        </td>
+        <td>{{series}}</td>
+        <td>{{observations}}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  -->
+  <div class="events" style="margin-bottom: 50px;">
+    {{> tabular table=TabularTables.Events selector=selector class="existingJobsTable table row-border stripe compact hover"}}
   </div>
 </template>

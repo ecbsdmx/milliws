@@ -10,7 +10,6 @@ sacha:spin
 ian:accounts-ui-bootstrap-3
 accounts-password
 percolatestudio:synced-cron
-aslagle:reactive-table
 mrt:moment
 
 less
@@ -23,3 +22,6 @@ peerlibrary:xml2js
 mizzao:bootboxjs
 d3js:d3
 fortawesome:fontawesome
+monbro:mongodb-mapreduce-aggregation
+sanjo:jasmine
+velocity:html-reporter

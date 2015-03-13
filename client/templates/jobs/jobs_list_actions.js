@@ -101,8 +101,7 @@ Template.jobsListActions.events({
           className: "btn-danger",
           callback: function() {
             jobs.forEach(function(item) {
-              item.isDeleted = true;
-              Meteor.call('jobUpdate', item, function(error, result) {
+              Meteor.call('jobVirtualDelete', item._id, function(error, result) {
                 if (error) {
                   return alert(error.reason);
                 }
@@ -119,7 +118,7 @@ Template.jobsListActions.events({
     e.stopImmediatePropagation();
     this.forEach(function(item) {
       item.isDeleted = false;
-      Meteor.call('jobRecoverDeleted', item, function(error, result) {
+      Meteor.call('jobRecoverDeleted', item._id, function(error, result) {
         if (error) {
           return alert(error.reason);
         }
@@ -148,7 +147,11 @@ Template.jobsListActions.events({
           className: "btn-danger",
           callback: function() {
             jobs.forEach(function(item) {
-              Jobs.remove(item._id);
+              Meteor.call('jobPhysicalDelete', item._id, function(error, result) {
+                if (error) {
+                  return alert(error.reason);
+                }
+              });
             });
           }
         }

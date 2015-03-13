@@ -37,29 +37,6 @@ table {
 }
 
 
-#eventList {
-  th{
-    .numericCell {
-    }
-    .textCell {
-    }
-  }
-  td{
-    border-left: 1px dashed #eee;
-    border-right: 1px dashed #eee;
-    &.numericCell {
-      text-align: right;    
-      font-family: 'Droid Serif', Georgia, Times, serif;
-      padding-right: 5px;
-    }
-    &.textCell {
-      text-align: left;
-      padding-left: 5px;
-    }
-  }
-}
-
-
 
 
 /* Required field */
@@ -157,5 +134,13 @@ table {
     line-height: 30px;
         padding: 0px;
 
+  }
+}
+
+//-- for the velocity testing widgets
+#velocity-status-widget {
+  opacity: 0.2;
+  &:hover {
+    opacity: 1;
   }
 }

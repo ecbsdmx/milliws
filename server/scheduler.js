@@ -14,6 +14,10 @@ var monitor = function() {
       }
     }
   });
+
+  Meteor.call("updateEventsStats", function(err, data) {
+    if (err) console.log("updateEventsStats error: " + err);
+  });
 };
 // Checks whether a job needs to run
 var isDue = function(job, last) {
@@ -37,20 +41,24 @@ var triggerJob = function(job, last) {
   if (job.deltas) {
     params.updatedAfter = lastUpdate;
   }
+  
 
   //-- request options
-  var options = {
+  var options = {  
     strictSSL: false,
     agentOptions: {
       secureProtocol: 'TLSv1_method'
       /*rejectUnauthorized: false*/
     },
-    params: params, 
+    params: params,
     headers: {
       "User-Agent": "Heimdallr 1.0.0"
     }
   };
 
+  if (proxy){
+    options.proxy = proxy;
+  }
   if (job.format === "sdmx-generic-2.1") {
     options.headers.Accept = "application/vnd.sdmx.genericdata+xml;version=2.1";
   } else if (job.format === "sdmx-compact-2.1") {
@@ -62,28 +70,54 @@ var triggerJob = function(job, last) {
   }
 
   if (job.isCompressed) {
-    options.gzip = true;//headers["Accept-Encoding"] = "gzip"
+    options.headers['Accept-Encoding'] = "gzip";
+    //options.gzip = true;
   }
 
   if (job.isIMS && null !== last) {
     options.headers["If-Modified-Since"] = new Date(last.etime).toUTCString();
   }
-  
+
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
+    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
+    //console.dir(result);
     var event = {};
     var received = new Date();
+
     event.responseTime = received - startTime;
     event.jobId = job._id;
     event.isActive = true;
     event.etime = startTime;
+    event.url = job.url;
+    event.isProblematic = false;
+    event.deltas = job.deltas;
+    event.ert = job.ert;
+    /*
+    var responseSize = result.headers['content-length']
+    if (responseSize)
+      event.responseSize = responseSize;
+    */
     if (result) {
       event.status = result.statusCode;
     } else {
       // alert should be raised?
+      event.isProblematic = true;
       console.log(error);
     }
-    event.ert = job.ert;
+
+    switch (event.status) {
+      case 404:
+        event.isProblematic = !event.deltas;
+        break;
+      case 304:
+      case 200:
+        event.isProblematic = event.responseTime > event.ert;
+        break;
+      default:
+        event.isProblematic = true;
+    }
+    
     var serieObs = {nSeries: 0, nObs: 0};
     if (200 === event.status) {
       // ATT result.headers['content-type'] does not return the proper type...
@@ -167,4 +201,14 @@ SyncedCron.add({
     monitor();
   }
 });
+
+var proxy = process.env.http_proxy;
+if (proxy) {
+  console.log("Using the env variable proxy: http_proxy");
+}
 SyncedCron.start();
+
+
+
+
+

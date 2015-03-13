@@ -6,7 +6,7 @@ Template.jobCreate.rendered = function() {
     title: 'Required field'
   });
   $('#form').validator();
-  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="popover"]').popover();
   initStep();
 };
 

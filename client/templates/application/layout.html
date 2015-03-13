@@ -1,17 +1,17 @@
 <template name="layout">
 
   {{#if currentUser}}
-  {{> header}}
-  <div id="wrapper" class="active">
-    {{> sidebar}}
-    <div id="contentWrapper">
-      <div class="page-content inset clearfix">
-        {{> yield}}
+    {{> header}}
+    <div id="wrapper" class="active">
+      {{> sidebar}}
+      <div id="contentWrapper">
+        <div class="page-content inset clearfix">
+          {{> yield}}
+        </div>
       </div>
     </div>
-  </div>
   {{else}}
-  {{> login}}
+    {{> login}}
   {{/if}}
 
   {{> footer}}

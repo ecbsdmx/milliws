@@ -76,7 +76,7 @@ Template.jobsItemActions.events({
       var job = {
         _id: this._id,
         name: this.name,
-        url: $("#inputEntryPoint_" + this._id).val() + $("#inputQuery_" + this._id).val(),
+        url: $("#inputEntryPoint_" + this._id).val() + $("#inputPathParams_" + this._id).val() + ($("#inputQueryParams_" + this._id).val().indexOf('=') === -1 ? "" : "?" + $("#inputQueryParams_" + this._id).val()),
         ert: parseInt($("#inputERT_" + this._id).val()),
         freq: parseInt($("#inputFreq_" + this._id).val()),
         isDeleted: this.isDeleted,
@@ -137,7 +137,7 @@ Template.jobsItemActions.events({
           className: "btn-danger",
           callback: function() {
             job.isDeleted = true;
-            Meteor.call('jobVirtualDelete', job, function(error, result) {
+            Meteor.call('jobVirtualDelete', job._id, function(error, result) {
               if (error) {
                 return alert(error.reason);
               }
@@ -153,7 +153,7 @@ Template.jobsItemActions.events({
     e.preventDefault();
     e.stopImmediatePropagation();
     this.isDeleted = false;
-    Meteor.call('jobRecoverDeleted', this, function(error, result) {
+    Meteor.call('jobRecoverDeleted', this._id, function(error, result) {
       if (error) {
         return alert(error.reason);
       }
@@ -179,7 +179,7 @@ Template.jobsItemActions.events({
           label: "Delete",
           className: "btn-danger",
           callback: function() {
-            Meteor.call('jobPhysicalDelete', job, function(error, result) {
+            Meteor.call('jobPhysicalDelete', job._id, function(error, result) {
               if (error) {
                 return alert(error.reason);
               }
