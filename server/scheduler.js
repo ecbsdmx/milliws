@@ -41,10 +41,10 @@ var triggerJob = function(job, last) {
   if (job.deltas) {
     params.updatedAfter = lastUpdate;
   }
-  
+
 
   //-- request options
-  var options = {  
+  var options = {
     strictSSL: false,
     agentOptions: {
       secureProtocol: 'TLSv1_method'
@@ -80,64 +80,32 @@ var triggerJob = function(job, last) {
 
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
-    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
-    //console.dir(result);
-    var event = {};
     var received = new Date();
-
-    event.responseTime = received - startTime;
-    event.jobId = job._id;
-    event.isActive = true;
-    event.etime = startTime;
-    event.url = job.url;
-    event.isProblematic = false;
-    event.deltas = job.deltas;
-    event.ert = job.ert;
-    /*
-    var responseSize = result.headers['content-length']
-    if (responseSize)
-      event.responseSize = responseSize;
-    */
     if (result) {
-      event.status = result.statusCode;
+
+      var status = result.statusCode;
+      var serieObs = {nSeries: 0, nObs: 0};
+      if (200 === status) {
+        switch(job.format){
+          case "sdmx-generic-2.1":
+            serieObs = parseGenericXML(result.content);
+            break;
+          case "sdmx-compact-2.1":
+            serieObs = parseCompactXML(result.content);
+            break;
+          case "sdmx-json-1.0.0":
+            serieObs = parseJSON(result.content);
+            break;
+          default:
+            serieObs = parseJSON(result.content);
+        }
+      }
+      Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs);
+      return;
     } else {
       // alert should be raised?
-      event.isProblematic = true;
       console.log(error);
     }
-
-    switch (event.status) {
-      case 404:
-        event.isProblematic = !event.deltas;
-        break;
-      case 304:
-      case 200:
-        event.isProblematic = event.responseTime > event.ert;
-        break;
-      default:
-        event.isProblematic = true;
-    }
-    
-    var serieObs = {nSeries: 0, nObs: 0};
-    if (200 === event.status) {
-      // ATT result.headers['content-type'] does not return the proper type...
-      switch(job.format){
-        case "sdmx-generic-2.1":
-          serieObs = parseGenericXML(result.content);
-          break;
-        case "sdmx-compact-2.1":
-          serieObs = parseCompactXML(result.content);
-          break;
-        case "sdmx-json-1.0.0":
-          serieObs = parseJSON(result.content);
-          break;
-        default:
-          serieObs = parseJSON(result.content);
-      }
-    }
-    event.series = serieObs.nSeries;
-    event.observations = serieObs.nObs;
-    Events.insert(event);
   });
 };
 
@@ -207,8 +175,3 @@ if (proxy) {
   console.log("Using the env variable proxy: http_proxy");
 }
 SyncedCron.start();
-
-
-
-
-
