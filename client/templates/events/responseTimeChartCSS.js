@@ -17,11 +17,11 @@ Template.responseTimeChartCSS.helpers({
   graphData: function() {
     var warningTheshold = 0.8;
 
-    var jobStat = EventsStatPerJob.findOne({_id: this.jobId});
-    
+    var jobStat = EventStats.findOne({_id: this.jobId});
+
     var rangeSuccess = this.ert * warningTheshold;
     var rangeWarning = this.ert;
-    var rangeError = this.ert * 1.5;//this.ert * 1.3; //max for this job id (from eventsStats collection)
+    var rangeError = this.ert * 1.5;//this.ert * 1.3; //max for this job id (from eventstats collection)
     var rgPct1 = rangeSuccess/rangeError*100;
     var rgPct2 = rangeWarning/rangeError*100 - rgPct1;
     var rgPct3 = 100 - rgPct1 - rgPct2;
@@ -43,10 +43,10 @@ Template.responseTimeChartCSS.helpers({
       measureStyle = "outlier";
     }
     else if (this.responseTime > (rangeError) ) {
-     measureStyle = ""; 
+     measureStyle = "";
     }
     else if (this.responseTime > this.ert) {
-      measureStyle = "error";    
+      measureStyle = "error";
     }
     else if (this.responseTime > (this.ert*warningTheshold)) {
       measureStyle = "warning";
@@ -54,8 +54,8 @@ Template.responseTimeChartCSS.helpers({
 
     dat = {
       ranges:         [
-                        {index: 1, val: rangeSuccess, percent: rgPct1 + "%"}, 
-                        {index: 2, val: rangeWarning, percent: rgPct2 + "%"}, 
+                        {index: 1, val: rangeSuccess, percent: rgPct1 + "%"},
+                        {index: 2, val: rangeWarning, percent: rgPct2 + "%"},
                         {index: 3, val: rangeError, percent: rgPct3 + "%"}
                       ],
       marker:         Math.min(rangeError,Math.ceil(jobStat.avg)),

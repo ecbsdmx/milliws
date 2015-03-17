@@ -32,7 +32,7 @@ Template.jobsItem.helpers({
     return "";
   },
   runCount: function() {
-    var jobStat = EventsStatPerJob.findOne({_id: this._id});
+    var jobStat = EventStats.findOne({_id: this._id});
     return jobStat.count + (jobStat.count > 1 ? " times" : " time");
   }
 });

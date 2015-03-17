@@ -29,7 +29,7 @@ if (Jobs.find().count() === 0) {
      ert: 1000,
      freq: 1,
      deltas: true,
-     isCompressed: true,
+     isCompressed: false,
      isIMS: false,
      format: "sdmx-generic-2.1"
   });
@@ -41,7 +41,7 @@ if (Jobs.find().count() === 0) {
      ert: 1000,
      freq: 1,
      deltas: true,
-     isCompressed: true,
+     isCompressed: false,
      isIMS: false,
      format: "sdmx-json-1.0.0"
   });
@@ -53,7 +53,7 @@ if (Jobs.find().count() === 0) {
      ert: 1000,
      freq: 1,
      deltas: true,
-     isCompressed: true,
+     isCompressed: false,
      isIMS: false,
      format: "sdmx-compact-2.1"
   });
@@ -65,7 +65,7 @@ if (Jobs.find().count() === 0) {
     ert: 1000,
     freq: 1,
     deltas: false,
-    isCompressed: true,
+    isCompressed: false,
     isIMS: false,
     format: "sdmx-json-1.0.0"
   });
@@ -77,7 +77,7 @@ if (Jobs.find().count() === 0) {
      ert: 1000,
      freq: 1,
      deltas: false,
-     isCompressed: true,
+     isCompressed: false,
      isIMS: false,
      format: "sdmx-compact-2.1"
   });
@@ -101,7 +101,7 @@ if (Jobs.find().count() === 0) {
      ert: 1000,
      freq: 1,
      deltas: false,
-     isCompressed: true,
+     isCompressed: false,
      isIMS: true,
      format: "sdmx-generic-2.1"
   });

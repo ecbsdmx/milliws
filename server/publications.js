@@ -12,6 +12,6 @@ Meteor.publish('events', function() {
     return Events.find({etime: {$gte: date}});
 });
 
-Meteor.publish('eventsStatPerJob', function() {
-  return EventsStatPerJob.find();
+Meteor.publish('eventstats', function() {
+  return EventStats.find({});
 });
