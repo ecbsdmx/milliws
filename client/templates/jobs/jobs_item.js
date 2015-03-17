@@ -11,12 +11,12 @@ Template.jobsItem.rendered = function() {
 };
 
 Template.jobsItem.helpers({
-  jobPanelStateClass : function() {
+  jobPanelStateClass: function() {
     var jobItem = this._id;
     var jobState = Session.get("jobDetailState" + jobItem);
     return "" === jobState ? "collapsed" : "details";
   },
-  dynTemp : function() {
+  dynTemp: function() {
     var jobItem = this._id;
 
     var jobState = Session.get("jobDetailState" + jobItem);
@@ -30,6 +30,10 @@ Template.jobsItem.helpers({
         return "jobsItemDetail";
     }
     return "";
+  },
+  runCount: function() {
+    var jobStat = EventsStatPerJob.findOne({_id: this._id});
+    return jobStat.count + (jobStat.count > 1 ? " times" : " time");
   }
 });
 

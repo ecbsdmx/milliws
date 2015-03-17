@@ -44,6 +44,7 @@
 - [ ] Whether the last run was successful
 
 ### Collections
-- [ ] Code review and tests for jobs
-- [ ] Code review and tests for events
+- [x] Code review and tests for jobs
+- [x] Code review and tests for events
 - [ ] Code review and tests for events statistics
+- [ ] Code review and tests for users
