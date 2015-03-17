@@ -1,4 +1,6 @@
 <template name="eventsList">
+  <div id="tableButton" class="col-xs-2"></div>
+
   <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
     <thead>
       <th>Job ID</th>
@@ -9,25 +11,18 @@
     </thead>
     <tbody>
       {{#each this}}
-      <tr>
-        <td class="textCell">{{jobId}}</td>
-        <td class="textCell">{{formatExecutionTime etime}}</td>
-        <td class="bulletCell" style="width: 700px;">
-          {{> responseTimeChartCSS this}}
-        </td>
-        <td class="numberCell">{{series}}</td>
-        <td class="numberCell">{{observations}}</td>
-      </tr>
+        <!--{{jobId}} : {{_id}}<br />-->
+        {{> eventListRow}}        
       {{/each}}
     </tbody>
   </table>
   <div id="EventsPagination">
     <ul class="pagination pagination-sm">
       <li><a href="#">&laquo;</a></li>
-      <li><a href="{{pathFor 'eventsList'}}/0">1</a></li>
-      <li><a href="{{pathFor 'eventsList'}}/10">2</a></li>
-      <li><a href="{{pathFor 'eventsList'}}/20">3</a></li>
-      <li><a href="#">&raquo;</a></li>
+      {{#each paginationElems}}
+      <li><a href="{{pathFor 'eventsList'}}/{{offset}}">{{page}}</a></li>
+      {{/each}}
+      <li><a class="nextEvents" href="#">&raquo;</a></li>
     </ul>
   </div>
   <!--

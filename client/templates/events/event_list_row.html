@@ -1,0 +1,11 @@
+<template name="eventListRow">
+  <tr>
+    <td class="textCell">{{jobId}}</td>
+    <td class="textCell">{{formatExecutionTime etime}}</td>
+    <td class="bulletCell" style="width: 700px;">
+      {{> responseTimeChartCSS}}
+    </td>
+    <td class="numberCell">{{series}}</td>
+    <td class="numberCell">{{observations}}</td>
+  </tr>
+</template>
