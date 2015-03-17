@@ -2,14 +2,14 @@ var dat = {};
 
 // DEBUG & profiling
 Template.responseTimeChartCSS.destroyed = function() {
-  //console.log(":: DEBUG :: - Template [responseTimeChartCSS] destroyed.");
+  console.log(":: DEBUG :: - Template [responseTimeChartCSS] destroyed.");
 };
 Template.responseTimeChartCSS.rendered = function() {
-  //console.log(":: DEBUG :: - Template [responseTimeChartCSS] rendered.");
+  console.log(":: DEBUG :: - Template [responseTimeChartCSS] rendered.");
 };
 
 Template.responseTimeChartCSS.created = function() {
-  //console.log(":: DEBUG :: - Template [responseTimeChartCSS] created.");
+  console.log(":: DEBUG :: - Template [responseTimeChartCSS] created.");
 };
 
 

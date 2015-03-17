@@ -15,9 +15,9 @@ var monitor = function() {
     }
   });
 
-  Meteor.call("updateEventsStats", function(err, data) {
-    if (err) console.log("updateEventsStats error: " + err);
-  });
+//  Meteor.call("updateEventsStats", function(err, data) {
+//    if (err) console.log("updateEventsStats error: " + err);
+//  });
 };
 // Checks whether a job needs to run
 var isDue = function(job, last) {
@@ -70,8 +70,8 @@ var triggerJob = function(job, last) {
   }
 
   if (job.isCompressed) {
-    options.headers['Accept-Encoding'] = "gzip";
-    //options.gzip = true;
+    //options.headers['Accept-Encoding'] = "gzip";
+    options.gzip = true;
   }
 
   if (job.isIMS && null !== last) {
@@ -80,8 +80,8 @@ var triggerJob = function(job, last) {
 
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
-    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
-    //console.dir(result);
+    console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
+    console.dir(result);
     var event = {};
     var received = new Date();
 
