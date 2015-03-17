@@ -10,10 +10,6 @@ Meteor.publish('noEvents', function() {
   return Events.find({toto:true});
 });
 
-Meteor.publish('eventsStatPerJob', function() {
-  return EventsStatPerJob.find();
-});
-
 Meteor.publish('events', function() {
   var date = new Date();
   date.setDate(date.getDate() - 2);
@@ -52,7 +48,7 @@ Meteor.publish("eventsWithBulletInfo", function(from) {
 
   var handle = Events.find({}, {sort:{etime: -1}, skip: actualFrom, limit: count, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
     added: function (id, fields) {
-      var jobStats = EventsStatPerJob.findOne({_id: fields.jobId}, {fields: {avg:1}});
+      var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
       fields.avg = jobStats.avg;
       self.added('eventsWithBulletInfo', id, fields);
     }, 
@@ -66,5 +62,9 @@ Meteor.publish("eventsWithBulletInfo", function(from) {
   });
   self.ready();
   self.onStop(function() { handle.stop(); });
+});
+
+Meteor.publish('eventStats', function() {
+  return EventStats.find({});
 });
 

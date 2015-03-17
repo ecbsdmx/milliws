@@ -1,4 +1,4 @@
-Template.login.events({
+/*Template.login.events({
 
     'submit #login-form' : function(e, t){
         e.preventDefault();
@@ -15,4 +15,8 @@ Template.login.events({
         });
         return false;
     }
-});
+});*/
+Template.login.rendered = function() {
+  console.log($("#login-dropdown-list"));
+  $("#login-dropdown-list").addClass("open");
+};

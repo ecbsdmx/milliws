@@ -9,11 +9,11 @@ Template.responseTimeChart.rendered = function() {
  // var chart = d3.bullet()
  //  .width(w - margin.left - margin.right)
  //  .height(h - margin.top - margin.bottom);
-  
-  var jobStat = EventsStatPerJob.findOne({_id: this.data.jobId});
+
+  var jobStat = EventStats.findOne({_id: this.data.jobId});
   var rangeSuccess = this.data.ert * warningTheshold;
   var rangeWarning = this.data.ert;
-  var rangeError = this.data.ert * 1.5;//this.data.ert * 1.3; //max for this job id (from eventsStats collection)
+  var rangeError = this.data.ert * 1.5;//this.data.ert * 1.3; //max for this job id (from eventStats collection)
 
   var dat = [{
     responseTime:   "" + this.data.responseTime,
@@ -22,7 +22,7 @@ Template.responseTimeChart.rendered = function() {
     measures:       [Math.min(this.data.ert * 1.5, this.data.responseTime)],
     markers:        [jobStat.avg]
   }];
-  
+
 
   var svg = d3.select("#respTimeChart_" + this.data._id);
   svg = svg
@@ -32,13 +32,13 @@ Template.responseTimeChart.rendered = function() {
     .attr("width", "100%")
     .attr("height", h + margin.top + margin.bottom)
   ;
-  
+
   var containerCellAvailableWidth = svg.style("width");
   containerCellAvailableWidth = parseInt(containerCellAvailableWidth.substr(0, containerCellAvailableWidth.length - 2));
 
   var actualChartWidth = containerCellAvailableWidth - margin.left - margin.right;
   var actualChartHeight = h - margin.top - margin.bottom;
-  
+
   var chart = d3.bullet()
     .width(actualChartWidth)
     .height(actualChartHeight);
@@ -69,7 +69,7 @@ Template.responseTimeChart.rendered = function() {
 
   var measure = svg.select(".measure.s0");
   if ((this.data.ert * 1.5) < this.data.responseTime ) {
-   measure.style("fill", "#000"); 
+   measure.style("fill", "#000");
   }
   else if (this.data.ert < this.data.responseTime ) {
     measure.style("fill", "#8A2126");

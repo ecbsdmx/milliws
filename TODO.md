@@ -29,7 +29,7 @@
 
 ## User management module
 - [ ] Implement authentication
-- [ ] Implement authorisation: Sys-Admin, Power-Users, Users
+- [x] Implement authorisation: Sysadmins, Users
 
 ## Design
 - [ ] Theming (later)

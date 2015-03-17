@@ -7,9 +7,6 @@ meteor-platform
 underscore
 iron:router
 sacha:spin
-ian:accounts-ui-bootstrap-3
-accounts-password
-percolatestudio:synced-cron
 mrt:moment
 
 less
@@ -25,3 +22,8 @@ fortawesome:fontawesome
 monbro:mongodb-mapreduce-aggregation
 sanjo:jasmine
 velocity:html-reporter
+alanning:roles
+accounts-github
+accounts-twitter
+accounts-google
+ian:accounts-ui-bootstrap-3

@@ -15,9 +15,9 @@ var monitor = function() {
     }
   });
 
-//  Meteor.call("updateEventsStats", function(err, data) {
-//    if (err) console.log("updateEventsStats error: " + err);
-//  });
+  Meteor.call("updateEventStats", function(err, data) {
+    if (err) console.log("updateEventStats error: " + err);
+  });
 };
 // Checks whether a job needs to run
 var isDue = function(job, last) {
@@ -162,18 +162,9 @@ var parseJSON = function(content) {
   return ret;
 }
 // Start cron
-SyncedCron.add({
-  name: 'Trigger monitoring function',
-  schedule: function(parser) {
-    return parser.text('every 1 min');
-  },
-  job: function() {
-    monitor();
-  }
-});
+Meteor.setInterval(monitor, 60 * 1000);
 
 var proxy = process.env.http_proxy;
 if (proxy) {
   console.log("Using the env variable proxy: http_proxy");
 }
-SyncedCron.start();
