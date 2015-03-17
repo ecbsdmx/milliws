@@ -1,22 +1,10 @@
 // Create basic users
 if (Meteor.users.find().count() === 0) {
-  Accounts.createUser({
+  var simon = Accounts.createUser({
     username: 'admin',
-    password: 'testadmin',
-    profile: {
-      login: 'admin',
-      isAdmin: true
-    }
+    password: 'testadmin'
   });
-
-  Accounts.createUser({
-    username: 'user',
-    password: 'testuser',
-    profile: {
-      login: 'user',
-      isAdmin: false
-    }
-  });
+  Roles.addUsersToRoles(simon, 'bofh');
 }
 
 // Add default jobs (only for testing)
