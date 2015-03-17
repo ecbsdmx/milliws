@@ -1,5 +1,3 @@
-var dat = {};
-
 // DEBUG & profiling
 Template.responseTimeChartCSS.destroyed = function() {
   //console.log(":: DEBUG :: - Template [responseTimeChartCSS] destroyed.");
@@ -7,7 +5,6 @@ Template.responseTimeChartCSS.destroyed = function() {
 Template.responseTimeChartCSS.rendered = function() {
   //console.log(":: DEBUG :: - Template [responseTimeChartCSS] rendered.");
 };
-
 Template.responseTimeChartCSS.created = function() {
   //console.log(":: DEBUG :: - Template [responseTimeChartCSS] created.");
 };
@@ -15,6 +12,7 @@ Template.responseTimeChartCSS.created = function() {
 
 Template.responseTimeChartCSS.helpers({
   graphData: function() {
+    var dat = {};
     var warningTheshold = 0.8;
 
     var jobStat = EventStats.findOne({_id: this.jobId});

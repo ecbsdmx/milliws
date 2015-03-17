@@ -70,8 +70,8 @@ var triggerJob = function(job, last) {
   }
 
   if (job.isCompressed) {
-    options.headers['Accept-Encoding'] = "gzip";
-    //options.gzip = true;
+    //options.headers['Accept-Encoding'] = "gzip";
+    options.gzip = true;
   }
 
   if (job.isIMS && null !== last) {
@@ -80,6 +80,8 @@ var triggerJob = function(job, last) {
 
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
+    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
+    //console.dir(result);
     var received = new Date();
     if (result) {
 

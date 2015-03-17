@@ -1,27 +1,38 @@
 <template name="eventsList">
-<!-- DEBUG:
-  <table style="width: 100%;">
+  <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
     <thead>
       <th>Job ID</th>
+      <th>Executed on</th>
       <th>Response Time</th>
       <th>n° Series</th>
       <th>n° Observations</th>
     </thead>
     <tbody>
-    {{#each this}}
+      {{#each this}}
       <tr>
-        <td>{{_jobId}}</td>
-        <td style="width: 700px;">
+        <td class="textCell">{{jobId}}</td>
+        <td class="textCell">{{formatExecutionTime etime}}</td>
+        <td class="bulletCell" style="width: 700px;">
           {{> responseTimeChartCSS this}}
         </td>
-        <td>{{series}}</td>
-        <td>{{observations}}</td>
+        <td class="numberCell">{{series}}</td>
+        <td class="numberCell">{{observations}}</td>
       </tr>
-    {{/each}}
+      {{/each}}
     </tbody>
   </table>
-  -->
+  <div id="EventsPagination">
+    <ul class="pagination pagination-sm">
+      <li><a href="#">&laquo;</a></li>
+      <li><a href="{{pathFor 'eventsList'}}/0">1</a></li>
+      <li><a href="{{pathFor 'eventsList'}}/10">2</a></li>
+      <li><a href="{{pathFor 'eventsList'}}/20">3</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>
+  </div>
+  <!--
   <div class="events" style="margin-bottom: 50px;">
     {{> tabular table=TabularTables.Events selector=selector class="existingJobsTable table row-border stripe compact hover"}}
   </div>
+-->
 </template>

@@ -35,6 +35,11 @@ UI.registerHelper('formatDate', function(ts) {
   return moment(ts).format();
 });
 
+UI.registerHelper('formatExecutionTime', function(ts) {
+  return moment(ts).format("YYYY-MM-DD [@] HH:mm");
+});
+
+
 UI.registerHelper('formatERT', function(ert) {
   return 1 === ert ? "Every minute" : "Every " + ert + " minutes";
 });

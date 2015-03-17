@@ -1,4 +1,6 @@
+/*
 Template.eventsList.rendered = function() {
+  
   var $chkDiv = $('<div class="checkbox">');
   var $input = $('<input type="checkbox">');
   
@@ -29,9 +31,7 @@ Template.eventsList.helpers({
   selector: function() {
     var isProblematic = Session.get("showProblematicOnly");
     return isProblematic? {isProblematic: true} : {};
-  },
-  singleEvent: function() {
-    return Events.findOne({});
   }
 });
 
+*/
