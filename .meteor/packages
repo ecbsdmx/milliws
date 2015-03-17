@@ -7,8 +7,6 @@ meteor-platform
 underscore
 iron:router
 sacha:spin
-ian:accounts-ui-bootstrap-3
-accounts-password
 mrt:moment
 
 less
@@ -25,3 +23,7 @@ monbro:mongodb-mapreduce-aggregation
 sanjo:jasmine
 velocity:html-reporter
 alanning:roles
+accounts-github
+accounts-twitter
+accounts-google
+ian:accounts-ui-bootstrap-3
