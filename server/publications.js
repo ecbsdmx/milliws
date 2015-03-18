@@ -3,7 +3,13 @@ Meteor.publish('jobs', function() {
 });
 
 Meteor.publish('recycledJobs', function() {
-  return Jobs.find({isDeleted: true});
+  if (Roles.userIsInRole(this.userId, ['job-creator'])) {
+    return Jobs.find({isDeleted: true});
+  } else {
+    // user not authorized.
+    this.stop();
+    return;
+  }
 });
 
 Meteor.publish('noEvents', function() {
