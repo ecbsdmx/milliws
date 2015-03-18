@@ -1,0 +1,8 @@
+<template name="userItem">
+  <tr>
+    <td>{{name}}</td>
+    <td><input id="{{this._id}}_isAdmin" type="checkbox" checked="{{isAdmin}}" data-toggle="toggle" data-size="small"></td>
+    <td><input id="{{this._id}}_isCreator" type="checkbox" checked="{{isCreator}}" data-toggle="toggle" data-size="small"></td>
+    <td>{{date}}</td>
+  </tr>
+</template>
