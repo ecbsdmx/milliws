@@ -1,9 +1,9 @@
 <template name="eventsList">
   <div id="eventList">
     <div clamm="row">
-      <div class="col-xs-5">info</div>
-      <div class="col-xs-3">filters</div>
-      <div id="tableButton" class="col-xs-4"></div>
+      <div class="col-xs-5 text-left">info</div>
+      <div class="col-xs-3 text-right">filters</div>
+      <div id="tableButton" class="col-xs-4 text-right">Buttons</div>
     </div>
     <div class="row">
       <div class="col-xs-12">  
@@ -25,18 +25,18 @@
       </div><!-- col-12 -->
     </div><!-- row -->
     <div class="row">
-      <div class="col-xs-6">Showing {{eventsStart}} to {{eventsEnd}} of {{totalEventCount}} entries</div>
-      <div class="col-xs-6">
+      <div class="col-xs-6 text-left">Showing {{eventsStart}} to {{eventsEnd}} of {{totalEventCount}} entries</div>
+      <div class="col-xs-6 text-right">
         <ul class="pagination pagination-sm">
-          <li><a class="firstEvents" href="#">First</a></li>
-          <li><a class="previousEvents" href="#">Previous</a></li>
+          <li {{isFirstPage}}><a class="firstEvents" href="#">First</a></li>
+          <li {{isFirstPage}}><a class="previousEvents" {{isFirstPage}} href="#">Previous</a></li>
           <!--
           {{#each paginationElems}}
           <li><a href="{{pathFor 'eventsList'}}/{{offset}}">{{page}}</a></li>
           {{/each}}
           -->
-          <li><a class="nextEvents" href="#">Next</a></li>
-          <li><a class="lastEvents" href="#">Last</a></li>
+          <li {{isLastPage}}><a class="nextEvents" href="#">Next</a></li>
+          <li {{isLastPage}}><a class="lastEvents" href="#">Last</a></li>
         </ul>
       </div>
     </div>

@@ -42,6 +42,18 @@ Template.eventsList.helpers({
     var from = Session.get("EventsFromCount");
     return from + 10;
   },
+  isLastPage: function() {
+    var from = Session.get("EventsFromCount");
+    var max = EventsCount.findOne().count;
+    return from === (max - 10)?{class: "disabled"}:{};
+  },
+  // isCurrentPage: function(page)
+  //    return page*10 === Session.get("EventsFromCount")?{class: "active"}:{};
+  //  },
+  isFirstPage: function() {
+    var from = Session.get("EventsFromCount");
+    return from === 0?{class: "disabled"}:{};
+  },
   paginationElems: function() {
     var numEvt = EventsCount.findOne().count;
     var elems = [];
