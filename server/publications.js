@@ -1,10 +1,10 @@
 Meteor.publish('jobs', function() {
-  return Jobs.find({isDeleted: false});
+  return Jobs.find({$and: [{isDeleted: false}, {owner: this.userId}]});
 });
 
 Meteor.publish('recycledJobs', function() {
   if (Roles.userIsInRole(this.userId, ['job-creator'])) {
-    return Jobs.find({isDeleted: true});
+    return Jobs.find({$and: [{isDeleted: true}, {owner: this.userId}]});
   } else {
     // user not authorized.
     this.stop();

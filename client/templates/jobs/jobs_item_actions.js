@@ -85,7 +85,8 @@ Template.jobsItemActions.events({
         isCompressed: $("#inputCompressed_" + this._id).prop('checked'),
         isIMS: $("#inputIMS_" + this._id).prop('checked'),
         format: $("#inputFormat_" + this._id).val(),
-        creationDate: this.creationDate
+        creationDate: this.creationDate,
+        owner: this.owner
       };
       Meteor.call('jobUpdate', job, function(error, result) {
         if (error) {

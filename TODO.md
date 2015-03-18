@@ -9,7 +9,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [ ] Check that zlib works with Meteor bundled packages
-- [ ] Jobs must have an owner
+- [x] Jobs must have an owner
 - [ ] Jobs can be shared
 - [ ] Jobs display should be split (shared vs. own) or visually distinguishable
 
