@@ -27,7 +27,8 @@
 - [ ] Implement repeater, limiting & paging of events
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 - [ ] Bug: when no events present, the skip in the collection publish fails !
-
+- [ ] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
+ 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
 
