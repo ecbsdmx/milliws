@@ -22,13 +22,13 @@
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 
 ## Scheduler module
-- [ ] Bug: Events are inserted even in case the connection was unsuccessful (offline)
+- [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
 
 ## Settings module
 - [ ] ```Default``` events go back num days
 
 ## User management module
-- [ ] Implement authentication
+- [x] Implement authentication
 - [x] Implement authorisation: Sysadmins, Users
 
 ## Design
