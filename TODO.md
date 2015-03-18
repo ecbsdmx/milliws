@@ -12,6 +12,12 @@
 - [x] Jobs must have an owner
 - [ ] Jobs can be shared
 - [ ] Jobs display should be split (shared vs. own) or visually distinguishable
+- [ ] Avoid displaying the toggle job details when no jobs present
+- [ ] Bug: editing than cancelling edit does not toggle state back
+- [ ] Fea: addn job sharing capability in buttons or edit mode
+
+## Recycle module
+- [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
 
 ## Events module
 - [ ] An alternative 'calendar' view should be added (later).
@@ -20,6 +26,7 @@
 - [ ] Bullet cell: BUG? memory loss - to identify & fix !!! (1/2 done)
 - [ ] Implement repeater, limiting & paging of events
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
+- [ ] Bug: when no events present, the skip in the collection publish fails !
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
