@@ -1,4 +1,3 @@
-
 Template.eventsList.rendered = function() {
   // var $chkDiv = $('<div class="checkbox">');
   // var $input = $('<input type="checkbox">');
@@ -32,6 +31,17 @@ Template.eventsList.helpers({
   //   var isProblematic = Session.get("showProblematicOnly");
   //   return isProblematic? {isProblematic: true} : {};
   // },
+  totalEventCount: function() {
+    return EventsCount.findOne().count;
+  },
+  eventsStart: function() {
+    var from = Session.get("EventsFromCount");
+    return from;
+  },
+  eventsEnd: function() {
+    var from = Session.get("EventsFromCount");
+    return from + 10;
+  },
   paginationElems: function() {
     var numEvt = EventsCount.findOne().count;
     var elems = [];
@@ -42,19 +52,29 @@ Template.eventsList.helpers({
     }
     return elems;
   }
-
 });
 
-var pos =0;
 Template.eventsList.events({
-  // 'click .nextEvents': function (e) {
-  //   e.preventDefault();
-  //   e.stopImmediatePropagation();
-
-  //   //force client-side collection cleanup first than load next block
-  //   pos += 10;
-  //   Tracker.autorun(function() {
-  //     Meteor.subscribe('events', pos);
-  //   });
-  // }
+  'click .firstEvents': function (e) {
+    e.preventDefault();
+    Router.go("eventsList" , {fromCount: 0});
+  },
+  'click .previousEvents': function (e) {
+    e.preventDefault();
+    var from = Session.get("EventsFromCount");
+    if (from >= 10) {
+      Router.go("eventsList" , {fromCount: (from - 10)});
+    }
+  },
+  'click .nextEvents': function (e) {
+    e.preventDefault();
+    var from = Session.get("EventsFromCount");
+    if (from+10 < EventsCount.findOne().count) {
+      Router.go("eventsList" , {fromCount: (from + 10)});
+    }
+  },
+  'click .lastEvents': function (e) {
+    e.preventDefault();
+    Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
+  }
 });

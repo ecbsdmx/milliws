@@ -6,10 +6,6 @@ Meteor.publish('recycledJobs', function() {
   return Jobs.find({isDeleted: true});
 });
 
-Meteor.publish('noEvents', function() {
-  return Events.find({toto:true});
-});
-
 Meteor.publish('events', function() {
   var date = new Date();
   date.setDate(date.getDate() - 2);

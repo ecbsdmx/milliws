@@ -17,6 +17,6 @@
     }
 });*/
 Template.login.rendered = function() {
-  console.log($("#login-dropdown-list"));
+  //console.log($("#login-dropdown-list"));
   $("#login-dropdown-list").addClass("open");
 };

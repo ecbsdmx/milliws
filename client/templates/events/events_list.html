@@ -1,33 +1,49 @@
 <template name="eventsList">
-  <div id="tableButton" class="col-xs-2"></div>
-
-  <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
-    <thead>
-      <th>Job ID</th>
-      <th>Executed on</th>
-      <th>Response Time</th>
-      <th>n° Series</th>
-      <th>n° Observations</th>
-    </thead>
-    <tbody>
-      {{#each this}}
-        <!--{{jobId}} : {{_id}}<br />-->
-        {{> eventListRow}}        
-      {{/each}}
-    </tbody>
-  </table>
-  <div id="EventsPagination">
-    <ul class="pagination pagination-sm">
-      <li><a href="#">&laquo;</a></li>
-      {{#each paginationElems}}
-      <li><a href="{{pathFor 'eventsList'}}/{{offset}}">{{page}}</a></li>
-      {{/each}}
-      <li><a class="nextEvents" href="#">&raquo;</a></li>
-    </ul>
-  </div>
+  <div id="eventList">
+    <div clamm="row">
+      <div class="col-xs-5">info</div>
+      <div class="col-xs-3">filters</div>
+      <div id="tableButton" class="col-xs-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">  
+        <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
+          <thead>
+            <th>Job ID</th>
+            <th>Executed on</th>
+            <th>Response Time</th>
+            <th>n° Series</th>
+            <th>n° Observations</th>
+          </thead>
+          <tbody>
+            {{#each this}}
+              <!--{{jobId}} : {{_id}}<br />-->
+              {{> eventListRow}}        
+            {{/each}}
+          </tbody>
+        </table>
+      </div><!-- col-12 -->
+    </div><!-- row -->
+    <div class="row">
+      <div class="col-xs-6">Showing {{eventsStart}} to {{eventsEnd}} of {{totalEventCount}} entries</div>
+      <div class="col-xs-6">
+        <ul class="pagination pagination-sm">
+          <li><a class="firstEvents" href="#">First</a></li>
+          <li><a class="previousEvents" href="#">Previous</a></li>
+          <!--
+          {{#each paginationElems}}
+          <li><a href="{{pathFor 'eventsList'}}/{{offset}}">{{page}}</a></li>
+          {{/each}}
+          -->
+          <li><a class="nextEvents" href="#">Next</a></li>
+          <li><a class="lastEvents" href="#">Last</a></li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- eventList -->
   <!--
   <div class="events" style="margin-bottom: 50px;">
     {{> tabular table=TabularTables.Events selector=selector class="existingJobsTable table row-border stripe compact hover"}}
   </div>
--->
+  -->
 </template>
