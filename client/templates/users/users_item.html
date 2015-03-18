@@ -1,8 +1,11 @@
 <template name="userItem">
   <tr>
     <td>{{name}}</td>
-    <td><input id="{{this._id}}_isAdmin" type="checkbox" checked="{{isAdmin}}" data-toggle="toggle" data-size="small"></td>
-    <td><input id="{{this._id}}_isCreator" type="checkbox" checked="{{isCreator}}" data-toggle="toggle" data-size="small"></td>
+    <td><input id="{{this._id}}_isAdmin" type="checkbox" checked="{{isAdmin}}" data-toggle="toggle" data-size="mini"></td>
+    <td><input id="{{this._id}}_isCreator" type="checkbox" checked="{{isCreator}}" data-toggle="toggle" data-size="mini"></td>
     <td>{{date}}</td>
+    <td><a id="{{this._id}}_delete" class="delete btn btn-danger btn-xs pull-right" href="#" role="button">
+      <i class="fa fa-trash-o fa-lg fa-fw" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete user"></i>
+    </a></td>
   </tr>
 </template>

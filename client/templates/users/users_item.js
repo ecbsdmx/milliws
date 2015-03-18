@@ -1,5 +1,6 @@
 Template.userItem.rendered = function() {
   $('input[type=checkbox]').bootstrapToggle();
+  $('[data-toggle="tooltip"]').tooltip();
 };
 
 Template.userItem.helpers({
@@ -24,6 +25,14 @@ Template.userItem.events({
     var isAdmin = $("#" + this._id + "_isAdmin").prop('checked');
     var isCreator = $("#" + this._id + "_isCreator").prop('checked');
     Meteor.call('updateUserRoles', userId, isAdmin, isCreator, function(error, result) {
+      if (error) {
+        return alert(error.reason);
+      }
+    });
+  },
+
+  'click .delete': function(e) {
+    Meteor.call('deleteUser', this._id, function(error, result) {
       if (error) {
         return alert(error.reason);
       }
