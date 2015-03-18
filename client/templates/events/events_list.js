@@ -62,16 +62,13 @@ Template.eventsList.events({
   'click .previousEvents': function (e) {
     e.preventDefault();
     var from = Session.get("EventsFromCount");
-    if (from >= 10) {
-      Router.go("eventsList" , {fromCount: (from - 10)});
-    }
+    Router.go("eventsList" , {fromCount: (from >= 10)?(from-10):0});
   },
   'click .nextEvents': function (e) {
     e.preventDefault();
     var from = Session.get("EventsFromCount");
-    if (from+10 < EventsCount.findOne().count) {
-      Router.go("eventsList" , {fromCount: (from + 10)});
-    }
+    var max = EventsCount.findOne().count;
+    Router.go("eventsList" , {fromCount: (from + 10 <= max-10)?(from+10):(max-10)});
   },
   'click .lastEvents': function (e) {
     e.preventDefault();
