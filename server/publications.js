@@ -1,9 +1,15 @@
 Meteor.publish('jobs', function() {
-  return Jobs.find({isDeleted: false});
+  return Jobs.find({$and: [{isDeleted: false}, {owner: this.userId}]});
 });
 
 Meteor.publish('recycledJobs', function() {
-  return Jobs.find({isDeleted: true});
+  if (Roles.userIsInRole(this.userId, ['job-creator'])) {
+    return Jobs.find({$and: [{isDeleted: true}, {owner: this.userId}]});
+  } else {
+    // user not authorized.
+    this.stop();
+    return;
+  }
 });
 
 Meteor.publish('events', function() {
@@ -47,7 +53,7 @@ Meteor.publish("eventsWithBulletInfo", function(from) {
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
       fields.avg = jobStats.avg;
       self.added('eventsWithBulletInfo', id, fields);
-    }, 
+    },
     changed: function (id, fields) {
       self.changed('eventsWithBulletInfo', id, fields);
     },
@@ -64,3 +70,12 @@ Meteor.publish('eventStats', function() {
   return EventStats.find({});
 });
 
+Meteor.publish('usersRoles', function() {
+  if (Roles.userIsInRole(this.userId, ['bofh'])) {
+    return Meteor.users.find({}, {fields: {'_id': 1, 'roles': 1, 'username': 1, 'profile.name': 1, 'createdAt': 1}});
+  } else {
+    // user not authorized.
+    this.stop();
+    return;
+  }
+});
