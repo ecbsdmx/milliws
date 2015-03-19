@@ -36,7 +36,7 @@ Meteor.publish("eventsCount", function() {
   });
 });
 
-Meteor.publish("eventsWithBulletInfo", function(from) {
+Meteor.publish("events", function(from) {
   var self = this;
   var count = 10;
   var max = Events.find({}).count();
@@ -46,16 +46,16 @@ Meteor.publish("eventsWithBulletInfo", function(from) {
     added: function (id, fields) {
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
       fields.avg = jobStats.avg;
-      self.added('eventsWithBulletInfo', id, fields);
+      self.added('events', id, fields);
     },
     changed: function (id, fields) {
-      self.changed('eventsWithBulletInfo', id, fields);
+      self.changed('events', id, fields);
     },
     removed: function (id) {
       var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
       var jobStats = EventStats.findOne({_id: theEventJobId}, {fields: {avg:1}});
       jobStats[id] && jobStats[id].stop();
-      self.removed('eventsWithBulletInfo', id);
+      self.removed('events', id);
     }
   });
   self.ready();
