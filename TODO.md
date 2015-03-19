@@ -13,6 +13,7 @@
 - [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
+- [ ] Users having no role to change a job state should still be able to see if it is running or not !
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
@@ -21,7 +22,7 @@
 - [ ] An alternative 'calendar' view should be added (later).
 - [ ] Job column: Link to the job panel in the job section (later).
 - [ ] Store the content-length for data size comparison (compressed or not, delta, etc.) (later)
-- [ ] Bullet cell: BUG? memory loss - to identify & fix !!! (1/2 done)
+- [x] Bullet cell: BUG? memory loss - to identify & fix !!! (1/2 done)
 - [ ] Implement repeater, limiting & paging of events
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 - [ ] Bug: when no events present, the skip in the collection publish fails !
