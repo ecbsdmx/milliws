@@ -23,7 +23,7 @@ Template.responseTimeChartCSS.helpers({
     //-- measure style
     var measureStyle = "";
     if (this.responseTime >= rangeError) {
-      measureStyle = "outlier";
+      measureStyle = "error";
     }
     else if (this.responseTime > (rangeError) ) {
      measureStyle = "";
@@ -47,7 +47,7 @@ Template.responseTimeChartCSS.helpers({
       ranges:         ranges,
       marker:         marker,
       ticks:          ticks,
-      measure:        measure,
+      measure:        this.responseTime,
       measureState:   measureStyle,
       measurePercent: (measure / ranges[2].val * 100) + "%",
       rangesPercent:  [(ranges[0].val / ranges[2].val * 100)+"%", (ranges[1].val / ranges[2].val * 100)+"%", "100%"],
