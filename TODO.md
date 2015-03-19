@@ -26,7 +26,9 @@
 - [x] Bullet cell: BUG? memory loss - to identify & fix !!! (1/2 done)
 - [x] Implement repeater, limiting & paging of events
 - [x] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
-- [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
+- [x] Implement sorting 
+- [x] Restore the status column
+- [ ] Implement filtering (filter builder - puzzle tags - ...)
 - [x] Bug: when no events present, the skip in the collection publish fails !
 - [x] Bug: when only one set of events have run, the aggregation did not produce content and events collection fails with avg enrichment.
 
