@@ -47,9 +47,7 @@ Template.eventsList.helpers({
     var max = EventsCount.findOne().count;
     return from === (max - 10)?{class: "disabled"}:{};
   },
-  // isCurrentPage: function(page)
-  //    return page*10 === Session.get("EventsFromCount")?{class: "active"}:{};
-  //  },
+
   isFirstPage: function() {
     var from = Session.get("EventsFromCount");
     return from === 0?{class: "disabled"}:{};

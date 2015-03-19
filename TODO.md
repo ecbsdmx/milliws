@@ -27,7 +27,7 @@
 - [ ] Implement repeater, limiting & paging of events
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 - [ ] Bug: when no events present, the skip in the collection publish fails !
-- [ ] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
+- [x] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
  
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
@@ -50,6 +50,8 @@
 - [ ] Number of errors
 - [ ] Average execution time
 - [ ] Whether the last run was successful
+- [ ] Moving average of the job etime : showing etime evolution?
+- [ ] Timeline view per job showing where in time the errors/warnings occured
 
 ### Collections
 - [x] Code review and tests for jobs

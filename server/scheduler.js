@@ -1,5 +1,6 @@
 // Monitoring function to be called every minute
 var monitor = function() {
+  console.log("Monitor job triggered.");
   // We need to get all monitoring jobs
   var jobs = Jobs.find( { isDeleted: false, isActive: true } );
   jobs.forEach(function(element, index, array) {
