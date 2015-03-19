@@ -9,7 +9,7 @@
 - [ ] Check that zlib works with Meteor bundled packages
 - [x] Jobs must have an owner
 - [x] Avoid displaying the toggle job details when no jobs present
-- [ ] Bug: editing than cancelling edit does not toggle state back
+- [x] Bug: editing than cancelling edit does not toggle state back
 - [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)

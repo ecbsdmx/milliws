@@ -109,7 +109,8 @@ Template.jobsItemActions.events({
     e.stopImmediatePropagation();
     // reset values to this !!!
     $("#inputEntryPoint_" + this._id).val(formatEntrypoint(this.url));
-    $("#inputQuery_" + this._id).val(formatQuery(this.url));
+    $("#inputPathParams_" + this._id).val(formatPathParams(this.url));
+    $("#inputQueryParams_" + this._id).val(formatFormQueryStringParams(this.url));
     $("#inputERT_" + this._id).val(this.ert);
     $("#inputFreq_" + this._id).val(this.freq);
     $("#inputDeltas_" + this._id).val(this.inputDeltas);
