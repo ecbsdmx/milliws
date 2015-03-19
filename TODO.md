@@ -6,7 +6,7 @@
 - [ ] Error handling and logging
 
 ## Job module
-- [ ] Check that zlib works with Meteor bundled packages
+- [x] Check that zlib works with Meteor bundled packages
 - [x] Jobs must have an owner
 - [x] Avoid displaying the toggle job details when no jobs present
 - [x] Bug: editing than cancelling edit does not toggle state back

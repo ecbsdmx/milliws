@@ -1,4 +1,4 @@
-var debug = Npm.require("debug")("loki:scheduler");
+var debug = Meteor.npmRequire("debug")("loki:scheduler");
 // Monitoring function to be called every minute
 var monitor = function() {
   debug("Monitoring jobs triggered.");
@@ -31,6 +31,7 @@ var isDue = function(job, last) {
 
 // Unleash a job
 var triggerJob = function(job, last) {
+  var request = Meteor.npmRequire('request');
   var lastUpdate;
   if (null === last) { //This will be true only the 1st time a job is run
     lastUpdate = "1970-01-01T00:00:00Z";
@@ -50,7 +51,7 @@ var triggerJob = function(job, last) {
       secureProtocol: 'TLSv1_method'
       /*rejectUnauthorized: false*/
     },
-    params: params,
+    qs: params,
     headers: {
       "User-Agent": "Heimdallr 1.0.0"
     }
@@ -80,13 +81,22 @@ var triggerJob = function(job, last) {
   var startTime = new Date();
   job.lastRun = startTime;
   //-- request
-  HTTP.call("GET", job.url, options , function (error, result) {
-    if (result) {
-      processResults(result, job, startTime);
+  options.method = 'GET';
+  options.uri = job.url;
+  request(options, Meteor.bindEnvironment(function (error, response, body) {
+    if (body) {
+      debug(response)
+      processResults(response, job, startTime);
     } else {
       // alert should be raised?
       debug(error);
     }
+  })).on('response', function(response) {
+    // unmodified http.IncomingMessage object
+    response.on('data', function(data) {
+      // compressed data as it is received
+      debug('received ' + data.length + ' bytes of data')
+    })
   });
 };
 
@@ -95,24 +105,18 @@ var processResults = function(result, job, startTime) {
   var status = result.statusCode;
   var serieObs = {nSeries: 0, nObs: 0};
   if (200 === status) {
-    var content;
-    if (job.isCompressed) {
-      content = gunzipSync(result.content).toString('utf-8');
-    } else {
-      content = result.content;
-    }
     switch(job.format){
       case "sdmx-generic-2.1":
-        serieObs = parseGenericXML(content);
+        serieObs = parseGenericXML(result.body);
         break;
       case "sdmx-compact-2.1":
-        serieObs = parseCompactXML(content);
+        serieObs = parseCompactXML(result.body);
         break;
       case "sdmx-json-1.0.0":
-        serieObs = parseJSON(content);
+        serieObs = parseJSON(result.body);
         break;
       default:
-        serieObs = parseJSON(content);
+        serieObs = parseJSON(result.body);
     }
   }
   Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs);
