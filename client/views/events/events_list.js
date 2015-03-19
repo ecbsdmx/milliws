@@ -64,6 +64,30 @@ Template.eventsList.helpers({
 });
 
 Template.eventsList.events({
+  'click .sortByJobId': function(e) {
+    e.preventDefault();
+    triggerSort("jobId");
+  },
+  'click .sortByETime': function(e) {
+    e.preventDefault();
+    triggerSort("etime");
+  },
+  'click .sortByStatus': function(e) {
+    e.preventDefault();
+    triggerSort("status");
+  },
+  'click .sortByResponseTime': function(e) {
+    e.preventDefault();
+    triggerSort("responseTime");
+  },
+  'click .sortBySeries': function(e) {
+    e.preventDefault();
+    triggerSort("series");
+  },
+  'click .sortByObservations': function(e) {
+    e.preventDefault();
+    triggerSort("observations");
+  },
   'click .firstEvents': function (e) {
     e.preventDefault();
     Router.go("eventsList" , {fromCount: 0});
@@ -84,3 +108,18 @@ Template.eventsList.events({
     Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
   }
 });
+
+var triggerSort = function(sortField) {
+  var sorting = Session.get("eventsSorting");
+  if (typeof sorting == 'undefined') {
+    sorting = {by: sortField, order: 1};
+    Session.set("eventsSorting", sorting);
+  }
+  if (sorting.by === sortField) {
+    sorting.order === 1?sorting.order=-1:sorting.order=1;
+  }
+  else {
+    sorting.by = sortField
+  }
+  Session.set("eventsSorting", sorting);
+};
