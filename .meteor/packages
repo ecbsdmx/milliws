@@ -11,13 +11,11 @@ mrt:moment
 
 less
 nemo64:bootstrap
-aldeed:tabular
 dandv:http-more
 meteorhacks:kadira
 meteorhacks:kadira-profiler
 peerlibrary:xml2js
 mizzao:bootboxjs
-d3js:d3
 fortawesome:fontawesome
 monbro:mongodb-mapreduce-aggregation
 sanjo:jasmine

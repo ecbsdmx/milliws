@@ -3,69 +3,6 @@
 @row-warning-bg:  spin(fadeout(@brand-warning, 0%), 50);
 @row-danger-bg:   fadeout(@brand-danger, 0%);
 
-
-
-.bullet { 
-  font: 8px sans-serif; 
-  color: #ccc;
-}
-.bullet .marker { 
-  stroke: #000; 
-  stroke-width: 2px; 
-}
-.bullet .tick line { 
-  stroke: #666; 
-  stroke-width: .5px; 
-}
-.bullet .tick text { 
-  fill: rgba(0, 0, 0, 0.33);
-}
-
-.bullet .range.s0 { 
-  fill: #ccc;
-  /*
-  stroke: rgba(0, 0, 0, 0.61);
-  stroke-width: 1.0px;
-  */
-}
-.bullet .range.s1 { 
-  fill: #ddd; 
-}
-.bullet .range.s2 { 
-  fill: #eee; 
-}
-/*
-.bullet .range.s0 { 
-  fill: #fee;            // danger
-  stroke: rgba(0, 0, 0, 0.61);
-  stroke-width: 1px;
-}
-.bullet .range.s1 { 
-  fill: #fc5;            // warning
-}
-.bullet .range.s2 { 
-  fill: #efe;           // ok
-}
-*/
-
-.bullet .measure.s0 { 
-  fill: @brand-primary; 
-}
-.bullet .measure.s0.danger { 
-  fill: @brand-danger; 
-}
-.bullet .measure.s1 { 
-  fill: steelblue; 
-}
-.bullet .title { 
-  font-size: 10px; 
-  font-weight: bold; 
-  fill: rgba(0, 0, 0, 0.33);
-}
-.bullet .subtitle { 
-  fill: #000; 
-}
-
 #eventList {
   .dataTables_info {
     float: left;
