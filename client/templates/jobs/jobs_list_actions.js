@@ -7,10 +7,12 @@ Template.jobsListActions.helpers({
     var active = 0;
     var suspended = 0;
     this.forEach(function(item) {
-      if (item.isActive) {
-        active++;
-      } else {
-        suspended++;
+      if (item.owner === Meteor.userId()) {
+        if (item.isActive) {
+          active++;
+        } else {
+          suspended++;
+        }
       }
     });
     return active >= suspended;
@@ -29,6 +31,9 @@ Template.jobsListActions.helpers({
   },
   isRecycle: function() {
     return Router.current().route.getName() === "jobsRecycle";
+  },
+  hasOwnJobs: function() {
+    return Roles.userIsInRole(Meteor.user(), ['job-creator']) && 0 < Jobs.find({owner: Meteor.userId()}).count();
   }
 });
 
@@ -60,24 +65,28 @@ Template.jobsListActions.events({
   'click #suspendAll': function(e) {
     $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
-      item.isActive = false;
-      Meteor.call('jobUpdate', item, function(error, result) {
-        if (error) {
-          return alert(error.reason);
-        }
-      });
+      if (item.owner === Meteor.userId()) {
+        item.isActive = false;
+        Meteor.call('jobUpdate', item, function(error, result) {
+          if (error) {
+            return alert(error.reason);
+          }
+        });
+      }
     });
   },
 
   'click #resumeAll': function(e) {
     $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
-      item.isActive = true;
-      Meteor.call('jobUpdate', item, function(error, result) {
-        if (error) {
-          return alert(error.reason);
-        }
-      });
+      if (item.owner === Meteor.userId()) {
+        item.isActive = true;
+        Meteor.call('jobUpdate', item, function(error, result) {
+          if (error) {
+            return alert(error.reason);
+          }
+        });
+      }
     });
   },
 

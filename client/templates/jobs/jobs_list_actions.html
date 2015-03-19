@@ -14,16 +14,17 @@
           <a class="btn btn-default btn-sm" href="#" role="button" id="undoAll" data-toggle="tooltip" data-placement="bottom" title="Recover all jobs"><i class="fa fa-undo fa-lg fa-fw"></i></a>
           <a class="btn btn-danger btn-sm" href="#" role="button" id="eraseAll" data-bb="dialog" data-toggle="tooltip" data-placement="bottom" title="Delete all jobs"><i class="fa fa-trash-o fa-lg fa-fw"></i></a>
         {{else}}
-          {{#if isAllActive}}
-            <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend all jobs" role="button">
-              <i class="fa fa-pause fa-fw"></i>
-            </a>
-          {{else}}
-            <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart all jobs">
-              <i class="fa fa-play fa-fw"></i>
-            </a>
+          {{#if hasOwnJobs}}
+            {{#if isAllActive}}
+              <a class="btn btn-default btn-sm" href="#" id="suspendAll" data-toggle="tooltip" data-placement="bottom" title="Suspend my jobs" role="button">
+                <i class="fa fa-pause fa-fw"></i>
+              </a>
+            {{else}}
+              <a class="btn btn-default btn-sm" href="#" id="resumeAll" role="button" data-toggle="tooltip" data-placement="bottom" title="Restart my jobs">
+                <i class="fa fa-play fa-fw"></i>
+              </a>
+            {{/if}}
           {{/if}}
-
           <a class="btn btn-default btn-sm" href="#" data-toggle="tooltip" data-placement="bottom" title="Create new job" role="button">
             <i class="fa fa-plus-square-o fa-lg fa-fw" data-toggle="modal" data-target="#insertJobModal"></i>
           </a>

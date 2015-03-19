@@ -1,5 +1,5 @@
 Meteor.publish('jobs', function() {
-  return Jobs.find({$and: [{isDeleted: false}, {owner: this.userId}]});
+  return Jobs.find({isDeleted: false});
 });
 
 Meteor.publish('recycledJobs', function() {

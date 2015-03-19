@@ -1,5 +1,5 @@
 <template name="jobsItemActions">
-  {{#if isInRole 'job-creator'}}
+  {{#if isActiveOwner}}
     <div class="pull-right toolbar">
       {{#if isRecycle}}
         <a class="undo text-muted" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Recover this job">

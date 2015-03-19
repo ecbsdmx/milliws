@@ -10,6 +10,9 @@ Template.jobsItemActions.helpers({
   isEdit: function() {
     var currentItem = this._id;
     return "edit" === Session.get("jobDetailState" + currentItem);
+  },
+  isActiveOwner: function() {
+    return this.owner === Meteor.userId() && Roles.userIsInRole(Meteor.user(), ['job-creator']);
   }
 });
 

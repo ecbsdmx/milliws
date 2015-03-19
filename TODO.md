@@ -6,15 +6,13 @@
 - [ ] Error handling and logging
 
 ## Job module
-- [ ] Wizard: for metadata queries (later)
-- [ ] Keyboard shortcuts (later)
 - [ ] Check that zlib works with Meteor bundled packages
 - [x] Jobs must have an owner
-- [ ] Jobs can be shared
-- [ ] Jobs display should be split (shared vs. own) or visually distinguishable
 - [ ] Avoid displaying the toggle job details when no jobs present
 - [ ] Bug: editing than cancelling edit does not toggle state back
-- [ ] Fea: addn job sharing capability in buttons or edit mode
+- [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
+- [ ] Wizard: for metadata queries (later)
+- [ ] Keyboard shortcuts (later)
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
@@ -28,7 +26,7 @@
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 - [ ] Bug: when no events present, the skip in the collection publish fails !
 - [ ] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
- 
+
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
 
