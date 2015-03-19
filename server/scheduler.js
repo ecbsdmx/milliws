@@ -35,13 +35,11 @@ var triggerJob = function(job, last) {
   } else {
     lastUpdate = moment(last.etime).format();
   }
-  var startTime = new Date();
-  job.lastRun = startTime;
+
   var params = {};
   if (job.deltas) {
     params.updatedAfter = lastUpdate;
   }
-
 
   //-- request options
   var options = {
@@ -70,46 +68,53 @@ var triggerJob = function(job, last) {
   }
 
   if (job.isCompressed) {
-    //options.headers['Accept-Encoding'] = "gzip";
+    options.headers['Accept-Encoding'] = "gzip";
     options.gzip = true;
   }
 
   if (job.isIMS && null !== last) {
     options.headers["If-Modified-Since"] = new Date(last.etime).toUTCString();
   }
-
+  var startTime = new Date();
+  job.lastRun = startTime;
   //-- request
   HTTP.call("GET", job.url, options , function (error, result) {
-    //console.log("result from HTTP.call(..., function(error, result)) for job (" + job.name + ") : ");
-    //console.dir(result);
-    var received = new Date();
     if (result) {
-
-      var status = result.statusCode;
-      var serieObs = {nSeries: 0, nObs: 0};
-      if (200 === status) {
-        switch(job.format){
-          case "sdmx-generic-2.1":
-            serieObs = parseGenericXML(result.content);
-            break;
-          case "sdmx-compact-2.1":
-            serieObs = parseCompactXML(result.content);
-            break;
-          case "sdmx-json-1.0.0":
-            serieObs = parseJSON(result.content);
-            break;
-          default:
-            serieObs = parseJSON(result.content);
-        }
-      }
-      Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs);
-      return;
+      processResults(result, job, startTime);
     } else {
       // alert should be raised?
       console.log(error);
     }
   });
 };
+
+var processResults = function(result, job, startTime) {
+  var received = new Date();
+  var status = result.statusCode;
+  var serieObs = {nSeries: 0, nObs: 0};
+  if (200 === status) {
+    var content;
+    if (job.isCompressed) {
+      content = gunzipSync(result.content).toString('utf-8');
+    } else {
+      content = result.content;
+    }
+    switch(job.format){
+      case "sdmx-generic-2.1":
+        serieObs = parseGenericXML(content);
+        break;
+      case "sdmx-compact-2.1":
+        serieObs = parseCompactXML(content);
+        break;
+      case "sdmx-json-1.0.0":
+        serieObs = parseJSON(content);
+        break;
+      default:
+        serieObs = parseJSON(content);
+    }
+  }
+  Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs);
+}
 
 var parseCompactXML = function(content) {
   var ret = {nSeries: 0, nObs: 0};
