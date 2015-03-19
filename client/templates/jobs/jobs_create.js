@@ -93,13 +93,6 @@ function setValidationRules(step) {
       flds[this.name] = true;
     });
   }
-  /*
-  for (var property in flds) {
-    if (flds.hasOwnProperty(property)) {
-      console.log(property + ": " + flds[property]);
-    }
-  }
-  */
   return flds;
 }
 
