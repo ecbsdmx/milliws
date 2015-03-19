@@ -20,6 +20,7 @@
     line-height: 1.42857;
     margin-left: -9px;
     padding: 8px;
+    padding-right: 3px;
     &:hover {
       background: #F1F1F1;
       cursor: pointer;
@@ -29,13 +30,18 @@
     }
     .textCell {
     }
+    &.sorting_poss:after {
+      content: "\f0dc";
+      font-family: FontAwesome;
+      float: right;
+    }
     &.sorting_asc:after {
-      content: "\f077";
+      content: "\f0de";
       font-family: FontAwesome;
       float: right;
     }
     &.sorting_desc:after {
-      content: "\f078";
+      content: "\f0dd";
       font-family: FontAwesome;
       float: right;
     }

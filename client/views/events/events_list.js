@@ -60,6 +60,14 @@ Template.eventsList.helpers({
       index++;
     }
     return elems;
+  },
+  isSorted: function(sortFieldName) {
+    var sortingClass="sorting_poss";
+    var sorting = Session.get("eventsSorting");
+    if ((typeof sorting != 'undefined') && (sortFieldName === sorting.by)) {
+      sortingClass = sorting.order === -1?"sorting_desc":"sorting_asc";
+    }
+    return sortingClass;
   }
 });
 

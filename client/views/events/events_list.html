@@ -9,12 +9,12 @@
       <div class="col-xs-12">  
         <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
           <thead>
-            <th class="sortByJobId">Job ID</th>
-            <th class="sortByETime">Executed on</th>
-            <th class="sortByStatus">Status</th>
-            <th class="sortByResponseTime">Response Time</th>
-            <th class="sortBySeries">n° Series</th>
-            <th class="sortByObservations">n° Observations</th>
+            <th class="sortByJobId {{isSorted 'jobId'}}">Job ID</th>
+            <th class="sortByETime {{isSorted 'etime'}}">Executed on</th>
+            <th class="sortByStatus {{isSorted 'status'}}">Status</th>
+            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response Time</th>
+            <th class="sortBySeries {{isSorted 'series'}}">n° Series</th>
+            <th class="sortByObservations {{isSorted 'observations'}}">n° Observations</th>
           </thead>
           <tbody>
             {{#each this}}
