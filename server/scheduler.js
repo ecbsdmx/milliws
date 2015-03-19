@@ -1,4 +1,4 @@
-var debug = Npm.require("debug")("loki:scheduler");
+var debug = Meteor.npmRequire("debug")("loki:scheduler");
 // Monitoring function to be called every minute
 var monitor = function() {
   debug("Monitoring jobs triggered.");
