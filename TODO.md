@@ -8,7 +8,7 @@
 ## Job module
 - [ ] Check that zlib works with Meteor bundled packages
 - [x] Jobs must have an owner
-- [ ] Avoid displaying the toggle job details when no jobs present
+- [x] Avoid displaying the toggle job details when no jobs present
 - [ ] Bug: editing than cancelling edit does not toggle state back
 - [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
 - [ ] Wizard: for metadata queries (later)
@@ -26,7 +26,7 @@
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
 - [ ] Bug: when no events present, the skip in the collection publish fails !
 - [x] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
- 
+
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
 
@@ -55,4 +55,4 @@
 - [x] Code review and tests for jobs
 - [x] Code review and tests for events
 - [ ] Code review and tests for events statistics
-- [ ] Code review and tests for users
+- [x] Code review and tests for users

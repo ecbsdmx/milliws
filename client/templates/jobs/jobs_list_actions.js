@@ -34,6 +34,9 @@ Template.jobsListActions.helpers({
   },
   hasOwnJobs: function() {
     return Roles.userIsInRole(Meteor.user(), ['job-creator']) && 0 < Jobs.find({owner: Meteor.userId()}).count();
+  },
+  hasJobs: function() {
+    return 0 < Jobs.find().count();
   }
 });
 
