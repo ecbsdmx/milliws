@@ -17,7 +17,6 @@
           </thead>
           <tbody>
             {{#each this}}
-              <!--{{jobId}} : {{_id}}<br />-->
               {{> eventListRow}}        
             {{/each}}
           </tbody>
@@ -30,20 +29,10 @@
         <ul class="pagination pagination-sm">
           <li {{isFirstPage}}><a class="firstEvents" href="#">First</a></li>
           <li {{isFirstPage}}><a class="previousEvents" {{isFirstPage}} href="#">Previous</a></li>
-          <!--
-          {{#each paginationElems}}
-          <li><a href="{{pathFor 'eventsList'}}/{{offset}}">{{page}}</a></li>
-          {{/each}}
-          -->
           <li {{isLastPage}}><a class="nextEvents" href="#">Next</a></li>
           <li {{isLastPage}}><a class="lastEvents" href="#">Last</a></li>
         </ul>
       </div>
     </div>
   </div><!-- eventList -->
-  <!--
-  <div class="events" style="margin-bottom: 50px;">
-    {{> tabular table=TabularTables.Events selector=selector class="existingJobsTable table row-border stripe compact hover"}}
-  </div>
-  -->
 </template>
