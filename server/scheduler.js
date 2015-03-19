@@ -1,5 +1,7 @@
+var debug = Npm.require("debug")("loki:scheduler");
 // Monitoring function to be called every minute
 var monitor = function() {
+  debug("Monitoring jobs triggered.");
   // We need to get all monitoring jobs
   var jobs = Jobs.find( { isDeleted: false, isActive: true } );
   jobs.forEach(function(element, index, array) {
@@ -16,7 +18,7 @@ var monitor = function() {
   });
 
   Meteor.call("updateEventStats", function(err, data) {
-    if (err) console.log("updateEventStats error: " + err);
+    if (err) debug("updateEventStats error: " + err);
   });
 };
 // Checks whether a job needs to run
@@ -83,7 +85,7 @@ var triggerJob = function(job, last) {
       processResults(result, job, startTime);
     } else {
       // alert should be raised?
-      console.log(error);
+      debug(error);
     }
   });
 };
@@ -171,5 +173,5 @@ Meteor.setInterval(monitor, 60 * 1000);
 
 var proxy = process.env.http_proxy;
 if (proxy) {
-  console.log("Using the env variable proxy: http_proxy");
+  debug('Using the existing ENV variable defined for proxy: http_proxy');
 }
