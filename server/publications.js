@@ -44,10 +44,7 @@ Meteor.publish("events", function(from) {
 
   var handle = Events.find({}, {sort:{etime: -1}, skip: actualFrom, limit: count, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
     added: function (id, fields) {
-      console.log("added: " + fields.jobId);
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
-      console.log("jobStats: ");
-      console.dir(jobStats);
       fields.avg = jobStats.avg;
       self.added('events', id, fields);
     },
