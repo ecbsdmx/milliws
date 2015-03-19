@@ -10,11 +10,11 @@
 - [x] Jobs must have an owner
 - [x] Avoid displaying the toggle job details when no jobs present
 - [x] Bug: editing than cancelling edit does not toggle state back
+- [x] Users having no role to change a job state should still be able to see if it is running or not !
+- [x] Bug: when aggregation function did not produce entries yet, it logs a run count error in console
 - [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
-- [ ] Users having no role to change a job state should still be able to see if it is running or not !
-- [x] Bug: when aggregation function did not produce entries yet, it logs a run count error in console
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted

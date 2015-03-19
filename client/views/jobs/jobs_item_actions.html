@@ -35,5 +35,11 @@
         {{/if}}
       {{/if}}
     </div>
+  {{else}}
+    {{#if isActive}}
+      <small class="pull-right padding-right">Active</small>
+    {{else}}
+      <small class="pull-right padding-right">Suspended</small>
+    {{/if}}
   {{/if}}
 </template>
