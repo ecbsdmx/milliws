@@ -48,7 +48,7 @@ Meteor.publish("events", function(from) {
   debug("from: %j, Max: %j, count: %j",from, max, count);
   debug("Publish events actualFrom= %j.",actualFrom);
 
-  var handle = Events.find({}, {skip: actualFrom, limit: count, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
+  var handle = Events.find({}, {skip: actualFrom, limit: count, fields: {jobId:1,etime:1,status:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
     added: function (id, fields) {
       debug("ObserveChanges.added.");
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
