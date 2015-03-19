@@ -12,12 +12,6 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
-Meteor.publish('events', function() {
-  var date = new Date();
-  date.setDate(date.getDate() - 2);
-  return Events.find({etime: {$gte: date}}, {sort:{etime: -1}, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}});
-});
-
 Meteor.publish("eventsCount", function() {
   var self = this;
   var count = 0;
@@ -58,6 +52,8 @@ Meteor.publish("eventsWithBulletInfo", function(from) {
       self.changed('eventsWithBulletInfo', id, fields);
     },
     removed: function (id) {
+      var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
+      var jobStats = EventStats.findOne({_id: theEventJobId}, {fields: {avg:1}});
       jobStats[id] && jobStats[id].stop();
       self.removed('eventsWithBulletInfo', id);
     }
