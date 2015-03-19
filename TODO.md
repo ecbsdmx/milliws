@@ -14,7 +14,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [ ] Users having no role to change a job state should still be able to see if it is running or not !
-- [ ] Bug: when aggregation function did not produce entries yet, it logs a run count error in console
+- [x] Bug: when aggregation function did not produce entries yet, it logs a run count error in console
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
@@ -27,8 +27,8 @@
 - [x] Implement repeater, limiting & paging of events
 - [x] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
 - [ ] Implement sorting & filtering (filter builder - puzzle tags - ...)
-- [ ] Bug: when no events present, the skip in the collection publish fails !
-- [ ] Bug: when only one set of events have run, the aggregation did not produce content and events collection fails with avg enrichment.
+- [x] Bug: when no events present, the skip in the collection publish fails !
+- [x] Bug: when only one set of events have run, the aggregation did not produce content and events collection fails with avg enrichment.
 
 
 ## Scheduler module

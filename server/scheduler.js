@@ -85,7 +85,7 @@ var triggerJob = function(job, last) {
   options.uri = job.url;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
     if (body) {
-      debug(response)
+      //debug(response)
       processResults(response, job, startTime);
     } else {
       // alert should be raised?

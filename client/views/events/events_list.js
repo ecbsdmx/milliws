@@ -39,8 +39,7 @@ Template.eventsList.helpers({
     return from;
   },
   eventsEnd: function() {
-    var from = Session.get("EventsFromCount");
-    return from + 10;
+    return Events.find().count();
   },
   isLastPage: function() {
     var from = Session.get("EventsFromCount");

@@ -1,3 +1,5 @@
+var debug = Meteor.npmRequire("debug")("loki:publication");
+
 Meteor.publish('jobs', function() {
   return Jobs.find({isDeleted: false});
 });
@@ -37,24 +39,33 @@ Meteor.publish("eventsCount", function() {
 });
 
 Meteor.publish("events", function(from) {
+  debug("Publish events.");
   var self = this;
   var count = 10;
   var max = Events.find({}).count();
-  var actualFrom = Math.min(from, max - count);
+  var actualFrom = max > count?Math.min(from, max - count):from;
 
-  var handle = Events.find({}, {sort:{etime: -1}, skip: actualFrom, limit: count, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
+  debug("from: %j, Max: %j, count: %j",from, max, count);
+  debug("Publish events actualFrom= %j.",actualFrom);
+
+  var handle = Events.find({}, {skip: actualFrom, limit: count, fields: {jobId:1,etime:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
     added: function (id, fields) {
+      debug("ObserveChanges.added.");
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
-      fields.avg = jobStats.avg;
+      fields.avg = jobStats?jobStats.avg:0;
       self.added('events', id, fields);
     },
     changed: function (id, fields) {
+      debug("ObserveChanges.changed.");
       self.changed('events', id, fields);
     },
     removed: function (id) {
+      debug("ObserveChanges.removed.");
       var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
       var jobStats = EventStats.findOne({_id: theEventJobId}, {fields: {avg:1}});
-      jobStats[id] && jobStats[id].stop();
+      if (jobStats) {
+        jobStats[id] && jobStats[id].stop();
+      }
       self.removed('events', id);
     }
   });

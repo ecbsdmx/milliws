@@ -33,7 +33,9 @@ Template.jobsItem.helpers({
   },
   runCount: function() {
     var jobStat = EventStats.findOne({_id: this._id});
-    return jobStat.count + (jobStat.count > 1 ? " times" : " time");
+    var count = jobStat?jobStat.count:0;
+    //FIXME should we not say '0 timeS' in english ?
+    return count + (count > 1 ? " times" : " time")
   }
 });
 
