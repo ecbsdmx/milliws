@@ -36,7 +36,7 @@
 - [ ] Implement filtering (filter builder - puzzle tags - ...)
 - [x] IsProblematic toggle 'filter'
 - [x] Store the content-length for data size comparison (compressed or not, delta, etc.)
-- [ ] Sorting should always use etime (e.g.: jobId + etime)
+- [x] Sorting should always use etime (e.g.: jobId + etime)
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
