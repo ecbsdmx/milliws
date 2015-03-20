@@ -11,7 +11,8 @@ Template.eventsList.helpers({
     return from;
   },
   eventsEnd: function() {
-    return Events.find().count();
+    var from = Session.get("EventsFromCount");
+    return from + Events.find().count();
   },
   isLastPage: function() {
     var from = Session.get("EventsFromCount");
