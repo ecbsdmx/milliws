@@ -11,10 +11,10 @@ Template.userItem.helpers({
     return moment(this.createdAt).format();
   },
   isAdmin: function() {
-    return -1 < this.roles.indexOf('bofh');
+    return (typeof this.roles != 'undefined') && -1 < this.roles.indexOf('bofh');
   },
   isCreator: function() {
-    return -1 < this.roles.indexOf('job-creator');
+    return (typeof this.roles != 'undefined') && -1 < this.roles.indexOf('job-creator');
   }
 });
 
