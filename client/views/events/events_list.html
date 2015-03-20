@@ -3,7 +3,11 @@
     <div clamm="row">
       <div class="col-xs-5 text-left"></div>
       <div class="col-xs-3 text-right">filters</div>
-      <div id="tableButton" class="col-xs-4 text-right">Buttons</div>
+      <div id="tableButton" class="col-xs-4 text-right">
+        <div class="checkbox" >
+          Display: <input id="problematicToggle" type="checkbox" data-toggle="checkbox" data-width="100" data-size="small" data-offstyle="primary" data-off="All" data-onstyle="danger" data-on="Errors" {{showProblematicOnly}}>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-12">  

@@ -1,36 +1,8 @@
 Template.eventsList.rendered = function() {
-  // var $chkDiv = $('<div class="checkbox">');
-  // var $input = $('<input type="checkbox">');
-  
-  // $input.attr("data-toggle", "toggle");
-  // $input.attr("data-width", 100);
-  // $input.attr("data-size", "small");
-  // $input.attr("data-offstyle", "primary");
-  // $input.attr("data-off", "All");
-  // $input.attr("data-onstyle", "danger");
-  // $input.attr("data-on", "Errors");
-
-  // $input.attr("id", "problematicToggle");
-  // $chkDiv.append($input);
-
-  // var $buttonDiv = $('#tableButton');
-  // $buttonDiv.append("Display: ").append($chkDiv);
-  // $buttonDiv.addClass("text-right");
-  
-  // Meteor.defer(function() {
-  //   $('input[type=checkbox]').bootstrapToggle();
-  //   $input.change(function() {
-  //     var isProblematic = $(this).prop('checked');
-  //     Session.set("showProblematicOnly", isProblematic);
-  //   });
-  // })
+  $('#problematicToggle').bootstrapToggle();
 }
 
 Template.eventsList.helpers({
-  // selector: function() {
-  //   var isProblematic = Session.get("showProblematicOnly");
-  //   return isProblematic? {isProblematic: true} : {};
-  // },
   totalEventCount: function() {
     return EventsCount.findOne().count;
   },
@@ -68,10 +40,22 @@ Template.eventsList.helpers({
       sortingClass = sorting.order === -1?"sorting_desc":"sorting_asc";
     }
     return sortingClass;
+  },
+  showProblematicOnly: function() {
+    var tog = Session.get("showProblematicOnly");
+    if (typeof tog == 'undefined'){
+      tog = false;
+    }
+    return tog?{checked:"checked"}:"";
   }
 });
 
 Template.eventsList.events({
+  'change #problematicToggle': function(e) {
+    var isProblematic = $(e.currentTarget).prop('checked');
+    console.log("showProblematicOnly: " + isProblematic);
+    Session.set("showProblematicOnly", isProblematic);
+  },
   'click .sortByJobId': function(e) {
     e.preventDefault();
     triggerSort("jobId");
