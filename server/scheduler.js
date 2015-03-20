@@ -86,9 +86,7 @@ var triggerJob = function(job, last) {
   var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
     if (body) {
-      //debug(response)
-      debug("onRequest: " + contentSize);
-      processResults(response, job, startTime);
+      processResults(response, job, startTime, contentSize);
     } else {
       // alert should be raised?
       debug(error);
@@ -97,13 +95,12 @@ var triggerJob = function(job, last) {
     // unmodified http.IncomingMessage object
     response.on('data', function(data) {
       // (compressed ?) data as it is received
-      debug('received ' + data.length + ' bytes of data')
       contentSize += data.length;
     })
   });
 };
 
-var processResults = function(result, job, startTime) {
+var processResults = function(result, job, startTime, contentSize) {
   var received = new Date();
   var status = result.statusCode;
   var serieObs = {nSeries: 0, nObs: 0};
@@ -122,7 +119,7 @@ var processResults = function(result, job, startTime) {
         serieObs = parseJSON(result.body);
     }
   }
-  Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs);
+  Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs, contentSize);
 }
 
 var parseCompactXML = function(content) {
