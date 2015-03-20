@@ -1,20 +1,20 @@
 <template name="eventsList">
   <div id="eventList">
     <div clamm="row">
-      <div class="col-xs-5 text-left">info</div>
+      <div class="col-xs-5 text-left"></div>
       <div class="col-xs-3 text-right">filters</div>
       <div id="tableButton" class="col-xs-4 text-right">Buttons</div>
     </div>
     <div class="row">
       <div class="col-xs-12">  
-        <table class="existingJobsTable table row-border stripe compact hover dataTable no-footer" id="eventList" role="grid">
+        <table class="table row-border stripe compact hover dataTable no-footer" role="grid">
           <thead>
-            <th class="sortByJobId {{isSorted 'jobId'}}">Job ID</th>
+            <th class="sortByJobId {{isSorted 'jobId'}}">Job</th>
             <th class="sortByETime {{isSorted 'etime'}}">Executed on</th>
             <th class="sortByStatus {{isSorted 'status'}}">Status</th>
-            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response Time</th>
-            <th class="sortBySeries {{isSorted 'series'}}">n° Series</th>
-            <th class="sortByObservations {{isSorted 'observations'}}">n° Observations</th>
+            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response time</th>
+            <th class="sortBySeries {{isSorted 'series'}}">Series</th>
+            <th class="sortByObservations {{isSorted 'observations'}}">Obs.</th>
           </thead>
           <tbody>
             {{#each this}}

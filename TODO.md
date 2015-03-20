@@ -31,7 +31,9 @@
 - [ ] Implement filtering (filter builder - puzzle tags - ...)
 - [x] Bug: when no events present, the skip in the collection publish fails !
 - [x] Bug: when only one set of events have run, the aggregation did not produce content and events collection fails with avg enrichment.
-
+- [ ] IsProblematic row marker
+- [x] Job colum naming: Job
+- [x] Series & obs columns without "n°"
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)

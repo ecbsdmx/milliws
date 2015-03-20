@@ -38,14 +38,18 @@ Meteor.publish("eventsCount", function() {
   });
 });
 
-Meteor.publish("events", function(from, sortOptions) {
+Meteor.publish("events", function(from, sortOptions, filterOptions) {
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;
   var max = Events.find({}).count();
   var actualFrom = max > count?Math.min(from, max - count):from;
+  var filterOpt = {};
+  if (typeof filterOptions != "undefined") {
+    filterOpt = filterOptions;
+  }
 
-  var handle = Events.find({}, {sort: sortOptions, limit: count, skip: actualFrom, fields: {jobId:1,etime:1,status:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
+  var handle = Events.find(filterOpt, {sort: sortOptions, limit: count, skip: actualFrom, fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
     added: function (id, fields) {
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
       fields.avg = jobStats?jobStats.avg:0;

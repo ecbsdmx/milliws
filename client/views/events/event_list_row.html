@@ -1,12 +1,12 @@
 <template name="eventListRow">
-  <tr>
+  <tr {{isProblematicRow}}>
     <td class="textCell">{{jobId}}</td>
     <td class="textCell">{{formatExecutionTime etime}}</td>
-    <td class="textCell">{{> statusCodeCell}}</td>
+    <td class="centerCell">{{> statusCodeCell}}</td>
     <td class="bulletCell" style="width: 700px;">
       {{> responseTimeChartCSS}}
     </td>
-    <td class="numberCell">{{series}}</td>
-    <td class="numberCell">{{observations}}</td>
+    <td class="numericCell">{{series}}</td>
+    <td class="numericCell">{{observations}}</td>
   </tr>
 </template>
