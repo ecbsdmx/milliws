@@ -49,7 +49,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
     filterOpt = filterOptions;
   }
 
-  var handle = Events.find(filterOpt, {sort: sortOptions, limit: count, skip: actualFrom, fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1, responseTime:1}}).observeChanges({
+  var handle = Events.find(filterOpt, {sort: sortOptions, limit: count, skip: actualFrom, fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1, responseTime:1, size: 1}}).observeChanges({
     added: function (id, fields) {
       var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
       fields.avg = jobStats?jobStats.avg:0;

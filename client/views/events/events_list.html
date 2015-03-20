@@ -10,19 +10,20 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">  
+      <div class="col-xs-12">
         <table class="table row-border stripe compact hover dataTable no-footer" role="grid">
           <thead>
             <th class="sortByJobId {{isSorted 'jobId'}}">Job</th>
             <th class="sortByETime {{isSorted 'etime'}}">Executed on</th>
             <th class="sortByStatus {{isSorted 'status'}}">Status</th>
-            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response time</th>
+            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response time <small>(milliseconds)</small></th>
             <th class="sortBySeries {{isSorted 'series'}}">Series</th>
             <th class="sortByObservations {{isSorted 'observations'}}">Obs.</th>
+            <th class="sortBySize {{isSorted 'size'}}">Size <small>(bytes)</small></th>
           </thead>
           <tbody>
             {{#each this}}
-              {{> eventListRow}}        
+              {{> eventListRow}}
             {{/each}}
           </tbody>
         </table>

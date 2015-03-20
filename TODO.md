@@ -26,7 +26,7 @@
 - [x] Bullet cell: BUG? memory loss - to identify & fix !!! (1/2 done)
 - [x] Implement repeater, limiting & paging of events
 - [x] Bug?: when new events are added by scheduler,displayed list is not limited to 10 elems but keeps filling up. entries x of y is also wrong.
-- [x] Implement sorting 
+- [x] Implement sorting
 - [x] Restore the status column
 - [x] Bug: when no events present, the skip in the collection publish fails !
 - [x] Bug: when only one set of events have run, the aggregation did not produce content and events collection fails with avg enrichment.
@@ -35,7 +35,7 @@
 - [x] Series & obs columns without "n°"
 - [ ] Implement filtering (filter builder - puzzle tags - ...)
 - [x] IsProblematic toggle 'filter'
-- [ ] Store the content-length for data size comparison (compressed or not, delta, etc.)
+- [x] Store the content-length for data size comparison (compressed or not, delta, etc.)
 - [ ] Sorting should always use etime (e.g.: jobId + etime)
 
 ## Scheduler module

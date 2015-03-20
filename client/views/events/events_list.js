@@ -81,6 +81,10 @@ Template.eventsList.events({
     e.preventDefault();
     triggerSort("observations");
   },
+  'click .sortBySize': function(e) {
+    e.preventDefault();
+    triggerSort("size");
+  },
   'click .firstEvents': function (e) {
     e.preventDefault();
     Router.go("eventsList" , {fromCount: 0});
