@@ -83,9 +83,11 @@ var triggerJob = function(job, last) {
   //-- request
   options.method = 'GET';
   options.uri = job.url;
+  var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
     if (body) {
       //debug(response)
+      debug("onRequest: " + contentSize);
       processResults(response, job, startTime);
     } else {
       // alert should be raised?
@@ -94,8 +96,9 @@ var triggerJob = function(job, last) {
   })).on('response', function(response) {
     // unmodified http.IncomingMessage object
     response.on('data', function(data) {
-      // compressed data as it is received
+      // (compressed ?) data as it is received
       debug('received ' + data.length + ' bytes of data')
+      contentSize += data.length;
     })
   });
 };
