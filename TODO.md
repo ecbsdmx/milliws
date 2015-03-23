@@ -37,6 +37,7 @@
 - [x] IsProblematic toggle 'filter'
 - [x] Store the content-length for data size comparison (compressed or not, delta, etc.)
 - [x] Sorting should always use etime (e.g.: jobId + etime)
+- [ ] Table should be customizable (columns to display, number of rows)
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
