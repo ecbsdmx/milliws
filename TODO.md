@@ -50,6 +50,7 @@
 
 ## Design
 - [ ] Theming (later)
+- [ ] Check if animations can be used (e.g. new events, page transitions)
 
 ## Documentation
 - [ ] Document the jobs

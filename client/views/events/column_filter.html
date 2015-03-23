@@ -1,0 +1,13 @@
+<template name="columnFilter">
+  <div class="input-group input-group-sm">
+    <div class="input-group-btn">
+      <button type="button" class="btn button-default btn-sm dropdown-toggle" data-toggle="dropdown">{{{default}}}</button>
+      <ul class="dropdown-menu filtersMenu" role="menu">
+        {{#each filters}}
+          <li><a href="#"><span class="symbol">{{{symbol}}}</span> &#x2219; <span class="symbolDesc">{{desc}}</span></a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <input type="text" class="form-control">
+  </div>
+</template>

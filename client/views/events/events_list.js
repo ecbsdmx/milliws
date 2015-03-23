@@ -48,6 +48,86 @@ Template.eventsList.helpers({
       tog = false;
     }
     return tog?{checked:"checked"}:"";
+  },
+  jobIdFilters: function() {
+    var query = {};
+    query.field = "jobId";
+    query.default = "&ni;";
+    query.filters = [
+      {symbol: "=", desc: "Equal"},
+      {symbol: "&ne;", desc: "Not equal"},
+      {symbol: "&isin;", desc: "In"},
+      {symbol: "&#x2209;", desc: "Not in"},
+      {symbol: "&ni;", desc: "Contains"}
+    ];
+    return query;
+  },
+  statusFilters: function() {
+    var query = {};
+    query.field = "status";
+    query.default = "&isin;";
+    query.filters = [
+      {symbol: "=", desc: "Equal"},
+      {symbol: "&ne;", desc: "Not equal"},
+      {symbol: "&isin;", desc: "In"},
+      {symbol: "&#x2209;", desc: "Not in"}
+    ];
+    return query;
+  },
+  sizeFilters: function() {
+    var query = {};
+    query.field = "size";
+    query.default = "&ge;";
+    query.filters = [
+      {symbol: "&ge;", desc: "Greater than or equal"},
+      {symbol: "&le;", desc: "Less than or equal"},
+      {symbol: "[,]", desc: "Between"}
+    ];
+    return query;
+  },
+  obsFilters: function() {
+    var query = {};
+    query.field = "obs";
+    query.default = "&ge;";
+    query.filters = [
+      {symbol: "&ge;", desc: "Greater than or equal"},
+      {symbol: "&le;", desc: "Less than or equal"},
+      {symbol: "[,]", desc: "Between"}
+    ];
+    return query;
+  },
+  seriesFilters: function() {
+    var query = {};
+    query.field = "series";
+    query.default = "&ge;";
+    query.filters = [
+      {symbol: "&ge;", desc: "Greater than or equal"},
+      {symbol: "&le;", desc: "Less than or equal"},
+      {symbol: "[,]", desc: "Between"}
+    ];
+    return query;
+  },
+  rtFilters: function() {
+    var query = {};
+    query.field = "responseTime";
+    query.default = "&ge;";
+    query.filters = [
+      {symbol: "&ge;", desc: "Greater than or equal"},
+      {symbol: "&le;", desc: "Less than or equal"},
+      {symbol: "[,]", desc: "Between"}
+    ];
+    return query;
+  },
+  etimeFilters: function() {
+    var query = {};
+    query.field = "etime";
+    query.default = "&ge;";
+    query.filters = [
+      {symbol: "&ge;", desc: "Greater than or equal"},
+      {symbol: "&le;", desc: "Less than or equal"},
+      {symbol: "[,]", desc: "Between"}
+    ];
+    return query;
   }
 });
 
@@ -103,6 +183,9 @@ Template.eventsList.events({
   'click .lastEvents': function (e) {
     e.preventDefault();
     Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
+  },
+  'click #filterBtn': function (e) {
+    $("#filtersRow").toggleClass('hide');
   }
 });
 

@@ -7,21 +7,31 @@
         <div class="checkbox" >
           Display: <input id="problematicToggle" type="checkbox" data-toggle="checkbox" data-width="100" data-size="small" data-offstyle="primary" data-off="All" data-onstyle="danger" data-on="Errors" {{showProblematicOnly}}>
         </div>
+        <a class="btn btn-default btn-sm" href="#" role="button" id="filterBtn" data-toggle="tooltip" data-placement="bottom" title="Filter the results"><i class="fa fa-search fa-lg fa-fw"></i></a>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12">
         <table class="table row-border stripe compact hover dataTable no-footer" role="grid">
           <thead>
-            <th class="sortByJobId {{isSorted 'jobId'}}">Job</th>
-            <th class="sortByETime {{isSorted 'etime'}}">Executed on</th>
-            <th class="sortByStatus {{isSorted 'status'}}">Status</th>
-            <th class="sortByResponseTime {{isSorted 'responseTime'}}">Response time <small>(milliseconds)</small></th>
-            <th class="sortBySeries {{isSorted 'series'}}">Series</th>
-            <th class="sortByObservations {{isSorted 'observations'}}">Obs.</th>
-            <th class="sortBySize {{isSorted 'size'}}">Size <small>(bytes)</small></th>
+            <th class="sortByJobId {{isSorted 'jobId'}} col-xs-1 col-sm-1 col-md-1">Job</th>
+            <th class="sortByETime {{isSorted 'etime'}} col-xs-2 col-sm-2 col-md-1">Executed on</th>
+            <th class="sortByStatus {{isSorted 'status'}} col-xs-1 col-sm-1 col-md-1">Status</th>
+            <th class="sortByResponseTime {{isSorted 'responseTime'}} col-xs-4 col-sm-5 col-md-6">Response time <small>(milliseconds)</small></th>
+            <th class="sortBySeries {{isSorted 'series'}} col-xs-1 col-sm-1 col-md-1">Series</th>
+            <th class="sortByObservations {{isSorted 'observations'}} col-xs-1 col-sm-1 col-md-1">Obs.</th>
+            <th class="sortBySize {{isSorted 'size'}} col-xs-2 col-sm-1 col-md-1">Size <small>(bytes)</small></th>
           </thead>
           <tbody>
+            <tr id="filtersRow" class="hide">
+              <td>{{> columnFilter jobIdFilters}}</td>
+              <td>{{> columnFilter etimeFilters}}</td>
+              <td>{{> columnFilter statusFilters}}</td>
+              <td>{{> columnFilter rtFilters}}</td>
+              <td>{{> columnFilter seriesFilters}}</td>
+              <td>{{> columnFilter obsFilters}}</td>
+              <td>{{> columnFilter sizeFilters}}</td>
+            </tr>
             {{#each this}}
               {{> eventListRow}}
             {{/each}}
