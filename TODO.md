@@ -43,6 +43,7 @@
 - [ ] Table should be customizable (columns to display, number of rows)
 - [ ] Bug: etime filter parsetInt in server not ISODate
 - [ ] Bug: filter changes not resseting to first page, causing wrong results to show
+- [ ] Bug: filter for smaller than 1200 RT, toggle problematic on/off, if some present, they only appear when toggle on !
 - [ ] Reset filter action
 - [ ] Store user conf. : columns displayed
 - [ ] Store user conf. : sort order

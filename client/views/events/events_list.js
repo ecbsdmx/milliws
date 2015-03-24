@@ -7,21 +7,21 @@ Template.eventsList.helpers({
     return EventsCount.findOne().count;
   },
   eventsStart: function() {
-    var from = Session.get("EventsFromCount");
+    var from = Session.get("EventsFromCount") || 0;
     return from;
   },
   eventsEnd: function() {
-    var from = Session.get("EventsFromCount");
+    var from = Session.get("EventsFromCount") || 0;
     return from + Events.find().count();
   },
   isLastPage: function() {
-    var from = Session.get("EventsFromCount");
+    var from = Session.get("EventsFromCount") || 0;
     var max = EventsCount.findOne().count;
     return from === (max - 10)?{class: "disabled"}:{};
   },
 
   isFirstPage: function() {
-    var from = Session.get("EventsFromCount");
+    var from = Session.get("EventsFromCount") || 0;
     return from === 0?{class: "disabled"}:{};
   },
   paginationElems: function() {
@@ -182,22 +182,26 @@ Template.eventsList.events({
   //-- paging
   'click .firstEvents': function (e) {
     e.preventDefault();
-    Router.go("eventsList" , {fromCount: 0});
+    Session.set("EventsFromCount", 0);
+    //Router.go("eventsList" , {fromCount: 0});
   },
   'click .previousEvents': function (e) {
     e.preventDefault();
-    var from = Session.get("EventsFromCount");
-    Router.go("eventsList" , {fromCount: (from >= 10)?(from-10):0});
+    var from = Session.get("EventsFromCount") || 0;
+    Session.set("EventsFromCount", (from >= 10)?(from-10):0);
+    //Router.go("eventsList" , {fromCount: (from >= 10)?(from-10):0});
   },
   'click .nextEvents': function (e) {
     e.preventDefault();
-    var from = Session.get("EventsFromCount");
+    var from = Session.get("EventsFromCount") || 0;
     var max = EventsCount.findOne().count;
-    Router.go("eventsList" , {fromCount: (from + 10 <= max-10)?(from+10):(max-10)});
+    Session.set("EventsFromCount", (from + 10 <= max-10)?(from+10):(max-10));
+    //Router.go("eventsList" , {fromCount: (from + 10 <= max-10)?(from+10):(max-10)});
   },
   'click .lastEvents': function (e) {
     e.preventDefault();
-    Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
+    Session.set("EventsFromCount", EventsCount.findOne().count - 10);
+    //Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
   },
   //-- filters
   'click #filterBtn': function (e) {
@@ -295,6 +299,5 @@ var applyFilters = function() {
   var isProblematic = $("#problematicToggle").prop('checked');
   query.isProblematic = isProblematic;
   Session.set("eventsFilter", query);
-  console.dir(query);
-  // Session.set("EventsFromCount", 0);
+  Session.set("EventsFromCount", 0);
 }
