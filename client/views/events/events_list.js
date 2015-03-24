@@ -52,85 +52,99 @@ Template.eventsList.helpers({
     return filters.isProblematic ? {checked:"checked"} : "";
   },
   jobIdFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "jobId";
-    query.default = "&ni;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ni;";
     query.filters = [
       {symbol: "&isin;", desc: "In"},
       {symbol: "&#x2209;", desc: "Not in"}
     ];
     query.help = "<p>An <strong>identifier</strong> for the jobs (e.g.: <code>dexr-comp</code>).</p><p>The identifier can be <strong>partial</strong>, to match any job whose id contains the supplied string (e.g.: <code>dexr</code> to match <code>dexr-json</code> and <code>dexr-gen</code>).</p><p><strong>Multiple</strong> identifiers can be supplied, using a whitespace as separator (e.g.: <code>dexr-json dexr-gen</code>).</p><p>Use <code>&isin;</code> to <strong>include</strong> the matching jobs in the results.</p><p>Use <code>&#x2209;</code> to <strong>exclude</strong> the matching jobs from the results.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   statusFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "status";
-    query.default = "&isin;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&isin;";
     query.filters = [
       {symbol: "&isin;", desc: "In"},
       {symbol: "&#x2209;", desc: "Not in"}
     ];
     query.help = "<p>The response <strong>HTTP status code</strong> (e.g.: <code>200</code>).</p><p><strong>Multiple</strong> codes can be supplied, using a whitespace as separator (e.g.: <code>200 302</code>).</p><p>Use <code>&isin;</code> to <strong>include</strong> the events with the matching status codes in the results.</p><p>Use <code>&#x2209;</code> to <strong>exclude</strong> the events with the matching status codes from the results.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   sizeFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "size";
-    query.default = "&ge;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
       {symbol: "&le;", desc: "Less than or equal"},
       {symbol: "[,]", desc: "Between"}
     ];
     query.help = "<p>The <strong>size</strong> of the response message, in <strong>bytes</strong>.</p><p>Use <code>&ge;</code> to <strong>include</strong> all the events whose size was larger than or equal to the supplied number and <code>&le;</code> to <strong>include</strong> all the events whose size was smaller than or equal to the supplied number.</p><p>Use <code>[,]</code> and supply 2 sizes separated by a whitespace to include all events whose size was between the supplied numbers.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   obsFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "obs";
-    query.default = "&ge;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
       {symbol: "&le;", desc: "Less than or equal"},
       {symbol: "[,]", desc: "Between"}
     ];
     query.help = "<p>The <strong>number of observations</strong> included in the response message.</p><p>Use <code>&ge;</code> to <strong>include</strong> all the events whose number of observations was larger than or equal to the supplied number and <code>&le;</code> to <strong>include</strong> all the events whose number of observations was smaller than or equal to the supplied number.</p><p>Use <code>[,]</code> and supply 2 numbers separated by a whitespace to include all events whose number of observations was between the supplied numbers.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   seriesFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "series";
-    query.default = "&ge;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
       {symbol: "&le;", desc: "Less than or equal"},
       {symbol: "[,]", desc: "Between"}
     ];
     query.help = "<p>The <strong>number of series</strong> included in the response message.</p><p>Use <code>&ge;</code> to <strong>include</strong> all the events whose number of series was larger than or equal to the supplied number and <code>&le;</code> to <strong>include</strong> all the events whose number of series was smaller than or equal to the supplied number.</p><p>Use <code>[,]</code> and supply 2 numbers separated by a whitespace to include all events whose number of series was between the supplied numbers.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   rtFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "responseTime";
-    query.default = "&ge;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
       {symbol: "&le;", desc: "Less than or equal"},
       {symbol: "[,]", desc: "Between"}
     ];
     query.help = "<p>The <strong>time it took</strong> to receive the response, in <strong>milliseconds</strong>.</p><p>Use <code>&ge;</code> to <strong>include</strong> all the events that took longer to complete than to the supplied number and <code>&le;</code> to <strong>include</strong> all the events that finished faster than the supplied number.</p><p>Use <code>[,]</code> and supply 2 numbers separated by a whitespace to include all events that finished within the supplied times.</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   },
   etimeFilters: function() {
+    var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "etime";
-    query.default = "&ge;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
       {symbol: "&le;", desc: "Less than or equal"},
       {symbol: "[,]", desc: "Between"}
     ];
     query.help = "<p>The <strong>time</strong> when the query was executed, in the <strong>ISO8601</strong> format (e.g.: <code>2015-03-24T09:02:00+01:00</code>).</p><p><strong>Partial dates</strong> can be supplied (e.g.: <code>2015</code>, <code>2015-01</code>, <code>2015-01-01</code>, etc.)</p><p>Use <code>&ge;</code> to <strong>include</strong> all the events that were executed at or after the supplied time and <code>&le;</code> to <strong>include</strong> all the events that were executed at or before the supplied time.</p><p>Use <code>[,]</code> and supply 2 timestamps separated by a whitespace to include all events that were executed between the 2 supplied times (e.g.: <code>2015-03-24T09:02:00+01:00 2015-03-24T11:02:00+01:00</code>).</p>";
+    query.fieldValue = filters.hasOwnProperty(query.field) ? filters[query.field].val : "";
     return query;
   }
 });
@@ -214,9 +228,9 @@ var triggerSort = function(sortField) {
   Session.set("eventsSorting", sorting);
 };
 
-var mapOperator = function(operator) {
+var mapSymbolToOperator = function(symbol) {
   var value;
-  switch(operator) {
+  switch(symbol) {
     case "≥":
       value = "gte";
       break;
@@ -236,6 +250,28 @@ var mapOperator = function(operator) {
   return value;
 }
 
+var mapOperatorToSymbol = function(operator) {
+  var value;
+  switch(operator) {
+    case "gte":
+      value = "≥";
+      break;
+    case "lte":
+      value = "≤";
+      break;
+    case "rg":
+      value = "[,]";
+      break;
+    case "in":
+      value = "∋";
+      break;
+    case "nin":
+      value = "∉";
+      break;
+  }
+  return value;
+}
+
 var applyFilters = function() {
   var query = {};
   $('#filtersRow').find('input').each(function(index) {
@@ -243,7 +279,7 @@ var applyFilters = function() {
     if (value) {
       var field = $(this).attr("id");
       var symbol = $(this).closest('div').find("button").first().text();
-      var mSymbol = mapOperator(symbol)
+      var mSymbol = mapSymbolToOperator(symbol)
       query[field] = {
         op: mSymbol,
         val: value
