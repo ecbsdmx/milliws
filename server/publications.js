@@ -15,10 +15,11 @@ Meteor.publish('recycledJobs', function() {
 });
 
 Meteor.publish("eventsCount", function(filterOptions) {
+  debug("in eventsCount pub.");
   var self = this;
   var count = 0;
   var initializing = true;
-  var handle = Events.find(parseFilterOptions(filterOptions)).observeChanges({
+  var handle = Events.find(parseFilterOptions(filterOptions), {fields: {_id:1}}).observeChanges({
     added: function (id) {
       count++;
       if (!initializing)
@@ -40,6 +41,7 @@ Meteor.publish("eventsCount", function(filterOptions) {
 
 
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
+  debug("in events pub.");
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;

@@ -150,9 +150,7 @@ Template.eventsList.helpers({
 });
 
 Template.eventsList.events({
-  'change #problematicToggle': function(e) {
-    applyFilters();
-  },
+  //-- sorting
   'click .sortByJobId': function(e) {
     e.preventDefault();
     triggerSort("jobId");
@@ -181,6 +179,7 @@ Template.eventsList.events({
     e.preventDefault();
     triggerSort("size");
   },
+  //-- paging
   'click .firstEvents': function (e) {
     e.preventDefault();
     Router.go("eventsList" , {fromCount: 0});
@@ -200,11 +199,17 @@ Template.eventsList.events({
     e.preventDefault();
     Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
   },
+  //-- filters
   'click #filterBtn': function (e) {
     $("#filtersRow").toggleClass('hide');
     $("#runFiltersBtn").toggleClass('hide');
   },
+  'change #problematicToggle': function(e) {
+    e.preventDefault();
+    applyFilters();
+  },
   'click #runFiltersBtn':function(e) {
+    e.preventDefault();
     applyFilters();
   },
   'submit form': function(e) {
@@ -290,5 +295,6 @@ var applyFilters = function() {
   var isProblematic = $("#problematicToggle").prop('checked');
   query.isProblematic = isProblematic;
   Session.set("eventsFilter", query);
+  console.dir(query);
   // Session.set("EventsFromCount", 0);
 }
