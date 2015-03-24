@@ -5,6 +5,7 @@
 - [ ] App hardening
 - [ ] Error handling and logging
 - [ ] Correct reports template & less files for line-ending (^M char)
+- [ ] Store user conf. (user profile)
 
 ## Job module
 - [x] Check that zlib works with Meteor bundled packages
@@ -17,6 +18,7 @@
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
 - [ ] Bug: inline job edit does not set initial SDMX format on field
+- [ ] Store user conf. : details toggle status
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
@@ -42,7 +44,9 @@
 - [ ] Bug: etime filter parsetInt in server not ISODate
 - [ ] Bug: filter changes not resseting to first page, causing wrong results to show
 - [ ] Reset filter action
-
+- [ ] Store user conf. : columns displayed
+- [ ] Store user conf. : sort order
+- [ ] Store user conf. : number of rows defined (ATT: max capped !!!) 
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)

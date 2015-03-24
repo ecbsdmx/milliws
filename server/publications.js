@@ -161,32 +161,58 @@ var getFiltersForOp = function(field, filterObj) {
       }  
     break;
     case "gte":
-      //FIXME for etime, it should be ISODATE and not parseInt
-      // e.g.:  {observations: {$gte: 1500}}
-      var obj = {};
-      obj[field] ={$gte: parseInt(val)};
-      filters.push(obj);
+      if (field === 'etime') {
+        var obj = {};
+        obj[field] ={$gte: moment(val).toDate()};
+        filters.push(obj);
+      }
+      else {
+        //FIXME for etime, it should be ISODATE and not parseInt
+        // e.g.:  {observations: {$gte: 1500}}
+        var obj = {};
+        obj[field] ={$gte: parseInt(val)};
+        filters.push(obj);
+      }
       debug("gte: %j", filters);
     break;
     case "lte":
-      //FIXME for etime, it should be ISODATE and not parseInt
-      // e.g.:  {observations: {$lte: 1500}}
-      var obj = {};
-      obj[field] ={$lte: parseInt(val)};
-      filters.push(obj);
+      if (field === 'etime') {
+        var obj = {};
+        obj[field] ={$lte: moment(val).toDate()};
+        filters.push(obj);
+      }
+      else {
+        //FIXME for etime, it should be ISODATE and not parseInt
+        // e.g.:  {observations: {$lte: 1500}}
+        var obj = {};
+        obj[field] ={$lte: parseInt(val)};
+        filters.push(obj);
+      }
       debug("lte: %j", filters);
     break;
     case "rg":
+      valArr = val.split(" ");
+      if (field === 'etime') {
+        var obj = {};
+        obj[field] ={$gte: moment(valArr[0]).toDate()};
+        filters.push(obj);
+
+        obj = {};
+        obj[field] ={$lte: moment(valArr[1]).toDate()};
+        filters.push(obj);
+      }
+      else {
+        var obj = {};
+        obj[field] ={$gte: parseInt(valArr[0])};
+        filters.push(obj);
+
+        obj = {};
+        obj[field] ={$lte: parseInt(valArr[1])};
+        filters.push(obj);
+      }
       //FIXME for etime, it should be ISODATE and not parseInt
       // e.g.:  {observations: {$gte: 1500}}
       // e.g.:  {observations: {$lte: 1500}}
-      valArr = val.split(" ");
-      var obj = {};
-      obj[field] ={$gte: parseInt(valArr[0])};
-      filters.push(obj);
-      obj = {};
-      obj[field] ={$lte: parseInt(valArr[1])};
-      filters.push(obj);
       debug("rg: %j", filters);
     break;
   }

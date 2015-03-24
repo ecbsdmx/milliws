@@ -290,4 +290,5 @@ var applyFilters = function() {
   var isProblematic = $("#problematicToggle").prop('checked');
   query.isProblematic = isProblematic;
   Session.set("eventsFilter", query);
+  // Session.set("EventsFromCount", 0);
 }
