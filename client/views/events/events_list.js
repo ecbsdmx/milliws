@@ -55,7 +55,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "jobId";
-    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ni;";
+    query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&isin;";
     query.filters = [
       {symbol: "&isin;", desc: "In"},
       {symbol: "&#x2209;", desc: "Not in"}
@@ -229,47 +229,47 @@ var triggerSort = function(sortField) {
 };
 
 var mapSymbolToOperator = function(symbol) {
-  var value;
+  var operator;
   switch(symbol) {
     case "≥":
-      value = "gte";
+      operator = "gte";
       break;
     case "≤":
-      value = "lte";
+      operator = "lte";
       break;
     case "[,]":
-      value = "rg";
+      operator = "rg";
       break;
-    case "∋":
-      value = "in";
+    case "∈":
+      operator = "in";
       break;
     case "∉":
-      value = "nin";
+      operator = "nin";
       break;
   }
-  return value;
+  return operator;
 }
 
 var mapOperatorToSymbol = function(operator) {
-  var value;
+  var symbol;
   switch(operator) {
     case "gte":
-      value = "≥";
+      symbol = "≥";
       break;
     case "lte":
-      value = "≤";
+      symbol = "≤";
       break;
     case "rg":
-      value = "[,]";
+      symbol = "[,]";
       break;
     case "in":
-      value = "∋";
+      symbol = "∈";
       break;
     case "nin":
-      value = "∉";
+      symbol = "∉";
       break;
   }
-  return value;
+  return symbol;
 }
 
 var applyFilters = function() {
@@ -279,11 +279,12 @@ var applyFilters = function() {
     if (value) {
       var field = $(this).attr("id");
       var symbol = $(this).closest('div').find("button").first().text();
-      var mSymbol = mapSymbolToOperator(symbol)
+      var mSymbol = mapSymbolToOperator(symbol);
       query[field] = {
         op: mSymbol,
         val: value
-      }
+      };
+      console.log("field " + field + " - " + symbol + " - " + mSymbol);
     }
   });
 
