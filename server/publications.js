@@ -103,7 +103,7 @@ Meteor.publish('usersRoles', function() {
 
 var parseFilterOptions = function(filterOptions) {
   var andArr = [];
-  if (typeof filterOptions != "undefined") {
+  if (typeof filterOptions != "undefined" && filterOptions.length > 0) {
     _.each(filterOptions, function(value, key, list) {
       if (key !== "isProblematic") {
         _.each(getFiltersForOp(key, value), function(value, key, list) {

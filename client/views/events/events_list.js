@@ -43,11 +43,13 @@ Template.eventsList.helpers({
     return sortingClass;
   },
   showProblematicOnly: function() {
-    var tog = Session.get("showProblematicOnly");
-    if (typeof tog == 'undefined'){
-      tog = false;
+    var filters = Session.get("eventsFilter");
+    if (typeof filters == 'undefined'){
+      filters = {isProblematic: false};
+    } else if (filters.isProblematic == 'undefined') {
+      filters.isProblematic = false;
     }
-    return tog?{checked:"checked"}:"";
+    return filters.isProblematic ? {checked:"checked"} : "";
   },
   jobIdFilters: function() {
     var query = {};
@@ -135,9 +137,7 @@ Template.eventsList.helpers({
 
 Template.eventsList.events({
   'change #problematicToggle': function(e) {
-    var isProblematic = $(e.currentTarget).prop('checked');
-    console.log("showProblematicOnly: " + isProblematic);
-    Session.set("showProblematicOnly", isProblematic);
+    applyFilters();
   },
   'click .sortByJobId': function(e) {
     e.preventDefault();
@@ -188,6 +188,14 @@ Template.eventsList.events({
   },
   'click #filterBtn': function (e) {
     $("#filtersRow").toggleClass('hide');
+    $("#runFiltersBtn").toggleClass('hide');
+  },
+  'click #runFiltersBtn':function(e) {
+    applyFilters();
+  },
+  'submit form': function(e) {
+    e.preventDefault();
+    applyFilters();
   }
 });
 
@@ -205,3 +213,45 @@ var triggerSort = function(sortField) {
   }
   Session.set("eventsSorting", sorting);
 };
+
+var mapOperator = function(operator) {
+  var value;
+  switch(operator) {
+    case "≥":
+      value = "gte";
+      break;
+    case "≤":
+      value = "lte";
+      break;
+    case "[,]":
+      value = "rg";
+      break;
+    case "∋":
+      value = "in";
+      break;
+    case "∉":
+      value = "nin";
+      break;
+  }
+  return value;
+}
+
+var applyFilters = function() {
+  var query = {};
+  $('#filtersRow').find('input').each(function(index) {
+    var value = $(this).val();
+    if (value) {
+      var field = $(this).attr("id");
+      var symbol = $(this).closest('div').find("button").first().text();
+      var mSymbol = mapOperator(symbol)
+      query[field] = {
+        op: mSymbol,
+        val: value
+      }
+    }
+  });
+
+  var isProblematic = $("#problematicToggle").prop('checked');
+  query.isProblematic = isProblematic;
+  Session.set("eventsFilter", query);
+}
