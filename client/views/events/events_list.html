@@ -1,14 +1,13 @@
 <template name="eventsList">
   <div id="eventList">
-    <div clamm="row">
-      <div class="col-xs-5 text-left"></div>
-      <div class="col-xs-3 text-right"></div>
-      <div id="tableButton" class="col-xs-4 text-right">
+    <div class="row">
+      <div id="tableButton" class="col-xs-11">
         <div class="checkbox" >
           Display: <input id="problematicToggle" type="checkbox" data-toggle="checkbox" data-width="100" data-size="small" data-offstyle="primary" data-off="All" data-onstyle="danger" data-on="Errors" {{showProblematicOnly}}>
         </div>
-        <a class="btn btn-default btn-sm" href="#" role="button" id="filterBtn" data-toggle="tooltip" data-placement="bottom" title="Filter the results"><i class="fa fa-search fa-lg fa-fw"></i></a>
+        <a class="btn btn-default btn-sm" href="#" role="button" id="filterBtn" data-toggle="tooltip" data-placement="bottom" title="Filter the results"><i class="fa fa-filter fa-lg fa-fw"></i></a>
       </div>
+      <div class="col-xs-1 text-right"></div>
     </div>
     <div class="row">
       <div class="col-xs-12">
