@@ -284,7 +284,6 @@ var applyFilters = function() {
         op: mSymbol,
         val: value
       };
-      console.log("field " + field + " - " + symbol + " - " + mSymbol);
     }
   });
 

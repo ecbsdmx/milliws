@@ -45,17 +45,9 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   var count = 10;
   var max = Events.find({}).count();
   var actualFrom = max > count?Math.min(from, max - count):from;
-  
-  // //FIXME remove - for DEBUG only
-  // filterOptions = {
-  //   jobId: {op: "nin", val: "fat"},
-  //   status: {op: "in", val: "200"},
-  //   observations: {op: "rg", val: "100 1000"}
-  // };
 
   var filterOpt = {};
   filterOpt = parseFilterOptions(filterOptions);
-  debug("filterOpt: %j", filterOpt);
 
   var handle = Events.find(
     filterOpt, 
@@ -103,7 +95,7 @@ Meteor.publish('usersRoles', function() {
 
 var parseFilterOptions = function(filterOptions) {
   var andArr = [];
-  if (typeof filterOptions != "undefined" && filterOptions.length > 0) {
+  if (typeof filterOptions != "undefined" && Object.keys(filterOptions).length > 0) {
     _.each(filterOptions, function(value, key, list) {
       if (key !== "isProblematic") {
         _.each(getFiltersForOp(key, value), function(value, key, list) {
@@ -111,7 +103,9 @@ var parseFilterOptions = function(filterOptions) {
         });
       }
       else {
-        andArr.push({key:value});
+        var filt = {};
+        filt[key] = value;
+        andArr.push(filt);
       }
     });//each
     return {$and: andArr};
@@ -145,7 +139,6 @@ var getFiltersForOp = function(field, filterObj) {
         });
         filters.push({$and: grp});      
       }
-      debug("nin: %j", filters);
     break;
     case "in":
       if (field === 'status') {
@@ -166,9 +159,9 @@ var getFiltersForOp = function(field, filterObj) {
         });
         filters.push({$or: grp});    
       }  
-      debug("in: %j", filters);
     break;
     case "gte":
+      //FIXME for etime, it should be ISODATE and not parseInt
       // e.g.:  {observations: {$gte: 1500}}
       var obj = {};
       obj[field] ={$gte: parseInt(val)};
@@ -176,6 +169,7 @@ var getFiltersForOp = function(field, filterObj) {
       debug("gte: %j", filters);
     break;
     case "lte":
+      //FIXME for etime, it should be ISODATE and not parseInt
       // e.g.:  {observations: {$lte: 1500}}
       var obj = {};
       obj[field] ={$lte: parseInt(val)};
@@ -183,6 +177,7 @@ var getFiltersForOp = function(field, filterObj) {
       debug("lte: %j", filters);
     break;
     case "rg":
+      //FIXME for etime, it should be ISODATE and not parseInt
       // e.g.:  {observations: {$gte: 1500}}
       // e.g.:  {observations: {$lte: 1500}}
       valArr = val.split(" ");
