@@ -4,6 +4,7 @@
 - [ ] Get rid of dead code
 - [ ] App hardening
 - [ ] Error handling and logging
+- [ ] Correct reports template & less files for line-ending (^M char)
 
 ## Job module
 - [x] Check that zlib works with Meteor bundled packages
