@@ -17,7 +17,7 @@ Template.eventsList.helpers({
   isLastPage: function() {
     var from = Session.get("EventsFromCount") || 0;
     var max = EventsCount.findOne().count;
-    return from === (max - 10)?{class: "disabled"}:{};
+    return ((max < 10) || (from === (max - 10)))?{class: "disabled"}:{};
   },
 
   isFirstPage: function() {
