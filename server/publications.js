@@ -44,7 +44,8 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   debug("in events pub.");
   //FIXME do some checks on the parameters
   var self = this;
-  var count = defaultEventRowCount;
+  var count = 10;
+  //fixme use defaultEventRowCount 'global' (currently client side only) variable
   var max = Events.find({}).count();
   var actualFrom = max > count?Math.min(from, max - count):from;
 
