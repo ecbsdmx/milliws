@@ -28,6 +28,7 @@
 - [ ] Filters: Reset ALL filters 
 - [ ] Filters: in filter tag, display column name instead of column variable
 - [ ] Filters: code the filter remove click action
+- [ ] Bug: Average is recalculated but only 'old' rows in the events list do not get updated with it
 
 ## Scheduler module
 
