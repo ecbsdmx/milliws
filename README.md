@@ -1,6 +1,6 @@
 # Heimdallr
 
-Heimdallr is a tool that monitors the performance and the reliability of SDMX 2.1 RESTful web services. It does so by allowing users to create queries, which are then executed on a regular basis. In addition, Heimdallr offers aggreated statistics about the reliability and the performance of the web services being monitored.
+Heimdallr is a tool that monitors the performance and the reliability of SDMX 2.1 RESTful web services. It does so by allowing users to create queries, which are then executed on a regular basis. In addition, Heimdallr offers aggregated statistics about the reliability and the performance of the web services being monitored.
 
 Additional information about SDMX can be found on the [SDMX website](http://sdmx.org "Link to the SDMX website").
 

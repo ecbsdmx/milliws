@@ -7,7 +7,7 @@ Template.eventsList.helpers({
     return EventsCount.findOne().count;
   },
   eventsStart: function() {
-    var from = Session.get("EventsFromCount") || 0;
+    var from = Session.get("EventsFromCount") || 1;
     return from;
   },
   eventsEnd: function() {
