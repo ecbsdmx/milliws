@@ -38,9 +38,9 @@
     <div>
       <i class="fa fa-file-text-o fa-fw" data-toggle="tooltip" data-placement="bottom" title="Format"></i>
       <select id="inputFormat_{{this._id}}" class="form-control editPanelSelect">
-        <option value="sdmx-json-1.0.0" selected>SDMX-JSON</option>
-        <option value="sdmx-compact-2.1">SDMX-ML 2.1 Structure Specific Data</option>
-        <option value="sdmx-generic-2.1">SDMX-ML 2.1 Generic Data</option>
+        <option value="sdmx-json-1.0.0" {{ formatSelected "sdmx-json-1.0.0" }} >SDMX-JSON</option>
+        <option value="sdmx-compact-2.1" {{ formatSelected "sdmx-compact-2.1" }} >SDMX-ML 2.1 Structure Specific Data</option>
+        <option value="sdmx-generic-2.1" {{ formatSelected "sdmx-generic-2.1" }} >SDMX-ML 2.1 Generic Data</option>
       </select>
     </div>
 

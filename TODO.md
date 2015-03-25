@@ -16,7 +16,7 @@
 - [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
 - [ ] Wizard: for metadata queries (later)
 - [ ] Keyboard shortcuts (later)
-- [ ] Bug: inline job edit does not set initial SDMX format on field
+- [x] Bug: inline job edit does not set initial SDMX format on field
 
 ## Recycle module
 - [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
@@ -42,9 +42,6 @@
 
 ## Scheduler module
 - [x] Bug: Events are inserted even in case the connection was unsuccessful (offline)
-
-## Settings module
-- [ ] ```Default``` events go back num days
 
 ## User management module
 - [x] Implement authentication
