@@ -8,7 +8,7 @@ Template.eventsList.helpers({
   },
   eventsStart: function() {
     var from = Session.get("EventsFromCount");
-    return from;
+    return from + 1;
   },
   eventsEnd: function() {
     var from = Session.get("EventsFromCount");
