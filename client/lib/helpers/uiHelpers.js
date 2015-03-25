@@ -57,5 +57,5 @@ UI.registerHelper('formatQueryStringParams', formatQueryStringParams);
 UI.registerHelper('formatFormQueryStringParams', formatFormQueryStringParams);
 
 UI.registerHelper('formatNumber', function(number) {
-  return number ? number.toLocaleString() : "";
+  return number ? number.toLocaleString() : 0;
 });
