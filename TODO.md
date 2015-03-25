@@ -28,9 +28,9 @@
 - [ ] Filters: Reset ALL filters 
 - [ ] Filters: in filter tag, display column name instead of column variable
 - [ ] Filters: code the filter remove click action
-- [ ] Filters: clicking on th etag but not the 'x' would open filters and focus on the filter input !!!
+- [x] Filters: clicking on th etag but not the 'x' would open filters and focus on the filter input !!!
 - [ ] Bug: Average is recalculated but only 'old' rows in the events list do not get updated with it
-- [ ] Bug: Filtering on responsetime resulting in count rows < 10, next/last still active
+- [x] Bug: Filtering on responsetime resulting in count rows < 10, next/last still active
 
 
 ## Scheduler module
