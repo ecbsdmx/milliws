@@ -237,50 +237,6 @@ var triggerSort = function(sortField) {
   Session.set("eventsSorting", sorting);
 };
 
-var mapSymbolToOperator = function(symbol) {
-  var operator;
-  switch(symbol) {
-    case "≥":
-      operator = "gte";
-      break;
-    case "≤":
-      operator = "lte";
-      break;
-    case "[,]":
-      operator = "rg";
-      break;
-    case "∈":
-      operator = "in";
-      break;
-    case "∉":
-      operator = "nin";
-      break;
-  }
-  return operator;
-}
-
-var mapOperatorToSymbol = function(operator) {
-  var symbol;
-  switch(operator) {
-    case "gte":
-      symbol = "≥";
-      break;
-    case "lte":
-      symbol = "≤";
-      break;
-    case "rg":
-      symbol = "[,]";
-      break;
-    case "in":
-      symbol = "∈";
-      break;
-    case "nin":
-      symbol = "∉";
-      break;
-  }
-  return symbol;
-}
-
 var applyFilters = function() {
   var query = {};
   $('#filtersRow').find('input').each(function(index) {
@@ -297,7 +253,8 @@ var applyFilters = function() {
   });
 
   var isProblematic = $("#problematicToggle").prop('checked');
-  query.isProblematic = isProblematic;
+  if (isProblematic) query.isProblematic = isProblematic;
+  //else do not put field otherwise only non-problematic returned !!!
   Session.set("eventsFilter", query);
   Session.set("EventsFromCount", 0);
 }

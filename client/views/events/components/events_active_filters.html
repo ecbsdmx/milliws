@@ -1,0 +1,12 @@
+<template name="eventsActiveFilters">
+  <div class="filterTags">
+    {{#each activeFilters}}
+      <div class="label label-info">
+        <span class="field">{{field}}</span>
+        <span class="op">{{mapOperatorToSymbol op}}</span>
+        <span class="value">{{value}}</span>
+        <span id="removeField_{{field}}" class="removeBtn fa fa-times-circle" aria-hidden="true"></span>
+      </div>
+    {{/each}}
+  </div>
+</template>
