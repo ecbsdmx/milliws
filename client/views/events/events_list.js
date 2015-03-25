@@ -94,7 +94,7 @@ Template.eventsList.helpers({
   obsFilters: function() {
     var filters = Session.get("eventsFilter") || {};
     var query = {};
-    query.field = "obs";
+    query.field = "observations";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
