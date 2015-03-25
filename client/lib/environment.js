@@ -5,3 +5,5 @@ Accounts.ui.config({
 });
 
 defaultJobPanelState = "details";
+
+defaultEventRowCount = 10;

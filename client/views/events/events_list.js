@@ -17,7 +17,7 @@ Template.eventsList.helpers({
   isLastPage: function() {
     var from = Session.get("EventsFromCount") || 0;
     var max = EventsCount.findOne().count;
-    return ((max < 10) || (from === (max - 10)))?{class: "disabled"}:{};
+    return ((max < defaultEventRowCount) || (from === (max - defaultEventRowCount)))?{class: "disabled"}:{};
   },
 
   isFirstPage: function() {
@@ -28,7 +28,7 @@ Template.eventsList.helpers({
     var numEvt = EventsCount.findOne().count;
     var elems = [];
     var index = 0;
-    for (var i=0;i<numEvt;i+=10) {
+    for (var i=0;i<numEvt;i+=defaultEventRowCount) {
       elems[index] = {offset: i, page: index + 1};
       index++;
     }
@@ -183,25 +183,21 @@ Template.eventsList.events({
   'click .firstEvents': function (e) {
     e.preventDefault();
     Session.set("EventsFromCount", 0);
-    //Router.go("eventsList" , {fromCount: 0});
   },
   'click .previousEvents': function (e) {
     e.preventDefault();
     var from = Session.get("EventsFromCount") || 0;
-    Session.set("EventsFromCount", (from >= 10)?(from-10):0);
-    //Router.go("eventsList" , {fromCount: (from >= 10)?(from-10):0});
+    Session.set("EventsFromCount", (from >= defaultEventRowCount)?(from-defaultEventRowCount):0);
   },
   'click .nextEvents': function (e) {
     e.preventDefault();
     var from = Session.get("EventsFromCount") || 0;
     var max = EventsCount.findOne().count;
-    Session.set("EventsFromCount", (from + 10 <= max-10)?(from+10):(max-10));
-    //Router.go("eventsList" , {fromCount: (from + 10 <= max-10)?(from+10):(max-10)});
+    Session.set("EventsFromCount", (from + defaultEventRowCount <= max-defaultEventRowCount)?(from+defaultEventRowCount):(max-defaultEventRowCount));
   },
   'click .lastEvents': function (e) {
     e.preventDefault();
-    Session.set("EventsFromCount", EventsCount.findOne().count - 10);
-    //Router.go("eventsList" , {fromCount: (EventsCount.findOne().count - 10 )});
+    Session.set("EventsFromCount", EventsCount.findOne().count - defaultEventRowCount);
   },
   //-- filters
   'click #filterBtn': function (e) {

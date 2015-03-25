@@ -44,7 +44,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   debug("in events pub.");
   //FIXME do some checks on the parameters
   var self = this;
-  var count = 10;
+  var count = defaultEventRowCount;
   var max = Events.find({}).count();
   var actualFrom = max > count?Math.min(from, max - count):from;
 
@@ -169,8 +169,6 @@ var getFiltersForOp = function(field, filterObj) {
         filters.push(obj);
       }
       else {
-        //FIXME for etime, it should be ISODATE and not parseInt
-        // e.g.:  {observations: {$gte: 1500}}
         var obj = {};
         obj[field] ={$gte: parseInt(val)};
         filters.push(obj);
@@ -184,13 +182,10 @@ var getFiltersForOp = function(field, filterObj) {
         filters.push(obj);
       }
       else {
-        //FIXME for etime, it should be ISODATE and not parseInt
-        // e.g.:  {observations: {$lte: 1500}}
         var obj = {};
         obj[field] ={$lte: parseInt(val)};
         filters.push(obj);
       }
-      debug("lte: %j", filters);
     break;
     case "rg":
       valArr = val.split(" ");
@@ -212,59 +207,7 @@ var getFiltersForOp = function(field, filterObj) {
         obj[field] ={$lte: parseInt(valArr[1])};
         filters.push(obj);
       }
-      //FIXME for etime, it should be ISODATE and not parseInt
-      // e.g.:  {observations: {$gte: 1500}}
-      // e.g.:  {observations: {$lte: 1500}}
-      debug("rg: %j", filters);
     break;
   }
   return filters;
 };
-
-/**
- * events filter
-// NB for ALL: pas besoin de equal, not equal because we have the in/not in !!!
-var jobIdContains = db.events.find({jobId: {$regex: 'exr', $options: 'i'}}).sort({etime: 1});
-var jobIdIn = db.events.find({jobId: {$in: ['dexr-comp','icp-fat']}}).sort({etime: 1});
-var jobIdNotIn = db.events.find({jobId: {$nin: ['dexr-comp','icp-fat']}}).sort({etime: 1});
-
-var statusEqual = db.events.find({status: 404}).sort({etime: 1});
-var statusNotEqual = db.events.find({status: {$ne: 404}}).sort({etime: 1});
-var statusIn = db.events.find({status: {$in: [404,200]}}).sort({etime: 1});
-var statusNotIn = db.events.find({status: {$nin: [200]}}).sort({etime: 1});
-
-var etimeRange = db.events.find({$and: [
-    {etime: {$gte: new ISODate("2015-03-19 22:00:00.000+01:00")}},
-    {etime: {$lte: new ISODate("2015-03-19 23:00:00.000+01:00")}}
-]}).sort({etime: -1});
-
-var responseTimeBetween = db.events.find({$and: [
-    {responseTime: {$gte: 250}},
-    {responseTime: {$lte: 300}}
-]}).sort({responseTime: 1},{etime: -1});
-
-var seriesBetween = db.events.find({$and: [
-    {series: {$gte: 1}},
-    {series: {$lte: 3}}
-]}).sort({etime: -1});
-
-var observationsBetween = db.events.find({$and: [
-    {observations: {$gte: 2000}},
-    {observations: {$lte: 15000}}
-]}).sort({etime: -1});
-observationsBetween
-
-
-
-var comb = db.events.find({$and: [
-    {observations: {$gte: 1500}},
-    {observations: {$lte: 15000}},
-    {jobId: {$in: ['dexr-comp','dexr-json','m1m3']}},
-    {responseTime: {$gte: 500}},
-    {responseTime: {$lte: 550}},
-    {series: {$gte: 4}},
-]}).sort({etime: -1});
-comb
-
-
- */
