@@ -1,56 +1,45 @@
 # TODO
 
 ## General
-- [ ] Get rid of dead code
-- [ ] App hardening
-- [ ] Error handling and logging
+- [ ] Harden app
+- [ ] Add error handling and logging
 - [ ] Correct reports template & less files for line-ending (^M char)
-- [ ] Store user conf. (user profile)
 
 ## Job module
-- [ ] It could be nice to share / follow jobs rather than being automatically subscribed to all existing ones (later).
-- [ ] Wizard: for metadata queries (later)
-- [ ] Keyboard shortcuts (later)
-- [ ] Store user conf. : details toggle status
-
-## Recycle module
-- [ ] avoid displaying the recycle module tab in sidebar when there are no jobs deleted
+- [ ] Share/follow jobs rather than default subscription to all (later)
+- [ ] Add support for metadata queries in the wizard (later)
+- [ ] Add support for keyboard shortcuts (later)
+- [ ] Store details toggle status should in user profile (later)
 
 ## Events module
-- [ ] An alternative 'calendar' view should be added (later).
-- [ ] Job column: Link to the job panel in the job section (later).
-- [x] Bug: filter for smaller than 1200 RT, toggle problematic on/off, if some present, they only appear when toggle on !
-- [ ] Table should be customizable (columns to display, number of rows)
-- [ ] Store user conf. : columns displayed
-- [ ] Store user conf. : sort order
-- [ ] Store user conf. : number of rows defined (ATT: max capped !!!) 
-- [ ] Filters: Implement filtering (filter builder - puzzle tags - ...)
-- [ ] Filters: Reset ALL filters 
-- [ ] Filters: in filter tag, display column name instead of column variable
-- [ ] Filters: code the filter remove click action
-- [x] Filters: clicking on th etag but not the 'x' would open filters and focus on the filter input !!!
-- [ ] Bug: Average is recalculated but only 'old' rows in the events list do not get updated with it
-- [x] Bug: Filtering on responsetime resulting in count rows < 10, next/last still active
-
-
-## Scheduler module
-
-## User management module
+- [ ] Add an calendar / heatmap view (later)
+- [ ] Link the job id to a job detail panel (later)
+- [ ] Store columns to display, # of rows, sort order in user profile (later)
+- [ ] Add an option to reset all filters
+- [ ] Display column name instead of column variable in filter tag
+- [ ] Add an option to remove a filter
+- [ ] Open filters and focus in input field when clicking on a tag
+- [x] Click on the tag opens & focuses on the filter input !!!
+- [ ] Bug: 'Old' rows do not get the updated average
+- [x] Bug: Filtering on rt resulting in count rows < 10, next/last still active
 
 ## Design
-- [ ] Theming (later)
-- [ ] Check if animations can be used (e.g. new events, page transitions)
+- [ ] Add support for themes (later)
+- [ ] Use animations (e.g. new events, page transitions) (later)
 
 ## Documentation
-- [ ] Document the jobs
+- [ ] Document the jobs module
+- [ ] Document the events module
+- [ ] Document the statistics module
+- [ ] Document the user management
 
 ## Reports module
-- [ ] Number of times a job has run
-- [ ] Number of errors
-- [ ] Average execution time
-- [ ] Whether the last run was successful
-- [ ] Moving average of the job etime : showing etime evolution?
-- [ ] Timeline view per job showing where in time the errors/warnings occured
+- [ ] Display the number of times a job has run
+- [ ] Display the number of errors
+- [ ] Display the average execution time
+- [ ] Display whether the last run of a job was successful
+- [ ] Display a time series view of jobs execution times
+- [ ] Display a timeline view of errors per job
 
 ### Collections
 - [ ] Code review and tests for events statistics
