@@ -49,3 +49,50 @@ updateCollapseMode = function(state, $panel) {
       break;
   }
 }
+
+mapOperatorToSymbol = function(operator) {
+  var symbol;
+  switch(operator) {
+    case "gte":
+      symbol = "≥";
+      break;
+    case "lte":
+      symbol = "≤";
+      break;
+    case "rg":
+      symbol = "[,]";
+      break;
+    case "in":
+      symbol = "∈";
+      break;
+    case "nin":
+      symbol = "∉";
+      break;
+    default: 
+    symbol="";
+  }
+  return symbol;
+}
+
+
+mapSymbolToOperator = function(symbol) {
+  var operator;
+  switch(symbol) {
+    case "≥":
+      operator = "gte";
+      break;
+    case "≤":
+      operator = "lte";
+      break;
+    case "[,]":
+      operator = "rg";
+      break;
+    case "∈":
+      operator = "in";
+      break;
+    case "∉":
+      operator = "nin";
+      break;
+  }
+  return operator;
+}

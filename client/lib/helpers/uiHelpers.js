@@ -59,3 +59,5 @@ UI.registerHelper('formatFormQueryStringParams', formatFormQueryStringParams);
 UI.registerHelper('formatNumber', function(number) {
   return number ? number.toLocaleString() : "";
 });
+
+UI.registerHelper('mapOperatorToSymbol', mapOperatorToSymbol );
