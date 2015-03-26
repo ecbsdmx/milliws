@@ -15,10 +15,9 @@
 - [ ] Add an calendar / heatmap view (later)
 - [ ] Link the job id to a job detail panel (later)
 - [ ] Store columns to display, # of rows, sort order in user profile (later)
-- [ ] Add an option to reset all filters
 - [ ] Display column name instead of column variable in filter tag
-- [ ] Add an option to remove a filter
-- [ ] Open filters and focus in input field when clicking on a tag
+- [x] Add an option to remove a filter
+- [x] Open filters and focus in input field when clicking on a tag
 - [x] Click on the tag opens & focuses on the filter input !!!
 - [ ] Bug: 'Old' rows do not get the updated average
 - [x] Bug: Filtering on rt resulting in count rows < 10, next/last still active
