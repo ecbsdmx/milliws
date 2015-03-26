@@ -55,6 +55,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "jobId";
+    query.label = "Job";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&isin;";
     query.filters = [
       {symbol: "&isin;", desc: "In"},
@@ -68,6 +69,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "status";
+    query.label = "Status";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&isin;";
     query.filters = [
       {symbol: "&isin;", desc: "In"},
@@ -81,6 +83,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "size";
+    query.label = "Size";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
@@ -95,6 +98,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "observations";
+    query.label = "Obs.";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
@@ -109,6 +113,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "series";
+    query.label = "Series";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
@@ -123,6 +128,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "responseTime";
+    query.label = "Response time";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
@@ -137,6 +143,7 @@ Template.eventsList.helpers({
     var filters = Session.get("eventsFilter") || {};
     var query = {};
     query.field = "etime";
+    query.label = "Executed";
     query.default = filters.hasOwnProperty(query.field) ? mapOperatorToSymbol(filters[query.field].op) : "&ge;";
     query.filters = [
       {symbol: "&ge;", desc: "Greater than or equal"},
@@ -233,6 +240,27 @@ var triggerSort = function(sortField) {
   Session.set("eventsSorting", sorting);
 };
 
+var getFieldLabel = function(field) {
+  switch (field) {
+    case "jobId":
+      return "Job";
+    case "status":
+      return "Status";
+    case "size":
+      return "Size";
+    case "observations":
+      return "Obs.";
+    case "series":
+      return "Series";
+    case "responseTime":
+      return "Response time";
+    case "etime":
+      return "Executed";
+    default:
+      throw "Not expected field: " + field;
+  }
+}
+
 var applyFilters = function() {
   var query = {};
   $('#filtersRow').find('input').each(function(index) {
@@ -241,9 +269,11 @@ var applyFilters = function() {
       var field = $(this).attr("id");
       var symbol = $(this).closest('div').find("button").first().text();
       var mSymbol = mapSymbolToOperator(symbol);
+      var label =  getFieldLabel(field);
       query[field] = {
         op: mSymbol,
-        val: value
+        val: value,
+        label: label
       };
     }
   });

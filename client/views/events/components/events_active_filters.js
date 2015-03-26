@@ -4,7 +4,7 @@ Template.eventsActiveFilters.helpers({
     var ret = [];
     _.each(filters, function(value, key, list) {
       if (key !== "isProblematic") {
-        ret.push({field: key, op:value.op, value: value.val});
+        ret.push({field: key, op:value.op, value: value.val, label: value.label});
       }
     });
     return ret;
@@ -12,7 +12,7 @@ Template.eventsActiveFilters.helpers({
 });
 
 Template.eventsActiveFilters.events({
-  'click .label': function(e) {
+  'click .pager li': function(e) {
     var fieldId = $(e.currentTarget).attr("id").substr("filterTag_".length);
 
     //FIXME call parent function that does this (code once + re-use)

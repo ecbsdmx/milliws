@@ -3,7 +3,6 @@
 ## General
 - [ ] Harden app
 - [ ] Add error handling and logging
-- [ ] Correct reports template & less files for line-ending (^M char)
 
 ## Job module
 - [ ] Share/follow jobs rather than default subscription to all (later)

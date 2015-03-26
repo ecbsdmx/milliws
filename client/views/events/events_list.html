@@ -2,17 +2,17 @@
   <form role="form">
     <div id="eventList">
       <div class="row">
-        <div id="tableButton" class="col-xs-4">
+        <div id="tableButton" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <div class="checkbox" >
-            Display: <input id="problematicToggle" type="checkbox" data-toggle="checkbox" data-width="100" data-size="small" data-offstyle="primary" data-off="All" data-onstyle="danger" data-on="Errors" {{showProblematicOnly}}>
+            <input id="problematicToggle" type="checkbox" data-toggle="checkbox" data-width="100" data-size="small" data-offstyle="primary" data-off="All" data-onstyle="danger" data-on="Errors" {{showProblematicOnly}}>
           </div>
           <a class="btn btn-default btn-sm" href="#" role="button" id="filterBtn" data-toggle="tooltip" data-placement="bottom" title="Filter the results"><i class="fa fa-filter fa-fw"></i></a>
           <a class="btn btn-default btn-sm hide" href="#" role="button" id="runFiltersBtn"><i class="fa fa-play fa-fw"></i> Apply filters</a>
         </div>
-        <div id="tableButton" class="col-xs-7">
+        <div id="tableButton" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           {{> eventsActiveFilters}}
         </div>
-        <div class="col-xs-1 text-right"></div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-right"></div>
       </div>
       <div class="row">
         <div class="col-xs-12">
