@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version 0.5.0 (2015-03-27)
+## Version 0.5.0 (2015-03-26)
 - Added possibility to filter events
 - Added possibility to login via third-party services
 - Finalised authorisation aspects
