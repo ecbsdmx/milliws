@@ -31,7 +31,7 @@ UI.registerHelper('formatDate', function(ts) {
 });
 
 UI.registerHelper('formatExecutionTime', function(ts) {
-  return moment(ts).format("YYYY-MM-DD [@] HH:mm");
+  return moment(ts).format("YYYY-MM-DD HH:mm");
 });
 
 

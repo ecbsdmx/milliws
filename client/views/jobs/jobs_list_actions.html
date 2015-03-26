@@ -2,15 +2,15 @@
 
   <div class="clearfix">
     <div class="btn-group btn-group-xs pull-right" role="group">
-      <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
       {{#if hasJobs}}
-        {{#if isAllDetailsVisible}}
-          <i class="fa fa-toggle-off fa-fw"></i>
-        {{else}}
-          <i class="fa fa-toggle-on fa-fw"></i>
-        {{/if}}
+        <a class="btn btn-default btn-sm" href="#" id="toggleJobDetails" data-toggle="tooltip" data-placement="bottom" title="Show/hide details for all" role="button">
+          {{#if isAllDetailsVisible}}
+            <i class="fa fa-toggle-off fa-fw"></i>
+          {{else}}
+            <i class="fa fa-toggle-on fa-fw"></i>
+          {{/if}}
+        </a>
       {{/if}}
-      </a>
       {{#if isInRole 'job-creator'}}
         {{#if isRecycle}}
           <a class="btn btn-default btn-sm" href="#" role="button" id="undoAll" data-toggle="tooltip" data-placement="bottom" title="Recover all jobs"><i class="fa fa-undo fa-lg fa-fw"></i></a>

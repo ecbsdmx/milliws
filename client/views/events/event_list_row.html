@@ -1,7 +1,7 @@
 <template name="eventListRow">
   <tr {{isProblematicRow}}>
     <td class="textCell">{{jobId}}</td>
-    <td class="textCell">{{formatExecutionTime etime}}</td>
+    <td class="centerCell">{{formatExecutionTime etime}}</td>
     <td class="centerCell">{{> statusCodeCell}}</td>
     <td class="bulletCell" style="width: 700px;">
       {{> responseTimeChartCSS}}

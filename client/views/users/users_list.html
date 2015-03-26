@@ -1,6 +1,11 @@
 <template name="usersList">
   <div class="users">
-    <div class="alert alert-warning" role="alert">There are currently {{count}} users registered to use the application.</div>
+    <div class="alert alert-warning" role="alert">
+      {{#if highlander}}
+        There is only one user registered to use the application.
+      {{else}}
+        There are currently {{count}} users registered to use the application.
+      {{/if}}</div>
     <table class="table table-hover table-condensed">
       <thead>
         <tr>

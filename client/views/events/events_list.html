@@ -43,6 +43,7 @@
           </table>
         </div><!-- col-12 -->
       </div><!-- row -->
+      {{#if totalEventCount}}
       <div class="row">
         <div class="col-xs-6 text-left">Showing {{eventsStart}} to {{eventsEnd}} of {{totalEventCount}} entries</div>
         <div class="col-xs-6 text-right">
@@ -54,6 +55,9 @@
           </ul>
         </div>
       </div>
+      {{else}}
+      <div class="alert alert-warning" role="alert">No data available.</div>
+      {{/if}}
     </div>
   </form>
 </template>

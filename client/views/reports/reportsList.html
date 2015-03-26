@@ -1,17 +1,13 @@
 <template name="reportsList">
   <div class="alert alert-warning" role="alert">Coming soon to a desktop near you.</div>
-
-  <ul>
-  {{#each this}}
-    <li>
-      {{_id}}: {{avg}} | {{min}} | {{max}} | Count: {{count}}
-    </li>
-  {{/each}}
-  </ul>  
-
-
-
 <!--
+<ul>
+{{#each this}}
+  <li>
+    {{_id}}: {{avg}} | {{min}} | {{max}} | Count: {{count}}
+  </li>
+{{/each}}
+</ul>
   <div class="calHeatMap YlGn">
     <div class="month">
       <div class="day"      style="left:0px; top:0px" title="1990-01-01"></div>

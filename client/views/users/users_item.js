@@ -4,6 +4,9 @@ Template.userItem.rendered = function() {
 };
 
 Template.userItem.helpers({
+  highlander: function() {
+    return 1 === Meteor.users.find().count(); // There can be only one
+  },
   name: function() {
     return this.hasOwnProperty('profile') && this.profile.hasOwnProperty('name') ? this.profile.name : this.username;
   },
