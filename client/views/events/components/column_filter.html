@@ -1,0 +1,17 @@
+<template name="columnFilter">
+  <div class="input-group input-group-sm">
+    <div class="input-group-btn">
+      <button type="button" class="btn button-default btn-sm dropdown-toggle" data-toggle="dropdown">{{{default}}}</button>
+      <ul class="dropdown-menu filtersMenu" role="menu">
+        <div class="filterHeader pull-left">Operators</div>
+        <div class="pull-right help">
+          <i class="fa fa-question-circle text-primary" data-placement="bottom" data-toggle="popover" title="Search options" data-content="{{help}}" data-html="true" data-container="table" data-trigger="hover" data-delay="show: 300"></i>
+        </div>
+        {{#each filters}}
+          <li><a href="#"><div class="symbol pull-left">{{{symbol}}}</div><div class="symbolDesc">{{desc}}</div></a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <input id="{{field}}" type="text" class="form-control" value="{{fieldValue}}">
+  </div>
+</template>

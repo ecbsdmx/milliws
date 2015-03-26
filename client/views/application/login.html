@@ -1,0 +1,37 @@
+<template name="login">
+  {{> header}}
+  <div class="jumbotron">
+    <div class="container">
+      <p>Heimdallr is a tool that monitors the performance and the reliability of <b class='text-primary'>SDMX 2.1 RESTful web services</b>. It does so by allowing users to <b class='text-primary'>create queries</b>, which are then executed on a regular basis. In addition, Heimdallr offers aggregated statistics about the <b class='text-primary'>reliability</b> and the <b class='text-primary'>performance</b> of the web services being monitored.</p>
+      <p>Additional information about the SDMX 2.1 API for the RESTful web services can be found on the <a href="https://github.com/sdmx-twg" title="Link to the Github repository of the SDMX Technical Standards Working Group">SDMX Github repository</a>.</p>
+    </div>
+  </div>
+  <div class="container marketing">
+    <div class="row">
+      <div class="col-lg-4">
+        <span class="fa-stack fa-3x">
+          <i class="fa fa-circle fa-stack-2x text-primary"></i>
+          <i class="fa fa-list-ol fa-stack-1x fa-inverse"></i>
+        </span>
+        <h2>Monitoring jobs</h2>
+        <p>Define the monitoring jobs that will be executed against SDMX 2.1 RESTful web services on a regular basis. A wizard helps you to discover what the SDMX 2.1 RESTful API offers and makes sure you get the syntax right. The wizard also allows you to leverage what HTTP offers, as far as content-negotiation is concerned.</p>
+      </div>
+      <div class="col-lg-4">
+        <span class="fa-stack fa-3x">
+          <i class="fa fa-circle fa-stack-2x text-primary"></i>
+          <i class="fa fa-tachometer fa-stack-1x fa-inverse"></i>
+        </span>
+        <h2>Events</h2>
+        <p>The monitoring jobs are executed with the frequency you defined when creating the job. The results of the execution are then captured so that you can monitor how the target web service reacts. The information captured includes the response time, the HTTP status code, the number of series and observations returned, etc.</p>
+      </div>
+      <div class="col-lg-4">
+        <span class="fa-stack fa-3x">
+          <i class="fa fa-circle fa-stack-2x text-primary"></i>
+          <i class="fa fa-bar-chart fa-stack-1x fa-inverse"></i>
+        </span>
+        <h2>Statistics</h2>
+        <p>Summary statistics of the events for each job are compiled, so that you can monitor the reliability of the target web services over time. The statistics include the average response time compared with the expected response time, the number of times a job has been executed, the number of errors, etc.</p>
+      </div>
+    </div>
+  </div>
+</template>

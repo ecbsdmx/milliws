@@ -1,0 +1,26 @@
+<template name="usersList">
+  <div class="users">
+    <div class="alert alert-warning" role="alert">
+      {{#if highlander}}
+        There is only one user registered to use the application.
+      {{else}}
+        There are currently {{count}} users registered to use the application.
+      {{/if}}</div>
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Is an administrator?</th>
+          <th>Is a job creator?</th>
+          <th>Since</th>
+          <th>Delete user?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this}}
+          {{> userItem }}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
