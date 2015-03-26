@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.5.0 (2015-03-27)
+- Added possibility to filter events
+- Added possibility to login via third-party services
+- Finalised authorisation aspects
+- Improved performance
+- Added basic documentation on the home page
+
 ## Version 0.4.0 (2015-03-13)
 - Introduced bullet chart for response times
 - Introduced descriptive statistics for collections
