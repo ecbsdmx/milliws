@@ -11,7 +11,6 @@ mrt:moment
 
 less
 nemo64:bootstrap
-dandv:http-more
 meteorhacks:kadira
 meteorhacks:kadira-profiler
 peerlibrary:xml2js
