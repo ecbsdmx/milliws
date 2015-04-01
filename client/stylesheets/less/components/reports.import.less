@@ -1,53 +1,19 @@
 @import "vendor/custom.bootstrap.import.less";
 
-.calHeatMap {
-  
-  position: relative;
-  width: 800px;
-  height: 150px;
-  margin: 10px auto;
-  // border: 1px solid black;
-  // -webkit-border-radius: 0 0.3em 0.3em 0;
-  // -moz-border-radius: 0 0.3em 0.3em 0;
-  // border-radius:     0 0.3em 0.3em 0;
-  
-
+// .calHeatMap {
+  svg {
+    font: 10px sans-serif;
+  }
   .day {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border: 1px solid black;
+    fill: #fff;
+    stroke: #ccc;
   }
   .month {
-    /*border: 1px solid black;
-    background-color: #ccc;*/
-    width: 85px;
-    height: 119px;
-    z-index: 10000;
-    position: absolute;
-
-    border: 1px solid #777;
-    -webkit-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
-    box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
-  }
-}
-/*
-.calHeatMap  .borderRight {
-  border-right: 2px solid black;
-}
-.calHeatMap .borderLeft {
-  border-left: 2px solid black;
-}
-.calHeatMap .borderBottom {
-  border-bottom: 2px solid black;
-}
-.calHeatMap .borderTop {
-  border-top: 2px solid black;
-}*/
-
-
-
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+  } 
+// }
 
 /*
  * This product includes color specifications and designs developed by Cynthia
@@ -95,6 +61,7 @@
 .YlGn .q6-9{ background-color: rgb(35,132,67); }
 .YlGn .q7-9{ background-color: rgb(0,104,55); }
 .YlGn .q8-9{ background-color: rgb(0,69,41); }
+
 .YlGnBu .q0-3{ background-color: rgb(237,248,177); }
 .YlGnBu .q1-3{ background-color: rgb(127,205,187); }
 .YlGnBu .q2-3{ background-color: rgb(44,127,184); }
@@ -137,6 +104,7 @@
 .YlGnBu .q6-9{ background-color: rgb(34,94,168); }
 .YlGnBu .q7-9{ background-color: rgb(37,52,148); }
 .YlGnBu .q8-9{ background-color: rgb(8,29,88); }
+
 .GnBu .q0-3{ background-color: rgb(224,243,219); }
 .GnBu .q1-3{ background-color: rgb(168,221,181); }
 .GnBu .q2-3{ background-color: rgb(67,162,202); }
@@ -179,6 +147,7 @@
 .GnBu .q6-9{ background-color: rgb(43,140,190); }
 .GnBu .q7-9{ background-color: rgb(8,104,172); }
 .GnBu .q8-9{ background-color: rgb(8,64,129); }
+
 .BuGn .q0-3{ background-color: rgb(229,245,249); }
 .BuGn .q1-3{ background-color: rgb(153,216,201); }
 .BuGn .q2-3{ background-color: rgb(44,162,95); }
@@ -221,6 +190,7 @@
 .BuGn .q6-9{ background-color: rgb(35,139,69); }
 .BuGn .q7-9{ background-color: rgb(0,109,44); }
 .BuGn .q8-9{ background-color: rgb(0,68,27); }
+
 .PuBuGn .q0-3{ background-color: rgb(236,226,240); }
 .PuBuGn .q1-3{ background-color: rgb(166,189,219); }
 .PuBuGn .q2-3{ background-color: rgb(28,144,153); }

@@ -2,9 +2,9 @@ Template.reportsList.rendered = function() {
 };
 
 
-Template.userItem.helpers({
+Template.reportsList.helpers({
 });
 
 
-Template.userItem.events({
+Template.reportsList.events({
 });
