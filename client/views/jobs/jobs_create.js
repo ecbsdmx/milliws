@@ -50,7 +50,10 @@ Template.jobCreate.events({
       if (result.idTaken) {
         return alert('There is already a monitoring job with that id.');
       }
+      $('#createWizard').wizard('selectedItem', {step: 1});
+      $('#form')[0].reset();
       $('#insertJobModal').modal('hide');
+      console.log("Form resetted");
     });
   }
 });
