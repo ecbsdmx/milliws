@@ -9,14 +9,14 @@
 - [ ] Add support for metadata queries in the wizard (later)
 - [ ] Add support for keyboard shortcuts (later)
 - [ ] Store details toggle status should in user profile (later)
-- [ ] Reset wizard once a job has been created
+- [x] Reset wizard once a job has been created
 
 ## Events module
 - [ ] Add an calendar / heatmap view (later)
 - [ ] Link the job id to a job detail panel (later)
 - [ ] Store columns to display, # of rows, sort order in user profile (later)
 - [ ] Bug: 'Old' rows do not get the updated average
-- [ ] Correct typo in status code description
+- [x] Correct typo in status code description
 
 ## Design
 - [ ] Add support for themes (later)
