@@ -89,6 +89,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
       .attr("height", size)
       .attr("x", function(d) { return week(d) * size; })
       .attr("y", function(d) { return day(d) * size; })
+      .each(function(d, i) {this.__data__ = date(d);});
       //.map(date)
       ;
 
@@ -98,7 +99,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
 
   //-- month contour path
   svg.selectAll(".month")
-    .data(function(d) { console.log(".month");return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+    .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
     .enter()
       .append("path")
       .attr("class", "month")
