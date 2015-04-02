@@ -29,7 +29,7 @@ Template.statusCodeCell.helpers({
       case 403:
         return "Semantic error. The syntax of the query is OK but it makes no sense anyway. Tolerated only on April Fools.";
       case 404:
-        return "No results. Mostly harmless, especially if you used updataedAfter.";
+        return "No results. Mostly harmless, especially if you used updatedAfter.";
       case 406:
         return "Not a supported format. No worries, SDMX is all you need.";
       case 413:
