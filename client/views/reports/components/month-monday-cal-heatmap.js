@@ -242,20 +242,39 @@ Template.monthMondayCalHeatmap.rendered = function() {
   date = d3.time.format("%Y-%m-%d"),
   percent = d3.format("+.1%");
 
-  var minDate = d3.min(dat['icp-fat'], function(d) {return new Date(d.date)}); 
-  var maxDate = d3.max(dat['icp-fat'], function(d) {return new Date(d.date)}); 
   //console.log("years: [" + minYear + ", " + maxYear + "]");
   
   //-- rows for each year 
-  var svg = d3.select(".calHeatMap").selectAll("svg")
-    .data(d3.range(maxDate.getFullYear(), minDate.getFullYear()-1, -1))
+  var jobCalHeatMap = d3.select(".calHeatMap").selectAll("svg")
+    .data(d3.entries(dat))
     .enter()
       .append("svg")
-      .attr("class", "greenOrangeRedGrad")
+      .attr("class", "jobCalHeatMap")
+      .attr("title", function(d) { return d.key})
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  //function(d) { return d.key}
+  //-- row job label
+  jobCalHeatMap.append("text")
+    .attr("transform", "translate(-18," + size * 3.5 + ")rotate(-90)")
+    .attr("text-anchor", "middle")
+    .text(function(d) { return d.key; });
+  
+  
+  var svg = jobCalHeatMap.selectAll("g")
+    .data(function(d) {
+      var jobId = d.key;
+      var jobStat = d.value;
+      var minDate = d3.min(jobStat, function(d) {return new Date(d.date)}); 
+      var maxDate = d3.max(jobStat, function(d) {return new Date(d.date)}); 
+      return d3.range(maxDate.getFullYear(), minDate.getFullYear()-1, -1)
+    })
+    .enter()
+      .append("g")
+      .attr("class", "greenOrangeRedGrad");
 
   //-- row year label
   svg.append("text")
@@ -263,20 +282,13 @@ Template.monthMondayCalHeatmap.rendered = function() {
     .attr("text-anchor", "middle")
     .text(function(d) { return d; });
     
-  //-- row job label
-  svg.append("text")
-    .attr("transform", "translate(-18," + size * 3.5 + ")rotate(-90)")
-    .attr("text-anchor", "middle")
-    .text("jobId");
     
 
   //-- day squares (only range where data is available)
   var rect = svg.selectAll(".day")
     .data(function(d) {
-      var minD = minDate;//new Date(d, 0, 1);
-      //minD.setDate(1)
-      //
-      var maxD = maxDate;//new Date(d + 1, 0, 1);
+      var minD = new Date(d, 0, 1);//minDate;//
+      var maxD = new Date(d + 1, 0, 1);//maxDate;//
       var today = new Date();
       return d3.time.days(minD, maxD > today?today:maxD); })
     .enter()
@@ -339,11 +351,11 @@ var updateData = function(dat) {
           avgRT: d[0].avgRT.toFixed(2)
         };
     })
-    .map(dat['icp-fat']);
+    .map(dat['dexr-json']);
 
 
-  var datMin = d3.min(dat['icp-fat'], function(d) {return d.avgRT});
-  var datMax = d3.max(dat['icp-fat'], function(d) {return d.avgRT});
+  var datMin = d3.min(dat['dexr-json'], function(d) {return d.avgRT});
+  var datMax = d3.max(dat['dexr-json'], function(d) {return d.avgRT});
   console.log("min: " + datMin + ", max: " + datMax);
 
   //-- scales (color)
