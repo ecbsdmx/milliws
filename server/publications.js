@@ -14,6 +14,11 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
+Meteor.publish("evtPerJobPerDate", function() {
+  return EvtPerJobPerDate.find({});
+});
+
+
 Meteor.publish("eventsCount", function(filterOptions) {
   debug("in eventsCount pub.");
   var self = this;
