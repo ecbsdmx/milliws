@@ -17,7 +17,6 @@ peerlibrary:xml2js
 mizzao:bootboxjs
 fortawesome:fontawesome
 monbro:mongodb-mapreduce-aggregation
-velocity:html-reporter
 alanning:roles
 accounts-github
 accounts-twitter
