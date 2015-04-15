@@ -17,7 +17,47 @@
     padding-top: 10px;
   }
 
-  .lastRunItem {
+  .reportItemRow {
     padding-top: 5px;
+  }
+
+  .vertical-align {
+    display: flex;
+    align-items: center;
+  }
+
+  .errorGraph {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .mainCell {
+      width: 100%;
+      background-color: #F0F0F0;;
+      height: 14px;
+
+    }
+
+    .mainCell, .errorCell {
+      background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+    }
+
+    .problematicCell {
+      background-color: @brand-danger;
+    }
+
+    .okCell {
+      background-color: @brand-primary;
+    }
+
+    small {
+      color: #fff;
+      position: absolute;
+      top: -5px;
+      left: 2px;
+    }
   }
 }

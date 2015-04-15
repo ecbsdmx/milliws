@@ -29,8 +29,8 @@
 - [ ] Document the user management
 
 ## Reports module
-- [ ] Display the number of times a job has run
-- [ ] Display the number of errors
+- [x] Display the number of times a job has run
+- [x] Display the number of errors
 - [ ] Display the average execution time
 - [x] Display whether the last run of a job was successful
 - [ ] Display a time series view of jobs execution times
