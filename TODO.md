@@ -32,9 +32,9 @@
 - [ ] Display the number of times a job has run
 - [ ] Display the number of errors
 - [ ] Display the average execution time
-- [ ] Display whether the last run of a job was successful
+- [x] Display whether the last run of a job was successful
 - [ ] Display a time series view of jobs execution times
 - [ ] Display a timeline view of errors per job
 
-### Collections
+## Collections
 - [ ] Code review and tests for events statistics
