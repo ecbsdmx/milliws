@@ -68,7 +68,6 @@ Template.jobsItemActions.events({
     var valid = true;
     $(formId).find('input').each(function(){
       if (!this.checkValidity()) { //-- HTML5
-        console.log("Invalid: " + this.id);
         valid = false;
       }
     });

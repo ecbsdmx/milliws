@@ -53,7 +53,6 @@ Template.jobCreate.events({
       $('#createWizard').wizard('selectedItem', {step: 1});
       $('#form')[0].reset();
       $('#insertJobModal').modal('hide');
-      console.log("Form resetted");
     });
   }
 });
