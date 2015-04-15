@@ -88,10 +88,9 @@ var triggerJob = function(job, last) {
   options.uri = job.url;
   var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
-    if (body) {
+    if (body || 304 === response.statusCode) {
       processResults(response, job, startTime, contentSize);
     } else {
-      // alert should be raised?
       debug(error);
     }
   })).on('response', function(response) {
