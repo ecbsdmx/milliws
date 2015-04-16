@@ -1,24 +1,5 @@
 <template name="reportsList">
-  <div class="btn-group pull-right" data-toggle="buttons">
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> dexr-comp
-    </label>
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> dexr-gen
-    </label>
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> dexr-json
-    </label>
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> icp-gz
-    </label>
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> m1m3
-    </label>
-    <label class="btn btn-xs btn-default active">
-      <input type="checkbox" autocomplete="off" checked> mna
-    </label>
-  </div>
+  {{> jobsToggle eventStats}}
   <div class="reports">
     <div class="overview">
       <h2>Overview</h2>
@@ -32,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          {{#each this}}
+          {{#each filteredEventStats}}
             {{> reportsListItem }}
           {{/each}}
         </tbody>
@@ -48,11 +29,7 @@
         </label>
       </div>
       <h2>Breakdown by day</h2>
-      <p>This component should include the heatmap for the last year. In addition, it should offer:</p>
-      <ul>
-        <li>An option to switch between the display of response times and the display of errors</li>
-        <li>A pager allowing to go further back in time</li>
-      </ul>
+      <p>Nice heatmap to come here</p>
       <nav>
         <ul class="pager">
           <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
