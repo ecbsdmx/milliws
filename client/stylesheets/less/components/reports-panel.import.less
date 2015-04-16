@@ -2,16 +2,72 @@
 
   padding-top: 20px;
 
+  h2 {
+    font-size: 14pt;
+    margin-top: 10px;
+    color: #bbb;
+  }
+
+  .periodSummary {
+    border-radius: 0px 0px 5px 5px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    h2 {
+      font-size: 12pt;
+      text-align: center;
+      color: #bbb;
+    }
+
+    .observation {
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .period {
+      font-size: .9em;
+      text-align: center;
+      color: #bbb;
+    }
+
+    .thisYear, .thisMonth {
+      border-right: 1px solid #ddd;
+    }
+  }
+
+  .breakdown {
+    border-radius: 0px 0px 0px 0px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+
+    ul {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .pager li > a, .pager li > span {
+      display: inline-block;
+      padding: 0px 0px;
+      background-color: #fff;
+      border: none;
+    }
+  }
+
   .overview {
     border-radius: 5px 5px 0px 0px;
     border: 1px solid #ddd;
     padding-left: 10px;
     padding-right: 10px;
-
-    h2 {
-      font-size: 14pt;
-      margin-top: 10px;
-    }
+    margin-top: 10px;
 
     table {
       margin-bottom: 10px;
@@ -19,6 +75,10 @@
 
     th, td {
       border: none;
+    }
+
+    th {
+      color: #bbb;
     }
 
     .row {
