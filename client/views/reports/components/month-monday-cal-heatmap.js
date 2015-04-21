@@ -161,7 +161,7 @@ svg
   .enter()
     .append("text")
     .attr("x", -margin.left/9*2)
-    .attr("y", function(d, i) { return i*size+margin.top+3-size/2;})
+    .attr("y", function(d, i) { return i*size+margin.top;})
     .attr("class", "dayName")
     .attr("text-anchor", "middle")
     .text(function(d, i) {return showAllWeekDays?d:(i%2 === 0?d:"");})
