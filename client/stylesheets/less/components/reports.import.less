@@ -1,19 +1,69 @@
 @import "vendor/custom.bootstrap.import.less";
 
 // .calHeatMap {
-  svg {
-    font: 10px sans-serif;
-  }
-  .day {
-    fill: #fff;
-    stroke: #ccc;
-  }
-  .month {
-    fill: none;
-    stroke: #000;
-    stroke-width: 2px;
-  } 
+body {
+  background-color: #fff;
+  color: #000;
+  font-size: 7pt;
+}
+svg {
+  display: block;
+  margin: 0px auto;
+  //border: 1px solid gray;
+  font: 10px sans-serif;
+}
+
+.day {
+  fill: #efefef;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+.jobName {
+  display: none;
+  font-size: 9pt;
+  font-weight: bold;
+}
+.ghostYearLabel {
+  font-size: 50pt;
+  font-weight: bold;
+  fill: rgba(255, 0, 0, 0.05);
+  stroke: rgba(152, 0, 0, 0.15);
+  stroke-width: 2px;
+  text-anchor: start;
+}
+
+.yearLabel,.dayName, .monthName {
+  fill: #999;
+}
+// .jobCalHeatMap:hover .yearLabel,
+// .jobCalHeatMap:hover .dayName,
+// .jobCalHeatMap:hover .monthName {
+//   fill: #000;
 // }
+.yearLabel {
+  display: none;
+  font-size: 8pt;
+  font-weight: normal;
+}
+.dayName{
+  font-size: 8pt;
+}
+.monthName {
+  font-weight: normal;
+  font-size: 8pt;
+}
+.monthPath {
+  display: none;
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 1px;
+}
+.jobCalHeatMap:hover .monthPath {
+  display: block;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 1px;
+}
+
 .greenOrangeRedGrad .c0 { fill: #00E504; }
 .greenOrangeRedGrad .c1 { fill: #2EE000; }
 .greenOrangeRedGrad .c2 { fill: #5EDC00; }
