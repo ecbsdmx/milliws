@@ -91,6 +91,10 @@ Meteor.publish('eventStats', function() {
   return EventStats.find({});
 });
 
+Meteor.publish('evtPerJobPerDate', function() {
+  return EvtPerJobPerDate.find();
+});
+
 Meteor.publish('usersRoles', function() {
   if (Roles.userIsInRole(this.userId, ['bofh'])) {
     return Meteor.users.find({}, {fields: {'_id': 1, 'roles': 1, 'username': 1, 'profile.name': 1, 'createdAt': 1}});
