@@ -9,15 +9,17 @@ body {
 svg {
   display: block;
   margin: 0px auto;
-  border: 1px solid gray;
+  //border: 1px solid gray;
   font: 10px sans-serif;
 }
 
 .day {
-  fill: #fff;
-  stroke: #ccc;
+  fill: #efefef;
+  stroke: #fff;
+  stroke-width: 3px;
 }
 .jobName {
+  display: none;
   font-size: 9pt;
   font-weight: bold;
 }
@@ -31,30 +33,35 @@ svg {
 }
 
 .yearLabel,.dayName, .monthName {
-  fill: #aaa;
+  fill: #999;
 }
-.jobCalHeatMap:hover .yearLabel,
-.jobCalHeatMap:hover .dayName,
-.jobCalHeatMap:hover .monthName {
-  fill: #000;
-}
+// .jobCalHeatMap:hover .yearLabel,
+// .jobCalHeatMap:hover .dayName,
+// .jobCalHeatMap:hover .monthName {
+//   fill: #000;
+// }
 .yearLabel {
-  font-size: 7pt;
-  font-weight: bold;
+  display: none;
+  font-size: 8pt;
+  font-weight: normal;
 }
 .dayName{
-  font-size: 6pt;
+  font-size: 8pt;
 }
 .monthName {
-  font-size: 7pt;
+  font-weight: normal;
+  font-size: 8pt;
 }
 .monthPath {
+  display: none;
   fill: none;
-  stroke: rgba(0, 0, 0, 0.2);
-  stroke-width: 2px;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 1px;
 }
 .jobCalHeatMap:hover .monthPath {
-  stroke: #000;
+  display: block;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 1px;
 }
 
 .greenOrangeRedGrad .c0 { fill: #00E504; }
