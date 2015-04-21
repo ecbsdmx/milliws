@@ -10,48 +10,49 @@ Template.monthMondayCalHeatmap.rendered = function() {
       avg: 286.6837606837607,
       count: 1558,
       min: 8,
-      ert: 1000,
       last: new Date("2015-04-14"),
       first: new Date("2015-03-19"),
-      lastProb: false,
-      dayAgg: [
-        { date: '2015-04-14',
-         count: 468,
-         minRT: 8,
-         maxRT: 30332,
-         avgRT: 286.6837606837607 },
-        { date: '2015-02-13',
-         count: 433,
-         minRT: 17,
-         maxRT: 10480,
-         avgRT: 407.1986143187067 },
-        { date: '2015-04-02',
-         count: 69,
-         minRT: 52,
-         maxRT: 7862,
-         avgRT: 314.0289855072464 },
-        { date: '2015-03-26',
-         count: 115,
-         minRT: 57,
-         maxRT: 6134,
-         avgRT: 395.38260869565215 },
-        { date: '2015-03-25',
-         count: 9,
-         minRT: 82,
-         maxRT: 1031,
-         avgRT: 319.55555555555554 },
-        { date: '2015-03-20',
-         count: 258,
-         minRT: 46,
-         maxRT: 4498,
-         avgRT: 209.60852713178295 },
-        { date: '2015-03-19',
-         count: 206,
-         minRT: 46,
-         maxRT: 3710,
-         avgRT: 168.89320388349515 }
-      ]
+      lastProb: false
     };
+  var dayAgg =[
+    { date: '2015-04-14',
+     count: 468,
+     minRT: 8,
+     maxRT: 30332,
+     avgRT: 286.6837606837607 },
+    { date: '2015-02-13',
+     count: 433,
+     minRT: 17,
+     maxRT: 10480,
+     avgRT: 407.1986143187067 },
+    { date: '2015-04-02',
+     count: 69,
+     minRT: 52,
+     maxRT: 7862,
+     avgRT: 314.0289855072464 },
+    { date: '2015-03-26',
+     count: 115,
+     minRT: 57,
+     maxRT: 6134,
+     avgRT: 395.38260869565215 },
+    { date: '2015-03-25',
+     count: 9,
+     minRT: 82,
+     maxRT: 1031,
+     avgRT: 319.55555555555554 },
+    { date: '2015-03-20',
+     count: 258,
+     minRT: 46,
+     maxRT: 4498,
+     avgRT: 209.60852713178295 },
+    { date: '2015-03-19',
+     count: 206,
+     minRT: 46,
+     maxRT: 3710,
+     avgRT: 168.89320388349515 }
+  ];
+
+  var ert=1000;
 
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
@@ -80,16 +81,16 @@ Template.monthMondayCalHeatmap.rendered = function() {
   //-- data manipulation
   // Get the maximum data date and go back one day,
   // to the beginning of that month.
-  var maxDate             = input.last;//new Date(d3.max(input.dayAgg, function(d) {return d.date;}));
+  var maxDate             = new Date();//new Date(d3.max(input.dayAgg, function(d) {return d.date;}));
   var minDate             = new Date(maxDate.getFullYear()-1, maxDate.getMonth(), 1); //TODO chk +1day ?
   var minFirstDayOfMonth  = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
   var minWeek             = parseInt(week(minFirstDayOfMonth));
   var minYear             = parseInt(year(minDate));
   var maxYear             = parseInt(year(maxDate));
-  var numYears    = maxYear - minYear + 1;
+  var numYears            = maxYear - minYear + 1;
 
   var color       = d3.scale.quantize()
-    .domain([0,input.ert])
+    .domain([0, ert])
     .range(d3.range(colorScaleSize));
 
 
@@ -216,7 +217,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
     }
   }
 
-  updateData(input.dayAgg);
+  updateData(dayAgg);
 
   //===================
   //-- Functions
