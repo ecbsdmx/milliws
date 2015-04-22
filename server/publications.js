@@ -14,7 +14,15 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
-Meteor.publish("evtPerJobPerDate", function() {
+Meteor.publish("evtPerJobPerDate", function(selJobs, periodRange, typeOfIndic) {
+  //aggregate of all that !
+  
+  // 3 box below
+  // if errors ==> num of (this year, month today)
+  // ATT: month ==> val > avg year/12 than red
+  // 
+  // if RT ==> display average and comparaison 
+  // 
   return EvtPerJobPerDate.find({});
 });
 
