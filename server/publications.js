@@ -14,8 +14,9 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
-Meteor.publish("evtPerJobPerDate", function(selJobs, periodRange, typeOfIndic) {
-  //aggregate of all that !
+Meteor.publish("evtPerJobPerDate", function() {
+  //args: selJobs, periodRange, typeOfIndic
+  //aggregate for all that !
   
   // 3 box below
   // if errors ==> num of (this year, month today)
@@ -97,10 +98,6 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
 
 Meteor.publish('eventStats', function() {
   return EventStats.find({});
-});
-
-Meteor.publish('evtPerJobPerDate', function() {
-  return EvtPerJobPerDate.find();
 });
 
 Meteor.publish('usersRoles', function() {
