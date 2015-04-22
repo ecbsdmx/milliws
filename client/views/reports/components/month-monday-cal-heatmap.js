@@ -4,56 +4,11 @@ Template.monthMondayCalHeatmap.onCreated(function() {
 });
 
 Template.monthMondayCalHeatmap.rendered = function() {
-  var input = {
-      _id: "dexr-gen",
-      max: 30332,
-      avg: 286.6837606837607,
-      count: 1558,
-      min: 8,
-      last: new Date("2015-04-14"),
-      first: new Date("2015-03-19"),
-      lastProb: false
-    };
-  var dayAgg =[
-    { date: '2015-04-14',
-     count: 468,
-     minRT: 8,
-     maxRT: 30332,
-     avgRT: 286.6837606837607 },
-    { date: '2015-02-13',
-     count: 433,
-     minRT: 17,
-     maxRT: 10480,
-     avgRT: 407.1986143187067 },
-    { date: '2015-04-02',
-     count: 69,
-     minRT: 52,
-     maxRT: 7862,
-     avgRT: 314.0289855072464 },
-    { date: '2015-03-26',
-     count: 115,
-     minRT: 57,
-     maxRT: 6134,
-     avgRT: 395.38260869565215 },
-    { date: '2015-03-25',
-     count: 9,
-     minRT: 82,
-     maxRT: 1031,
-     avgRT: 319.55555555555554 },
-    { date: '2015-03-20',
-     count: 258,
-     minRT: 46,
-     maxRT: 4498,
-     avgRT: 209.60852713178295 },
-    { date: '2015-03-19',
-     count: 206,
-     minRT: 46,
-     maxRT: 3710,
-     avgRT: 168.89320388349515 }
-  ];
-
-  var ert=1000;
-
+  var jobId = "icp-fat";
+  var stats = EventStats.findOne({_id: jobId});
+  var dayAgg = EvtPerJobPerDate.findOne({_id: jobId});
+  var job = Jobs.findOne({_id: jobId});
+  
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
   var week    = d3.time.format("%W");
@@ -69,7 +24,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
   var showAllWeekDays   = false;
 
   //-- constants
-  var colorScaleSize  = 10;
+  var colorScaleSize  = 6;
   var finalWidth      = 1147;//960,
       finalHeight     = 147;//147;//orig: 105
   var margin          = {top:15.5, right:5.5, bottom:5.5, left:40.5};
@@ -90,7 +45,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
   var numYears            = maxYear - minYear + 1;
 
   var color       = d3.scale.quantize()
-    .domain([0, ert])
+    .domain([0, job.ert])
     .range(d3.range(colorScaleSize));
 
 
@@ -111,7 +66,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
 
 
   var svg = d3.select(".calHeatMap").selectAll("svg")
-    .data([input])
+    .data([job])
     .enter()
       .append("svg")
         .attr("class", "jobCalHeatMap greenOrangeRedGrad")
@@ -132,7 +87,7 @@ Template.monthMondayCalHeatmap.rendered = function() {
     .attr("class", "jobName")
     .attr("transform", "translate(-" + (margin.left/9*7) + "," + (height/2) + ")rotate(-90)")
     .attr("text-anchor", "middle")
-    .text(function(d) { return d._id; })
+    .text(jobId)
   ;
   //-- job year label
   var calYearLabel =
@@ -216,13 +171,13 @@ Template.monthMondayCalHeatmap.rendered = function() {
       ;
     }
   }
-
-  updateData(dayAgg);
+  updateData(dayAgg.value);
 
   //===================
   //-- Functions
   //===================
   function updateData(dataInput) {
+  
     var aggByDates  = d3.nest()
     .key(function(d) {
       return d.date;
@@ -231,6 +186,16 @@ Template.monthMondayCalHeatmap.rendered = function() {
     .rollup(function(e){return {count: e[0].count, minRT: e[0].minRT, maxRT: e[0].maxRT, avgRT: e[0].avgRT};})
     .map(dataInput);
 
+
+    var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
+      var obj = aggByDates[date(d)];
+      return '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
+       '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
+       '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
+    });
+    svg.call(tip)
+
+  
     svg.selectAll("g.jobDays .day")
       .filter(function(d) {
         return date(d) in aggByDates;
@@ -239,7 +204,12 @@ Template.monthMondayCalHeatmap.rendered = function() {
       var obj = aggByDates[date(d)];
       return "day c" + color(obj.avgRT)  ;
     })
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
+    .select("title")
+    .remove();
     ;
+
   }
 
 
