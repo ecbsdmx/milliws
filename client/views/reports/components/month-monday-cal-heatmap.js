@@ -260,13 +260,13 @@ function updateData(dataInput, ert) {
   .domain([0, ert])
   .range(d3.range(6));//FIXME colorscale range
 
-  // var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
-  //   var obj = aggByDates[date(d)];
-  //   return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
-  //    '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
-  //    '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
-  // });
-  // svg.call(tip);
+  var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
+    var obj = aggByDates[date(d)];
+    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
+     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
+     '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
+  });
+  svg.call(tip);
 
 
   var aggByDates = d3.nest()
@@ -283,14 +283,14 @@ function updateData(dataInput, ert) {
     .filter(function(d) {
       return date(d) in aggByDates;
     })
-  .attr("class", function(d) {
-    var obj = aggByDates[date(d)];
-    return "day c" + color(obj.avgRT)  ;
-  })
-  // .on('mouseover', tip.show)
-  // .on('mouseout', tip.hide)
-  .select("title")
-  .remove();
+    .attr("class", function(d) {
+      var obj = aggByDates[date(d)];
+      return "day c" + color(obj.avgRT)  ;
+    })
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
+    // .select("title")
+    // .remove();
   ;
 }
 
