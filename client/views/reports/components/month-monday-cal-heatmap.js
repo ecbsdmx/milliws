@@ -1,13 +1,69 @@
 
 Template.monthMondayCalHeatmap.onCreated(function() {
+  console.log("Template.monthMondayCalHeatmap.onCreated");
+  var instance = this;
+  instance.firstGo = true;
+  
+//  instance.aggData   = new ReactiveVar();
 
+  Tracker.autorun(function() {
+    var selectedJobs = Session.get("SelectedEventsStats") || [];
+    var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown"; 
+    console.log("Tracker.autorun, indicatorType: " + indicatorType + ", selectedJobs: " + selectedJobs.join("|"));
+
+    instance.subscribe("evtPerJobPerDate", indicatorType, selectedJobs);//, function() {
+    //   console.log("instance.subscribe onReady()");
+    //   //FIXME this here seems to be done too early and gets the old jobsList (from local storage ?) !!!
+    //   var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
+    //   console.dir(d);
+    //   instance.aggData.set(d);
+    // });
+  });
 });
 
-Template.monthMondayCalHeatmap.rendered = function() {
-  var jobId = "icp-fat";
-  var stats = EventStats.findOne({_id: jobId});
-  var dayAgg = EvtPerJobPerDate.findOne({_id: jobId});
-  var job = Jobs.findOne({_id: jobId});
+Template.monthMondayCalHeatmap.onRendered(function() {
+  console.log("Template.monthMondayCalHeatmap.rendered");
+
+  var instance = this;
+  if (instance.firstGo){
+    console.log("first go");
+    calendarHeatMap(".calHeatMap", "No data", null, 1000);
+    instance.firstGo = false;
+  }
+
+  // Tracker.autorun(function() {
+  //   console.log("onRendered Tracker.autorun");
+  //   var d = instance.aggData.get();
+  //   if (typeof d != "undefined") {
+  //     updateData(d, 1000);
+  //   }
+  // });
+});
+
+
+Template.monthMondayCalHeatmap.helpers({
+  aggs: function() {
+    console.log("helper");
+    var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
+    console.dir(d);
+    clearData();
+    if (typeof d != "undefined" || Object.keys(d).length > 0) {
+      updateData(d, 1000);
+    }
+    return EvtPerJobPerDate.find({}, {sort: {_id: 1}});
+  }
+});
+
+
+Template.monthMondayCalHeatmap.events({
+});
+
+
+
+
+//FIXME pass in options to function: colorscale size, width, height, show-options, ...
+var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, ert) {
+  console.log("calendarHeatMap()");
   
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
@@ -36,16 +92,16 @@ Template.monthMondayCalHeatmap.rendered = function() {
   //-- data manipulation
   // Get the maximum data date and go back one day,
   // to the beginning of that month.
-  var maxDate             = new Date();//new Date(d3.max(input.dayAgg, function(d) {return d.date;}));
-  var minDate             = new Date(maxDate.getFullYear()-1, maxDate.getMonth(), 1); //TODO chk +1day ?
+  var maxDate             = new Date();
+  var minDate             = new Date(maxDate.getFullYear()-1, maxDate.getMonth(), 1);
   var minFirstDayOfMonth  = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
   var minWeek             = parseInt(week(minFirstDayOfMonth));
   var minYear             = parseInt(year(minDate));
   var maxYear             = parseInt(year(maxDate));
   var numYears            = maxYear - minYear + 1;
 
-  var color       = d3.scale.quantize()
-    .domain([0, job.ert])
+  var color       = d3.scale.quantize()//FIXME duplicate color scale def
+    .domain([0, ert])
     .range(d3.range(colorScaleSize));
 
 
@@ -65,31 +121,30 @@ Template.monthMondayCalHeatmap.rendered = function() {
   /* DEBUG */
 
 
-  var svg = d3.select(".calHeatMap").selectAll("svg")
-    .data([job])
-    .enter()
-      .append("svg")
-        .attr("class", "jobCalHeatMap greenOrangeRedGrad")
-        .attr("shape-rendering", "crisp-edges")
-        .attr("stroke-linecap","round")
-        .attr("stroke-linejoin","round")
-        .attr("width", finalWidth)
-        .attr("height", finalHeight)
-        .attr("title", function(d) {return d._id;})
-      .append("g")
-        .attr("class", "")
-        .attr("transform", "translate("+margin.left+", " + margin.top + ")")
+  var svg = d3.select(destinationElem)
+    .append("svg")
+      .attr("class", "jobCalHeatMap greenOrangeRedGrad")
+      .attr("shape-rendering", "crisp-edges")
+      .attr("stroke-linecap","round")
+      .attr("stroke-linejoin","round")
+      .attr("width", finalWidth)
+      .attr("height", finalHeight)
+      .attr("title", calendarTitle)
+    .append("g")
+      .attr("class", "calHeatmapGroup")
+      .attr("transform", "translate("+margin.left+", " + margin.top + ")")
   ;
-  //-- job name label
+
+  //-- title label
   var calJobLabel =
   svg
     .append("text")
     .attr("class", "jobName")
     .attr("transform", "translate(-" + (margin.left/9*7) + "," + (height/2) + ")rotate(-90)")
     .attr("text-anchor", "middle")
-    .text(jobId)
+    .text(calendarTitle)
   ;
-  //-- job year label
+  //-- year label
   var calYearLabel =
   svg
     .append("text")
@@ -171,47 +226,12 @@ Template.monthMondayCalHeatmap.rendered = function() {
       ;
     }
   }
-  updateData(dayAgg.value);
+
+//  updateData(daysAggregate, ert);
 
   //===================
   //-- Functions
   //===================
-  function updateData(dataInput) {
-  
-    var aggByDates  = d3.nest()
-    .key(function(d) {
-      return d.date;
-    })
-    .sortKeys(d3.ascending)
-    .rollup(function(e){return {count: e[0].count, minRT: e[0].minRT, maxRT: e[0].maxRT, avgRT: e[0].avgRT};})
-    .map(dataInput);
-
-
-    var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
-      var obj = aggByDates[date(d)];
-      return '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
-       '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
-       '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
-    });
-    svg.call(tip)
-
-  
-    svg.selectAll("g.jobDays .day")
-      .filter(function(d) {
-        return date(d) in aggByDates;
-      })
-    .attr("class", function(d) {
-      var obj = aggByDates[date(d)];
-      return "day c" + color(obj.avgRT)  ;
-    })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
-    .select("title")
-    .remove();
-    ;
-
-  }
-
 
   function monthPath(t0) {
     var yearDecal = year(t0) - year(minDate);
@@ -225,13 +245,64 @@ Template.monthMondayCalHeatmap.rendered = function() {
     + "H" + w1 * size + "V" + (d1 + 1) * size
     + "H" + (w1 + 1) * size + "V" + 0
     + "H" + (w0 + 1) * size + "Z";
-  }
+  }  
 }
 
 
-Template.monthMondayCalHeatmap.helpers({
-});
+
+function updateData(dataInput, ert) {
+  console.log("updateData");
+  
+  var date    = d3.time.format("%Y-%m-%d");
+  var svg = d3.select("svg g.calHeatmapGroup");
+
+  var color       = d3.scale.quantize() //FIXME duplicate color scale def
+  .domain([0, ert])
+  .range(d3.range(6));//FIXME colorscale range
+
+  // var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
+  //   var obj = aggByDates[date(d)];
+  //   return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
+  //    '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
+  //    '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
+  // });
+  // svg.call(tip);
 
 
-Template.monthMondayCalHeatmap.events({
-});
+  var aggByDates = d3.nest()
+  .key(function(d) {
+    return d._id;
+  })
+  .sortKeys(d3.ascending)
+  .rollup(function(e){return {count: e[0].count, avgRT: e[0].avgRT, jobs: e[0].jobs};})
+  .map(dataInput);
+
+  console.log(aggByDates);
+
+  svg.selectAll("g.jobDays .day")
+    .filter(function(d) {
+      return date(d) in aggByDates;
+    })
+  .attr("class", function(d) {
+    var obj = aggByDates[date(d)];
+    return "day c" + color(obj.avgRT)  ;
+  })
+  // .on('mouseover', tip.show)
+  // .on('mouseout', tip.hide)
+  .select("title")
+  .remove();
+  ;
+}
+
+function clearData(){
+  var svg = d3.select("svg g.calHeatmapGroup");
+  svg.selectAll("g.jobDays .day")
+  .attr("class", "day")
+}
+
+
+
+
+
+
+

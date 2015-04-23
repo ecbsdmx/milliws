@@ -14,23 +14,63 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
+
+var numLPad = function(number, length){
+  var ns = number.toString();
+  if (typeof length == 'undefined') length = 2;
+  while(ns.length < length)
+    ns = "0" + ns;
+  return ns;
+}
+
+// Check indicator type: 
+//  [errorBreakDown | rtBreakdown]
+//
+// 1.
+//  loop over jobs & aggregate their aggregates...
+// 2.
+//  find the average ert for all jobs
+// 3. 
+//  build output obj: 
+//    {ert: xxx, daysAgg: yyy, yearAgg: ..., monthAgg: ..., day: ...}
 Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
+  var self = this;
+  //TODO check the parameters
+  
+  console.log("Meteor.publish evtPerJobPerDate");
   console.dir(indicatorType);
-  var sortedJobs = _.sortBy(selectedJobs, function(n){return n});
-  console.dir(sortedJobs);
+  console.dir(selectedJobs);
 
-  // Check indicator type: 
-  //  [errorBreakDown | rtBreakdown]
-  //
-  // 1.
-  //  loop over jobs & aggregate their aggregates...
-  // 2.
-  //  find the average ert for all jobs
-  // 3. 
-  //  build output obj: 
-  //    {ert: xxx, daysAgg: yyy, yearAgg: ..., monthAgg: ..., day: ...}
-
-  return EvtPerJobPerDate.find({_id: selectedJobs[0]});
+  var all = Events.aggregate(
+    [
+      {$match: {jobId : {$in: selectedJobs}}},
+      {$group: {
+          _id:  {
+              "year": { $year:"$etime"},
+              "month": { $month:"$etime"},
+              "day": { $dayOfMonth:"$etime"}
+          },
+          count: {$sum: 1},
+          avgRT: {$avg: "$responseTime"}
+          }
+      }
+    ]
+  );
+  
+  // [ { _id: { year: 2015, month: 4, day: 23 },
+  //   count: 2064,
+  //   avgRT: 258.6075581395349 },
+  //   ...]
+  var jobs = selectedJobs.join("|");
+  all.forEach(function(elem){
+    var date =elem._id.year + "-" + numLPad(elem._id.month) + "-" + numLPad(elem._id.day);
+    self.added("evtPerJobPerDate", date, {
+      count: elem.count,
+      jobs: jobs,
+      avgRT: elem.avgRT
+    });
+  });
+  self.ready();
 });
 
 
