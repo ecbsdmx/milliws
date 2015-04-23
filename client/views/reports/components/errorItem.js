@@ -1,13 +1,13 @@
 Template.errorItem.helpers({
   isProblematic: function(){
-    return this.countProb / this.count > 0.07 ? "problematicCell" : "okCell";
+    return this.value.countProb / this.value.count > 0.07 ? "problematicCell" : "okCell";
   },
 
   errorInfo: function() {
-    return this.countProb + " out of " + this.count;
+    return this.value.countProb + " out of " + this.value.count;
   },
 
   cellWidth: function() {
-    return Math.round((this.countProb / this.count) * 100);
+    return Math.round((this.value.countProb / this.value.count) * 100);
   }
 });

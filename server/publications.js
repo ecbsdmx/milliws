@@ -73,17 +73,17 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   filterOpt = parseFilterOptions(filterOptions);
 
   var handle = Events.find(
-    filterOpt, 
+    filterOpt,
     {
-      sort: sortOptions, 
-      limit: count, 
-      skip: actualFrom, 
+      sort: sortOptions,
+      limit: count,
+      skip: actualFrom,
       fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1,responseTime:1,size:1}
     }
   ).observeChanges({
     added: function (id, fields) {
-      var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
-      fields.avg = jobStats?jobStats.avg:0;
+      var jobStats = EventStats.findOne({_id: fields.jobId});
+      fields.avg = jobStats?jobStats.value.avg : 0;
       self.added('events', id, fields);
     },
     changed: function (id, fields) {
@@ -91,7 +91,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
     },
     removed: function (id) {
       var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
-      var jobStats = EventStats.findOne({_id: theEventJobId}, {fields: {avg:1}});
+      var jobStats = EventStats.findOne({_id: theEventJobId});
       if (jobStats) {
         jobStats[id] && jobStats[id].stop();
       }
@@ -150,7 +150,7 @@ var getFiltersForOp = function(field, filterObj) {
       }
       else {
         // NB : "value",  $nin cannot be used since w want do partial matches of strings
-        // ATT: Furthermore $not does not work with $regex... /xxx/ should be used instead 
+        // ATT: Furthermore $not does not work with $regex... /xxx/ should be used instead
         // @see http://docs.mongodb.org/manual/reference/operator/query/not/
         // e.g.: {jobId: {$nin: ['dexr','m1']}} => {"$and":[{"jobId":{"$not":/dexr/,"$options":"i"}},{"jobId":{"$not":/m1/,"$options":"i"}}
         var grp = [];
@@ -160,7 +160,7 @@ var getFiltersForOp = function(field, filterObj) {
           filt[field] = {"$not": new RegExp(value)};
           grp.push(filt);
         });
-        filters.push({$and: grp});      
+        filters.push({$and: grp});
       }
     break;
     case "in":
@@ -180,8 +180,8 @@ var getFiltersForOp = function(field, filterObj) {
           filt[field] = {$regex: value, $options: 'i'};
           grp.push(filt);
         });
-        filters.push({$or: grp});    
-      }  
+        filters.push({$or: grp});
+      }
     break;
     case "gte":
       if (field === 'etime') {
