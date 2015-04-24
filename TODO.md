@@ -35,6 +35,8 @@
 - [x] Display whether the last run of a job was successful
 - [ ] Display a time series view of jobs execution times
 - [ ] Display a timeline view of errors per job
+- [ ] Bug: "P1M" calculations does not depend on data available 
+- [ ] Bug: "Today" calculations does not depend on data available 
 
 ## Collections
 - [ ] Code review and tests for events statistics
