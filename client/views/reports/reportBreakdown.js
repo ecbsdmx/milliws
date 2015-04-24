@@ -1,6 +1,7 @@
 Template.reportBreakdown.onCreated(function() {
   var instance = this;
   instance.yearTotal = new ReactiveVar(0);
+  instance.monthTotal = new ReactiveVar(0);
 
   if(!Session.get("SelectedBreakdown")){
     Session.set("SelectedBreakdown","rtBreakdown");
@@ -8,13 +9,12 @@ Template.reportBreakdown.onCreated(function() {
   
   Tracker.autorun(function () {
     getYearlyTotal(instance);
+    getMonthlyTotal(instance)
   });
 });
 
 
 Template.reportBreakdown.onRendered(function() {
-  var instance = this;
-
 });
 
 
@@ -33,7 +33,7 @@ Template.reportBreakdown.helpers({
     return "Apr 16, 2014 - Apr 16, 2015";
   },
   monthTotal : function() {
-    return 40;
+    return Template.instance().monthTotal.get();
   },
   monthRange : function() {
     return "Mar 16, 2015 - Apr 16, 2015";
@@ -51,6 +51,7 @@ Template.reportBreakdown.events({
     Session.set("SelectedBreakdown", e.currentTarget.id);
 
     getYearlyTotal(Template.instance());
+    getMonthlyTotal(Template.instance());
   }
 });
 
@@ -60,15 +61,28 @@ var isSelectedBreakDown = function(breakdown) {
   return Session.equals("SelectedBreakdown", breakdown);
 }
 
-
 function getYearlyTotal(template)
 {
-  Meteor.call("compileYearTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), null, function(error, result) {
+  //FIXME pass in the period or last-displayed date
+  Meteor.call("compileYearTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), new Date(), function(error, result) {
     if (error) {
       console.log("compileYearTotal callback error: " + error);
     }
     else {
       template.yearTotal.set(result);
+    }
+  });
+}
+
+function getMonthlyTotal(template)
+{
+  //FIXME pass in the period or last-displayed date
+  Meteor.call("compileMonthTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), new Date(), function(error, result) {
+    if (error) {
+      console.log("compileMonthTotal callback error: " + error);
+    }
+    else {
+      template.monthTotal.set(result);
     }
   });
 }
