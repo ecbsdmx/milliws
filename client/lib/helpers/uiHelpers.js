@@ -59,5 +59,12 @@ UI.registerHelper('formatFormQueryStringParams', formatFormQueryStringParams);
 UI.registerHelper('formatNumber', function(number) {
   return number ? number.toLocaleString() : 0;
 });
+UI.registerHelper('formatMs', function(number) {
+  return formatMs(number);
+});
+UI.registerHelper('formatCount', function(number) {
+  return formatCount(number);
+});
+
 
 UI.registerHelper('mapOperatorToSymbol', mapOperatorToSymbol );

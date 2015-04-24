@@ -19,7 +19,6 @@ Template.reportBreakdown.onRendered(function() {
 
 
 Template.reportBreakdown.helpers({
-  
   breakDownIsChecked: function(breakdown){
     return isSelectedBreakDown(breakdown) ? "checked" : "";
   },
@@ -27,16 +26,24 @@ Template.reportBreakdown.helpers({
     return isSelectedBreakDown(breakdown) ? "active" : "";
   },
   yearTotal : function() {
-    return Template.instance().yearTotal.get();
+    val = Template.instance().yearTotal.get();
+    return Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(val):formatCount(val);
   },
   yearRange : function() {
     return "Apr 16, 2014 - Apr 16, 2015";
   },
   monthTotal : function() {
-    return Template.instance().monthTotal.get();
+    val = Template.instance().monthTotal.get();
+    return Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(val):formatCount(val);
   },
   monthRange : function() {
     return "Mar 16, 2015 - Apr 16, 2015";
+  },
+  isMonthTotalOK: function() {
+    //FIXME this is not to be devided by 12 but by number of available periods of data !!!
+    var availDataPeriods = 12;
+    console.log("month/year comp: " + Template.instance().yearTotal.get()/availDataPeriods  + " > " + Template.instance().monthTotal.get());
+    return Template.instance().yearTotal.get()/availDataPeriods > Template.instance().monthTotal.get()?"text-success":"text-danger";
   },
   dayTotal : function() {
     return 0;
