@@ -37,6 +37,8 @@
 - [ ] Display a timeline view of errors per job
 - [ ] Bug: "P1M" calculations does not depend on data available 
 - [ ] Bug: "Today" calculations does not depend on data available 
+- [ ] Bug: Today's total RT differs from calendar tooltip value
+- [ ] Bug: RT calendar tooltip displays sec not ms
 
 ## Collections
 - [ ] Code review and tests for events statistics
