@@ -19,48 +19,7 @@
       </table>
     </div>
 
+    {{> reportBreakdown}}    
 
-    <div class="breakdown">
-      <div class="btn-group pull-right" data-toggle="buttons" style="margin-top: 10px">
-        <label class="btn btn-xs btn-default {{breakDownIsActive 'errorBreakdown'}}" id="errorBreakdown">
-          <input type="radio" name="options" autocomplete="off" {{breakDownIsChecked "errorBreakdown"}}> Number of errors
-        </label>
-        <label class="btn btn-xs btn-default {{breakDownIsActive 'rtBreakdown'}}" id="rtBreakdown">
-          <input type="radio" name="options" autocomplete="off" {{breakDownIsChecked "rtBreakdown"}}> Response times
-        </label>
-      </div>
-      <h2>Breakdown by day</h2>
-      {{#if Template.subscriptionsReady}}
-        {{> monthMondayCalHeatmap}}
-      <nav>
-        <ul class="pager">
-          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-          <!--<li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>-->
-        </ul>
-      </nav>
-      {{else}}
-        <div class="loading">{{>spinner}}</div>
-      {{/if}}
-    </div><!-- breakdown -->
-
-
-    <div class="periodSummary">
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 thisYear">
-          <h2>This year</h2>
-          <p class="observation">310</p>
-          <p class="period">Apr 16, 2014 - Apr 16, 2015</p>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 thisMonth">
-          <h2>This month</h2>
-          <p class="observation text-danger">40</p>
-          <p class="period">Mar 16, 2015 - Apr 16, 2015</p>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 today">
-          <h2>Today</h2>
-          <p class="observation text-success">0</p>
-        </div>
-      </div>
-    </div><!-- periodSummary -->
   </div>
 </template>

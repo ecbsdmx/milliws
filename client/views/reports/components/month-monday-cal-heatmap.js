@@ -1,6 +1,6 @@
 
 Template.monthMondayCalHeatmap.onCreated(function() {
-  console.log("Template.monthMondayCalHeatmap.onCreated");
+  // console.log("Template.monthMondayCalHeatmap.onCreated");
   var instance = this;
   instance.firstGo = true;
   
@@ -9,9 +9,12 @@ Template.monthMondayCalHeatmap.onCreated(function() {
   Tracker.autorun(function() {
     var selectedJobs = Session.get("SelectedEventsStats") || [];
     var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown"; 
-    console.log("Tracker.autorun, indicatorType: " + indicatorType + ", selectedJobs: " + selectedJobs.join("|"));
+    // console.log("Tracker.autorun, indicatorType: " + indicatorType + ", selectedJobs: " + selectedJobs.join("|"));
 
-    instance.subscribe("evtPerJobPerDate", indicatorType, selectedJobs);//, function() {
+    instance.subscribe("evtPerJobPerDate", indicatorType, selectedJobs, function() {
+      // console.log("instance.subscribe evtPerJobPerDate onReady");
+    });
+    //, function() {
     //   console.log("instance.subscribe onReady()");
     //   //FIXME this here seems to be done too early and gets the old jobsList (from local storage ?) !!!
     //   var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
@@ -22,7 +25,7 @@ Template.monthMondayCalHeatmap.onCreated(function() {
 });
 
 Template.monthMondayCalHeatmap.onRendered(function() {
-  console.log("Template.monthMondayCalHeatmap.rendered");
+  // console.log("Template.monthMondayCalHeatmap.rendered");
 
   var instance = this;
   if (instance.firstGo){
@@ -43,7 +46,7 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 
 Template.monthMondayCalHeatmap.helpers({
   aggs: function() {
-    console.log("helper");
+    // console.log("helper");
     var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
     console.dir(d);
     clearData();

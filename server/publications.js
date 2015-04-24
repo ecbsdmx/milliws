@@ -37,9 +37,9 @@ Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
   var self = this;
   //TODO check the parameters
   
-  console.log("Meteor.publish evtPerJobPerDate");
-  console.dir(indicatorType);
-  console.dir(selectedJobs);
+  // console.log("Meteor.publish evtPerJobPerDate");
+  // console.dir(indicatorType);
+  // console.dir(selectedJobs);
 
   var all = Events.aggregate(
     [
