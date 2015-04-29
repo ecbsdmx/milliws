@@ -42,7 +42,7 @@ Template.reportBreakdown.helpers({
   isMonthTotalOK: function() {
     //FIXME this is not to be devided by 12 but by number of available periods of data !!!
     var availDataPeriods = 12;
-    console.log("month/year comp: " + Template.instance().yearTotal.get()/availDataPeriods  + " > " + Template.instance().monthTotal.get());
+    //console.log("month/year comp: " + Template.instance().yearTotal.get()/availDataPeriods  + " > " + Template.instance().monthTotal.get());
     return Template.instance().yearTotal.get()/availDataPeriods > Template.instance().monthTotal.get()?"text-success":"text-danger";
   },
   dayTotal : function() {
@@ -51,7 +51,7 @@ Template.reportBreakdown.helpers({
   isDayTotalOK: function() {
     //FIXME this is not to be devided by 30 but by number of available days in month of data !!!
     var availDataPeriods = 30;
-    console.log("month/year comp: " + Template.instance().monthTotal.get()/availDataPeriods  + " > " + Template.instance().dayTotal.get());
+    //console.log("day/month comp: " + Template.instance().monthTotal.get()/availDataPeriods  + " > " + Template.instance().dayTotal.get());
     return Template.instance().monthTotal.get()/availDataPeriods > Template.instance().dayTotal.get()?"text-success":"text-danger";
   },
   subscriptionType: function() {
@@ -112,6 +112,7 @@ function getDailyTotal(template)
       console.log("compileDayTotal callback error: " + error);
     }
     else {
+      console.log("day result: " + result);
       template.dayTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
     }
   });

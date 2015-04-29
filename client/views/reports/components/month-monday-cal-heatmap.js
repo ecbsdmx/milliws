@@ -1,73 +1,50 @@
 
 Template.monthMondayCalHeatmap.onCreated(function() {
-  // console.log("Template.monthMondayCalHeatmap.onCreated");
   var instance = this;
   instance.firstGo = true;
   
-//  instance.aggData   = new ReactiveVar();
+  instance.aggData   = new ReactiveVar();
 
   Tracker.autorun(function() {
     var selectedJobs = Session.get("SelectedEventsStats") || [];
     var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown"; 
-    // console.log("Tracker.autorun, indicatorType: " + indicatorType + ", selectedJobs: " + selectedJobs.join("|"));
 
-    instance.subscribe("evtPerJobPerDate", indicatorType, selectedJobs, function() {
-      // console.log("instance.subscribe evtPerJobPerDate onReady");
+    Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), function(error, result) {
+      if (error) {
+        console.log("compileDailyAgg error: " + error);
+      }
+      else {
+        instance.aggData.set(result);
+      }
     });
-    //, function() {
-    //   console.log("instance.subscribe onReady()");
-    //   //FIXME this here seems to be done too early and gets the old jobsList (from local storage ?) !!!
-    //   var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
-    //   console.dir(d);
-    //   instance.aggData.set(d);
-    // });
   });
 });
 
-Template.monthMondayCalHeatmap.onRendered(function() {
-  // console.log("Template.monthMondayCalHeatmap.rendered");
 
+Template.monthMondayCalHeatmap.onRendered(function() {
   var instance = this;
   if (instance.firstGo){
-    console.log("first go");
     calendarHeatMap(".calHeatMap", "No data", null, 1000);
     instance.firstGo = false;
   }
 
-  // Tracker.autorun(function() {
-  //   console.log("onRendered Tracker.autorun");
-  //   var d = instance.aggData.get();
-  //   if (typeof d != "undefined") {
-  //     updateData(d, 1000);
-  //   }
-  // });
+  Tracker.autorun(function() {
+    var dat = instance.aggData.get();
+    if (typeof dat != 'undefined') {
+      updateData(dat, 1000);
+    }
+  })
 });
 
 
 Template.monthMondayCalHeatmap.helpers({
-  aggs: function() {
-    // console.log("helper");
-    var d = EvtPerJobPerDate.find({}, {sort: {_id: 1}}).fetch();
-    console.dir(d);
-    clearData();
-    if (typeof d != "undefined" || Object.keys(d).length > 0) {
-      updateData(d, 1000);
-    }
-    return EvtPerJobPerDate.find({}, {sort: {_id: 1}});
-  }
 });
-
-
 Template.monthMondayCalHeatmap.events({
 });
 
 
-
-
 //FIXME pass in options to function: colorscale size, width, height, show-options, ...
 var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, ert) {
-  console.log("calendarHeatMap()");
-  
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
   var week    = d3.time.format("%W");
@@ -107,8 +84,6 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
     .domain([0, ert])
     .range(d3.range(colorScaleSize));
 
-
-  //FIXME find a way to have directly in dateRangeDays the formatted date(x) date !
   //XXX not mindate directly, otherwise start date not includesm in date range...
   var dateRangeDays           = d3.time.days(new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate()), maxDate);
   var dateRangeMonths         = d3.time.months(new Date(minDate.getFullYear(), minDate.getMonth(), 1), maxDate);
@@ -122,7 +97,6 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
   //console.log("Nesting per date for current input:");
   //console.dir(dateRangeDays);
   /* DEBUG */
-
 
   var svg = d3.select(destinationElem)
     .append("svg")
@@ -254,8 +228,6 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
 
 
 function updateData(dataInput, ert) {
-  console.log("updateData");
-  
   var date    = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
 
@@ -266,21 +238,12 @@ function updateData(dataInput, ert) {
   var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = aggByDates[date(d)];
     return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
-     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj.avgRT)+'">' + obj.avgRT.toFixed(2) + " sec. </span><br />" + 
-     '<i class="fa fa-refresh fa-fw"></i>' + obj.count;
+     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(2) + " sec. </span>";
   });
   svg.call(tip);
 
 
-  var aggByDates = d3.nest()
-  .key(function(d) {
-    return d._id;
-  })
-  .sortKeys(d3.ascending)
-  .rollup(function(e){return {count: e[0].count, avgRT: e[0].avgRT, jobs: e[0].jobs};})
-  .map(dataInput);
-
-  console.log(aggByDates);
+  var aggByDates = dataInput;
 
   svg.selectAll("g.jobDays .day")
     .filter(function(d) {
@@ -288,7 +251,7 @@ function updateData(dataInput, ert) {
     })
     .attr("class", function(d) {
       var obj = aggByDates[date(d)];
-      return "day c" + color(obj.avgRT)  ;
+      return "day c" + color(obj)  ;
     })
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide)
