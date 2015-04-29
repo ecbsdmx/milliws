@@ -17,9 +17,6 @@ var monitor = function() {
     }
   });
 
-  Meteor.call("updateEvtPerJobPerDate", function(err, data) {
-    if (err) debug("updateEvtPerJobPerDate error: " + err);
-  });
   Meteor.call("updateEventStats", function(err, data) {
     if (err) debug("updateEventStats error: " + err);
   });
