@@ -1,0 +1,19 @@
+<template name="responseTimeItem">
+  <div class="boxPlot">
+    {{#with graphData}}
+      <div class="graph" style="width:100%">
+        <div class="box" style="left: {{boxStart}}; width: {{boxWidth}}">&nbsp;</div>
+        <div class="whisker" style="left: {{whiskerStart}}; width: {{whiskerWidth}}">&nbsp;</div>
+        <div class="median" style="left: {{medianStart}}; width: 1px">&nbsp;</div>
+      </div>
+
+      <div class="scale">
+        {{#each ticks}}
+          <div class="tick" style="left: {{tickPercent}}">
+            <div class="tick-label"><div class="tick-label-text">{{tickValue}}</div></div>
+          </div>
+        {{/each}}
+      </div>
+    {{/with}}
+  </div>
+</template>

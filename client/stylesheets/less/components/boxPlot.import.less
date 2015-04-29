@@ -1,0 +1,112 @@
+/*
+ * Date   : 2015-03-12
+ * Author : LEROY Sébastien
+ *
+ * Based on the work from : Stephen A Thomas
+ *  http://blog.sathomas.me/post/implementing-bullet-graphs-with-htmlcss
+ *
+ * Graph defined at
+ *  http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf
+ * or the Wikipedia entry
+ *  http://en.wikipedia.org/wiki/Bullet_graph
+ *
+ */
+ @import "vendor/custom.bootstrap.import.less";
+
+ @bulletChart-width:           94%;
+ @bulletChart-height:          3.2em;
+ @bulletChart-margin:          0px 28px 3px 5px;
+
+/*
+ * Original sizing for the graph is specified in ems so the graph will scale
+ * easily with text size.
+ *
+ * A component height of 5em is distributed as follows:
+ * (from top to bottom, the horizontal elements)
+ *
+ *    24%  - 1.2em - The labels for the performance target and regions.
+ *    48%  - 2.4em - The graph itself. The performance measure is 50% of
+ *                   this height and exactly centered in the graph. Any
+ *                   label for the performance measure appears immediately
+ *                   to the right of the graphed measure.
+ *    10%  - 0.5em - The horizontal axis tick marks.
+ *    18%  - 0.9em - Labels corresponding to the tick marks.
+ */
+ @bulletChart-labelsAreaScale: @bulletChart-height*0.24;
+ @bulletChart-graphScale:      @bulletChart-height*0.44;
+ @bulletChart-tickMarksScale:  @bulletChart-height*0.10;
+ @bulletChart-labelsScale:     @bulletChart-height*0.22;
+
+ @bulletChart-normalColor:     @brand-primary;
+ @bulletChart-WarningColor:    #feb645;
+ @bulletChart-ErrorColor:      #8A2126;
+ @bulletChart-OutlierColor:    #777777;
+ @bulletChart-markerColor:     #777777;
+
+ @bulletChart-lblOpacity:      0.2;
+ @bulletChart-lblOpacityHover: 1;
+
+ @bulletChart-fadeSpeed:       0.2s;
+ @bulletChart-easeSpeed:       0.05s;
+
+#reportsOverview tr:last-child .scale {
+  display: block;
+}
+#reportsOverview tr .scale {
+  display: none;
+}
+
+div.boxPlot {
+  margin: @bulletChart-margin;
+  position: relative;
+  width: @bulletChart-width;
+  div.graph {
+    position: relative;
+    width: 100%;
+  }// div.graph
+  div.box {
+    position: absolute;
+    height: 10px;
+    top: 0px;
+    background-color: @bulletChart-normalColor;
+    -webkit-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+    box-shadow: 0.2em 0.2em 0.4em rgba(0, 0, 0, 0.3);
+  }
+  div.whisker {
+    position: absolute;
+    height: 2px;
+    top: 4px;
+    background-color: @bulletChart-normalColor;
+  }
+  div.median {
+    position: absolute;
+    height: 6px;
+    top: 2px;
+    background-color: #fff;
+  }
+  div.scale {
+    position: relative;
+    top: @bulletChart-labelsAreaScale;
+    width: 100%;
+    height: @bulletChart-tickMarksScale;
+    div.tick {
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      background-color: #8f8f8f;
+      div.tick-label {
+        color: #575757;
+        font-size: @bulletChart-labelsScale;
+        position: absolute;
+        bottom: -1.4em;
+        white-space: nowrap;
+        div.tick-label-text {
+          position: relative;
+          left: -40%;
+          transition: all @bulletChart-fadeSpeed ease @bulletChart-easeSpeed;
+        }
+      }
+    }//tick
+  }//scale
+}
