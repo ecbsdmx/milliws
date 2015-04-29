@@ -112,7 +112,6 @@ function getDailyTotal(template)
       console.log("compileDayTotal callback error: " + error);
     }
     else {
-      console.log("day result: " + result);
       template.dayTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
     }
   });
