@@ -28,15 +28,13 @@ Template.reportBreakdown.helpers({
     return isSelectedBreakDown(breakdown) ? "active" : "";
   },
   yearTotal : function() {
-    var val = Template.instance().yearTotal.get();
-    return Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(val):formatCount(val);
+    return Template.instance().yearTotal.get()
   },
   yearRange : function() {
     return "Apr 16, 2014 - Apr 16, 2015";
   },
   monthTotal : function() {
-    var val = Template.instance().monthTotal.get();
-    return Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(val):formatCount(val);
+    return Template.instance().monthTotal.get()
   },
   monthRange : function() {
     return "Mar 16, 2015 - Apr 16, 2015";
@@ -48,14 +46,16 @@ Template.reportBreakdown.helpers({
     return Template.instance().yearTotal.get()/availDataPeriods > Template.instance().monthTotal.get()?"text-success":"text-danger";
   },
   dayTotal : function() {
-    var val = Template.instance().dayTotal.get();
-    return Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(val):formatCount(val);
+    return Template.instance().dayTotal.get();
   },
   isDayTotalOK: function() {
     //FIXME this is not to be devided by 30 but by number of available days in month of data !!!
     var availDataPeriods = 30;
     console.log("month/year comp: " + Template.instance().monthTotal.get()/availDataPeriods  + " > " + Template.instance().dayTotal.get());
     return Template.instance().monthTotal.get()/availDataPeriods > Template.instance().dayTotal.get()?"text-success":"text-danger";
+  },
+  subscriptionType: function() {
+    return Session.equals("SelectedBreakdown", "rtBreakdown");
   }
 
 });
@@ -86,7 +86,7 @@ function getYearlyTotal(template)
       console.log("compileYearTotal callback error: " + error);
     }
     else {
-      template.yearTotal.set(result);
+      template.yearTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
     }
   });
 }
@@ -99,7 +99,7 @@ function getMonthlyTotal(template)
       console.log("compileMonthTotal callback error: " + error);
     }
     else {
-      template.monthTotal.set(result);
+      template.monthTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
     }
   });
 }
@@ -112,7 +112,7 @@ function getDailyTotal(template)
       console.log("compileDayTotal callback error: " + error);
     }
     else {
-      template.dayTotal.set(result);
+      template.dayTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
     }
   });
 }
