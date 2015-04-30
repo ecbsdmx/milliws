@@ -47,8 +47,8 @@ Template.responseTimeItem.helpers({
   },
   tooltip: function() {
     var text = "";
-
-    text += "<table>"
+    text += '<i class="fa fa-line-chart fa-fw text-center"></i>';
+    text += "<table>";
     text += "<tr><td class=\"text-left\">Average: </td><td class=\"text-right\">" + this.value.avg + "</td></tr>";
     text += "<tr><td class=\"text-left\">Median: </td><td class=\"text-right\">" + this.value.quartile2 + "</td></tr>";
     text += "<tr><td class=\"text-left\">25th percentile: </td><td class=\"text-right\">" + this.value.quartile1 + "</td></tr>";
