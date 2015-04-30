@@ -37,12 +37,6 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 });
 
 
-Template.monthMondayCalHeatmap.helpers({
-});
-Template.monthMondayCalHeatmap.events({
-});
-
-
 //FIXME pass in options to function: colorscale size, width, height, show-options, ...
 var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, ert) {
   //-- formats
@@ -64,15 +58,14 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
   var finalWidth      = 1147;//960,
       finalHeight     = 147;//147;//orig: 105
   var margin          = {top:15.5, right:5.5, bottom:5.5, left:40.5};
+
   //-- calculated variables
   var width       = finalWidth - margin.left - margin.right;
   var height      = finalHeight - margin.top - margin.bottom;
   var size        = height/7;
 
   //-- data manipulation
-  // Get the maximum data date and go back one day,
-  // to the beginning of that month.
-  var maxDate             = new Date();
+  var maxDate             = new Date(); //FIXME when implementing pager
   var minDate             = new Date(maxDate.getFullYear()-1, maxDate.getMonth(), 1);
   var minFirstDayOfMonth  = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
   var minWeek             = parseInt(week(minFirstDayOfMonth));
@@ -84,19 +77,8 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
     .domain([0, ert])
     .range(d3.range(colorScaleSize));
 
-  //XXX not mindate directly, otherwise start date not includesm in date range...
   var dateRangeDays           = d3.time.days(new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate()), maxDate);
   var dateRangeMonths         = d3.time.months(new Date(minDate.getFullYear(), minDate.getMonth(), 1), maxDate);
-
-  /* DEBUG */
-  // console.dir(input);
-  // console.dir(aggByDates);
-  // console.log("Min      :" + date(minDate));
-  // console.log("Max      :" + date(maxDate));
-  //console.log("Num years: " + numYears);
-  //console.log("Nesting per date for current input:");
-  //console.dir(dateRangeDays);
-  /* DEBUG */
 
   var svg = d3.select(destinationElem)
     .append("svg")
@@ -165,8 +147,6 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
           return (week(d)-minWeek + 52*yearDecal)  * size;
         })
         .attr("y", function(d) {return day(d) * size;})
-        .append("title")
-          .text(function(d) {return date(d) + " : " + theDay(d);})
   ;
 
   if (showMonthGroups) {
@@ -204,12 +184,6 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
     }
   }
 
-//  updateData(daysAggregate, ert);
-
-  //===================
-  //-- Functions
-  //===================
-
   function monthPath(t0) {
     var yearDecal = year(t0) - year(minDate);
     var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0);
@@ -226,42 +200,42 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
 }
 
 
-
 function updateData(dataInput, ert) {
-  var date    = d3.time.format("%Y-%m-%d");
+  var date = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
 
-  var color       = d3.scale.quantize() //FIXME duplicate color scale def
+  var color = d3.scale.quantize() //FIXME duplicate color scale def
   .domain([0, ert])
   .range(d3.range(6));//FIXME colorscale range
 
-  var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
-    var obj = aggByDates[date(d)];
+  var tipRT = d3.tip().attr("class", "d3-tip").html(function(d) {
+    var obj = dataInput[date(d)];
     return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
-     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(2) + " sec. </span>";
+     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(0) + "ms </span>";
   });
-  svg.call(tip);
-
-
-  var aggByDates = dataInput;
+  svg.call(tipRT);
+  var tipError = d3.tip().attr("class", "d3-tip").html(function(d) {
+    var obj = dataInput[date(d)];
+    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
+     '<i class="fa fa-calculator fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(0) + " </span>";
+  });
+  svg.call(tipError);
 
   svg.selectAll("g.jobDays .day")
     .filter(function(d) {
-      return date(d) in aggByDates;
+      return date(d) in dataInput;
     })
     .attr("class", function(d) {
-      var obj = aggByDates[date(d)];
+      var obj = dataInput[date(d)];
       return "day c" + color(obj)  ;
     })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
-    // .select("title")
-    // .remove();
+    .on('mouseover', Session.equals("SelectedBreakdown", "rtBreakdown")?tipRT.show:tipError.show)
+    .on('mouseout', function() {tipRT.hide();tipError.hide();})
   ;
 }
 
 function clearData(){
   var svg = d3.select("svg g.calHeatmapGroup");
   svg.selectAll("g.jobDays .day")
-  .attr("class", "day")
+    .attr("class", "day")
 }
