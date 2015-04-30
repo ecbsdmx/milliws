@@ -6,6 +6,9 @@ var color = d3.scale.quantize() //FIXME duplicate color scale def
 
 var calOptions = {
   destCssSelector: ".calHeatMap",
+  width: 1147,
+  height: 147,
+  margins: {top:15.5, right:5.5, bottom:5.5, left:40.5},
   title: "",
   ert: effectiveErt,
   colorScale: color,
@@ -61,14 +64,9 @@ var calendarHeatMap = function(options) {
   var date    = d3.time.format("%Y-%m-%d");
   var theDay  = d3.time.format("%A");
 
-  //-- constantseven if you might be surrounded by a bunch of french speaking people...  var finalWidth      = 1147;//960,
-  var finalWidth      = 1147;//960,
-      finalHeight     = 147;//147;//orig: 105
-  var margin          = {top:15.5, right:5.5, bottom:5.5, left:40.5};
-
   //-- calculated variables
-  var width       = finalWidth - margin.left - margin.right;
-  var height      = finalHeight - margin.top - margin.bottom;
+  var width       = options.width - options.margins.left - options.margins.right;
+  var height      = options.height - options.margins.top - options.margins.bottom;
   var size        = height/7;
 
   //-- data manipulation
@@ -89,12 +87,12 @@ var calendarHeatMap = function(options) {
       .attr("shape-rendering", "crisp-edges")
       .attr("stroke-linecap","round")
       .attr("stroke-linejoin","round")
-      .attr("width", finalWidth)
-      .attr("height", finalHeight)
+      .attr("width", options.width)
+      .attr("height", options.height)
       .attr("title", options.title)
     .append("g")
       .attr("class", "calHeatmapGroup")
-      .attr("transform", "translate("+margin.left+", " + margin.top + ")")
+      .attr("transform", "translate("+options.margins.left+", " + options.margins.top + ")")
   ;
 
   //-- title label
@@ -102,7 +100,7 @@ var calendarHeatMap = function(options) {
   svg
     .append("text")
     .attr("class", "jobName")
-    .attr("transform", "translate(-" + (margin.left/9*7) + "," + (height/2) + ")rotate(-90)")
+    .attr("transform", "translate(-" + (options.margins.left/9*7) + "," + (height/2) + ")rotate(-90)")
     .attr("text-anchor", "middle")
     .text(options.title)
   ;
@@ -111,7 +109,7 @@ var calendarHeatMap = function(options) {
   svg
     .append("text")
     .attr("class", "yearLabel")
-    .attr("transform", "translate(-" + (margin.left/9*4) + "," + (height/2) + ")rotate(-90)")
+    .attr("transform", "translate(-" + (options.margins.left/9*4) + "," + (height/2) + ")rotate(-90)")
     .attr("text-anchor", "middle")
     .text(function(d) { return year(minDate) + "-" + year(maxDate); })
   ;
@@ -126,8 +124,8 @@ var calendarHeatMap = function(options) {
     .data(function(d) {return weekDays;})
     .enter()
       .append("text")
-      .attr("x", -margin.left/9*2)
-      .attr("y", function(d, i) { return i*size+margin.top;})
+      .attr("x", -options.margins.left/9*2)
+      .attr("y", function(d, i) { return i*size+options.margins.top;})
       .attr("class", "dayName")
       .attr("text-anchor", "middle")
       .text(function(d, i) {return options.showAllWeekDays?d:(i%2 === 0?d:"");})
@@ -216,7 +214,7 @@ function updateData(dataInput) {
   var tipError = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = dataInput[date(d)];
     return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
-     '<i class="fa fa-calculator fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(0) + " </span>";
+     '<i class="fa fa-calculator fa-fw"></i><span class="c_errorCount">' + obj.toFixed(0) + " </span>";
   });
   svg.call(tipError);
 
@@ -226,7 +224,7 @@ function updateData(dataInput) {
     })
     .attr("class", function(d) {
       var obj = dataInput[date(d)];
-      return "day c" + color(obj)  ;
+      return Session.equals("SelectedBreakdown", "rtBreakdown")?"day c" + color(obj):"day c_errorCount";
     })
     .on('mouseover', Session.equals("SelectedBreakdown", "rtBreakdown")?tipRT.show:tipError.show)
     .on('mouseout', function() {tipRT.hide();tipError.hide();})
