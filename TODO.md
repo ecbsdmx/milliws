@@ -1,7 +1,6 @@
 # TODO
 
 ## General
-- [ ] Harden app
 - [ ] Add error handling and logging
 
 ## Job module
@@ -12,7 +11,6 @@
 - [x] Reset wizard once a job has been created
 
 ## Events module
-- [ ] Add an calendar / heatmap view (later)
 - [ ] Link the job id to a job detail panel (later)
 - [ ] Store columns to display, # of rows, sort order in user profile (later)
 - [ ] Bug: 'Old' rows do not get the updated average
@@ -27,18 +25,16 @@
 - [ ] Document the events module
 - [ ] Document the statistics module
 - [ ] Document the user management
+- [ ] Document the reports module
 
 ## Reports module
 - [x] Display the number of times a job has run
 - [x] Display the number of errors
-- [ ] Display the average execution time
+- [x] Display the average execution time
 - [x] Display whether the last run of a job was successful
 - [ ] Display a time series view of jobs execution times
-- [ ] Display a timeline view of errors per job
-- [ ] Bug: "P1M" calculations does not depend on data available 
-- [ ] Bug: "Today" calculations does not depend on data available 
+- [x] Display a timeline view of errors per job
+- [ ] Bug: "P1M" calculations does not depend on data available
+- [ ] Bug: "Today" calculations does not depend on data available
 - [ ] Bug: Today's total RT differs from calendar tooltip value
 - [ ] Bug: RT calendar tooltip displays sec not ms
-
-## Collections
-- [ ] Code review and tests for events statistics
