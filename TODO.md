@@ -38,3 +38,7 @@
 - [ ] Bug: "Today" calculations does not depend on data available
 - [ ] Bug: Today's total RT differs from calendar tooltip value
 - [ ] Bug: RT calendar tooltip displays sec not ms
+- [ ] Pagination for heatmap (later)
+- [ ] Review the colours and the boundaries for the heatmap
+- [ ] Fix various minor issues with heatmap tooltips
+- [ ] Check the aggregated statistics for correctness
