@@ -39,6 +39,7 @@
 - [x] Bug: Today's total RT differs from calendar tooltip value
 - [x] Bug: RT calendar tooltip displays sec not ms
 - [ ] Bug: cal tip: doesn't hide if hover too quick after indicator type change
+- [ ] Bug: cal tip: strange 2-step color change when switching indicator type
 - [ ] Pagination for heatmap (later)
 - [ ] Review the colours and the boundaries for the heatmap
 - [x] Fix various minor issues with heatmap tooltips
