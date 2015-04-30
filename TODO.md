@@ -44,3 +44,4 @@
 - [ ] Review the colours and the boundaries for the heatmap
 - [x] Fix various minor issues with heatmap tooltips
 - [ ] Check the aggregated statistics for correctness
+- [ ] unify tooltip styles
