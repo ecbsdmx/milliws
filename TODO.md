@@ -46,3 +46,4 @@
 - [ ] Check the aggregated statistics for correctness
 - [ ] unify tooltip styles
 - [ ] Number format the boxplot values for readability
+- [ ] Add a total row above breakdown per day (or at least a total event count)
