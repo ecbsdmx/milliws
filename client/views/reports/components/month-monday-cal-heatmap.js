@@ -1,8 +1,22 @@
+var effectiveErt = 1000;
+
+var color = d3.scale.quantize() //FIXME duplicate color scale def
+  .domain([0, effectiveErt])
+  .range(d3.range(6));
+
+var calOptions = {
+  destCssSelector: ".calHeatMap",
+  title: "",
+  ert: effectiveErt,
+  colorScale: color,
+  showMonthGroups: true,
+  showMonthContour: true,
+  showAllWeekDays: false
+};
 
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
   instance.firstGo = true;
-
   instance.aggData   = new ReactiveVar();
 
   Tracker.autorun(function() {
@@ -24,21 +38,20 @@ Template.monthMondayCalHeatmap.onCreated(function() {
 Template.monthMondayCalHeatmap.onRendered(function() {
   var instance = this;
   if (instance.firstGo){
-    calendarHeatMap(".calHeatMap", "No data", null, 1000);
+    calendarHeatMap(calOptions);
     instance.firstGo = false;
   }
 
   Tracker.autorun(function() {
     var dat = instance.aggData.get();
     if (typeof dat != 'undefined') {
-      updateData(dat, 1000);
+      updateData(dat);
     }
   })
 });
 
-
 //FIXME pass in options to function: colorscale size, width, height, show-options, ...
-var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, ert) {
+var calendarHeatMap = function(options) {
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
   var week    = d3.time.format("%W");
@@ -48,13 +61,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
   var date    = d3.time.format("%Y-%m-%d");
   var theDay  = d3.time.format("%A");
 
-  //-- options
-  var showMonthGroups   = true;
-  var showMonthContour  = true;
-  var showAllWeekDays   = false;
-
-  //-- constants
-  var colorScaleSize  = 6;
+  //-- constantseven if you might be surrounded by a bunch of french speaking people...  var finalWidth      = 1147;//960,
   var finalWidth      = 1147;//960,
       finalHeight     = 147;//147;//orig: 105
   var margin          = {top:15.5, right:5.5, bottom:5.5, left:40.5};
@@ -73,14 +80,10 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
   var maxYear             = parseInt(year(maxDate));
   var numYears            = maxYear - minYear + 1;
 
-  var color       = d3.scale.quantize()//FIXME duplicate color scale def
-    .domain([0, ert])
-    .range(d3.range(colorScaleSize));
-
   var dateRangeDays           = d3.time.days(new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate()), maxDate);
   var dateRangeMonths         = d3.time.months(new Date(minDate.getFullYear(), minDate.getMonth(), 1), maxDate);
 
-  var svg = d3.select(destinationElem)
+  var svg = d3.select(options.destCssSelector)
     .append("svg")
       .attr("class", "jobCalHeatMap greenOrangeRedGrad")
       .attr("shape-rendering", "crisp-edges")
@@ -88,7 +91,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
       .attr("stroke-linejoin","round")
       .attr("width", finalWidth)
       .attr("height", finalHeight)
-      .attr("title", calendarTitle)
+      .attr("title", options.title)
     .append("g")
       .attr("class", "calHeatmapGroup")
       .attr("transform", "translate("+margin.left+", " + margin.top + ")")
@@ -101,7 +104,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
     .attr("class", "jobName")
     .attr("transform", "translate(-" + (margin.left/9*7) + "," + (height/2) + ")rotate(-90)")
     .attr("text-anchor", "middle")
-    .text(calendarTitle)
+    .text(options.title)
   ;
   //-- year label
   var calYearLabel =
@@ -127,7 +130,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
       .attr("y", function(d, i) { return i*size+margin.top;})
       .attr("class", "dayName")
       .attr("text-anchor", "middle")
-      .text(function(d, i) {return showAllWeekDays?d:(i%2 === 0?d:"");})
+      .text(function(d, i) {return options.showAllWeekDays?d:(i%2 === 0?d:"");})
   ;
   //weeks for each years
   var calDays =
@@ -149,7 +152,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
         .attr("y", function(d) {return day(d) * size;})
   ;
 
-  if (showMonthGroups) {
+  if (options.showMonthGroups) {
     //months for each years
     var calMonthLabels =
       svg
@@ -170,7 +173,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
       })
       ;
 
-    if (showMonthContour) {
+    if (options.showMonthContour) {
       //-- months contour path
       var calMonthContours =
       svg.select(".jobMonths")
@@ -200,13 +203,9 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
 }
 
 
-function updateData(dataInput, ert) {
+function updateData(dataInput) {
   var date = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
-
-  var color = d3.scale.quantize() //FIXME duplicate color scale def
-  .domain([0, ert])
-  .range(d3.range(6));//FIXME colorscale range
 
   var tipRT = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = dataInput[date(d)];
