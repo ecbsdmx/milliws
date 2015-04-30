@@ -2,14 +2,14 @@
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
   instance.firstGo = true;
-  
+
   instance.aggData   = new ReactiveVar();
 
   Tracker.autorun(function() {
     var selectedJobs = Session.get("SelectedEventsStats") || [];
-    var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown"; 
-
-    Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), function(error, result) {
+    var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown";
+    var tzOffset = new Date().getTimezoneOffset(); // We want the aggregation for the user timezone, so we need the client offset with UTC
+    Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), tzOffset, function(error, result) {
       if (error) {
         console.log("compileDailyAgg error: " + error);
       }
@@ -222,7 +222,7 @@ var calendarHeatMap = function(destinationElem, calendarTitle, daysAggregate, er
     + "H" + w1 * size + "V" + (d1 + 1) * size
     + "H" + (w1 + 1) * size + "V" + 0
     + "H" + (w0 + 1) * size + "Z";
-  }  
+  }
 }
 
 
@@ -237,7 +237,7 @@ function updateData(dataInput, ert) {
 
   var tip = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = aggByDates[date(d)];
-    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" + 
+    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
      '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(2) + " sec. </span>";
   });
   svg.call(tip);
@@ -265,10 +265,3 @@ function clearData(){
   svg.selectAll("g.jobDays .day")
   .attr("class", "day")
 }
-
-
-
-
-
-
-
