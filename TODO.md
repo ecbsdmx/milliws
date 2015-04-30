@@ -45,3 +45,4 @@
 - [x] Fix various minor issues with heatmap tooltips
 - [ ] Check the aggregated statistics for correctness
 - [ ] unify tooltip styles
+- [ ] Number format the boxplot values for readability
