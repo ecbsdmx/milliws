@@ -2,8 +2,8 @@
   <div class="boxPlot">
     {{#with graphData}}
       <div class="graph" style="width:100%">
-        <div class="box" style="left: {{boxStart}}; width: {{boxWidth}}">&nbsp;</div>
-        <div class="whisker" style="left: {{whiskerStart}}; width: {{whiskerWidth}}">&nbsp;</div>
+        <div class="box {{color}}" style="left: {{boxStart}}; width: {{boxWidth}}">&nbsp;</div>
+        <div class="whisker {{color}}" style="left: {{whiskerStart}}; width: {{whiskerWidth}}">&nbsp;</div>
         <div class="median" style="left: {{medianStart}}; width: 1px">&nbsp;</div>
       </div>
 

@@ -28,13 +28,18 @@ Template.responseTimeItem.helpers({
 
     var medianStart = ((this.value.quartile2 / maxRange) * 100) + "%";
 
+    var job = Jobs.findOne({_id: this._id});
+    console.dir(job);
+    var color = this.value.avg > job.ert ? "btn-danger" : "btn-success";
+
     return {
       ticks: ticks,
       boxWidth: boxWidth,
       boxStart: boxStart,
       whiskerWidth: whiskerWidth,
       whiskerStart: whiskerStart,
-      medianStart: medianStart
+      medianStart: medianStart,
+      color: color
     }
-  }
+  },
 });
