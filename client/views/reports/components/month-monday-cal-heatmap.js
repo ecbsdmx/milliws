@@ -17,24 +17,14 @@ var calOptions = {
   showAllWeekDays: false
 };
 
+//FIXME extract common subscription code 
+
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
-  instance.firstGo = true;
-  instance.aggData   = new ReactiveVar();
 
-  Tracker.autorun(function() {
-    var selectedJobs = Session.get("SelectedEventsStats") || [];
-    var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown";
-    var tzOffset = new Date().getTimezoneOffset(); // We want the aggregation for the user timezone, so we need the client offset with UTC
-    Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), tzOffset, function(error, result) {
-      if (error) {
-        console.log("compileDailyAgg error: " + error);
-      }
-      else {
-        instance.aggData.set(result);
-      }
-    });
-  });
+  instance.firstGo = true;
+  instance.aggData = new ReactiveVar();
+  // console.log("onCreated");
 });
 
 
@@ -45,10 +35,37 @@ Template.monthMondayCalHeatmap.onRendered(function() {
     instance.firstGo = false;
   }
 
-  Tracker.autorun(function() {
+
+  // create reactive (on session vars) subscription
+  this.autorun(function(tComp) {
+    // console.log("onRendered 1st autorun: " + tComp._id);
+    // console.dir(tComp);
+    var selectedJobs = Session.get("SelectedEventsStats") || [];
+    var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown";
+
+    var tzOffset = new Date().getTimezoneOffset(); // We want the aggregation for the user timezone, so we need the client offset with UTC
+
+    clearData();
+    Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), tzOffset, function(error, result) {
+      if (error) {
+        console.log("compileDailyAgg error: " + error);
+      }
+      else {
+        // console.log("onRendered aggData set");
+        instance.aggData.set({data: result, indicatorType: indicatorType});
+      }
+    });
+  });
+
+
+  // react to instance var change from new subscribe
+  this.autorun(function(tComp) {
+    // console.log("onRendered 2nd autorun: " + tComp._id);
+    // console.dir(tComp);
     var dat = instance.aggData.get();
     if (typeof dat != 'undefined') {
-      updateData(dat);
+      // console.log("onRendered updateData");
+      updateData(dat.data, dat.indicatorType);
     }
   })
 });
@@ -201,7 +218,9 @@ var calendarHeatMap = function(options) {
 }
 
 
-function updateData(dataInput) {
+function updateData(dataInput, indicatorType) {
+  // console.log("Update data: " + Object.keys(dataInput).join("|"));
+
   var date = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
 
@@ -224,9 +243,9 @@ function updateData(dataInput) {
     })
     .attr("class", function(d) {
       var obj = dataInput[date(d)];
-      return Session.equals("SelectedBreakdown", "rtBreakdown")?"day c" + color(obj):"day c_errorCount";
+      return indicatorType === "rtBreakdown"?"day c" + color(obj):"day c_errorCount";
     })
-    .on('mouseover', Session.equals("SelectedBreakdown", "rtBreakdown")?tipRT.show:tipError.show)
+    .on('mouseover', indicatorType === "rtBreakdown"?tipRT.show:tipError.show)
     .on('mouseout', function() {tipRT.hide();tipError.hide();})
   ;
 }
