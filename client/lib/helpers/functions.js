@@ -68,7 +68,7 @@ mapOperatorToSymbol = function(operator) {
     case "nin":
       symbol = "∉";
       break;
-    default: 
+    default:
     symbol="";
   }
   return symbol;
@@ -99,3 +99,6 @@ mapSymbolToOperator = function(symbol) {
 
 formatMs = function(number) { return number ? Math.round(number) + "ms" : "n/a"; }
 formatCount = function(number) { return number ? number : "n/a"; }
+formatNumber = function(number) {
+  return number ? number.toLocaleString() : 0;
+}

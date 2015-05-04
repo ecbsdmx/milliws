@@ -49,13 +49,13 @@ Template.responseTimeItem.helpers({
     var text = "";
     text += '<i class="fa fa-line-chart fa-fw text-center"></i>';
     text += "<table>";
-    text += "<tr><td class=\"text-left\">Average: </td><td class=\"text-right\">" + this.value.avg + "</td></tr>";
-    text += "<tr><td class=\"text-left\">Median: </td><td class=\"text-right\">" + this.value.quartile2 + "</td></tr>";
-    text += "<tr><td class=\"text-left\">25th percentile: </td><td class=\"text-right\">" + this.value.quartile1 + "</td></tr>";
-    text += "<tr><td class=\"text-left\">75th percentile: </td><td class=\"text-right\">" + this.value.quartile3 + "</td></tr>";
-    text += "<tr><td class=\"text-left\">91st percentile: </td><td class=\"text-right\">" + this.value.whiskerStop + "</td></tr>";
-    text += "<tr><td class=\"text-left\">Minimum: </td><td class=\"text-right\">" + this.value.min + "</td></tr>";
-    text += "<tr><td class=\"text-left\">Maximum: </td><td class=\"text-right\">" + this.value.max + "</td></tr>";
+    text += "<tr><td class=\"text-left\">Average: </td><td class=\"text-right\">" + formatNumber(this.value.avg) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">Median: </td><td class=\"text-right\">" + formatNumber(this.value.quartile2) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">25th percentile: </td><td class=\"text-right\">" + formatNumber(this.value.quartile1) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">75th percentile: </td><td class=\"text-right\">" + formatNumber(this.value.quartile3) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">91st percentile: </td><td class=\"text-right\">" + formatNumber(this.value.whiskerStop) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">Minimum: </td><td class=\"text-right\">" + formatNumber(this.value.min) + "</td></tr>";
+    text += "<tr><td class=\"text-left\">Maximum: </td><td class=\"text-right\">" + formatNumber(this.value.max) + "</td></tr>";
     text += "</table>";
 
     return text;
