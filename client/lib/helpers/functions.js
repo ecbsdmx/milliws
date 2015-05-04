@@ -97,11 +97,11 @@ mapSymbolToOperator = function(symbol) {
 }
 
 formatMs = function(number) {
-  return number ? Math.round(number) + "ms" : "n/a";
+  return number ? formatNumber(Math.round(number)) + "ms" : "n/a";
 }
 
 formatCount = function(number) {
-  return number ? number : "n/a";
+  return number ? formatNumber(number) : "n/a";
 }
 
 formatNumber = function(number) {

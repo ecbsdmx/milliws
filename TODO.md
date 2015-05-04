@@ -28,11 +28,9 @@
 - [ ] Display a time series view of jobs execution times (later)
 - [ ] Job toggle: add a toggle all btn (later)
 - [ ] Pagination for heatmap (later)
-- [ ] Bug: "P1M" calculations does not depend on data available
-- [ ] Bug: "Today" calculations does not depend on data available
 - [ ] Bug: cal tip: doesn't hide if hover too quick after indicator type change
 - [ ] Bug: cal tip: strange 2-step color change when switching indicator type
+- [x] Bug: can click multiple same times indicator type button
 - [ ] Review the colours and the boundaries for the heatmap
 - [ ] Check the aggregated statistics for correctness
 - [ ] unify tooltip styles
-- [ ] Add a total row above breakdown per day (or at least a total event count)

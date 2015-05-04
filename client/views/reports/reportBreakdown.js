@@ -1,22 +1,33 @@
 Template.reportBreakdown.onCreated(function() {
   var instance = this;
+  
   instance.yearTotal = new ReactiveVar(0);
   instance.monthTotal = new ReactiveVar(0);
   instance.dayTotal = new ReactiveVar(0);
+  
+  instance.yearTotalFormatted = new ReactiveVar(0);
+  instance.monthTotalFormatted = new ReactiveVar(0);
+  instance.dayTotalFormatted = new ReactiveVar(0);
+  
+  instance.monthOk = new ReactiveVar(0);
+  instance.dayOk = new ReactiveVar(0);
+
+  instance.endPeriod = new ReactiveVar(new Date());
+  instance.rdy = new ReactiveVar(0);
 
   if(!Session.get("SelectedBreakdown")){
     Session.set("SelectedBreakdown","rtBreakdown");
   }
   
-  Tracker.autorun(function () {
-    getYearlyTotal(instance);
-    getMonthlyTotal(instance)
-    getDailyTotal(instance)
-  });
+  getYearlyTotal(instance);
+  getMonthlyTotal(instance)
+  getDailyTotal(instance)
 });
 
 
 Template.reportBreakdown.onRendered(function() {
+  var instance = this;
+  instance.endPeriod.set(new Date());
 });
 
 
@@ -28,36 +39,60 @@ Template.reportBreakdown.helpers({
     return isSelectedBreakDown(breakdown) ? "active" : "";
   },
   yearTotal : function() {
-    return Template.instance().yearTotal.get()
+    return Template.instance().yearTotalFormatted.get();
+  },
+  yearTotalCount : function() {
+    return Template.instance().yearTotal.get().total;
+  },
+  yearTotalPercent : function() {
+    var result = Template.instance().yearTotal.get();
+    return (result.val / result.total * 100).toFixed(2);
   },
   yearRange : function() {
-    return "Apr 16, 2014 - Apr 16, 2015";
+    var endPeriod = Template.instance().endPeriod.get();
+    var startPeriod = new Date(endPeriod.getFullYear()-1, endPeriod.getMonth(), endPeriod.getDate());
+    return moment(startPeriod).format("MMM DD, YYYY") + " - " + moment(endPeriod).format("MMM DD, YYYY");
   },
   monthTotal : function() {
-    return Template.instance().monthTotal.get()
+    return Template.instance().monthTotalFormatted.get();
+  },
+  monthTotalCount : function() {
+    return Template.instance().monthTotal.get().total;
+  },
+  monthTotalPercent: function() {
+    var result = Template.instance().monthTotal.get();
+    return (result.val / result.total * 100).toFixed(2);
   },
   monthRange : function() {
-    return "Mar 16, 2015 - Apr 16, 2015";
+    var endPeriod = Template.instance().endPeriod.get();
+    var startPeriod = new Date(endPeriod.getFullYear(), endPeriod.getMonth()-1, endPeriod.getDate());
+    return moment(startPeriod).format("MMM DD, YYYY") + " - " + moment(endPeriod).format("MMM DD, YYYY");
   },
   isMonthTotalOK: function() {
-    //FIXME this is not to be devided by 12 but by number of available periods of data !!!
-    var availDataPeriods = 12;
-    //console.log("month/year comp: " + Template.instance().yearTotal.get()/availDataPeriods  + " > " + Template.instance().monthTotal.get());
-    return Template.instance().yearTotal.get()/availDataPeriods > Template.instance().monthTotal.get()?"text-success":"text-danger";
+    return Template.instance().monthOk.get();
   },
   dayTotal : function() {
-    return Template.instance().dayTotal.get();
+    return Template.instance().dayTotalFormatted.get();
+  },
+  dayTotalCount : function() {
+    return Template.instance().dayTotal.get().total;
+  },
+  dayTotalPercent : function() {
+    var result = Template.instance().dayTotal.get();
+    return (result.val / result.total * 100).toFixed(2);
   },
   isDayTotalOK: function() {
-    //FIXME this is not to be devided by 30 but by number of available days in month of data !!!
-    var availDataPeriods = 30;
-    //console.log("day/month comp: " + Template.instance().monthTotal.get()/availDataPeriods  + " > " + Template.instance().dayTotal.get());
-    return Template.instance().monthTotal.get()/availDataPeriods > Template.instance().dayTotal.get()?"text-success":"text-danger";
+    return Template.instance().dayOk.get();
   },
-  subscriptionType: function() {
+  isRTBreakdown: function() {
     return Session.equals("SelectedBreakdown", "rtBreakdown");
+  },
+  isErrorBreakdown: function() {
+    return Session.equals("SelectedBreakdown", "errorBreakdown");
+  },
+  isReady: function() {
+    return Template.instance().rdy.get() === 3;
   }
-
 });
 
 
@@ -66,53 +101,93 @@ Template.reportBreakdown.events({
     e.preventDefault();
     Session.set("SelectedBreakdown", e.currentTarget.id);
 
-    getYearlyTotal(Template.instance());
-    getMonthlyTotal(Template.instance());
-    getDailyTotal(Template.instance());
+    // avoid serial clickers...
+    if (Template.instance().rdy.get() === 3 || Template.instance().rdy.get() === 0) {
+      Template.instance().rdy.set(0);
+      getYearlyTotal(Template.instance());
+      getMonthlyTotal(Template.instance());
+      getDailyTotal(Template.instance());
+    }
   }
 });
-
 
 
 var isSelectedBreakDown = function(breakdown) {
   return Session.equals("SelectedBreakdown", breakdown);
 }
 
-function getYearlyTotal(template)
+function getYearlyTotal(templateInstance)
 {
-  //FIXME pass in the period or last-displayed date
-  Meteor.call("compileYearTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), new Date(), function(error, result) {
+  Meteor.call("compileYearTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileYearTotal callback error: " + error);
     }
     else {
-      template.yearTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
+      templateInstance.yearTotal.set(result);
+      templateInstance.yearTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
+        formatMs(result.val):
+        formatCount(result.val)
+      );
+      templateInstance.rdy.set(templateInstance.rdy.get()+1);
     }
   });
 }
 
-function getMonthlyTotal(template)
+function getMonthlyTotal(templateInstance)
 {
-  //FIXME pass in the period or last-displayed date
-  Meteor.call("compileMonthTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), new Date(), function(error, result) {
+  Meteor.call("compileMonthTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileMonthTotal callback error: " + error);
     }
     else {
-      template.monthTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
+      templateInstance.monthTotal.set(result);
+
+      templateInstance.monthTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
+        formatMs(result.val):
+        formatCount(result.val)
+      );
+      
+      if(Session.equals("SelectedBreakdown", "rtBreakdown")) {
+        templateInstance.monthOk.set(templateInstance.monthTotal.get().val > templateInstance.yearTotal.get().val? "text-danger" : "text-success");
+      }
+      else {
+        var resultY = templateInstance.yearTotal.get();
+        var yearPercent = resultY.val / resultY.total;
+        var resultM = templateInstance.monthTotal.get();
+        var monthPercent = resultM.val / resultM.total;
+        templateInstance.monthOk.set(monthPercent > yearPercent? "text-danger" : "text-success");
+
+      }
+      templateInstance.rdy.set(templateInstance.rdy.get()+1);
     }
   });
 }
 
-function getDailyTotal(template)
+function getDailyTotal(templateInstance)
 {
-  //FIXME pass in the period or last-displayed date
-  Meteor.call("compileDayTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), new Date(), function(error, result) {
+  Meteor.call("compileDayTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileDayTotal callback error: " + error);
     }
     else {
-      template.dayTotal.set(Session.equals("SelectedBreakdown", "rtBreakdown")?formatMs(result):formatCount(result));
+      templateInstance.dayTotal.set(result);
+      templateInstance.dayTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
+        formatMs(result.val):
+        formatCount(result.val)
+      );
+      
+      if(Session.equals("SelectedBreakdown", "rtBreakdown")) {
+        templateInstance.dayOk.set(templateInstance.dayTotal.get().val > templateInstance.yearTotal.get().val? "text-danger" : "text-success");
+      }
+      else {
+        var resultY = templateInstance.yearTotal.get();
+        var yearPercent = resultY.val / resultY.total;
+        var resultD = templateInstance.dayTotal.get();
+        var dayPercent = resultD.val / resultD.total;
+        templateInstance.dayOk.set(dayPercent > yearPercent? "text-danger" : "text-success");
+
+      }
+      templateInstance.rdy.set(templateInstance.rdy.get()+1);
     }
   });
 }

@@ -24,17 +24,38 @@
     <div class="row">
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 thisYear">
         <h2>P1Y</h2>
-        <p class="observation">{{yearTotal}}</p>
-        <p class="period">{{yearRange}}</p>
+          <div class="data">
+            {{#if isReady}}
+              <div class="observation">{{yearTotal}}</div>
+              <div class="obsDetail">{{#if isErrorBreakdown}} of {{formatNumber yearTotalCount}} ({{yearTotalPercent}}%){{/if}}</div>
+              <div class="period">{{yearRange}}</div>
+            {{else}}
+              {{>spinner}}
+            {{/if}}
+          </div>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 thisMonth">
         <h2>P1M</h2>
-        <p class="observation {{isMonthTotalOK}}">{{monthTotal}}</p>
-        <p class="period">{{monthRange}}</p>
+        <div class="data">
+          {{#if isReady}}
+            <div class="observation {{isMonthTotalOK}}">{{monthTotal}}</div>
+            <div class="obsDetail">{{#if isErrorBreakdown}} of {{formatNumber monthTotalCount}} ({{monthTotalPercent}}%){{/if}}</div>
+            <div class="period">{{monthRange}}</div>
+          {{else}}
+            {{>spinner}}
+          {{/if}}
+        </div>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 today">
         <h2>Today</h2>
-        <p class="observation {{isDayTotalOK}}">{{dayTotal}}</p>
+        <div class="data">
+          {{#if isReady}}
+            <div class="observation {{isDayTotalOK}}">{{dayTotal}}</div>
+            <div class="obsDetail">{{#if isErrorBreakdown}}of {{formatNumber dayTotalCount}} ({{dayTotalPercent}}%){{/if}}</div>
+          {{else}}
+            {{>spinner}}
+          {{/if}}
+        </div>
       </div>
     </div>
   </div><!-- periodSummary -->
