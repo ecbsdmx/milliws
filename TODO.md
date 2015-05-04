@@ -31,6 +31,7 @@
 - [ ] Bug: cal tip: doesn't hide if hover too quick after indicator type change
 - [x] ```Yeah !``` Bug: cal tip: strange 2-step color change when switching indicator type
 - [x] Bug: can click multiple same times indicator type button
+- [ ] Bug: breakdown agg. not refreshing on job selection change (reactivity)
 - [ ] Bug: tooltips destroyed when calling "clearData"
 - [ ] Review the colours and the boundaries for the heatmap
 - [ ] Check the aggregated statistics for correctness
