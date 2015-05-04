@@ -74,7 +74,6 @@ mapOperatorToSymbol = function(operator) {
   return symbol;
 }
 
-
 mapSymbolToOperator = function(symbol) {
   var operator;
   switch(symbol) {
@@ -97,8 +96,14 @@ mapSymbolToOperator = function(symbol) {
   return operator;
 }
 
-formatMs = function(number) { return number ? Math.round(number) + "ms" : "n/a"; }
-formatCount = function(number) { return number ? number : "n/a"; }
+formatMs = function(number) {
+  return number ? Math.round(number) + "ms" : "n/a";
+}
+
+formatCount = function(number) {
+  return number ? number : "n/a";
+}
+
 formatNumber = function(number) {
   return number ? number.toLocaleString() : 0;
 }

@@ -55,16 +55,7 @@ UI.registerHelper('formatEntrypoint', formatEntrypoint);
 UI.registerHelper('formatPathParams', formatPathParams);
 UI.registerHelper('formatQueryStringParams', formatQueryStringParams);
 UI.registerHelper('formatFormQueryStringParams', formatFormQueryStringParams);
-
-UI.registerHelper('formatNumber', function(number) {
-  return formatNumber(number);
-});
-UI.registerHelper('formatMs', function(number) {
-  return formatMs(number);
-});
-UI.registerHelper('formatCount', function(number) {
-  return formatCount(number);
-});
-
-
+UI.registerHelper('formatNumber', formatNumber);
+UI.registerHelper('formatMs', formatMs);
+UI.registerHelper('formatCount', formatCount);
 UI.registerHelper('mapOperatorToSymbol', mapOperatorToSymbol );
