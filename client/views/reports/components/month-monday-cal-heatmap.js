@@ -24,7 +24,6 @@ Template.monthMondayCalHeatmap.onCreated(function() {
 
   instance.firstGo = true;
   instance.aggData = new ReactiveVar();
-  // console.log("onCreated");
 });
 
 
@@ -38,8 +37,6 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 
   // create reactive (on session vars) subscription
   this.autorun(function(tComp) {
-    // console.log("onRendered 1st autorun: " + tComp._id);
-    // console.dir(tComp);
     var selectedJobs = Session.get("SelectedEventsStats") || [];
     var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown";
 
@@ -51,7 +48,6 @@ Template.monthMondayCalHeatmap.onRendered(function() {
         console.log("compileDailyAgg error: " + error);
       }
       else {
-        // console.log("onRendered aggData set");
         instance.aggData.set({data: result, indicatorType: indicatorType});
       }
     });
@@ -60,11 +56,8 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 
   // react to instance var change from new subscribe
   this.autorun(function(tComp) {
-    // console.log("onRendered 2nd autorun: " + tComp._id);
-    // console.dir(tComp);
     var dat = instance.aggData.get();
     if (typeof dat != 'undefined') {
-      // console.log("onRendered updateData");
       updateData(dat.data, dat.indicatorType);
     }
   })
@@ -219,8 +212,6 @@ var calendarHeatMap = function(options) {
 
 
 function updateData(dataInput, indicatorType) {
-  // console.log("Update data: " + Object.keys(dataInput).join("|"));
-
   var date = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
 
