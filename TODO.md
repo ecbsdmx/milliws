@@ -34,5 +34,5 @@
 - [ ] Bug: breakdown agg. not refreshing on job selection change (reactivity)
 - [ ] Bug: tooltips destroyed when calling "clearData"
 - [ ] Review the colours and the boundaries for the heatmap
-- [ ] Check the aggregated statistics for correctness
+- [x] Check the aggregated statistics for correctness
 - [ ] unify tooltip styles
