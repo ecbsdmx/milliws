@@ -23,6 +23,7 @@
 - [ ] Document the statistics module
 - [ ] Document the user management
 - [ ] Document the reports module
+- [ ] Document decisions regarding thresholds, assumptions, color scales, etc.
 
 ## Reports module
 - [ ] Display a time series view of jobs execution times (later)
@@ -31,7 +32,7 @@
 - [x] ```Yeah !``` Bug: cal tip: strange 2-step color change when switching indicator type
 - [x] Bug: can click multiple same times indicator type button
 - [x] Bug: breakdown agg. not refreshing on job selection change (reactivity)
-- [ ] Bug: tooltips destroyed when calling "clearData"
+- [x] Bug: tooltips destroyed when calling "clearData"
 - [ ] Review the colours and the boundaries for the heatmap
 - [x] Check the aggregated statistics for correctness
 - [x] unify tooltip styles

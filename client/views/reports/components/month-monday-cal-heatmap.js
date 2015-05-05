@@ -243,4 +243,7 @@ function clearData(){
   var svg = d3.select("svg g.calHeatmapGroup");
   svg.selectAll("g.jobDays .day")
     .attr("class", "day")
+    .on('mouseover', null)
+    .on('mouseout', null)
+  ;
 }
