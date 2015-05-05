@@ -1,43 +1,49 @@
 Template.reportBreakdown.onCreated(function() {
   var instance = this;
-  
+
   instance.yearTotal = new ReactiveVar(0);
   instance.monthTotal = new ReactiveVar(0);
   instance.dayTotal = new ReactiveVar(0);
-  
+
   instance.yearTotalFormatted = new ReactiveVar(0);
   instance.monthTotalFormatted = new ReactiveVar(0);
   instance.dayTotalFormatted = new ReactiveVar(0);
-  
+
   instance.monthOk = new ReactiveVar(0);
   instance.dayOk = new ReactiveVar(0);
 
   instance.endPeriod = new ReactiveVar(new Date());
-  instance.rdy = new ReactiveVar(0);
+  instance.yRdy = new ReactiveVar(false);
+  instance.mRdy = new ReactiveVar(false);
+  instance.dRdy = new ReactiveVar(false);
 
   if(!Session.get("SelectedBreakdown")){
     Session.set("SelectedBreakdown","rtBreakdown");
   }
-  
-  var indicatorType = Session.get("SelectedBreakdown");
+
+  /*var indicatorType = Session.get("SelectedBreakdown");
   var selectedJobs = Session.get("SelectedEventsStats");
   getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
   getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
-  getDailyTotal(Template.instance(), indicatorType, selectedJobs);
+  getDailyTotal(Template.instance(), indicatorType, selectedJobs);*/
+
+  Tracker.autorun(function () {
+    var indicatorType = Session.get("SelectedBreakdown");
+    var selectedJobs = Session.get("SelectedEventsStats");
+    instance.yRdy.set(false);
+    instance.mRdy.set(false);
+    instance.dRdy.set(false);
+    getYearlyTotal(instance, indicatorType, selectedJobs);
+    getMonthlyTotal(instance, indicatorType, selectedJobs);
+    getDailyTotal(instance, indicatorType, selectedJobs);
+  });
 });
 
 
 Template.reportBreakdown.onRendered(function() {
   var instance = this;
+  //in case page remains open for several days
   instance.endPeriod.set(new Date());
-
-  // Tracker.autorun(function () {
-  //   var indicatorType = Session.get("SelectedBreakdown");
-  //   var selectedJobs = Session.get("SelectedEventsStats");
-  //   getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
-  //   getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
-  //   getDailyTotal(Template.instance(), indicatorType, selectedJobs);
-  // });
 });
 
 
@@ -100,8 +106,14 @@ Template.reportBreakdown.helpers({
   isErrorBreakdown: function() {
     return Session.equals("SelectedBreakdown", "errorBreakdown");
   },
-  isReady: function() {
-    return Template.instance().rdy.get() === 3;
+  isYearReady: function() {
+    return Template.instance().yRdy.get();
+  },
+  isMonthReady: function() {
+    return Template.instance().mRdy.get();
+  },
+  isDayReady: function() {
+    return Template.instance().dRdy.get();
   }
 });
 
@@ -112,14 +124,13 @@ Template.reportBreakdown.events({
     Session.set("SelectedBreakdown", e.currentTarget.id);
 
     // avoid serial clickers...
-    if (Template.instance().rdy.get() === 3 || Template.instance().rdy.get() === 0) {
+    /*if (Template.instance().rdy.get() === 3 || Template.instance().rdy.get() === 0) {
       var indicatorType = Session.get("SelectedBreakdown");
       var selectedJobs = Session.get("SelectedEventsStats");
-      Template.instance().rdy.set(0);
       getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
       getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
       getDailyTotal(Template.instance(), indicatorType, selectedJobs);
-    }
+    }*/
   }
 });
 
@@ -136,11 +147,8 @@ function getYearlyTotal(templateInstance, indicatorType, selectedJobs)
     }
     else {
       templateInstance.yearTotal.set(result);
-      templateInstance.yearTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
-        formatMs(result.val):
-        formatCount(result.val)
-      );
-      templateInstance.rdy.set(templateInstance.rdy.get()+1);
+      templateInstance.yearTotalFormatted.set(indicatorType ? formatMs(result.val) : formatCount(result.val));
+      templateInstance.yRdy.set(true);
     }
   });
 }
@@ -153,13 +161,9 @@ function getMonthlyTotal(templateInstance, indicatorType, selectedJobs)
     }
     else {
       templateInstance.monthTotal.set(result);
+      templateInstance.monthTotalFormatted.set(indicatorType ? formatMs(result.val) : formatCount(result.val));
 
-      templateInstance.monthTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
-        formatMs(result.val):
-        formatCount(result.val)
-      );
-      
-      if(Session.equals("SelectedBreakdown", "rtBreakdown")) {
+      if(indicatorType) {
         templateInstance.monthOk.set(templateInstance.monthTotal.get().val > templateInstance.yearTotal.get().val? "text-danger" : "text-success");
       }
       else {
@@ -168,9 +172,8 @@ function getMonthlyTotal(templateInstance, indicatorType, selectedJobs)
         var resultM = templateInstance.monthTotal.get();
         var monthPercent = resultM.val / resultM.total;
         templateInstance.monthOk.set(monthPercent > yearPercent? "text-danger" : "text-success");
-
       }
-      templateInstance.rdy.set(templateInstance.rdy.get()+1);
+      templateInstance.mRdy.set(true);
     }
   });
 }
@@ -183,12 +186,9 @@ function getDailyTotal(templateInstance, indicatorType, selectedJobs)
     }
     else {
       templateInstance.dayTotal.set(result);
-      templateInstance.dayTotalFormatted.set(Session.equals("SelectedBreakdown", "rtBreakdown")?
-        formatMs(result.val):
-        formatCount(result.val)
-      );
-      
-      if(Session.equals("SelectedBreakdown", "rtBreakdown")) {
+      templateInstance.dayTotalFormatted.set(indicatorType ? formatMs(result.val) : formatCount(result.val));
+
+      if(indicatorType) {
         templateInstance.dayOk.set(templateInstance.dayTotal.get().val > templateInstance.yearTotal.get().val? "text-danger" : "text-success");
       }
       else {
@@ -197,9 +197,8 @@ function getDailyTotal(templateInstance, indicatorType, selectedJobs)
         var resultD = templateInstance.dayTotal.get();
         var dayPercent = resultD.val / resultD.total;
         templateInstance.dayOk.set(dayPercent > yearPercent? "text-danger" : "text-success");
-
       }
-      templateInstance.rdy.set(templateInstance.rdy.get()+1);
+      templateInstance.dRdy.set(true);
     }
   });
 }

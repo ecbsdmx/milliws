@@ -15,9 +15,9 @@ Template.reportsList.helpers({
     return EventStats.find({}, {sort: {_id: 1}});
   },
 
-  filteredEventStats: function() {    
+  filteredEventStats: function() {
     return EventStats.find({_id: {$in: Session.get("SelectedEventsStats")}}, {sort: {_id: 1}});
-  }  
+  }
 });
 
 
