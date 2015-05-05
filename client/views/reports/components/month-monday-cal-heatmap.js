@@ -5,14 +5,17 @@ var calOptions = {
   margins: {top:15.5, right:5.5, bottom:5.5, left:40.5},
   title: "",
   colorScale: d3.scale.quantize().domain([0, 900]).range(d3.range(6)),
+  colorScaleSize: 6,
   showMonthGroups: true,
   showMonthContour: true,
-  showAllWeekDays: false
+  showAllWeekDays: false,
+  showLegend: true
 };
 
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
   instance.firstGo = true;
+  calOptions.colorScaleSize = instance.data.colorScaleSize;
 });
 
 
@@ -54,7 +57,7 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 
         calOptions.colorScale = d3.scale.quantize()
           .domain([0, acceptableThreshold*1.5])
-          .range(d3.range(6));
+          .range(d3.range(calOptions.colorScaleSize));
 
         updateData(dat.data, dat.indicatorType, calOptions.colorScale);
       }
@@ -102,6 +105,35 @@ var calendarHeatMap = function(options) {
       .attr("class", "calHeatmapGroup")
       .attr("transform", "translate("+options.margins.left+", " + options.margins.top + ")")
   ;
+
+
+//LEGEND START
+  var lgdSvg = d3.select(options.destCssSelector)
+    .append("svg")
+      .attr("class", "jobCalHeatMapLegend greenOrangeRedGrad")
+      .attr("shape-rendering", "crisp-edges")
+      .attr("stroke-linecap","round")
+      .attr("stroke-linejoin","round")
+      .attr("width", options.width)
+      .attr("height", size)
+    .append("g")
+      .attr("class", "calHeatmapLegendGroup")
+      //.attr("transform", "translate("+(options.width - options.margins.right - (size*calOptions.colorScaleSize)) +", " + (options.height - options.margins.bottom - size) + ")")
+  ;
+
+  lgdSvg.selectAll("rect")
+    .data(d3.range(options.colorScaleSize))
+    .enter()
+      .append("rect")
+      .attr("class", function(d, i) {return "day lgd c" + i; })
+      .attr("width", size)
+      .attr("height", size)
+      .attr("x", function(d, i) { return i * size; })
+      .attr("y", 0)
+      .attr("transform", "translate(" + ( options.margins.left) +", 0)")
+  ;
+// LEGEND END
+
 
   //-- title label
   var calJobLabel =
@@ -235,6 +267,31 @@ function updateData(dataInput, indicatorType, colorScale) {
     .on('mouseover', indicatorType === "rtBreakdown"?tipRT.show:tipError.show)
     .on('mouseout', function() {tipRT.hide();tipError.hide();})
   ;
+
+  //UPDATE LEGEND START
+  //FIXME add the tip !!!
+  var lgdSvg = d3.select("svg g.calHeatmapLegendGroup");
+  
+  var tipLgd = d3.tip().attr("class", "d3-tip").html(function(d, i) {
+    var range = colorScale.invertExtent(i);
+    var label = indicatorType === "rtBreakdown"?"ms":"%";
+    return "From " + range[0] + label + " to " + range[1] + label;
+
+    // var obj = dataInput[date(d)];
+    // return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(2) + " %</div>";
+  });
+  lgdSvg.call(tipLgd);
+
+  lgdSvg.selectAll(".lgd")
+    .attr("range", function(d, i) {
+      var range = colorScale.invertExtent(i);
+      var label = indicatorType === "rtBreakdown"?"ms":"%";
+      return "From " + range[0] + label + " to " + range[1] + label;
+    })
+    .on('mouseover', tipLgd.show)
+    .on('mouseout', tipLgd.hide)
+  ;
+  //UPDATE LEGEND END
 }
 
 function clearData(){
