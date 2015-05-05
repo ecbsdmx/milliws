@@ -17,7 +17,7 @@ var calOptions = {
   showAllWeekDays: false
 };
 
-//FIXME extract common subscription code 
+//FIXME extract common subscription code
 
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
@@ -217,14 +217,12 @@ function updateData(dataInput, indicatorType) {
 
   var tipRT = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = dataInput[date(d)];
-    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
-     '<i class="fa fa-heartbeat fa-fw"></i><span class="c'+color(obj)+'">' + obj.toFixed(0) + "ms </span>";
+    return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(0) + "ms";
   });
   svg.call(tipRT);
   var tipError = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = dataInput[date(d)];
-    return typeof obj === 'undefined'?date(d): '<i class="fa fa-calendar fa-fw"></i>' + date(d) + "<br />" +
-     '<i class="fa fa-calculator fa-fw"></i><span class="c_errorCount">' + obj.toFixed(0) + " </span>";
+    return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(0) + " errors</div>";
   });
   svg.call(tipError);
 
