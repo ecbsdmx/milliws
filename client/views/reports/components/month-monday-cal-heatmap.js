@@ -1,29 +1,18 @@
-var effectiveErt = 1000;
-
-var color = d3.scale.quantize() //FIXME duplicate color scale def
-  .domain([0, effectiveErt])
-  .range(d3.range(6));
-
 var calOptions = {
   destCssSelector: ".calHeatMap",
   width: 1147,
   height: 147,
   margins: {top:15.5, right:5.5, bottom:5.5, left:40.5},
   title: "",
-  ert: effectiveErt,
-  colorScale: color,
+  colorScale: d3.scale.quantize().domain([0, 900]).range(d3.range(6)),
   showMonthGroups: true,
   showMonthContour: true,
   showAllWeekDays: false
 };
 
-//FIXME extract common subscription code
-
 Template.monthMondayCalHeatmap.onCreated(function() {
   var instance = this;
-
   instance.firstGo = true;
-  instance.aggData = new ReactiveVar();
 });
 
 
@@ -34,36 +23,45 @@ Template.monthMondayCalHeatmap.onRendered(function() {
     instance.firstGo = false;
   }
 
-
   // create reactive (on session vars) subscription
   this.autorun(function(tComp) {
     var selectedJobs = Session.get("SelectedEventsStats") || [];
     var indicatorType = Session.get("SelectedBreakdown") || "rtBreakdown";
 
     var tzOffset = new Date().getTimezoneOffset(); // We want the aggregation for the user timezone, so we need the client offset with UTC
-
     clearData();
     Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), tzOffset, function(error, result) {
       if (error) {
         console.log("compileDailyAgg error: " + error);
       }
       else {
-        instance.aggData.set({data: result, indicatorType: indicatorType});
+        var dat = {data: result, indicatorType: indicatorType};
+
+        var acceptableThreshold = 0;
+        switch (indicatorType)
+        {
+          case "rtBreakdown":
+            var jobs = Jobs.find({_id: {$in: selectedJobs}});
+            jobs.forEach(function (job) {
+              acceptableThreshold += job.ert;
+            });
+            acceptableThreshold /= jobs.count();
+          break;
+          case "errorBreakdown":
+            acceptableThreshold = 5;
+          break;
+        }
+
+        calOptions.colorScale = d3.scale.quantize()
+          .domain([0, acceptableThreshold*1.5])
+          .range(d3.range(6));
+
+        updateData(dat.data, dat.indicatorType, calOptions.colorScale);
       }
     });
   });
-
-
-  // react to instance var change from new subscribe
-  this.autorun(function(tComp) {
-    var dat = instance.aggData.get();
-    if (typeof dat != 'undefined') {
-      updateData(dat.data, dat.indicatorType);
-    }
-  })
 });
 
-//FIXME pass in options to function: colorscale size, width, height, show-options, ...
 var calendarHeatMap = function(options) {
   //-- formats
   var day     = function(d) { return (d.getDay() + 6) % 7;};
@@ -211,7 +209,7 @@ var calendarHeatMap = function(options) {
 }
 
 
-function updateData(dataInput, indicatorType) {
+function updateData(dataInput, indicatorType, colorScale) {
   var date = d3.time.format("%Y-%m-%d");
   var svg = d3.select("svg g.calHeatmapGroup");
 
@@ -222,7 +220,7 @@ function updateData(dataInput, indicatorType) {
   svg.call(tipRT);
   var tipError = d3.tip().attr("class", "d3-tip").html(function(d) {
     var obj = dataInput[date(d)];
-    return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(0) + " errors</div>";
+    return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(2) + " %</div>";
   });
   svg.call(tipError);
 
@@ -232,7 +230,7 @@ function updateData(dataInput, indicatorType) {
     })
     .attr("class", function(d) {
       var obj = dataInput[date(d)];
-      return indicatorType === "rtBreakdown"?"day c" + color(obj):"day c_errorCount";
+      return "day c" + colorScale(obj);
     })
     .on('mouseover', indicatorType === "rtBreakdown"?tipRT.show:tipError.show)
     .on('mouseout', function() {tipRT.hide();tipError.hide();})
