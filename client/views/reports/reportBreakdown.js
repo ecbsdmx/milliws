@@ -19,15 +19,25 @@ Template.reportBreakdown.onCreated(function() {
     Session.set("SelectedBreakdown","rtBreakdown");
   }
   
-  getYearlyTotal(instance);
-  getMonthlyTotal(instance)
-  getDailyTotal(instance)
+  var indicatorType = Session.get("SelectedBreakdown");
+  var selectedJobs = Session.get("SelectedEventsStats");
+  getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
+  getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
+  getDailyTotal(Template.instance(), indicatorType, selectedJobs);
 });
 
 
 Template.reportBreakdown.onRendered(function() {
   var instance = this;
   instance.endPeriod.set(new Date());
+
+  // Tracker.autorun(function () {
+  //   var indicatorType = Session.get("SelectedBreakdown");
+  //   var selectedJobs = Session.get("SelectedEventsStats");
+  //   getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
+  //   getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
+  //   getDailyTotal(Template.instance(), indicatorType, selectedJobs);
+  // });
 });
 
 
@@ -103,10 +113,12 @@ Template.reportBreakdown.events({
 
     // avoid serial clickers...
     if (Template.instance().rdy.get() === 3 || Template.instance().rdy.get() === 0) {
+      var indicatorType = Session.get("SelectedBreakdown");
+      var selectedJobs = Session.get("SelectedEventsStats");
       Template.instance().rdy.set(0);
-      getYearlyTotal(Template.instance());
-      getMonthlyTotal(Template.instance());
-      getDailyTotal(Template.instance());
+      getYearlyTotal(Template.instance(), indicatorType, selectedJobs);
+      getMonthlyTotal(Template.instance(), indicatorType, selectedJobs);
+      getDailyTotal(Template.instance(), indicatorType, selectedJobs);
     }
   }
 });
@@ -116,9 +128,9 @@ var isSelectedBreakDown = function(breakdown) {
   return Session.equals("SelectedBreakdown", breakdown);
 }
 
-function getYearlyTotal(templateInstance)
+function getYearlyTotal(templateInstance, indicatorType, selectedJobs)
 {
-  Meteor.call("compileYearTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
+  Meteor.call("compileYearTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileYearTotal callback error: " + error);
     }
@@ -133,9 +145,9 @@ function getYearlyTotal(templateInstance)
   });
 }
 
-function getMonthlyTotal(templateInstance)
+function getMonthlyTotal(templateInstance, indicatorType, selectedJobs)
 {
-  Meteor.call("compileMonthTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
+  Meteor.call("compileMonthTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileMonthTotal callback error: " + error);
     }
@@ -163,9 +175,9 @@ function getMonthlyTotal(templateInstance)
   });
 }
 
-function getDailyTotal(templateInstance)
+function getDailyTotal(templateInstance, indicatorType, selectedJobs)
 {
-  Meteor.call("compileDayTotal", Session.get("SelectedBreakdown"), Session.get("SelectedEventsStats"), templateInstance.endPeriod.get(), function(error, result) {
+  Meteor.call("compileDayTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
       console.log("compileDayTotal callback error: " + error);
     }
