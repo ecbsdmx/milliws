@@ -1,0 +1,176 @@
+@bar-radius: 0.8em;
+@blockHeight: 100px;
+
+.reports {
+
+  padding-top: 20px;
+
+  h2 {
+    font-size: 12pt;
+    margin-top: 10px;
+    color: #bbb;
+  }
+
+  .periodSummary {
+    height: @blockHeight;
+    border-radius: 0px 0px 5px 5px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .thisYear, .thisMonth {
+      height: 100%;
+      border-right: 1px solid #ddd;
+    }
+
+    h2 {
+      margin: 0px;
+      margin-top: 5px;
+      padding: 0px;
+      vertical-align: middle;
+      height: @blockHeight/3;
+      text-align: center;
+      color: #bbb;
+    }
+
+    .data {
+      text-align: center;
+      height: ((@blockHeight/3)*2)-5px;
+      margin: 0px;
+      padding: 0px;
+      vertical-align: middle;
+      
+      .observation, .obsDetail, .period {
+        margin: 0px;
+        padding: 0px;
+        vertical-align: middle;
+      }
+
+      // fix perceived middle mis-alignment
+      .spinner-container{
+        margin-top: -8%;
+      }
+
+      .observation {
+        height: @blockHeight/3;
+        font-size: 2em;
+        text-align: center;
+        display: inline-block;
+      }
+      .obsDetail {
+        height: @blockHeight/3;
+        font-size: .9em;
+        display: inline-block;
+      }
+      .period {
+        height: (@blockHeight/3)-5px;
+        font-size: .9em;
+        text-align: center;
+        color: #bbb;
+      }
+    }
+  }
+
+  .breakdown {
+    border-radius: 0px 0px 0px 0px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+
+    ul {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .pager li > a, .pager li > span {
+      display: inline-block;
+      padding: 0px 0px;
+      background-color: #fff;
+      border: none;
+    }
+  }
+
+  .overview {
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+
+    table {
+      margin-bottom: 10px;
+    }
+
+    th, td {
+      border: none;
+    }
+
+    th {
+      color: #bbb;
+    }
+
+    .row {
+      padding-top: 10px;
+    }
+
+    .reportItemRow {
+      padding-top: 0px;
+    }
+
+    .vertical-align {
+      display: flex;
+      align-items: center;
+    }
+
+    .fa-circle {
+      padding-left: 20px;
+    }
+
+    .errorGraph {
+      padding-right: 0px;
+      padding-top: 0px;
+
+      .mainCell {
+        width: 100%;
+        background-color: #F0F0F0;;
+        //height: 14px;
+      }
+
+      .mainCell, .errorCell {
+        background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+        background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+        background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+        background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+        background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+      }
+
+      .errorCell {
+        -webkit-border-radius: 0 @bar-radius @bar-radius 0;
+        -moz-border-radius: 0 @bar-radius @bar-radius 0;
+        border-radius:     0 @bar-radius @bar-radius 0;
+      }
+
+      .problematicCell {
+        background-color: @brand-danger;
+        color: #fff;
+      }
+
+      .okCell {
+        background-color: #feb645;
+        color: #000;
+      }
+
+      small {
+        display: block;
+        padding-left: 4px;
+      }
+    }
+  }
+}

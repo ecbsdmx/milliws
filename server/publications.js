@@ -14,6 +14,66 @@ Meteor.publish('recycledJobs', function() {
   }
 });
 
+
+var numLPad = function(number, length){
+  var ns = number.toString();
+  if (typeof length == 'undefined') length = 2;
+  while(ns.length < length)
+    ns = "0" + ns;
+  return ns;
+}
+
+// Check indicator type: 
+//  [errorBreakDown | rtBreakdown]
+//
+// 1.
+//  loop over jobs & aggregate their aggregates...
+// 2.
+//  find the average ert for all jobs
+// 3. 
+//  build output obj: 
+//    {ert: xxx, daysAgg: yyy, yearAgg: ..., monthAgg: ..., day: ...}
+Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
+  var self = this;
+  //TODO check the parameters
+  
+  // console.log("Meteor.publish evtPerJobPerDate");
+  // console.dir(indicatorType);
+  // console.dir(selectedJobs);
+
+  var all = Events.aggregate(
+    [
+      {$match: {jobId : {$in: selectedJobs}}},
+      {$group: {
+          _id:  {
+              "year": { $year:"$etime"},
+              "month": { $month:"$etime"},
+              "day": { $dayOfMonth:"$etime"}
+          },
+          count: {$sum: 1},
+          avgRT: {$avg: "$responseTime"}
+          }
+      }
+    ]
+  );
+  
+  // [ { _id: { year: 2015, month: 4, day: 23 },
+  //   count: 2064,
+  //   avgRT: 258.6075581395349 },
+  //   ...]
+  var jobs = selectedJobs.join("|");
+  all.forEach(function(elem){
+    var date =elem._id.year + "-" + numLPad(elem._id.month) + "-" + numLPad(elem._id.day);
+    self.added("evtPerJobPerDate", date, {
+      count: elem.count,
+      jobs: jobs,
+      avgRT: elem.avgRT
+    });
+  });
+  self.ready();
+});
+
+
 Meteor.publish("eventsCount", function(filterOptions) {
   debug("in eventsCount pub.");
   var self = this;
@@ -53,17 +113,17 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   filterOpt = parseFilterOptions(filterOptions);
 
   var handle = Events.find(
-    filterOpt, 
+    filterOpt,
     {
-      sort: sortOptions, 
-      limit: count, 
-      skip: actualFrom, 
+      sort: sortOptions,
+      limit: count,
+      skip: actualFrom,
       fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1,responseTime:1,size:1}
     }
   ).observeChanges({
     added: function (id, fields) {
-      var jobStats = EventStats.findOne({_id: fields.jobId}, {fields: {avg:1}});
-      fields.avg = jobStats?jobStats.avg:0;
+      var jobStats = EventStats.findOne({_id: fields.jobId});
+      fields.avg = jobStats?jobStats.value.avg : 0;
       self.added('events', id, fields);
     },
     changed: function (id, fields) {
@@ -71,7 +131,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
     },
     removed: function (id) {
       var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
-      var jobStats = EventStats.findOne({_id: theEventJobId}, {fields: {avg:1}});
+      var jobStats = EventStats.findOne({_id: theEventJobId});
       if (jobStats) {
         jobStats[id] && jobStats[id].stop();
       }
@@ -130,7 +190,7 @@ var getFiltersForOp = function(field, filterObj) {
       }
       else {
         // NB : "value",  $nin cannot be used since w want do partial matches of strings
-        // ATT: Furthermore $not does not work with $regex... /xxx/ should be used instead 
+        // ATT: Furthermore $not does not work with $regex... /xxx/ should be used instead
         // @see http://docs.mongodb.org/manual/reference/operator/query/not/
         // e.g.: {jobId: {$nin: ['dexr','m1']}} => {"$and":[{"jobId":{"$not":/dexr/,"$options":"i"}},{"jobId":{"$not":/m1/,"$options":"i"}}
         var grp = [];
@@ -140,7 +200,7 @@ var getFiltersForOp = function(field, filterObj) {
           filt[field] = {"$not": new RegExp(value)};
           grp.push(filt);
         });
-        filters.push({$and: grp});      
+        filters.push({$and: grp});
       }
     break;
     case "in":
@@ -160,8 +220,8 @@ var getFiltersForOp = function(field, filterObj) {
           filt[field] = {$regex: value, $options: 'i'};
           grp.push(filt);
         });
-        filters.push({$or: grp});    
-      }  
+        filters.push({$or: grp});
+      }
     break;
     case "gte":
       if (field === 'etime') {

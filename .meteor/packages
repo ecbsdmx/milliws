@@ -11,19 +11,15 @@ mrt:moment
 
 less
 nemo64:bootstrap
-dandv:http-more
 meteorhacks:kadira
 meteorhacks:kadira-profiler
 peerlibrary:xml2js
 mizzao:bootboxjs
 fortawesome:fontawesome
 monbro:mongodb-mapreduce-aggregation
-sanjo:jasmine
-velocity:html-reporter
 alanning:roles
 accounts-github
 accounts-twitter
-accounts-google
 ian:accounts-ui-bootstrap-3
 accounts-password
 meteorhacks:npm
@@ -31,3 +27,6 @@ meteorhacks:npm
 
 npm-container
 d3js:d3
+accounts-google
+service-configuration
+reactive-var

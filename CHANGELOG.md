@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## version 0.6.0 (2015-05-06)
+- Added overview statistics in the reports section
+- Added a heatmap with response times and errors per day
+- Added yearly, monthly and current day breakdowns for response times and errors
+- Usability improvements to the job creation wizard
+
 ## Version 0.5.0 (2015-03-26)
 - Added possibility to filter events
 - Added possibility to login via third-party services

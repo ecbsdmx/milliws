@@ -1,4 +1,4 @@
-appVersion = "0.5.0";
+appVersion = "0.6.0";
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY'
@@ -7,3 +7,6 @@ Accounts.ui.config({
 defaultJobPanelState = "details";
 
 defaultEventRowCount = 10;
+
+/* Percentage of errors */
+defaultErrorThreshold = 5;

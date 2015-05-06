@@ -69,8 +69,7 @@ Template.jobsListActions.events({
     $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
       if (item.owner === Meteor.userId()) {
-        item.isActive = false;
-        Meteor.call('jobUpdate', item, function(error, result) {
+        Meteor.call('jobToggleActiveFlag', item._id, false, function(error, result) {
           if (error) {
             return alert(error.reason);
           }
@@ -83,8 +82,7 @@ Template.jobsListActions.events({
     $(e.currentTarget).tooltip('destroy');
     this.forEach(function(item) {
       if (item.owner === Meteor.userId()) {
-        item.isActive = true;
-        Meteor.call('jobUpdate', item, function(error, result) {
+        Meteor.call('jobToggleActiveFlag', item._id, true, function(error, result) {
           if (error) {
             return alert(error.reason);
           }

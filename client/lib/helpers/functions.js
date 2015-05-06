@@ -68,12 +68,11 @@ mapOperatorToSymbol = function(operator) {
     case "nin":
       symbol = "∉";
       break;
-    default: 
+    default:
     symbol="";
   }
   return symbol;
 }
-
 
 mapSymbolToOperator = function(symbol) {
   var operator;
@@ -95,4 +94,16 @@ mapSymbolToOperator = function(symbol) {
       break;
   }
   return operator;
+}
+
+formatMs = function(number) {
+  return number ? formatNumber(Math.round(number)) + "ms" : "n/a";
+}
+
+formatCount = function(number) {
+  return number ? formatNumber(number) : "n/a";
+}
+
+formatNumber = function(number) {
+  return number ? number.toLocaleString() : 0;
 }

@@ -19,8 +19,7 @@ Template.jobsItemActions.helpers({
 Template.jobsItemActions.events({
 
   'click .suspend': function(e) {
-    this.isActive = false;
-    Meteor.call('jobUpdate', this, function(error, result) {
+    Meteor.call('jobToggleActiveFlag', this._id, false, function(error, result) {
       if (error) {
         return alert(error.reason);
       }
@@ -28,8 +27,7 @@ Template.jobsItemActions.events({
   },
 
   'click .resume': function(e) {
-    this.isActive = true;
-    Meteor.call('jobUpdate', this, function(error, result) {
+    Meteor.call('jobToggleActiveFlag', this._id, true, function(error, result) {
       if (error) {
         return alert(error.reason);
       }
@@ -70,7 +68,6 @@ Template.jobsItemActions.events({
     var valid = true;
     $(formId).find('input').each(function(){
       if (!this.checkValidity()) { //-- HTML5
-        console.log("Invalid: " + this.id);
         valid = false;
       }
     });
