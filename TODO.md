@@ -29,7 +29,7 @@
 - [ ] Display a time series view of jobs execution times (later)
 - [ ] Job toggle: add a toggle all btn (later)
 - [ ] Pagination for heatmap (later)
-- [ ] represent the color scale (with values?) (later)
+- [x] represent the color scale (with values?) (later)
 - [x] ```Yeah !``` Bug: cal tip: strange 2-step color change when switching indicator type
 - [x] Bug: can click multiple same times indicator type button
 - [x] Bug: breakdown agg. not refreshing on job selection change (reactivity)

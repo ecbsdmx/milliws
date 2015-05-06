@@ -33,6 +33,7 @@ Template.monthMondayCalHeatmap.onRendered(function() {
 
     var tzOffset = new Date().getTimezoneOffset(); // We want the aggregation for the user timezone, so we need the client offset with UTC
     clearData();
+    //FIXME when paginating: get endPeriod from instanceVar/session
     Meteor.call("compileDailyAgg", indicatorType, selectedJobs, new Date(), tzOffset, function(error, result) {
       if (error) {
         console.log("compileDailyAgg error: " + error);
@@ -51,7 +52,7 @@ Template.monthMondayCalHeatmap.onRendered(function() {
             acceptableThreshold /= jobs.count();
           break;
           case "errorBreakdown":
-            acceptableThreshold = 5;
+            acceptableThreshold = defaultErrorThreshold;//@see environment.js
           break;
         }
 
@@ -106,8 +107,7 @@ var calendarHeatMap = function(options) {
       .attr("transform", "translate("+options.margins.left+", " + options.margins.top + ")")
   ;
 
-
-//LEGEND START
+  //-- legend
   var lgdSvg = d3.select(options.destCssSelector)
     .append("svg")
       .attr("class", "jobCalHeatMapLegend greenOrangeRedGrad")
@@ -132,8 +132,6 @@ var calendarHeatMap = function(options) {
       .attr("y", 0)
       .attr("transform", "translate(" + ( options.margins.left) +", 0)")
   ;
-// LEGEND END
-
 
   //-- title label
   var calJobLabel =
@@ -198,17 +196,17 @@ var calendarHeatMap = function(options) {
       .selectAll(".month")
       .data(dateRangeMonths)
       .enter()
-      .append("text")
-      .attr("x", function(d, i) {
-        var yearDecal = year(d) - year(minDate);
-        return  (week(d)-minWeek + 52*yearDecal)  * size;
-      })
-      .attr("y", -5)
-      .attr("class", "monthName")
-      .text(function(d) {
-        var m = month(d);
-        return m === 'Jan'?month(d) + "'" + year2(d):m;
-      })
+        .append("text")
+        .attr("x", function(d, i) {
+          var yearDecal = year(d) - year(minDate);
+          return  (week(d)-minWeek + 52*yearDecal)  * size;
+        })
+        .attr("y", -5)
+        .attr("class", "monthName")
+        .text(function(d) {
+          var m = month(d);
+          return m === 'Jan'?month(d) + "'" + year2(d):m;
+        })
       ;
 
     if (options.showMonthContour) {
@@ -268,17 +266,20 @@ function updateData(dataInput, indicatorType, colorScale) {
     .on('mouseout', function() {tipRT.hide();tipError.hide();})
   ;
 
-  //UPDATE LEGEND START
-  //FIXME add the tip !!!
+  //-- legend
   var lgdSvg = d3.select("svg g.calHeatmapLegendGroup");
   
   var tipLgd = d3.tip().attr("class", "d3-tip").html(function(d, i) {
     var range = colorScale.invertExtent(i);
     var label = indicatorType === "rtBreakdown"?"ms":"%";
-    return "From " + range[0] + label + " to " + range[1] + label;
-
-    // var obj = dataInput[date(d)];
-    // return typeof obj === 'undefined'?date(d): '<div class="text-center">' + date(d) + "<br />" + obj.toFixed(2) + " %</div>";
+    var colorscaleRange = colorScale.range();
+    
+    if (colorscaleRange.length - 1 === i) {
+      return "&ge;" + range[0] + label;
+    }
+    else{
+      return "From " + range[0] + label + " to " +  range[1] + label;  
+    }
   });
   lgdSvg.call(tipLgd);
 
@@ -286,12 +287,13 @@ function updateData(dataInput, indicatorType, colorScale) {
     .attr("range", function(d, i) {
       var range = colorScale.invertExtent(i);
       var label = indicatorType === "rtBreakdown"?"ms":"%";
-      return "From " + range[0] + label + " to " + range[1] + label;
+      var colorscaleRange = colorScale.range();
+      var toLabel = colorscaleRange.length - 1 === i ? "&infin;" : range[1] + label;
+      return "From " + range[0] + label + " to " + toLabel;
     })
     .on('mouseover', tipLgd.show)
     .on('mouseout', tipLgd.hide)
   ;
-  //UPDATE LEGEND END
 }
 
 function clearData(){

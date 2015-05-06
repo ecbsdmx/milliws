@@ -7,3 +7,6 @@ Accounts.ui.config({
 defaultJobPanelState = "details";
 
 defaultEventRowCount = 10;
+
+/* Percentage of errors */
+defaultErrorThreshold = 5;
