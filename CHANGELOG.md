@@ -1,9 +1,9 @@
 # CHANGELOG
 
-## version 0.6.0
+## version 0.6.0 (2015-05-06)
 - Added overview statistics in the reports section
 - Added a heatmap with response times and errors per day
-- Added yearly, monthly and daily breakdowns for response times and errors
+- Added yearly, monthly and current day breakdowns for response times and errors
 - Usability improvements to the job creation wizard
 
 ## Version 0.5.0 (2015-03-26)
