@@ -53,7 +53,7 @@ var triggerJob = function(job, last) {
     },
     qs: params,
     headers: {
-      "User-Agent": "Heimdallr 1.0.0"
+      "User-Agent": "MilliWS 1.0.0"
     }
   };
 
