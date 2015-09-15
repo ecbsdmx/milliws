@@ -11,8 +11,6 @@ mrt:moment
 
 less
 nemo64:bootstrap
-meteorhacks:kadira
-meteorhacks:kadira-profiler
 peerlibrary:xml2js
 mizzao:bootboxjs
 fortawesome:fontawesome
