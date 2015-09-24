@@ -3,6 +3,8 @@
 ## General
 - [ ] Add error handling and logging
 - [ ] Add support for HTTP notifications
+- [ ] Env. vars to conf. scheduler granularity
+- [ ] Env. vars to conf. aggregation stats frequency
 
 ## Job module
 - [ ] Share/follow jobs rather than default subscription to all
@@ -13,6 +15,7 @@
 ## Events module
 - [ ] Link the job id to a job detail panel
 - [ ] Store columns to display, # of rows, sort order in user profile
+- [ ] Optimize the jobs table (> 30 000 events : starts lagging)
 
 ## Design
 - [ ] Add support for themes
