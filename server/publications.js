@@ -75,7 +75,6 @@ Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
 
 
 Meteor.publish("eventsCount", function(filterOptions) {
-  debug("in eventsCount pub.");
   var self = this;
   var count = 0;
   var initializing = true;
@@ -101,7 +100,6 @@ Meteor.publish("eventsCount", function(filterOptions) {
 
 
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
-  debug("in events pub.");
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;
@@ -234,7 +232,6 @@ var getFiltersForOp = function(field, filterObj) {
         obj[field] ={$gte: parseInt(val)};
         filters.push(obj);
       }
-      debug("gte: %j", filters);
     break;
     case "lte":
       if (field === 'etime') {
