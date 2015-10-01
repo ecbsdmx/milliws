@@ -5,12 +5,14 @@
 - [ ] Add support for HTTP notifications
 - [ ] Env. vars to conf. scheduler granularity
 - [ ] Env. vars to conf. aggregation stats frequency
+- [ ] Add indexes to collections (pkg meteor-collection2 + conf.)
 
 ## Job module
 - [ ] Share/follow jobs rather than default subscription to all
 - [ ] Add support for metadata queries in the wizard
 - [ ] Add support for keyboard shortcuts
 - [ ] Store details toggle status should in user profile
+- [ ] Validate entry-point with extra small request
 
 ## Events module
 - [ ] Link the job id to a job detail panel
