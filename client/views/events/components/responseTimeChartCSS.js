@@ -41,7 +41,9 @@ Template.responseTimeChartCSS.helpers({
       {index: 2, val: rangeWarning, percent: rgPct2 + "%"}, 
       {index: 3, val: rangeError, percent: rgPct3 + "%"}
     ];
-    var marker = Math.min(rangeError,Math.ceil(this.avg));
+
+    var jobAvg = EventStats.findOne({_id: this.jobId}).value.avg;
+    var marker = Math.min(rangeError,Math.ceil(jobAvg));
 
     return {
       ranges:         ranges,

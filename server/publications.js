@@ -34,6 +34,8 @@ var numLPad = function(number, length){
 //  build output obj: 
 //    {ert: xxx, daysAgg: yyy, yearAgg: ..., monthAgg: ..., day: ...}
 Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
+  Meteor.call("messageLogDebug", "publish evtPerJobPerDate, indicatorType: " + JSON.stringify(indicatorType) + ", selectedJobs: " + JSON.stringify(selectedJobs), "publication");
+
   var self = this;
   //TODO check the parameters
   
@@ -75,6 +77,7 @@ Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
 
 
 Meteor.publish("eventsCount", function(filterOptions) {
+  Meteor.call("messageLogDebug", "publish eventsCount, filterOptions: " + JSON.stringify(filterOptions), "publication");
   var self = this;
   var count = 0;
   var initializing = true;
@@ -100,6 +103,7 @@ Meteor.publish("eventsCount", function(filterOptions) {
 
 
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
+  Meteor.call("messageLogDebug", "publish events, from:" + JSON.stringify(from) + ", sortOptions: " + JSON.stringify(sortOptions) + ", filterOptions: " + JSON.stringify(filterOptions), "publication");
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;
@@ -110,7 +114,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
   var filterOpt = {};
   filterOpt = parseFilterOptions(filterOptions);
 
-  var handle = Events.find(
+  return Events.find(
     filterOpt,
     {
       sort: sortOptions,
@@ -118,26 +122,7 @@ Meteor.publish("events", function(from, sortOptions, filterOptions) {
       skip: actualFrom,
       fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1,responseTime:1,size:1}
     }
-  ).observeChanges({
-    added: function (id, fields) {
-      var jobStats = EventStats.findOne({_id: fields.jobId});
-      fields.avg = jobStats?jobStats.value.avg : 0;
-      self.added('events', id, fields);
-    },
-    changed: function (id, fields) {
-      self.changed('events', id, fields);
-    },
-    removed: function (id) {
-      var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
-      var jobStats = EventStats.findOne({_id: theEventJobId});
-      if (jobStats) {
-        jobStats[id] && jobStats[id].stop();
-      }
-      self.removed('events', id);
-    }
-  });
-  self.ready();
-  self.onStop(function() { handle.stop(); });
+  );
 });
 
 Meteor.publish('eventStats', function() {
