@@ -12,7 +12,7 @@ Template.eventsList.helpers({
   },
   eventsEnd: function() {
     var from = Session.get("EventsFromCount") || 0;
-    return from + Events.find().count();
+    return from + defaultEventRowCount;
   },
   isLastPage: function() {
     var from = Session.get("EventsFromCount") || 0;

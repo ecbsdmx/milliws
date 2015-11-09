@@ -1,4 +1,4 @@
-var debug = Meteor.npmRequire("debug")("loki:scheduler");
+//var debug = Meteor.npmRequire("debug")("loki:scheduler");
 // vector of new jobs trigger results
 var jobsTriggeredRes = [];
 
@@ -8,8 +8,10 @@ var monitor = function() {
   var jobs = Jobs.find( { isDeleted: false, isActive: true } );
   jobsTriggeredRes = [];
   jobs.forEach(function(element, index, array) {
+    Meteor.call("messageLogError", "Find last: " + element._id + " run...", "scheduler");
     var lastCursor = Events.find({ jobId : element._id},
                                  {sort: { etime : -1}, limit: 1});
+    Meteor.call("messageLogError", "Find last: " + element._id + " run done !", "scheduler");
     if (0 === lastCursor.count()) {
       triggerJob(element, null);
     } else {
@@ -39,7 +41,7 @@ var triggerStatsUpdate = function() {
   jobsTriggeredRes = [];
 
   Meteor.call("updateEventStatsOpt", jobs, function(err, data) {
-    if (err) debug("updateEventStatsOpt error: " + err);
+    if (err) Meteor.call("messageLogError", "updateEventStatsOpt error: " + err, "scheduler");
   });
 };
 
@@ -104,7 +106,7 @@ var triggerJob = function(job, last) {
       var responseTime = received - startTime;
       processResults(response, job, responseTime, contentSize);
     } else {
-      debug(error);
+      Meteor.call("messageLogError", "Request error: " + JSON.stringify(error), "scheduler");
     }
     jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
     triggerStatsUpdate();
@@ -193,5 +195,5 @@ Meteor.setInterval(monitor, 60 * 1000);
 
 var proxy = process.env.http_proxy;
 if (proxy) {
-  debug('Using the existing ENV variable defined for proxy: http_proxy');
+  Meteor.call("messageLogInfo", "Using the existing ENV variable defined for proxy: http_proxy", "scheduler");
 }
