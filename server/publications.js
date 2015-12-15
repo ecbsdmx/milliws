@@ -1,5 +1,28 @@
-var debug = Meteor.npmRequire("debug")("loki:publication");
-
+// var wrappedFind = Meteor.Collection.prototype.find;
+// Meteor.Collection.prototype.find = function () {
+//   var cursor = wrappedFind.apply(this, arguments);
+//   var collectionName = this._name;
+ 
+//   cursor.observeChanges({
+//     added: function (id, fields) {
+//       Meteor.call("messageLogDebug", collectionName + " : added : " + EJSON.stringify(arguments), "wrappedFind");
+//     },
+ 
+//     changed: function (id, fields) {
+//       console.log(collectionName, 'changed', id, fields);
+//     },
+ 
+//     movedBefore: function (id, before) {
+//       console.log(collectionName, 'movedBefore', id, before);
+//     },
+ 
+//     removed: function (id) {
+//       console.log(collectionName, 'removed', id);
+//     }
+//   });
+ 
+//   return cursor;
+// };
 Meteor.publish('jobs', function() {
   return Jobs.find({isDeleted: false});
 });
@@ -23,59 +46,8 @@ var numLPad = function(number, length){
   return ns;
 }
 
-// Check indicator type: 
-//  [errorBreakDown | rtBreakdown]
-//
-// 1.
-//  loop over jobs & aggregate their aggregates...
-// 2.
-//  find the average ert for all jobs
-// 3. 
-//  build output obj: 
-//    {ert: xxx, daysAgg: yyy, yearAgg: ..., monthAgg: ..., day: ...}
-Meteor.publish("evtPerJobPerDate", function(indicatorType, selectedJobs) {
-  var self = this;
-  //TODO check the parameters
-  
-  // console.log("Meteor.publish evtPerJobPerDate");
-  // console.dir(indicatorType);
-  // console.dir(selectedJobs);
-
-  var all = Events.aggregate(
-    [
-      {$match: {jobId : {$in: selectedJobs}}},
-      {$group: {
-          _id:  {
-              "year": { $year:"$etime"},
-              "month": { $month:"$etime"},
-              "day": { $dayOfMonth:"$etime"}
-          },
-          count: {$sum: 1},
-          avgRT: {$avg: "$responseTime"}
-          }
-      }
-    ]
-  );
-  
-  // [ { _id: { year: 2015, month: 4, day: 23 },
-  //   count: 2064,
-  //   avgRT: 258.6075581395349 },
-  //   ...]
-  var jobs = selectedJobs.join("|");
-  all.forEach(function(elem){
-    var date =elem._id.year + "-" + numLPad(elem._id.month) + "-" + numLPad(elem._id.day);
-    self.added("evtPerJobPerDate", date, {
-      count: elem.count,
-      jobs: jobs,
-      avgRT: elem.avgRT
-    });
-  });
-  self.ready();
-});
-
-
 Meteor.publish("eventsCount", function(filterOptions) {
-  debug("in eventsCount pub.");
+  Meteor.call("messageLogDebug", "publish eventsCount, filterOptions: " + JSON.stringify(filterOptions), "publication");
   var self = this;
   var count = 0;
   var initializing = true;
@@ -101,45 +73,25 @@ Meteor.publish("eventsCount", function(filterOptions) {
 
 
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
-  debug("in events pub.");
+  Meteor.call("messageLogDebug", "publish events, from:" + JSON.stringify(from) + ", sortOptions: " + JSON.stringify(sortOptions) + ", filterOptions: " + JSON.stringify(filterOptions), "publication");
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;
-  //fixme use defaultEventRowCount 'global' (currently client side only) variable
-  var max = Events.find({}).count();
-  var actualFrom = max > count?Math.min(from, max - count):from;
-
   var filterOpt = {};
   filterOpt = parseFilterOptions(filterOptions);
+  //fixme use defaultEventRowCount 'global' (currently client side only) variable
+  var max = Events.find(filterOpt, {fields: {'_id':1}}).count();
+  var actualFrom = max > count?Math.min(from, max - count):from;
 
-  var handle = Events.find(
+  return Events.find(
     filterOpt,
     {
       sort: sortOptions,
       limit: count,
-      skip: actualFrom,
+      skip: actualFrom, //FIXME this might be the expensive bit : see doc
       fields: {jobId:1,etime:1,deltas:1,isProblematic:1,status:1,series:1,observations:1,ert:1,responseTime:1,size:1}
     }
-  ).observeChanges({
-    added: function (id, fields) {
-      var jobStats = EventStats.findOne({_id: fields.jobId});
-      fields.avg = jobStats?jobStats.value.avg : 0;
-      self.added('events', id, fields);
-    },
-    changed: function (id, fields) {
-      self.changed('events', id, fields);
-    },
-    removed: function (id) {
-      var theEventJobId = Events.findOne({_id: id}, {fields: {jobId:1}}).jobId;
-      var jobStats = EventStats.findOne({_id: theEventJobId});
-      if (jobStats) {
-        jobStats[id] && jobStats[id].stop();
-      }
-      self.removed('events', id);
-    }
-  });
-  self.ready();
-  self.onStop(function() { handle.stop(); });
+  );
 });
 
 Meteor.publish('eventStats', function() {
@@ -234,7 +186,6 @@ var getFiltersForOp = function(field, filterObj) {
         obj[field] ={$gte: parseInt(val)};
         filters.push(obj);
       }
-      debug("gte: %j", filters);
     break;
     case "lte":
       if (field === 'etime') {

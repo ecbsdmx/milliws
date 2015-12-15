@@ -1,12 +1,17 @@
-var debug = Meteor.npmRequire("debug")("loki:scheduler");
+//var debug = Meteor.npmRequire("debug")("loki:scheduler");
+// vector of new jobs trigger results
+var jobsTriggeredRes = [];
+
 // Monitoring function to be called every minute
 var monitor = function() {
-  debug("Monitoring jobs triggered.");
   // We need to get all monitoring jobs
   var jobs = Jobs.find( { isDeleted: false, isActive: true } );
+  jobsTriggeredRes = [];
   jobs.forEach(function(element, index, array) {
+    Meteor.call("messageLogError", "Find last: " + element._id + " run...", "scheduler");
     var lastCursor = Events.find({ jobId : element._id},
                                  {sort: { etime : -1}, limit: 1});
+    Meteor.call("messageLogError", "Find last: " + element._id + " run done !", "scheduler");
     if (0 === lastCursor.count()) {
       triggerJob(element, null);
     } else {
@@ -16,17 +21,28 @@ var monitor = function() {
       }
     }
   });
-
-  Meteor.call("updateEventStats", function(err, data) {
-    if (err) debug("updateEventStats error: " + err);
-  });
 };
+
 // Checks whether a job needs to run
 var isDue = function(job, last) {
   var lastRun = last.etime;
   var due  = new Date(lastRun.setMinutes(lastRun.getMinutes() + job.freq));
   var current = new Date();
   return current >= due;
+};
+
+// check if stats update is to be performed and initiate
+var triggerStatsUpdate = function() {
+  var jobsCount = Jobs.find({ isDeleted: false, isActive: true }).count();
+  if (jobsTriggeredRes.length < jobsCount) return;
+
+  //-- avoid bug of multiple triggering.
+  var jobs = jobsTriggeredRes.slice();
+  jobsTriggeredRes = [];
+
+  Meteor.call("updateEventStatsOpt", jobs, function(err, data) {
+    if (err) Meteor.call("messageLogError", "updateEventStatsOpt error: " + err, "scheduler");
+  });
 };
 
 // Unleash a job
@@ -86,10 +102,14 @@ var triggerJob = function(job, last) {
   var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
     if (body || 304 === response.statusCode) {
-      processResults(response, job, startTime, contentSize);
+      var received = new Date();
+      var responseTime = received - startTime;
+      processResults(response, job, responseTime, contentSize);
     } else {
-      debug(error);
+      Meteor.call("messageLogError", "Request error: " + JSON.stringify(error), "scheduler");
     }
+    jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
+    triggerStatsUpdate();
   })).on('response', function(response) {
     // unmodified http.IncomingMessage object
     response.on('data', function(data) {
@@ -99,8 +119,7 @@ var triggerJob = function(job, last) {
   });
 };
 
-var processResults = function(result, job, startTime, contentSize) {
-  var received = new Date();
+var processResults = function(result, job, responseTime, contentSize) {
   var status = result.statusCode;
   var serieObs = {nSeries: 0, nObs: 0};
   if (200 === status) {
@@ -118,7 +137,7 @@ var processResults = function(result, job, startTime, contentSize) {
         serieObs = parseJSON(result.body);
     }
   }
-  Meteor.call("eventInsert", job, status, received - startTime, serieObs.nSeries, serieObs.nObs, contentSize);
+  Meteor.call("eventInsert", job, status, responseTime, serieObs.nSeries, serieObs.nObs, contentSize);
 }
 
 var parseCompactXML = function(content) {
@@ -176,5 +195,5 @@ Meteor.setInterval(monitor, 60 * 1000);
 
 var proxy = process.env.http_proxy;
 if (proxy) {
-  debug('Using the existing ENV variable defined for proxy: http_proxy');
+  Meteor.call("messageLogInfo", "Using the existing ENV variable defined for proxy: http_proxy", "scheduler");
 }
