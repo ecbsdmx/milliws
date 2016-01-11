@@ -1,10 +1,22 @@
+Template.eventsList.onCreated(function(){
+  // maybe here for the events count
+  console.log("eventsList onCreated()");
+  console.log("Getting filteredEventsCount");
+  var filterOptions = Session.get("eventsFilter") || {};
+  Meteor.call("countFilteredEvents", filterOptions, function(err, resp){
+    console.log("resp: " + JSON.stringify(resp, false, "  "));
+    Session.set("CurrentEventsCount", resp);
+  });
+  console.log("Done filteredEventsCount");
+});
+
 Template.eventsList.rendered = function() {
   $('#problematicToggle').bootstrapToggle();
-}
+}  
 
 Template.eventsList.helpers({
   totalEventCount: function() {
-    return EventsCount.findOne().count;
+    return Session.get("CurrentEventsCount") || 0;
   },
   eventsStart: function() {
     var from = Session.get("EventsFromCount") || 1;
@@ -16,7 +28,7 @@ Template.eventsList.helpers({
   },
   isLastPage: function() {
     var from = Session.get("EventsFromCount") || 0;
-    var max = EventsCount.findOne().count;
+    var max = Session.get("CurrentEventsCount") || 0;
     return ((max < defaultEventRowCount) || (from === (max - defaultEventRowCount)))?{class: "disabled"}:{};
   },
 
@@ -25,7 +37,7 @@ Template.eventsList.helpers({
     return from === 0?{class: "disabled"}:{};
   },
   paginationElems: function() {
-    var numEvt = EventsCount.findOne().count;
+    var numEvt = Session.get("CurrentEventsCount") || 0;
     var elems = [];
     var index = 0;
     for (var i=0;i<numEvt;i+=defaultEventRowCount) {
@@ -199,12 +211,13 @@ Template.eventsList.events({
   'click .nextEvents': function (e) {
     e.preventDefault();
     var from = Session.get("EventsFromCount") || 0;
-    var max = EventsCount.findOne().count;
+    var max = Session.get("CurrentEventsCount") || 0;
     Session.set("EventsFromCount", (from + defaultEventRowCount <= max-defaultEventRowCount)?(from+defaultEventRowCount):(max-defaultEventRowCount));
   },
   'click .lastEvents': function (e) {
     e.preventDefault();
-    Session.set("EventsFromCount", EventsCount.findOne().count - defaultEventRowCount);
+    var numEvt = Session.get("CurrentEventsCount") || 0;
+    Session.set("EventsFromCount", numEvt - defaultEventRowCount);
   },
   //-- filters
   'click #filterBtn': function (e) {

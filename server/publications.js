@@ -46,32 +46,6 @@ var numLPad = function(number, length){
   return ns;
 }
 
-Meteor.publish("eventsCount", function(filterOptions) {
-  Meteor.call("messageLogDebug", "publish eventsCount, filterOptions: " + JSON.stringify(filterOptions), "publication");
-  var self = this;
-  var count = 0;
-  var initializing = true;
-  var handle = Events.find(parseFilterOptions(filterOptions), {fields: {_id:1}}).observeChanges({
-    added: function (id) {
-      count++;
-      if (!initializing)
-        self.changed("eventsCount", "countId", {count: count});
-    },
-    removed: function (id) {
-      count--;
-      self.changed("eventsCount", "countId", {count: count});
-    }
-  });
-  initializing = false;
-  self.added("eventsCount", "countId", {count: count});
-  self.ready();
-
-  self.onStop(function () {
-    handle.stop();
-  });
-});
-
-
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
   Meteor.call("messageLogDebug", "publish events, from:" + JSON.stringify(from) + ", sortOptions: " + JSON.stringify(sortOptions) + ", filterOptions: " + JSON.stringify(filterOptions), "publication");
   //FIXME do some checks on the parameters
