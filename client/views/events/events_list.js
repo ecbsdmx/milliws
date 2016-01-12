@@ -1,13 +1,9 @@
 Template.eventsList.onCreated(function(){
   // maybe here for the events count
-  console.log("eventsList onCreated()");
-  console.log("Getting filteredEventsCount");
   var filterOptions = Session.get("eventsFilter") || {};
   Meteor.call("countFilteredEvents", filterOptions, function(err, resp){
-    console.log("resp: " + JSON.stringify(resp, false, "  "));
     Session.set("CurrentEventsCount", resp);
   });
-  console.log("Done filteredEventsCount");
 });
 
 Template.eventsList.rendered = function() {

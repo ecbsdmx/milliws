@@ -128,7 +128,7 @@ function getYearlyTotal(templateInstance, indicatorType, selectedJobs)
 {
   Meteor.call("compileYearTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
-      console.log("compileYearTotal callback error: " + error);
+       Meteor.call("messageLogError", "error: " + error, "reportBreakdown getYearlyTotal");
     }
     else {
       templateInstance.yearTotal.set(result);
@@ -142,7 +142,7 @@ function getMonthlyTotal(templateInstance, indicatorType, selectedJobs)
 {
   Meteor.call("compileMonthTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
-      console.log("compileMonthTotal callback error: " + error);
+      Meteor.call("messageLogError", "error: " + error, "reportBreakdown getMonthlyTotal");
     }
     else {
       templateInstance.monthTotal.set(result);
@@ -167,7 +167,7 @@ function getDailyTotal(templateInstance, indicatorType, selectedJobs)
 {
   Meteor.call("compileDayTotal", indicatorType, selectedJobs, templateInstance.endPeriod.get(), function(error, result) {
     if (error) {
-      console.log("compileDayTotal callback error: " + error);
+      Meteor.call("messageLogError", "error: " + error, "reportBreakdown compileDayTotal");
     }
     else {
       templateInstance.dayTotal.set(result);
