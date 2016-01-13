@@ -8,10 +8,8 @@ var monitor = function() {
   var jobs = Jobs.find( { isDeleted: false, isActive: true } );
   jobsTriggeredRes = [];
   jobs.forEach(function(element, index, array) {
-    Meteor.call("messageLogError", "Find last: " + element._id + " run...", "scheduler");
     var lastCursor = Events.find({ jobId : element._id},
                                  {sort: { etime : -1}, limit: 1});
-    Meteor.call("messageLogError", "Find last: " + element._id + " run done !", "scheduler");
     if (0 === lastCursor.count()) {
       triggerJob(element, null);
     } else {
