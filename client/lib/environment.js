@@ -1,4 +1,4 @@
-appVersion = "0.6.0";
+appVersion = "1.0.0";
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY'
