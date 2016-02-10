@@ -36,7 +36,7 @@ UI.registerHelper('formatExecutionTime', function(ts) {
 
 
 UI.registerHelper('formatERT', function(ert) {
-  return 1 === ert ? "Every minute" : "Every " + ert + " minutes";
+  return moment().add(ert, 'minutes').fromNow().replace('in a ', 'Every ').replace('in ', 'Every ');
 });
 
 UI.registerHelper('formatDeltas', function(delta) {
