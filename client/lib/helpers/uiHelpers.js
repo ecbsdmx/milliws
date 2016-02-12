@@ -36,9 +36,9 @@ UI.registerHelper('formatExecutionTime', function(ts) {
 
 UI.registerHelper('formatERT', function(ert) {
   if (ert >= 60000) {
-    return ((ert / 60000).toPrecision(1)) + (ert > 120000 ? " minutes" : " minute");
+    return ((ert / 60000).toPrecision(1)) + (ert >= 120000 ? " minutes" : " minute");
   } else if (ert >= 1000) {
-    return (ert / 1000) + (ert > 2000 ? " seconds" : " second");
+    return (ert / 1000) + (ert >= 2000 ? " seconds" : " second");
   } else {
     return ert + " milliseconds";
   }
