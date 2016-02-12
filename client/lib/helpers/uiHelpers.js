@@ -34,8 +34,17 @@ UI.registerHelper('formatExecutionTime', function(ts) {
   return moment(ts).format("YYYY-MM-DD HH:mm");
 });
 
-
 UI.registerHelper('formatERT', function(ert) {
+  if (ert >= 60000) {
+    return ((ert / 60000).toPrecision(1)) + (ert >= 120000 ? " minutes" : " minute");
+  } else if (ert >= 1000) {
+    return (ert / 1000) + (ert >= 2000 ? " seconds" : " second");
+  } else {
+    return ert + " milliseconds";
+  }
+});
+
+UI.registerHelper('formatFreq', function(ert) {
   return moment().add(ert, 'minutes').fromNow().replace('in a ', 'Every ').replace('in ', 'Every ');
 });
 
