@@ -81,7 +81,7 @@ var triggerJob = function(job, last) {
   } else if (job.format === "sdmx-json-1.0.0") {
     options.headers.Accept = "application/vnd.sdmx.data+json;version=1.0.0-wd";
   } else { // default/unknown is SDMX-JSON
-    options.headers.Accept =  "application/vnd.sdmx.data+json;version=1.0.0-wd"
+    options.headers.Accept =  "application/vnd.sdmx.data+json;version=1.0.0-wd";
   }
 
   if (job.isCompressed) {
@@ -99,9 +99,9 @@ var triggerJob = function(job, last) {
   options.uri = job.url;
   var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
-    if (body || 304 === response.statusCode) {
-      var received = new Date();
-      var responseTime = received - startTime;
+    var received = new Date();
+    var responseTime = received - startTime;
+    if (body || (response && 304 === response.statusCode)) {
       processResults(response, job, responseTime, contentSize);
     } else {
       Meteor.call("messageLogError", "Request error: " + JSON.stringify(error), "scheduler");
@@ -113,7 +113,7 @@ var triggerJob = function(job, last) {
     response.on('data', function(data) {
       // (compressed ?) data as it is received
       contentSize += data.length;
-    })
+    });
   });
 };
 
@@ -136,7 +136,7 @@ var processResults = function(result, job, responseTime, contentSize) {
     }
   }
   Meteor.call("eventInsert", job, status, responseTime, serieObs.nSeries, serieObs.nObs, contentSize);
-}
+};
 
 var parseCompactXML = function(content) {
   var ret = {nSeries: 0, nObs: 0};
@@ -177,7 +177,7 @@ var parseJSON = function(content) {
     for (var property in series) {
       if (series.hasOwnProperty(property)) {
         ret.nSeries++;
-        var obs = series[property]["observations"];
+        var obs = series[property].observations;
         for (var obsProp in obs) {
           if (obs.hasOwnProperty(obsProp)) {
             ret.nObs++;
@@ -187,7 +187,7 @@ var parseJSON = function(content) {
     }
   });
   return ret;
-}
+};
 // Start cron
 Meteor.setInterval(monitor, 60 * 1000);
 
