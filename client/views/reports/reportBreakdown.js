@@ -122,7 +122,7 @@ Template.reportBreakdown.events({
 
 var isSelectedBreakDown = function(breakdown) {
   return Session.equals("SelectedBreakdown", breakdown);
-}
+};
 
 function getYearlyTotal(templateInstance, indicatorType, selectedJobs)
 {
