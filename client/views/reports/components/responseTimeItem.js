@@ -1,5 +1,5 @@
 Template.responseTimeItem.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 };
 
 Template.responseTimeItem.helpers({
@@ -43,7 +43,7 @@ Template.responseTimeItem.helpers({
       whiskerStart: whiskerStart,
       medianStart: medianStart,
       color: color
-    }
+    };
   },
   tooltip: function() {
     var text = "";

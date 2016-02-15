@@ -1,6 +1,6 @@
 Template.columnFilter.rendered = function(){
   $('[data-toggle="popover"]').popover();
-}
+};
 
 Template.columnFilter.events({
   'click .filtersMenu a': function (e){
