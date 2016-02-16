@@ -1,5 +1,5 @@
 Template.jobsItemActions.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({delay: {show: 1000}, trigger: 'hover'});
   $('#editForm_' + this._id).validator();
 };
 
