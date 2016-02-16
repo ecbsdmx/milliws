@@ -106,8 +106,10 @@ var triggerJob = function(job, last) {
     } else {
       Meteor.call("messageLogError", "Request error: " + JSON.stringify(error), "scheduler");
     }
-    jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
-    triggerStatsUpdate();
+    if (response) {
+      jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
+      triggerStatsUpdate();
+    }
   })).on('response', function(response) {
     // unmodified http.IncomingMessage object
     response.on('data', function(data) {
