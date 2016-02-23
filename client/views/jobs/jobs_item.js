@@ -7,7 +7,7 @@ Template.jobsItem.created = function() {
 };
 
 Template.jobsItem.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({delay: {show: 1000}, trigger: 'hover'});
 };
 
 Template.jobsItem.helpers({
@@ -34,7 +34,7 @@ Template.jobsItem.helpers({
   runCount: function() {
     var jobStat = EventStats.findOne({_id: this._id});
     var count = jobStat ? jobStat.value.count : 0;
-    return count + (count > 1 ? " times" : " time")
+    return count + (count > 1 ? " times" : " time");
   }
 });
 

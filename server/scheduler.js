@@ -1,24 +1,30 @@
 //var debug = Meteor.npmRequire("debug")("loki:scheduler");
 // vector of new jobs trigger results
 var jobsTriggeredRes = [];
+var jobsToRun = [];
 
 // Monitoring function to be called every minute
 var monitor = function() {
-  // We need to get all monitoring jobs
-  var jobs = Jobs.find( { isDeleted: false, isActive: true } );
-  jobsTriggeredRes = [];
-  jobs.forEach(function(element, index, array) {
-    var lastCursor = Events.find({ jobId : element._id},
-                                 {sort: { etime : -1}, limit: 1});
-    if (0 === lastCursor.count()) {
-      triggerJob(element, null);
-    } else {
-      var last = lastCursor.fetch()[0];
-      if (isDue(element, last)) {
-        triggerJob(element, last);
+  if (0 === jobsTriggeredRes.length) {// We don't want to run if jobs are still running
+    // We need to get all monitoring jobs
+    var jobs = Jobs.find( { isDeleted: false, isActive: true } );
+    jobsTriggeredRes = [];
+    jobs.forEach(function(element, index, array) {
+      var lastCursor = Events.find({ jobId : element._id},
+                                   {sort: { etime : -1}, limit: 1});
+      if (0 === lastCursor.count()) {
+        jobsToRun.push({job: element, last: null});
+      } else {
+        var last = lastCursor.fetch()[0];
+        if (isDue(element, last)) {
+          jobsToRun.push({job: element, last: last});
+        }
       }
-    }
-  });
+    });
+    jobsToRun.forEach(function(element, index, array) {
+      triggerJob(element.job, element.last);
+    });
+  }
 };
 
 // Checks whether a job needs to run
@@ -31,12 +37,12 @@ var isDue = function(job, last) {
 
 // check if stats update is to be performed and initiate
 var triggerStatsUpdate = function() {
-  var jobsCount = Jobs.find({ isDeleted: false, isActive: true }).count();
-  if (jobsTriggeredRes.length < jobsCount) return;
+  if (jobsTriggeredRes.length < jobsToRun.length) return;
 
   //-- avoid bug of multiple triggering.
   var jobs = jobsTriggeredRes.slice();
   jobsTriggeredRes = [];
+  jobsToRun = [];
 
   Meteor.call("updateEventStatsOpt", jobs, function(err, data) {
     if (err) Meteor.call("messageLogError", "updateEventStatsOpt error: " + err, "scheduler");
@@ -81,7 +87,7 @@ var triggerJob = function(job, last) {
   } else if (job.format === "sdmx-json-1.0.0") {
     options.headers.Accept = "application/vnd.sdmx.data+json;version=1.0.0-wd";
   } else { // default/unknown is SDMX-JSON
-    options.headers.Accept =  "application/vnd.sdmx.data+json;version=1.0.0-wd"
+    options.headers.Accept =  "application/vnd.sdmx.data+json;version=1.0.0-wd";
   }
 
   if (job.isCompressed) {
@@ -99,21 +105,23 @@ var triggerJob = function(job, last) {
   options.uri = job.url;
   var contentSize = 0;
   request(options, Meteor.bindEnvironment(function (error, response, body) {
-    if (body || 304 === response.statusCode) {
-      var received = new Date();
-      var responseTime = received - startTime;
+    var received = new Date();
+    var responseTime = received - startTime;
+    if (body || (response && 304 === response.statusCode)) {
       processResults(response, job, responseTime, contentSize);
     } else {
       Meteor.call("messageLogError", "Request error: " + JSON.stringify(error), "scheduler");
     }
-    jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
-    triggerStatsUpdate();
+    if (response) {
+      jobsTriggeredRes.push({j:job, rt: responseTime, statusCode: response.statusCode});
+      triggerStatsUpdate();
+    }
   })).on('response', function(response) {
     // unmodified http.IncomingMessage object
     response.on('data', function(data) {
       // (compressed ?) data as it is received
       contentSize += data.length;
-    })
+    });
   });
 };
 
@@ -136,7 +144,7 @@ var processResults = function(result, job, responseTime, contentSize) {
     }
   }
   Meteor.call("eventInsert", job, status, responseTime, serieObs.nSeries, serieObs.nObs, contentSize);
-}
+};
 
 var parseCompactXML = function(content) {
   var ret = {nSeries: 0, nObs: 0};
@@ -177,7 +185,7 @@ var parseJSON = function(content) {
     for (var property in series) {
       if (series.hasOwnProperty(property)) {
         ret.nSeries++;
-        var obs = series[property]["observations"];
+        var obs = series[property].observations;
         for (var obsProp in obs) {
           if (obs.hasOwnProperty(obsProp)) {
             ret.nObs++;
@@ -187,7 +195,7 @@ var parseJSON = function(content) {
     }
   });
   return ret;
-}
+};
 // Start cron
 Meteor.setInterval(monitor, 60 * 1000);
 

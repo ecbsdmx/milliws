@@ -1,10 +1,10 @@
 Template.responseTimeItem.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
 };
 
 Template.responseTimeItem.helpers({
   graphData: function() {
-    var events = EventStats.find({}, {sort: {_id: 1}});
+    var events = EventStats.find({_id: {$in: Session.get("SelectedEventsStats")}}, {sort: {_id: 1}});
     var max = 0;
     events.forEach(function(element) {
       if (element.value.whiskerStop > max) {
@@ -43,7 +43,7 @@ Template.responseTimeItem.helpers({
       whiskerStart: whiskerStart,
       medianStart: medianStart,
       color: color
-    }
+    };
   },
   tooltip: function() {
     var text = "";
