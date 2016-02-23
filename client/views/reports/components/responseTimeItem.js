@@ -4,7 +4,7 @@ Template.responseTimeItem.rendered = function() {
 
 Template.responseTimeItem.helpers({
   graphData: function() {
-    var events = EventStats.find({}, {sort: {_id: 1}});
+    var events = EventStats.find({_id: {$in: Session.get("SelectedEventsStats")}}, {sort: {_id: 1}});
     var max = 0;
     events.forEach(function(element) {
       if (element.value.whiskerStop > max) {
