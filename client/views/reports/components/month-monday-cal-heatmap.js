@@ -263,7 +263,7 @@ function updateData(dataInput, indicatorType, colorScale) {
       return "day c" + colorScale(obj);
     })
     .on('mouseover', indicatorType === "rtBreakdown"?tipRT.show:tipError.show)
-    .on('mouseout', function() {tipRT.hide();tipError.hide();})
+    .on('mouseout', function() {tipRT.hide;tipError.hide;})
   ;
 
   //-- legend
@@ -303,4 +303,5 @@ function clearData(){
     .on('mouseover', null)
     .on('mouseout', null)
   ;
+  $(".d3-tip.n").remove();
 }
