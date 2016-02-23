@@ -1,24 +1,30 @@
 //var debug = Meteor.npmRequire("debug")("loki:scheduler");
 // vector of new jobs trigger results
 var jobsTriggeredRes = [];
+var jobsToRun = [];
 
 // Monitoring function to be called every minute
 var monitor = function() {
-  // We need to get all monitoring jobs
-  var jobs = Jobs.find( { isDeleted: false, isActive: true } );
-  jobsTriggeredRes = [];
-  jobs.forEach(function(element, index, array) {
-    var lastCursor = Events.find({ jobId : element._id},
-                                 {sort: { etime : -1}, limit: 1});
-    if (0 === lastCursor.count()) {
-      triggerJob(element, null);
-    } else {
-      var last = lastCursor.fetch()[0];
-      if (isDue(element, last)) {
-        triggerJob(element, last);
+  if (0 === jobsTriggeredRes.length) {// We don't want to run if jobs are still running
+    // We need to get all monitoring jobs
+    var jobs = Jobs.find( { isDeleted: false, isActive: true } );
+    jobsTriggeredRes = [];
+    jobs.forEach(function(element, index, array) {
+      var lastCursor = Events.find({ jobId : element._id},
+                                   {sort: { etime : -1}, limit: 1});
+      if (0 === lastCursor.count()) {
+        jobsToRun.push({job: element, last: null});
+      } else {
+        var last = lastCursor.fetch()[0];
+        if (isDue(element, last)) {
+          jobsToRun.push({job: element, last: last});
+        }
       }
-    }
-  });
+    });
+    jobsToRun.forEach(function(element, index, array) {
+      triggerJob(element.job, element.last);
+    });
+  }
 };
 
 // Checks whether a job needs to run
@@ -31,12 +37,12 @@ var isDue = function(job, last) {
 
 // check if stats update is to be performed and initiate
 var triggerStatsUpdate = function() {
-  var jobsCount = Jobs.find({ isDeleted: false, isActive: true }).count();
-  if (jobsTriggeredRes.length < jobsCount) return;
+  if (jobsTriggeredRes.length < jobsToRun.length) return;
 
   //-- avoid bug of multiple triggering.
   var jobs = jobsTriggeredRes.slice();
   jobsTriggeredRes = [];
+  jobsToRun = [];
 
   Meteor.call("updateEventStatsOpt", jobs, function(err, data) {
     if (err) Meteor.call("messageLogError", "updateEventStatsOpt error: " + err, "scheduler");
