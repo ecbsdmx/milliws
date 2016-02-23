@@ -303,4 +303,5 @@ function clearData(){
     .on('mouseover', null)
     .on('mouseout', null)
   ;
+  $(".d3-tip.n").remove();
 }
