@@ -1,5 +1,5 @@
 Template.sidebar.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip({delay: { "show": 1000 }});
+  $('[data-toggle="tooltip"]').tooltip({delay: {show: 1000}, trigger: 'hover'});
 
   var carretState = Session.get('sidebarCarretState');
   if (typeof(carretState) == 'undefined') {
@@ -13,7 +13,7 @@ Template.sidebar.rendered = function() {
     default:
       $("#wrapper").removeClass("active");
   }
-}
+};
 Template.sidebar.helpers({
   routeLinkActive: function(template) {
     var currentRoute = Router.current();

@@ -1,6 +1,6 @@
 Template.userItem.rendered = function() {
   $('input[type=checkbox]').bootstrapToggle();
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({delay: {show: 1000}, trigger: 'hover'});
 };
 
 Template.userItem.helpers({

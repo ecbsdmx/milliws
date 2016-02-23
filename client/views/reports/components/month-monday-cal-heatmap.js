@@ -268,17 +268,17 @@ function updateData(dataInput, indicatorType, colorScale) {
 
   //-- legend
   var lgdSvg = d3.select("svg g.calHeatmapLegendGroup");
-  
+
   var tipLgd = d3.tip().attr("class", "d3-tip").html(function(d, i) {
     var range = colorScale.invertExtent(i);
     var label = indicatorType === "rtBreakdown"?"ms":"%";
     var colorscaleRange = colorScale.range();
-    
+
     if (colorscaleRange.length - 1 === i) {
       return "&ge;" + range[0] + label;
     }
     else{
-      return "From " + range[0] + label + " to " +  range[1] + label;  
+      return "From " + range[0] + label + " to " +  range[1] + label;
     }
   });
   lgdSvg.call(tipLgd);
@@ -303,4 +303,5 @@ function clearData(){
     .on('mouseover', null)
     .on('mouseout', null)
   ;
+  $(".d3-tip.n").remove();
 }

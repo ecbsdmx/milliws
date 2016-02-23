@@ -1,5 +1,5 @@
 Template.jobsListActions.rendered = function() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({delay: {show: 1000}, trigger: 'hover'});
 };
 
 Template.jobsListActions.helpers({

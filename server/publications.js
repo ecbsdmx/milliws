@@ -19,10 +19,10 @@ var numLPad = function(number, length){
   while(ns.length < length)
     ns = "0" + ns;
   return ns;
-}
+};
 
 Meteor.publish("events", function(from, sortOptions, filterOptions) {
-  Meteor.call("messageLogDebug", "publish events, from:" + JSON.stringify(from) + ", sortOptions: " + JSON.stringify(sortOptions) + ", filterOptions: " + JSON.stringify(filterOptions), "publication");
+  //Meteor.call("messageLogDebug", "publish events, from:" + JSON.stringify(from) + ", sortOptions: " + JSON.stringify(sortOptions) + ", filterOptions: " + JSON.stringify(filterOptions), "publication");
   //FIXME do some checks on the parameters
   var self = this;
   var count = 10;
