@@ -8,15 +8,14 @@ Template.responseTimeItem.helpers({
     var max = 0;
     events.forEach(function(element) {
       if (element.value.whiskerStop > max) {
-        max = element.value.whiskerStop;
+        max = (element.value.whiskerStop === element.value.max)?(element.value.whiskerStop*1.1):element.value.whiskerStop;
       }
     });
-    var divider = Math.pow(10, max.toString().length - 1);
+    var divider = Math.pow(10, Math.round(max).toString().length - 1);
     var maxRange = Math.round((max * 1.1) / divider) * divider;
     var numTicks = 5;
     var ticks = [];
     var step = Math.round(maxRange / numTicks);
-
     for (var i = 0; i <= numTicks; i++) {
       ticks[i] = {
         tickValue:    i * step,
